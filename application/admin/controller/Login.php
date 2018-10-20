@@ -4,7 +4,6 @@ use think\Controller;
 use think\View;
 use think\Request;
 use think\Session;
-use \think\Request;  
 use \think\Db;
 
 
@@ -31,10 +30,10 @@ class Login extends Controller
     public function getpwd(){
       $request = request()->post();
 
-      if ($_POST['user']=='1' && $_POST['pwd']=='2') {
-        return json_encode(array('msg'=>'登陆成功！','state'=>'1'));  
+      if ($request['user']=='1' && $request['pwd']=='2') {
+        return array('msg'=>'登陆成功！','state'=>'1');  
       }else{
-        return json_encode(array('msg'=>'登陆失败！','state'=>'2'));
+        return array('msg'=>'登陆失败！','state'=>'2');
       }
     }
 
