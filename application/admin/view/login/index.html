@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue 测试实例</title>
+<script src="sourceindex/js/jquery-3.3.1.min.js"></script>
+<script src="sourceindex/js/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.min.js"></script>
+<style type="text/css">
+	.clearfix{content: '';display: block;clear:both;}
+	#app1{position: relative;width: 100%;height: 100px;overflow: hidden;}
+	#app1 ul{line-height:100px;width:400%;}
+	#app1 ul li{float:left;list-style: none;width:25%;text-align: center;}
+	#app1 #left{position: absolute;left: 0;top:30%;}
+	#app1 #right{position: absolute;right: 0;top:30%;}
+</style>
+</head>
+<body >
+<div id="box">
+	<input type="button" @click="get()" value="点我异步获取数据GET">
+	<!-- <input v-model="msg">{{msg}} -->
+	<ul>
+	<li @mouseenter="enter" @mouseleave="leave" v-bind:style="{color:enterColor}">{{msg}}</li>
+	</ul>
+</div>
+
+<div id="app">
+	<ul>
+		<li v-for="arr in arr1" v-on:click="showName(event)">
+			<i class="money">10</i>
+			<a href="javascript:;" class="j">-</a>
+			<input class='num' type="number" name="" goodsid='123' value="1" max="10">
+			<a href="javascript:;" class="jj">+</a>
+		</li>
+		<li v-for="arr in arr1" v-on:click="showName(event)">
+			<i class="money">11</i>
+			<a href="javascript:;" class="j">-</a>
+			<input class='num' type="number" name="" goodsid='321' value="1" max="10">
+			<a href="javascript:;" class="jj">+</a>
+		</li>
+	</ul>
+</div>
+
+<a href="javascript:;" id='sub'>提交</a>
+<input type="text" id='allmoney' name="" >
+
+<script type="text/javascript">
+var base_url="<?php echo BASE_URL; ?>";
+$("#sub").click(function(){
+	var arr= new Array();
+	var arr1= new Array();
+	$('#app').find('ul > li').each(function (i){
+		
+		arr['id'] = $(this).find('input').attr('goodsid');
+		arr['num'] = $(this).find('input').val();
+		arr['money'] = $(this).find('.money').html();
+	
+		arr1.push(arr);
+	});
+	
+	console.log(arr1);
+});
+$(function (){
+	$('.j').click(function (){
+		var val=$(this).siblings('input').val();
+		val--;
+		if(val<1){
+			val=1;
+		}
+		$(this).siblings('input').val(val);
+		$("input").change();
+	});
+	$('.jj').click(function (){
+		var val=$(this).siblings('input').val();
+		var max=$(this).siblings('input').attr('max');
+		val++;
+		if(val<1){
+			val=1;
+		}
+		if (val > max) {
+			val=max;
+		}
+		$(this).siblings('input').val(val);
+		$("input").change();
+	});
+
+	$("input").change(function (){
+		
+		var allmoney='0';
+		$('#app').find('ul > li').each(function (){
+			var m=$(this).find('.money').html();
+			var n=$(this).find('.num').val();
+			
+
+			if(n > 0){
+				allmoney=parseFloat(allmoney) + parseInt(m)*parseInt(n);
+			}
+			
+		});;
+		$('#allmoney').val(allmoney);
+	});
+
+});
+	
+
+
+</script>
+</body>

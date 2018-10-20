@@ -1,0 +1,7 @@
+/********************2018-10-15 曲证 添加后台管理员表 *********************************/
+CREATE TABLE `SHOP_USER`(
+   `ID` INT NOT NULL PRIMARY KEY , 
+   `NAME` VARCHAR(100) NOT NULL,
+   `PASSWORD` VARCHAR(40) NOT NULL,
+   `GROUPID` DATE,/*管理员权限组id*/
+)ENGINE=MyISAM DEFAULT CHARSET=utf8;
