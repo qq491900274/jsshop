@@ -1,0 +1,127 @@
+<!-- {include file="common/header"} -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+<meta content="telephone=no" name="format-detection" />
+<meta content="email=no" name="format-detection" />
+<title>金石教育微商城_购物车</title>
+<link href="http://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/reset.css?v=1.0">
+<link rel="stylesheet" type="text/css" href="css/index.css?v=1.0">
+<link rel="stylesheet" type="text/css" href="css/common.css?v=1.0">
+<link rel="stylesheet" type="text/css" href="css/sideNav.css?v=1.0">
+<link rel="stylesheet" type="text/css" href="css/layer.css?v=1.0">
+<link rel="stylesheet" type="text/css" href="css/flexslider.css">
+<link rel="stylesheet" type="text/css" href="css/Mdate.css?v=1.0">
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4&ak=s4u13aUZAj36D4XWMm52TexzlwGGg7GG"></script>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script src="http://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+<script type="text/javascript" src="js/layer.js"></script>
+<script type="text/javascript" src="js/mdate.js"></script>
+<script type="text/javascript" src="js/jquery.flexslider-min.js"></script>
+<script type="text/javascript" src="js/jquery.easing.min.js"></script>
+<script type="text/javascript" src="js/iscroll.js"></script>
+<script type="text/javascript" src="js/hc-mobile-nav.js"></script>
+<script type="text/javascript" src="js/echarts.js"></script>
+<script type="text/javascript" src="js/vue.min.js"></script>
+<script type="text/javascript" src="js/vue-resource.min.js"></script>
+</head>
+<body>
+<div class="cart">
+	<form action="" id="cartForm"></form>
+	<div class="cartTop">
+		<div class="main">
+			<input type="checkbox" name="" form="cartForm" class="shopChoice"  id="qx">
+			<span>全部选择</span>
+			<a href="javascript:;" id="sc"><i  class="icon iconfont">&#xe732;</i></a>
+		</div>
+	</div>
+	<div class="cartBox" id="cart">
+		<ul>
+			
+			<li v-for="cart in carts">
+				<div class="topLi clearfix">
+					<a href="javascript:;">
+						<div class="main">
+							<input type="checkbox" name="" class="left son_check" form="cartForm">
+							<img :src="cart.url" alt="" class="left">
+							<div class="left cartTxt">
+								<h2>{{cart.title}}</h2>
+								<p>{{cart.xiaoqu}}丨{{cart.name}}</p>
+								<p>课程定金</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="botLi main">
+					<h3>￥<span class="price1">{{cart.price}}</span></h3>
+					<div class="right">
+						<a href="javascript:void(0)" val='1'  class="reduce num">-</a><span>1</span><a href="javascript:void(0)" class="plus num">+</a>
+					</div>
+				</div>
+			</li>
+            
+		</ul>
+	</div>
+</div>
+<div class="result">
+	<div class="main">
+		<h1>合计：￥<span id="allmoney">0</span></h1>
+		<a href="#">立即购买</a>
+	</div>
+</div>
+<div class="fixedNav">
+	<div class="main">
+		<ul>
+			<li><a href="">
+				<i class="icon iconfont">&#xe65e;</i>
+				<p>首页</p>
+			</a></li>
+			<li><a href="">
+				<i class="icon iconfont">&#xe626;</i>
+				<p>课程</p>
+			</a></li>
+			<li><a href="" class="active">
+				<i class="icon iconfont">&#xe617;</i>
+				<p>购物车</p>
+			</a></li>
+			<li><a href="">
+				<i class="icon iconfont">&#xe638;</i>
+				<p>我的</p>
+			</a></li>
+		</ul>
+	</div>
+</div>
+
+
+<script>
+new Vue({
+  el: '#cart',
+  data: {
+    carts:[
+	    {
+	    	'title':'[寒假课程报名] 金石教育七年级语文基金班',
+		    'xiaoqu':'海尔路校区',
+		    'price':'15.6',
+		    'url':'images/gw_03.jpg',
+		    'name':'许向前'
+		},
+	    {
+	    	'title':'[寒假课程报名] 金石教育七年级语文基金班',
+	    	'xiaoqu':'海尔路校区',
+	    	'price':'10.6',
+	    	'url':'images/gw_03.jpg',
+	    	'name':'许向前'
+	    }
+    ]
+  }
+})
+</script>
+<script type="text/javascript" src="js/common2.js"></script>
+</body>
+</html>
