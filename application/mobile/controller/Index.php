@@ -1,5 +1,5 @@
 <?php
-namespace app\model\controller;
+namespace app\mobile\controller;
 use think\Controller;
 use think\View;
 use think\Request;
@@ -13,15 +13,12 @@ class Index extends Controller
 		parent::__construct();
 		
 		//判断用户是否登录
-        if(empty($_SESSION['user'])){
-        	$this->error('请登录！',"HTTP://{$_SERVER['SERVER_NAME']}/tp?s=index/Login/index");
-        }
+       
 	}
 		
     public function index(){
-      //$this->assign('name','ThinkPHP');
-      $home=new Home();
-      $home->hell();
+      $this->assign('name','ThinkPHP');
+     
        return $this->fetch('index'); 
     }
     public function test()
