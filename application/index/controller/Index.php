@@ -12,6 +12,7 @@ class Index extends Controller
 	public function __construct(){
 		parent::__construct();
 	    //判断用户是否登录
+    echo url('mobile/cart/index');die;
         if(empty($_SESSION['user'])){
         	$this->error('请登录！',url('Login/index'));
         }

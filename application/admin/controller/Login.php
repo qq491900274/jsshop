@@ -1,10 +1,10 @@
 <?php
-namespace app\admin\controller;
+namespace app\index\controller;
 use think\Controller;
 use think\View;
 use think\Request;
 use think\Session;
-use \think\Request;  
+
 use \think\Db;
 
 
@@ -16,26 +16,13 @@ class Login extends Controller
 	
     public function index(){
     	$this->assign('name','123');
-    	return $this->fetch('login'); 
+    	return $this->fetch('index'); 
     }
-    //登陆
     public function Login_in()
     {
-      var_dump(BASE_URL);
-      $this->LoginModel =  new \app\index\model\LoginModvel();
+      $this->LoginModel =  new \app\index\model\LoginModel();
       $result = $this->LoginModel->hello('helloword');
-      return json_encode($result);
+      var_dump($result['12']);
+
     }
-
-    //验证密码功能
-    public function getpwd(){
-      $request = request()->post();
-
-      if ($_POST['user']=='1' && $_POST['pwd']=='2') {
-        return json_encode(array('msg'=>'登陆成功！','state'=>'1'));  
-      }else{
-        return json_encode(array('msg'=>'登陆失败！','state'=>'2'));
-      }
-    }
-
 }

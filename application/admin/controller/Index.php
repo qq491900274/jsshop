@@ -1,20 +1,20 @@
 <?php
-namespace app\admin\controller;
+namespace app\index\controller;
 use think\Controller;
 use think\View;
 use think\Request;
 use think\Session;
-use app\model\lib\Home;
+use app\index\lib\Home;
 
 
 class Index extends Controller
 {	
 	public function __construct(){
 		parent::__construct();
-		
-		//判断用户是否登录
+	    //判断用户是否登录
+    echo url('mobile/cart/index');die;
         if(empty($_SESSION['user'])){
-        	$this->error('请登录！',"HTTP://{$_SERVER['SERVER_NAME']}/js-shop?s=admin/Login/index");
+        	$this->error('请登录！',url('Login/index'));
         }
 	}
 		

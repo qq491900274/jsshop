@@ -1,5 +1,5 @@
 <?php 
-namespace app\model\model;
+namespace app\index\model;
 
 use think\Model;
 use \think\Db;
@@ -10,10 +10,7 @@ class LoginModel extends Model
     	 Db::connect('mysql://root:root@127.0.0.1:3306/test#utf8');	
     }
     
-    function select($table,$key,$where){
-	 	return Db::query("select {$key} from {$table} where {$where}");
-    }
-    function insert(){
-
+    function hello($table){
+	 	return Db::query("select * from {$table}");
     }
 }
