@@ -4,7 +4,10 @@ use think\Controller;
 use think\View;
 use think\Request;
 use think\Session;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9e4beee3b948e6cccde38064656637d5d45752b2
 use \think\Db;
 
 
@@ -24,5 +27,17 @@ class Login extends Controller
       $result = $this->LoginModel->hello('helloword');
       var_dump($result['12']);
 
+<<<<<<< HEAD
+=======
+    //验证密码功能
+    public function getpwd(){
+      $request = request()->post();
+
+      if ($request['user']=='1' && $request['pwd']=='2') {
+        return array('msg'=>'登陆成功！','state'=>'1');  
+      }else{
+        return array('msg'=>'登陆失败！','state'=>'2');
+      }
+>>>>>>> 9e4beee3b948e6cccde38064656637d5d45752b2
     }
 }
