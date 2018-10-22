@@ -1,10 +1,10 @@
 <?php
-namespace app\model\controller;
+namespace app\mobile\controller;
 use think\Controller;
 use think\View;
 use think\Request;
 use think\Session;
-use app\model\lib\Home;
+
 
 
 class Index extends Controller
