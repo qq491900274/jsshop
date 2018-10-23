@@ -12,7 +12,7 @@ class Index extends Controller
 	public function __construct(){
 		parent::__construct();
 	    //判断用户是否登录
-    echo url('mobile/cart/index');die;
+   
         if(empty($_SESSION['user'])){
         	$this->error('请登录！',url('Login/index'));
         }
@@ -29,5 +29,10 @@ class Index extends Controller
       $this->HelloWordModel =  new \app\index\model\HelloWord();
       $result = $this->HelloWordModel->hello('helloword');
       var_dump($result);
+    }
+    
+    //购物车
+    public function shopping(){
+    	return $this->fetch('shopping');
     }
 }
