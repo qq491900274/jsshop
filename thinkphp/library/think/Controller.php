@@ -67,6 +67,10 @@ class Controller
             }
         }
         
+        //验证登陆是否过期
+        if(empty($_SESSION['admin']) && request()->Controller()!='Login'){
+            $this->error('请登录！',url('Login/index'));
+        }
     }
 
     /**
