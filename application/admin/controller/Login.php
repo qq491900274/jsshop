@@ -14,9 +14,11 @@ class Login extends Controller
 	}
 	   //登陆页面
     public function index(){
+
+    	$this->assign('name','123');
     	return $this->fetch('login'); 
     }
-    
+
     //验证密码功能
      function getpwd(){
         $request = request()->post();

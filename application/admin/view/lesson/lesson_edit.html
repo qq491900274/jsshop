@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>课程管理_课程列表_修改课程</title>
+<link rel="stylesheet" type="text/css" href="css/common.css">
+<link rel="stylesheet" type="text/css" href="css/reset.css">
+<link rel="stylesheet" type="text/css" href="css/lesson.css">
+</head>
+
+
+<body>
+<div id="header"></div>
+
+<div class="content">
+	<div class="rightBox">
+		<div class="main">
+			
+			<div class="seach_tigs" id="edit">
+				<h3>修改课程</h3>
+	            <form id="form1" method="" action="">
+	                <ul class="clearfix">
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>课程名称：
+                            </label>
+                            <input type="text" name="" value="" class="form-control">
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>课程编号：
+                            </label>
+                            <input type="text" name="" value="" class="form-control">
+                        </li>
+                        <li>
+                        	<label class="seach-label">
+                                <span>*</span>课程图片：
+                            </label>
+	                        <div class="file_top">
+	                            <span>点击选择图片</span>
+	                            <input type="file" name="" id="file">
+                            </div>
+                            <div class="fileBox"><p>建议上传图片的尺寸比例为1:1，大小不超过1M</p>
+                            <img src="images/1.jpg" height="100"></div>
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>所属校区：
+                            </label>
+                            <select class="form-control input-median" text="true" name="" id="province_id" selectedindex="2">
+                            </select>
+                            <select class="form-control input-median" text="true" name="" id="city_id">
+                            </select>
+                            <select class="form-control input-median" text="true" name="" id="district_id" onchange="getSchoolInfosByAreaId(this.value)">
+                            </select>
+                            <select class="form-control input-median" name="" id="school_id">
+                                <option value="">请选择校区</option>
+                            </select>
+                        </li>
+                        <li>
+                        	<label class="seach-label">
+                                <span>*</span>课堂类型：
+                            </label>
+                            <select class="form-control" name="type">
+                                <option value="">请选择课堂</option>
+                                <option value="1" >金石V课</option><option value="2" >金石拼课</option><option value="3" >金石1对1</option>
+                            </select>
+                        </li>
+                        <li>
+                        	<label class="seach-label">
+                                <span>*</span>选择年级科目：
+                            </label>
+                        	<select name="grade_id" class="form-control input-xlarge" id="grade_id">
+		                        <option value="">请选择年级</option>
+		                        <option value="12">高三</option>
+		                        <option value="11">高二</option>
+		                        <option value="10">高一</option>
+		                        <option value="9">九年级</option>
+		                        <option value="8">八年级</option>
+		                        <option value="7" selected="selected">七年级</option>
+		                        <option value="6">六年级</option>
+		                        <option value="5">五年级</option>
+		                        <option value="4">四年级</option>
+		                        <option value="3">三年级</option>
+		                        <option value="2">二年级</option>
+		                        <option value="1">一年级</option>
+	                        </select>
+	                    	<select name="subject_id" id="subject_id" class="form-control input-xlarge">
+		                        <option value="">请选择科目</option>
+		                        <option value="9">化学</option>
+		                        <option value="8">物理</option>
+		                        <option value="7">生物</option>
+		                        <option value="6">地理</option>
+		                        <option value="5">历史</option>
+		                        <option value="4">政治</option>
+		                        <option value="3">英语</option>
+		                        <option value="2" selected="selected">数学</option>
+		                        <option value="1">语文</option>
+	                        </select>
+                        </li>
+                        <li>
+                        	<label class="seach-label">
+                                <span>*</span>选择老师：
+                            </label>
+                            <select class="form-control" name="type">
+                                <option value="">请选择老师</option>
+                            </select>
+                        </li>
+                        <li>
+                        	<label class="seach-label" style="float:left">
+                                <span>*</span>商品规格：
+                            </label>
+                            <table id="goods_spe" border="1" width="950">
+		                        <thead>
+			                        <tr>
+			                            <th style="text-align:center;background:#ccc" width="20%">规格名称</th>
+			                            <th style="text-align:center;background:#ccc" width="16%">价格</th>
+			                            <th style="text-align:center;background:#ccc" width="16%">库存</th>
+			                            <th style="text-align:center;background:#ccc" width="16%">排序</th>
+			                            <th style="text-align:center;background:#ccc" width="16%">每人限购</th>
+			                            <th style="text-align:center;background:#ccc" width="16%">操作</th>
+			                        </tr>
+			                    </thead>
+                        		<tbody>
+		                            <tr>
+		                                <td>
+		                                    <input name="" value="体验课1节" maxlength="50" style="width:100%" type="text">
+		                                    <input name="" value="3382" type="hidden">
+		                                    <input name="" value="31562" type="hidden">
+		                                </td>
+		                                <td>
+		                                	<input name="" value="6.60" style="width:100%" type="text">
+		                                </td>
+		                                <td><input name="" value="200" min="0" max="999999999" style="width:100%" type="number"></td>
+		                                <td><input name="" value="1" max="999999" style="width:100%" type="number"></td>
+		                                <td><input name="" value="1" min="0" max="99999" style="width:100%" type="number"></td>
+		                                <td align="center"><a href="javascript:;">删除</a></td>
+		                            </tr>
+		                            <tr>
+		                                <td>
+		                                    <input name="" value="课程定金" maxlength="50" style="width:100%" type="text">
+		                                    <input name="" value="3382" type="hidden">
+		                                    <input name="" value="31563" type="hidden">
+		                                </td>
+		                                <td><input name="" value="200.00" style="width:100%" type="text"></td>
+		                                <td><input name="" value="300" min="0" max="999999999" style="width:100%" type="number"></td>
+		                                <td><input name="" value="1" max="999999" style="width:100%" type="number"></td>
+		                                <td><input name="" value="1" min="0" max="99999" style="width:100%" type="number"></td>
+		                                <td align="center"><a href="javascript:;">删除</a></td>
+		                            </tr>
+                            	</tbody>
+                            </table>
+                            <div class="topBtns"><a href="javascript:;">添加规格</a></div>
+                        </li>
+                        <li>
+                        	<label class="seach-label">
+                                <span>*</span>开课时间：
+                            </label>
+                        	<input class="form-control input-xlarge" name="start_time" id="start_time" value="" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',skin:'twoer'})" type="text"> 至
+                        	<input class="form-control input-xlarge" name="end_time" id="end_time" value="2019-01-01" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',skin:'twoer'})" type="text">
+                        </li>
+                        <li>
+                        	<label class="seach-label">
+                                <span>*</span>课程节数：
+                            </label>
+                            <input type="number" name="" value="" class="form-control">
+                        </li>
+                        <li>
+                        	<label class="seach-label">
+                                <span>*</span>课程时长：
+                            </label>
+                            <input type="number" name="" value="" class="form-control">
+                        </li>
+                        <li>
+                        	<label class="seach-label">
+                                <span>*</span>课程详情：
+                            </label>
+
+                            <style>
+                            	#edui1{width:100%;}
+                            </style>
+                            <!-- 加载编辑器的容器 -->
+						    <script id="container" name="content" type="text/plain" style="width:900px;margin-left:137px;margin-top:-23px;">
+						        
+						    </script>
+						    <!-- 配置文件 -->
+						    <script type="text/javascript" src="utf8-php/ueditor.config.js"></script>
+						    <!-- 编辑器源码文件 -->
+						    <script type="text/javascript" src="utf8-php/ueditor.all.js"></script>
+						    <!-- 实例化编辑器 -->
+						    <script type="text/javascript">
+						        var ue = UE.getEditor('container');
+						    </script>
+
+
+                        </li>
+                        <li>
+                        	<label class="seach-label">
+                                排序：
+                            </label>
+                            <input type="number" name="" value="" class="form-control">
+                        </li>
+                        <li>
+                        	<label class="seach-label">
+                                <span>*</span>是否推荐：
+                            </label>
+                            <input type="radio" name="t1" value="" class="radio"> 是 &nbsp;&nbsp;&nbsp;<input type="radio" name="t1" value="" class="radio"> 否
+                        </li>
+                        <li>
+                        	<label class="seach-label">
+                                <span>*</span>显示状态：
+                            </label>
+                            <input type="radio" name="s1" value="" class="radio"> 显示 &nbsp;&nbsp;&nbsp;<input type="radio" name="s1" value="" class="radio"> 隐藏
+                        </li>
+                        <li class="seach"><input type="submit" name="" value="确认"></li>
+                    </ul>
+                </form>
+            </div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script src="http://bm.jinshiedu.net/Public/Plugins/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="js/lesson.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/area.js"></script>
+<script type="text/javascript">
+    showLocation();
+    CheckProvince('');
+    CheckCity('');
+    CheckTown('');
+</script>
+</body>
+</html>

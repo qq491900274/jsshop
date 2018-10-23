@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>课程管理_教师列表</title>
+<link rel="stylesheet" type="text/css" href="css/common.css">
+<link rel="stylesheet" type="text/css" href="css/reset.css">
+<link rel="stylesheet" type="text/css" href="css/lesson.css">
+</head>
+
+<body>
+<!-- <div id="header"></div> -->
+<div class="top clearfix">
+    <div class="main">
+        <div class="ad_logo left">金石教育后台</div>
+        <div class="quit right">
+            <span><i class="icon iconfont">&#xe638;</i> admin <i class="icon iconfont">&#xe65c;</i></span>
+            <ul>
+                <li><a href=""><i class="icon iconfont">&#xe62c;</i> 修改密码</a></li>
+                <li><a href=""><i class="icon iconfont">&#xe62e;</i> 退出</a></li>
+            </ul>
+
+        </div>
+    </div>
+</div>  
+<div class="nav">
+    <div class="main">
+        <ul id="first" class="clearfix">
+            <li class="active"><a href="#">订单管理</a>
+                <ul id="second">
+                    <li><a href="#">订单列表</a></li>
+                    <li><a href="#">评价列表</a></li>
+                </ul>
+            </li>
+            <li><a href="#">派单管理</a>
+                <ul id="second">
+                    <li><a href="#">派单列表</a></li>
+                </ul>
+            </li>
+            <li><a href="#">课程管理</a>
+                <ul id="second">
+                    <li><a href="#">校区列表</a></li>
+                    <li><a href="#">教师列表</a></li>
+                    <li><a href="#">课程列表</a></li>
+                </ul>
+            </li>
+            <li><a href="#">优惠券</a>
+                <ul id="second">
+                    <li><a href="#">优惠券使用详情</a></li>
+                    <li><a href="#">优惠券列表</a></li>
+                </ul>
+            </li>
+            
+            <li><a href="#">用户管理</a>
+                <ul id="second">
+                    <li><a href="#">用户列表</a></li>
+                </ul>
+            </li>
+            <li><a href="#">测试题管理</a>
+                <ul id="second">
+                    <li><a href="#">测试题列表</a></li>
+                    <li><a href="#">答题列表</a></li>
+                </ul>
+            </li>
+            <li><a href="#">活动管理</a>
+                <ul id="second">
+                    <li><a href="#">活动列表</a></li>
+                </ul>
+            </li>
+            <li><a href="#">意见反馈</a>
+                <ul id="second">
+                    <li><a href="#">意见列表</a></li>
+                </ul>
+            </li>
+            <li><a href="#">权限管理</a>
+                <ul id="second">
+                    <li><a href="#">菜单管理</a></li>
+                    <li><a href="#">角色管理</a></li>
+                    <li><a href="#">后台用户管理</a></li>
+                </ul>
+            </li>
+            <li><a href="#">系统管理</a>
+                <ul id="second">
+                    <li><a href="#">修改密码</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="content">
+	<div class="rightBox">
+		<div class="main">
+			<h3>教师列表</h3>
+			<div class="topBtns">
+				<a href="#">新增教师</a>
+				<a href="#">批量上传</a>
+				<a href="#">zip模板</a>
+			</div>
+
+			<div class="seach_tigs">
+	            <form id="form1" method="" action="">
+	                <ul class="clearfix">
+                        <li>
+                            <label class="seach-label">
+                                教师姓名：
+                            </label>
+                            <input type="text" name="teacher_name" value="" placeholder="请输入教师姓名" class="form-control">
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                教师编号：
+                            </label>
+                            <input type="text" name="teacher_number" value="" placeholder="请输入教师编号" class="form-control">
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                科目：
+                            </label>
+                            <select class="form-control" name="subject_id">
+                                <option value="">请选择</option>
+                                <option value="9" >化学</option><option value="8" >物理</option><option value="7" >生物</option><option value="6" >地理</option><option value="5" >历史</option><option value="4" >政治</option><option value="3" >英语</option><option value="2" >数学</option><option value="1" >语文</option>                                        </select>
+                        </li>
+                        <li style="width:32.33%;text-align:left;margin-left:40px;">
+                            <label class="seach-label">
+                                是否显示：
+                            </label>
+                            <select class="form-control" name="status" style="width:60%;">
+                                <option value="">请选择</option>
+                                <option  value="1">显示</option>
+                                <option  value="2">隐藏</option>
+                            </select>
+                        </li>
+                        <li style="width:63.66%;margin-left:8px;">
+                            <label class="seach-label">
+                                所属校区：
+                            </label>
+                            <select class="form-control input-median" text="true" name="province_id"
+                                    id="province_id" selectedindex="2">
+                            </select>
+                            <select class="form-control input-median" text="true" name="city_id" id="city_id">
+                            </select>
+                            <select class="form-control input-median" text="true" name="district_id" id="district_id" onchange="getSchoolInfosByAreaId(this.value)">
+                            </select>
+                            <select class="form-control input-median" name="school_id" id="school_id">
+                                <option value="">请选择校区</option>
+                            </select>
+                        </li>
+                    </ul>
+	                <div class="seach">
+	                    <input type="button" name="" value="搜索">
+	                </div>
+	            	
+	            </form>
+	        </div>
+
+	        <table class="tableBox">
+                    <thead>
+                        <tr>
+                            <th>选择</th>
+                            <th>教师姓名</th>
+                            <th>教师头像</th>
+                            <th>编号</th>
+                            <th>所属校区</th>
+                            <th>科目</th>
+                            <th>课程数</th>
+                            <th>排序</th>
+                            <th>更新时间</th>
+                            <th>是否显示</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="storeList">
+                        <tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="658" /></td>
+                                <td>宋昂</td>
+                                <td><img src="" height="60" /></td>
+                                <td>658</td>
+                                <td>南京鼓楼校区</td>
+                                <td>数学</td>
+                                <td>4</td>
+                                <td>0</td>
+                                <td>2018-08-31 10:22:19</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="657" /></td>
+                                <td>黄威成</td>
+                                <td><img src="" height="60" /></td>
+                                <td>657</td>
+                                <td>南京鼓楼校区</td>
+                                <td>语文</td>
+                                <td>7</td>
+                                <td>0</td>
+                                <td>2018-08-31 10:20:19</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="656" /></td>
+                                <td>蒋晶</td>
+                                <td><img src="" height="60" /></td>
+                                <td>656</td>
+                                <td>南京鼓楼校区</td>
+                                <td>英语</td>
+                                <td>4</td>
+                                <td>0</td>
+                                <td>2018-08-31 10:18:26</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="655" /></td>
+                                <td>邵淇</td>
+                                <td><img src="" height="60" /></td>
+                                <td>655</td>
+                                <td>南京鼓楼校区</td>
+                                <td>数学</td>
+                                <td>3</td>
+                                <td>0</td>
+                                <td>2018-08-31 10:17:08</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="654" /></td>
+                                <td>管晓龙</td>
+                                <td><img src="" height="60" /></td>
+                                <td>654</td>
+                                <td>辛安校区</td>
+                                <td>物理</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>2018-08-23 14:19:20</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="653" /></td>
+                                <td>张启超</td>
+                                <td><img src="" height="60" /></td>
+                                <td>653</td>
+                                <td>辛安校区</td>
+                                <td>物理</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>2018-08-23 14:17:09</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="652" /></td>
+                                <td>毛立达</td>
+                                <td><img src="" height="60" /></td>
+                                <td>652</td>
+                                <td>滨州渤十二校区</td>
+                                <td>化学</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>2018-08-23 10:22:04</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="651" /></td>
+                                <td>李金明</td>
+                                <td><img src="" height="60" /></td>
+                                <td>651</td>
+                                <td>滨州渤十二校区</td>
+                                <td>数学</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>2018-08-23 10:20:58</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="650" /></td>
+                                <td>程玲</td>
+                                <td><img src="" height="60" /></td>
+                                <td>650</td>
+                                <td>滨州渤十二校区</td>
+                                <td>数学</td>
+                                <td>3</td>
+                                <td>0</td>
+                                <td>2018-08-23 10:20:10</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="649" /></td>
+                                <td>薛玮</td>
+                                <td><img src="" height="60" /></td>
+                                <td>649</td>
+                                <td>万科中心城校区</td>
+                                <td>物理</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>2018-08-23 10:05:54</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="648" /></td>
+                                <td>宋超燕</td>
+                                <td><img src="" height="60" /></td>
+                                <td>648</td>
+                                <td>万科中心城校区</td>
+                                <td>英语</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>2018-08-23 10:04:07</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="647" /></td>
+                                <td>袁姗姗</td>
+                                <td><img src="" height="60" /></td>
+                                <td>647</td>
+                                <td>万科中心城校区</td>
+                                <td>地理</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>2018-08-23 09:54:44</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="646" /></td>
+                                <td>孙红霞</td>
+                                <td><img src="" height="60" /></td>
+                                <td>646</td>
+                                <td>灵山湾路校区</td>
+                                <td>数学</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>2018-08-23 09:35:10</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="645" /></td>
+                                <td>张璐</td>
+                                <td><img src="" height="60" /></td>
+                                <td>645</td>
+                                <td>灵山湾路校区</td>
+                                <td>化学</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>2018-08-23 09:29:17</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="644" /></td>
+                                <td>朱广春</td>
+                                <td><img src="" height="60" /></td>
+                                <td>644</td>
+                                <td>崂山金家岭校区</td>
+                                <td>英语</td>
+                                <td>3</td>
+                                <td>0</td>
+                                <td>2018-08-22 12:53:05</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="643" /></td>
+                                <td>蔡梓珍</td>
+                                <td><img src="" height="60" /></td>
+                                <td>643</td>
+                                <td>南京鼓楼校区</td>
+                                <td>语文</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>2018-08-20 14:55:38</td>
+                                <td>隐藏</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="642" /></td>
+                                <td>闻德亮</td>
+                                <td><img src="" height="60" /></td>
+                                <td>642</td>
+                                <td>南京鼓楼校区</td>
+                                <td>英语</td>
+                                <td>7</td>
+                                <td>0</td>
+                                <td>2018-08-20 14:39:50</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="641" /></td>
+                                <td>陈美莹</td>
+                                <td><img src="" height="60" /></td>
+                                <td>641</td>
+                                <td>张店柳泉校区</td>
+                                <td>生物</td>
+                                <td>4</td>
+                                <td>0</td>
+                                <td>2018-08-20 11:18:05</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="640" /></td>
+                                <td>蓝传艺</td>
+                                <td><img src="" height="60" /></td>
+                                <td>640</td>
+                                <td>即墨文化路校区</td>
+                                <td>物理</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>2018-08-17 13:16:45</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="639" /></td>
+                                <td>王运鹏</td>
+                                <td><img src="" height="60" /></td>
+                                <td>639</td>
+                                <td>即墨文化路校区</td>
+                                <td>化学</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>2018-08-17 11:19:54</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr>              
+                        </tbody>
+                </table>
+                <div class="topBtns1">
+	                <a href="javascript:;" onclick="selectAll()">全选</a>
+		            <a href="javascript:;" onclick="uselectAll()">反选</a>
+		            <a href="javascript:;" onclick="hideAll()">批量隐藏</a>
+	            </div>
+                <div class="page">
+                	<ul class="clearfix">
+                		<li><a href="">上一页</a></li>
+                		<li class="curr"><a href="">1</a></li>
+                		<li><a href="">2</a></li>
+                		<li><a href="">3</a></li>
+                		<li><a href="">下一页</a></li>
+                	</ul>
+                </div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/lesson.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/area.js"></script>
+<script type="text/javascript" src="http://bm.jinshiedu.net/Public/Plugins/layer/layer.js"></script>
+<script type="text/javascript">
+    showLocation();
+    CheckProvince('');
+    CheckCity('');
+    CheckTown('');
+     /**
+     *批量隐藏
+    **/
+    function hideAll(){
+        if($('.check_one:checked').length < 1){
+            layer.msg('您还未勾选任何项');
+            return false;
+        }
+        layer.confirm('确定要批量隐藏选中的项吗?',function(){
+            var ids = [];
+            $('.check_one:checked').each(function(){
+                ids.push($(this).val());
+            });
+            ids = ids.join(',');
+            var url = '/admin/teacher/hideAll';
+            $.post(url,{'ids':ids},function(data){
+                if(data.status == 1){
+                    layer.msg(data.info);
+                }else{
+                    location.reload();
+                }
+            },'JSON');
+        });
+    }
+   
+</script>
+<script>
+var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+(function() {
+    if (!isChrome) {
+        $("#is_chrome").html("为了更好的使用效果请使用Chrome浏览器");
+    }
+})();
+</script>
+</body>
+</html>
