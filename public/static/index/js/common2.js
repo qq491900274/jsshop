@@ -122,6 +122,48 @@ $(function(){
 		});
 
 
+//==================================全选与取消全选===============================================
+		//找到id为qx的input,为其绑定单击事件为function：
+		
+		window.onload=function(){
+			var chbAll=document.querySelector("#qx");
+			chbAll.onclick=function(){
+				//获得cartBox下ul下所有第一个li中的input,保存在chbs
+				var chbs=document.querySelectorAll(".cartBox ul li input");
+				//console.log(chbs);
+				//遍历chbs中每个chb
+				for(var i=0;i<chbs.length;i++){
+				  //chbs数组中当前chb的checked等于事件中当前chb的checked
+				  chbs[i].checked=this.checked;
+				}
+				cilci_all_money();
+			}
+		
+
+			//找到cartBox下ul下所有第一个li中的input,保存在chbs
+			var chbs=document.querySelectorAll(".cartBox ul li input");
+			//遍历chbs
+			for(var i=0;i<chbs.length;i++){
+				chbs[i].onclick=check;//为当前chb绑定点击事件为check
+			}
+			//定义函数check
+			function check(){
+				//如果当前chb未选中
+				if(!this.checked){
+					chbAll.checked=false;//chbAll也改为未选中
+				}else{
+					//获得cartBox下ul下所有第一个li中的input,保存在chbs
+					var chbs=document.querySelectorAll(".cartBox ul li input:not(:checked)");
+					//如果chbs的length等于0
+					if(chbs.length==0){chbAll.checked=true;}//chbAll也改为选中
+					//否则chbAll改为未选中
+					else{chbAll.checked=false;}
+				}
+			}
+		}
+
+
+	
 
 			//===============================加减的实现===================================//
 			$('.num').click(function(){
@@ -159,25 +201,30 @@ $(function(){
 					var price=$(this).parents('li').find('.price1').html();
 					var num=$(this).parents('li').find('.right').children('span').html();
 					//console.log(num);
-					money+=parseFloat(price*num);	
+					money+=parseFloat(price*num);
 				}
 			});
-			$('.result').find('#allmoney').html(money);
-			$('.result').find('#allmoney2').html(money);
+			$('.result').find('#allmoney').html(money.toFixed(2));
+			$('.result').find('#allmoney2').html(money.toFixed(2));
 		}
 //**************************************** 购物车 end **********************************************************
 
 		//================================== 订单详情 order_detail ===================================================
 		
-			/*var allOrderMoney=0;
+			var allOrderMoney=0;
 			$('.pay ul li').each(function(){
-				var priceOrder=$('.pay ul li .botLi h3 span').html();
-				var numOrder=$('.pay ul li .botLi .right span').html();
+				var priceOrder=$(this).find('.botLi h3 span').html();
+				var numOrder=$(this).find('.botLi .right span').html();
+				//console.log(priceOrder);
 				allOrderMoney+=parseFloat(priceOrder*numOrder);
 				//console.log(allOrderMoney);
+
 			})
-			$('#allMoney').find('span').html("￥"+allOrderMoney);*/
-		
+			$('#allMoney').find('span').html("￥"+allOrderMoney.toFixed(2));
+			var yh=$('#yh').html();
+			parseFloat(yh);
+			//console.log(yh);
+			$('#allPrice').html("￥"+(allOrderMoney-yh).toFixed(2));
 
 		//================================== 支付成功 success ===================================================
 		$(".payForm input").each(function(){
@@ -209,44 +256,7 @@ $(function(){
 
 })
 
-//==================================全选与取消全选===============================================
-		//找到id为qx的input,为其绑定单击事件为function：
-		
-		window.onload=function(){
-			var chbAll=document.querySelector("#qx");
-			chbAll.onclick=function(){
-				//获得cartBox下ul下所有第一个li中的input,保存在chbs
-				var chbs=document.querySelectorAll(".cartBox ul li input");
-				//console.log(chbs);
-				//遍历chbs中每个chb
-				for(var i=0;i<chbs.length;i++){
-				  //chbs数组中当前chb的checked等于事件中当前chb的checked
-				  chbs[i].checked=this.checked;
-				}
-			}
-		
 
-			//找到cartBox下ul下所有第一个li中的input,保存在chbs
-			var chbs=document.querySelectorAll(".cartBox ul li input");
-			//遍历chbs
-			for(var i=0;i<chbs.length;i++){
-				chbs[i].onclick=check;//为当前chb绑定点击事件为check
-			}
-			//定义函数check
-			function check(){
-				//如果当前chb未选中
-				if(!this.checked){
-					chbAll.checked=false;//chbAll也改为未选中
-				}else{
-					//获得cartBox下ul下所有第一个li中的input,保存在chbs
-					var chbs=document.querySelectorAll(".cartBox ul li input:not(:checked)");
-					//如果chbs的length等于0
-					if(chbs.length==0){chbAll.checked=true;}//chbAll也改为选中
-					//否则chbAll改为未选中
-					else{chbAll.checked=false;}
-				}
-			}
-		}
 	 	
 
 
