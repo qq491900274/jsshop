@@ -1,0 +1,55 @@
+
+/**
+************************* 后台登录 *****************************************
+**/
+.login_title{
+	color:#FFF;
+	font-size: 20px;
+	margin:100px auto 40px auto;
+	text-align: center;
+}
+.content{
+	background: rgba(255,255,255,0.2);
+	width: 300px;
+	margin:0 auto;
+	padding:20px 30px 30px 30px;
+}
+.content .form-title{
+	margin-bottom:25px;
+	color:#FFF;
+	font-weight: normal;
+}
+.form-group{
+	margin-bottom: 15px;
+}
+.form-group input{
+	width:95%;
+	height: 34px;
+	background: #FFF;
+	border:none;
+	padding-left: 5%;
+	color:#666;
+}
+.form-actions{
+	text-align: right;
+}
+.form-actions button{
+	width: 50px;
+	height: 35px;
+	background: #32c5d2;
+	color:#FFF;
+	outline: none;
+	margin-right:17px;
+}
+.form-actions button:hover{
+	transition: all .5s;
+	background: #1f858e;
+}
+.copyright{
+	text-align: center;
+	color:#FFF;
+	margin:20px 0;
+	width:100%;
+}
+
+

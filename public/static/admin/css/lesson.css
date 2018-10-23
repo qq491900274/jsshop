@@ -1,0 +1,259 @@
+
+/**
+******************************************校区列表************************************
+***/
+.rightBox{
+	position: relative;
+	z-index: 1;
+}
+.rightBox h3{
+	font-weight: normal;
+	height: 60px;
+	line-height: 60px;
+	border-bottom: 1px solid #DDD;
+	margin-top:20px;
+}
+.rightBox .topBtns a{
+	border-radius: 2px;
+	width:85px;
+	height: 36px;
+	text-align: center;
+	margin:20px 0;
+	margin-left: 20px;
+	color:#FFF;
+	display: inline-block;
+	line-height: 36px;
+}
+.rightBox .topBtns a:first-child{
+	background: #3598dc;
+}
+.rightBox .topBtns a:first-child:hover{
+	transition: all .3s;
+	background: #217ebd;
+}
+.rightBox .topBtns a:first-child+a{
+}
+.rightBox .topBtns a:first-child+a:hover{
+	transition: all .3s;
+	background: #1f858e;
+}
+.rightBox .topBtns a:last-child{
+	background: #f0ad4e;
+}
+.rightBox .topBtns a:last-child:hover{
+	transition: all .3s;
+	background: #ec971f;
+}
+
+.form-control{
+	display: inline-block;
+    height: 36px;
+    padding:0 8px;
+    border-radius: 2px;
+    border:none;
+    border:1px solid #CCC;
+    color:#555;
+    width:55%;
+}
+
+.rightBox .seach_tigs{
+	background: #FFF;
+	padding:20px 20px;
+	border:1px solid #e7ecf1;
+}
+.rightBox .seach_tigs ul li{
+	float: left;
+	width:33%;
+	text-align: center;
+	margin-bottom: 20px;
+}
+.rightBox .seach_tigs ul li:last-child{
+	text-align: left;
+	margin-left:40px;
+	width:100%;
+}
+.rightBox .seach_tigs ul li input{
+	
+	color:#333;
+}
+.input-median{
+	width:115px;
+}
+.seach{
+	margin-left: 126px;
+    margin-top: 5px;
+}
+.sc a,.seach a{
+	background: #32c5d2!important;
+}
+.sc a:hover,.seach a:hover{
+	background: #1f858e!important;
+}
+
+.seach input{
+	background: #32c5d2!important;
+	border: none;
+	border-radius: 2px;
+	width:85px;
+	height: 36px;
+	color:#FFF;
+	cursor: pointer;
+	font-size: 16px;
+}
+.seach input:hover{
+	transition: all .3s;
+	background: #1f858e!important;
+}
+.tableBox{
+	background: #FFF;
+	width:100%;
+	text-align: center;
+	margin-top:30px;
+}
+.tableBox tr{
+	height: 40px;
+}
+.tableBox tr td:last-child{
+	width:6%;
+}
+.tableBox tr td:last-child a{
+	color:#32c5d2;
+}
+.tableBox tr td:last-child a:hover{
+	text-decoration:underline;
+}
+.page ul li{
+	border-radius: 2px;
+	margin: 3px;
+    padding: 5px 10px;
+    float: left;
+    border:1px solid #CCC;
+    background: #FFF;
+}
+.page ul li a{
+	color:#333;
+}
+.page ul li.curr{
+	background: #32c5d2;
+	border:1px solid #32c5d2;
+}
+.page ul li.curr a{
+	color: #fff;
+}
+.page{
+	margin:20px 0 30px 0;
+	text-align: center;
+}
+.page ul{
+	margin-left: 43%;
+}
+
+/**
+******************************************教师列表************************************
+***/
+.topBtns1 a{
+	border-radius: 2px;
+	padding:8px 12px;
+	text-align: center;
+	margin:20px 0;
+	margin-right: 10px;
+	color:#FFF;
+	display: inline-block;
+	background: #32c5d2;
+	
+}
+.topBtns1 a:hover{
+	transition: all .3s;
+	background: #1f858e;
+}
+.tableBox input{
+	-webkit-appearance:checkbox;
+}
+
+/**
+******************************************课程列表编辑内容************************************
+***/
+.seach-label span{
+	color:#F00;
+}
+#edit{
+	margin-top: 20px;
+}
+#edit ul li{
+	float:none;
+	margin-left:30px;
+	width:100%;
+	text-align: left;
+}
+#edit ul li .form-control{
+	width:300px;
+}
+.file_top{
+	width:114px;
+	height: 41px;
+	background: #32c5d2;
+	color:#FFF;
+	position: relative;
+	cursor: pointer;
+	text-align: center;
+	line-height: 41px;
+	border-radius: 5px;
+	display: inline-block;
+}
+.file_top #file{
+	position: absolute;
+	top:0;
+	left: 0;
+	opacity:0;
+	width:100%;
+	height: 100%;
+} 
+.fileBox{
+	margin-left:130px;
+}
+.fileBox p{
+	margin:10px 0;
+}
+#edit ul li:first-child+li+li+li .form-control{
+	width: 170px;
+}
+#edit ul li:first-child+li+li+li .form-control:last-child{
+	width:250px;
+}
+#edit .seach-label{
+	text-align: right;
+	width:130px;
+	display: inline-block;
+}
+#goods_spe tr{
+	height: 35px;
+	text-align: center;
+}
+#goods_spe tbody tr td{
+	padding-left:8px;
+}
+#goods_spe input{
+	border:none;
+}
+#edit h3{
+	margin-bottom: 30px;
+	margin-top:0;
+}
+#edit .topBtns{
+	margin-left: 110px;
+
+}
+#edit .topBtns a{
+	background: #32c5d2;
+}
+#edit .topBtns a:hover{
+	transition: all .3s;
+	background: #1f858e;
+}
+#edit ul li .radio{
+	-webkit-appearance:radio;
+}
+#edit .seach input{
+	color:#FFF;
+	margin-left: 135px;
+}
