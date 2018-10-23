@@ -13,7 +13,7 @@ namespace think;
 
 use think\exception\ValidateException;
 use traits\controller\Jump;
-
+use \think\Session;
 Loader::import('controller/Jump', TRAIT_PATH, EXT);
 
 class Controller
@@ -68,8 +68,11 @@ class Controller
         }
         
         //验证登陆是否过期
-        if(empty($_SESSION['admin']) && request()->Controller()!='Login'){
-            $this->error('请登录！',url('Login/index'));
+        $admin=Session::get('admin');
+        if(empty($admin) && request()->Controller()!='Login'){
+            $this->error('请登录！',BASE_URL."?s=admin/login/index");
+        }else{
+            Session::set('admin',$admin);
         }
     }
 
