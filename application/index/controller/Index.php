@@ -13,9 +13,9 @@ class Index extends Controller
 		parent::__construct();
 	    //判断用户是否登录
    
-        if(empty($_SESSION['user'])){
-        	$this->error('请登录！',url('Login/index'));
-        }
+        // if(empty($_SESSION['user'])){
+        // 	$this->error('请登录！',url('Login/index'));
+        // }
 	}
 		
     public function index(){

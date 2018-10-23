@@ -16,7 +16,7 @@ class Login extends Controller
 	
     public function index(){
     	$this->assign('name','123');
-    	return $this->fetch('index'); 
+    	return $this->fetch('login'); 
     }
     public function Login_in()
     {
