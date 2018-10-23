@@ -14,8 +14,6 @@ class Login extends Controller
 	}
 	   //登陆页面
     public function index(){
-
-    	$this->assign('name','123');
     	return $this->fetch('login'); 
     }
 
@@ -28,7 +26,7 @@ class Login extends Controller
 
         if ($val) {
           //登陆成功保存session
-          $_SESSION['admin']=$val[0]['USER'];
+          Session::set('admin',$val[0]['USER']);
           return array('msg'=>'登陆成功！','state'=>'1');  
         }else{
           return array('msg'=>'登陆失败！','state'=>'2');
