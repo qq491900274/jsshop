@@ -18,7 +18,7 @@
 	<script type="text/javascript">
 		
 		$(function() {
-			$("#username").focus();
+			//$("#username").focus();
 			$.backstretch([
 						"__PUBLIC__/admin/images/1.jpg",
 						"__PUBLIC__/admin/images/4.jpg",
@@ -63,6 +63,15 @@
 <div class="copyright">金石教育后台管理中心</div>
 
 <script type="text/javascript">
+function isnull(str){
+	if(str==undefined){
+		return true;
+	}else if(str==''){
+		return true;
+	}else{
+		return false;
+	}
+}
 window.onload = function(){
 	var baseurl="<?php echo BASE_URL;?>"
     var vm = new Vue({
@@ -74,7 +83,12 @@ window.onload = function(){
         methods:{
             get:function(){
                 //发送get请求
+                if(isnull(this.user)){
+                	alert('请填写账号密码！');
+                	return;
+                }
                 this.$http.post(baseurl+'?s=admin/Login/getpwd',{'user':this.user,'pwd':this.pwd},).then(res=>{
+                	console.log(res);
                 	var str =eval('(' + res.bodyText + ')');
                     if(str.state==1){
                     	if($('#remember').is(':checked')){
@@ -84,7 +98,10 @@ window.onload = function(){
                     		$.removeCookie('username');
                     		$.removeCookie('pd');
                     	}
-                    	alert('登录成功！');
+                    	document.write('<body><h1 style="margin-left:20px;margin-top:20px;">登录成功！即将为您跳转...</h1></body>');
+                    	setTimeout(function(){
+                    		location.href=baseurl+'?s=admin/lesson/lesson_teacher.html';
+                    	},3000);
                     }else{
                     	alert(str.msg);
                     }
