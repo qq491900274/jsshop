@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>课程管理_教师列表</title>
+<link rel="stylesheet" type="text/css" href="css/common.css">
+<link rel="stylesheet" type="text/css" href="css/reset.css">
+<link rel="stylesheet" type="text/css" href="css/lesson.css">
+<style type="text/css">
+	table thead tr th:last-child{
+		width:100px;
+	}
+	.tableBox tr td:last-child{
+		width:auto;
+		font-size: 14px;
+	}
+</style>
+</head>
+
+<body>
+<div id="header"></div>
+
+<div class="content">
+	<div class="rightBox">
+		<div class="main">
+			<h3>课程列表</h3>
+			<div class="topBtns">
+				<a href="#">新增课程</a>
+				<a href="#">批量上传</a>
+				<a href="#">zip模板</a>
+			</div>
+
+			<div class="seach_tigs">
+	            <form id="form1" method="" action="">
+	                <ul class="clearfix">
+                        <li>
+                            <label class="seach-label">
+                                课程名称：
+                            </label>
+                            <input type="text" name="" value="" placeholder="请输入课程名称" class="form-control">
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                课程编号：
+                            </label>
+                            <input type="text" name="" value="" placeholder="请输入课程编号" class="form-control">
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                显示状态：
+                            </label>
+                            <select class="form-control" name="">
+                                <option value="">请选择</option>
+                                <option  value="1">显示</option>
+                                <option  value="2">隐藏</option>
+                            </select>
+                        </li>
+                        <li style="width:52%">
+                            <label class="seach-label">
+                                所属校区：
+                            </label>
+                            <select class="form-control input-median" text="true" name="" id="province_id" selectedindex="2">
+                            </select>
+                            <select class="form-control input-median" text="true" name="" id="city_id">
+                            </select>
+                            <select class="form-control input-median" text="true" name="" id="district_id" onchange="getSchoolInfosByAreaId(this.value)">
+                            </select>
+                            <select class="form-control input-median" name="" id="school_id">
+                                <option value="">请选择校区</option>
+                            </select>
+                        </li>
+                        <li style="float:right;margin-right:12px;">
+                            <label class="seach-label">
+                                所属课堂：
+                            </label>
+                            <select class="form-control" name="type">
+                                <option value="">请选择课堂</option>
+                                <option value="1" >金石V课</option><option value="2" >金石拼课</option><option value="3" >金石1对1</option>
+                            </select>
+                        </li>
+                        <li style="width:52%;margin-left:21px;">
+                            <label class="seach-label">
+                                年级科目：
+                            </label>
+                            <select class="form-control" name="grade_id" style="width:40%">
+                                <option value="">请选择年级</option>
+                                <option value="12" >高三</option><option value="11" >高二</option><option value="10" >高一</option><option value="9" >九年级</option><option value="8" >八年级</option><option value="7" >七年级</option><option value="6" >六年级</option><option value="5" >五年级</option><option value="4" >四年级</option><option value="3" >三年级</option><option value="2" >二年级</option><option value="1" >一年级</option>
+                            </select>
+                            <select class="form-control" name="subject_id" id="subject_id" style="width:40%">
+                                <option value="">请选择科目</option>
+                                <option value="9" >化学</option><option value="8" >物理</option><option value="7" >生物</option><option value="6" >地理</option><option value="5" >历史</option><option value="4" >政治</option><option value="3" >英语</option><option value="2" >数学</option><option value="1" >语文</option>
+                            </select>
+                        </li>
+                        
+                        
+                        <li style="float:right;width:30%;">
+                            <label class="seach-label">
+                                关联老师：
+                            </label>
+                            <select class="form-control" name="teacher_id" id="teacher_id" style="width:60%;">
+                                <option value="">请选择</option>
+                                <option value="125" >刘璐</option>
+                                <option value="490" >刘丰</option><option value="10" >顾昊</option><option value="219" >张璐</option><option value="461" >张玲玲</option><option value="507" >张万明</option><option value="560" >赵宏波</option><option value="368" >曲君玲</option><option value="525" >蒋静</option><option value="55" >赵帆</option><option value="424" >荣芳</option>                                       
+                            </select>
+                        </li>
+                    </ul>
+	                <div class="seach">
+	                    <input type="button" name="" value="搜索">
+	                </div>
+	            	
+	            </form>
+	        </div>
+
+	        <table class="tableBox">
+                    <thead>
+                        <tr>
+                            <th>选择</th>
+                            <th>课程名称</th>
+                            <th>课程编号</th>
+                            <th>价格</th>
+                            <th>所属校区</th>
+                            <th>课堂类型</th>
+                            <th>年级科目</th>
+                            <th>关联教师</th>
+                            <th>教师头像</th>
+                            <th>添加时间</th>
+                            <th>排序</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="storeList">
+                        <tr>
+                                <td><input type="checkbox" name="" class="check_one" value="3384" /></td>
+                                <td>九年级数学基金班[秋]</td>
+                                <td>20182744</td>
+                                <td style="color:red">&yen;1.00~200.00</td>
+                                <td>南京鼓楼校区</td>
+                                <td>金石V课</td>
+                                <td>九年级数学</td>
+                                <td>宋昂</td>
+                                <td><img src="" height="60"></td>
+                                <td width="105">2018-08-31 13:09:10</td>
+                                <td>0</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a><br><a href="#">复制详情</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="" class="check_one" value="3383" /></td>
+                                <td>八年级语文进阶班[秋]</td>
+                                <td>20182743</td>
+                                <td style="color:red">&yen;6.60~200.00</td>
+                                <td>南京鼓楼校区</td>
+                                <td>金石拼课</td>
+                                <td>八年级语文</td>
+                                <td>黄威成</td>
+                                <td><img src="" height="60"></td>
+                                <td width="105">2018-08-31 11:18:25</td>
+                                <td>0</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a><br><a href="#">复制详情</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="" class="check_one" value="3382" /></td>
+                                <td>七年级数学进阶班[秋]</td>
+                                <td>20182742</td>
+                                <td style="color:red">&yen;6.60~200.00</td>
+                                <td>南京鼓楼校区</td>
+                                <td>金石拼课</td>
+                                <td>七年级数学</td>
+                                <td>宋昂</td>
+                                <td><img src="" height="60"></td>
+                                <td width="105">2018-08-31 11:16:20</td>
+                                <td>0</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a><br><a href="#">复制详情</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="" class="check_one" value="3381" /></td>
+                                <td>七年级语文进阶班[秋]</td>
+                                <td>20182741</td>
+                                <td style="color:red">&yen;6.60~200.00</td>
+                                <td>南京鼓楼校区</td>
+                                <td>金石拼课</td>
+                                <td>七年级语文</td>
+                                <td>黄威成</td>
+                                <td><img src="" height="60"></td>
+                                <td width="105">2018-08-31 11:12:29</td>
+                                <td>0</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a><br><a href="#">复制详情</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="" class="check_one" value="3380" /></td>
+                                <td>六年级英语基础班[秋]</td>
+                                <td>20182740</td>
+                                <td style="color:red">&yen;6.60~200.00</td>
+                                <td>南京鼓楼校区</td>
+                                <td>金石拼课</td>
+                                <td>六年级英语</td>
+                                <td>蒋晶</td>
+                                <td><img src="" height="60"></td>
+                                <td width="105">2018-08-31 11:10:24</td>
+                                <td>0</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a><br><a href="#">复制详情</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="" class="check_one" value="3379" /></td>
+                                <td>六年级数学基础班</td>
+                                <td>20182739</td>
+                                <td style="color:red">&yen;6.60~200.00</td>
+                                <td>南京鼓楼校区</td>
+                                <td>金石拼课</td>
+                                <td>六年级数学</td>
+                                <td>邵淇</td>
+                                <td><img src="" height="60"></td>
+                                <td width="105">2018-08-31 11:08:11</td>
+                                <td>0</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a><br><a href="#">复制详情</a>
+                                </td>
+                            </tr>                 
+                        </tbody>
+                </table>
+                <div class="topBtns1">
+	                <a href="javascript:;" onclick="selectAll()">全选</a>
+		            <a href="javascript:;" onclick="uselectAll()">反选</a>
+		            <a href="javascript:;" onclick="hideAll()">批量隐藏</a>
+	            </div>
+                <div class="page">
+                	<ul class="clearfix">
+                		<li><a href="">上一页</a></li>
+                		<li class="curr"><a href="">1</a></li>
+                		<li><a href="">2</a></li>
+                		<li><a href="">3</a></li>
+                		<li><a href="">下一页</a></li>
+                	</ul>
+                </div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/lesson.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/area.js"></script>
+<script type="text/javascript" src="http://bm.jinshiedu.net/Public/Plugins/layer/layer.js"></script>
+<script type="text/javascript">
+    showLocation();
+    CheckProvince('');
+    CheckCity('');
+    CheckTown('');
+     /**
+     *批量隐藏
+    **/
+    function hideAll(){
+        if($('.check_one:checked').length < 1){
+            layer.msg('您还未勾选任何项');
+            return false;
+        }
+        layer.confirm('确定要批量隐藏选中的项吗?',function(){
+            var ids = [];
+            $('.check_one:checked').each(function(){
+                ids.push($(this).val());
+            });
+            ids = ids.join(',');
+            var url = '/admin/teacher/hideAll';
+            $.post(url,{'ids':ids},function(data){
+                if(data.status == 1){
+                    layer.msg(data.info);
+                }else{
+                    location.reload();
+                }
+            },'JSON');
+        });
+    }
+   
+</script>
+<script>
+var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+(function() {
+    if (!isChrome) {
+        $("#is_chrome").html("为了更好的使用效果请使用Chrome浏览器");
+    }
+})();
+</script>
+</body>
+</html>
