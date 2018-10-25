@@ -1,13 +1,13 @@
-/********************2018-10-15 后台管理员表*********************************/
+/********************2018-10-15 曲证 添加后台管理员表 *********************************/
 CREATE TABLE `SHOP_USER`(
    `ID` INT NOT NULL PRIMARY KEY , 
-   `NAME` VARCHAR(100) NOT NULL, /**/
+   `NAME` VARCHAR(100) NOT NULL, /*用户名*/
    `PASSWORD` VARCHAR(40) NOT NULL,
-   `GROUPID` DATE,/*用户权限组id*/
+   `GROUPID` DATE,/*管理员权限组id*/
 )ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-/********************2018-10-23 添加账号*********/
-ALTER TABLE SHOP_USER ADD USER VARCHAR(50) //ÕËºÅ
+/********************2018-10-23 曲证 后台管理员表添加字段*********/
+ALTER TABLE SHOP_USER ADD USER VARCHAR(50) //账号
 /*********************2018-10-23 校区老师表*********************/
 CREATE TABLE `SHOP_TEACHER`(
    `ID` INT NOT NULL PRIMARY KEY , 
