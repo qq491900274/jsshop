@@ -1,117 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>课程管理_教师列表</title>
-<link rel="stylesheet" type="text/css" href="css/common.css">
-<link rel="stylesheet" type="text/css" href="css/reset.css">
-<link rel="stylesheet" type="text/css" href="css/lesson.css">
-</head>
+{include file="public/header"}
 
-<body>
-<!-- <div id="header"></div> -->
-<div class="top clearfix">
-    <div class="main">
-        <div class="ad_logo left">金石教育后台</div>
-        <div class="quit right">
-            <span><i class="icon iconfont">&#xe638;</i> admin <i class="icon iconfont">&#xe65c;</i></span>
-            <ul>
-                <li><a href=""><i class="icon iconfont">&#xe62c;</i> 修改密码</a></li>
-                <li><a href=""><i class="icon iconfont">&#xe62e;</i> 退出</a></li>
-            </ul>
+<div class="content" id="teacher">
+    <div class="rightBox">
+        <div class="main">
+            <h3>教师列表</h3>
+            <div class="topBtns">
+                <a href="#">新增教师</a>
+                <a href="#">批量上传</a>
+                <a href="#">zip模板</a>
+            </div>
 
-        </div>
-    </div>
-</div>  
-<div class="nav">
-    <div class="main">
-        <ul id="first" class="clearfix">
-            <li class="active"><a href="#">订单管理</a>
-                <ul id="second">
-                    <li><a href="#">订单列表</a></li>
-                    <li><a href="#">评价列表</a></li>
-                </ul>
-            </li>
-            <li><a href="#">派单管理</a>
-                <ul id="second">
-                    <li><a href="#">派单列表</a></li>
-                </ul>
-            </li>
-            <li><a href="#">课程管理</a>
-                <ul id="second">
-                    <li><a href="#">校区列表</a></li>
-                    <li><a href="#">教师列表</a></li>
-                    <li><a href="#">课程列表</a></li>
-                </ul>
-            </li>
-            <li><a href="#">优惠券</a>
-                <ul id="second">
-                    <li><a href="#">优惠券使用详情</a></li>
-                    <li><a href="#">优惠券列表</a></li>
-                </ul>
-            </li>
-            
-            <li><a href="#">用户管理</a>
-                <ul id="second">
-                    <li><a href="#">用户列表</a></li>
-                </ul>
-            </li>
-            <li><a href="#">测试题管理</a>
-                <ul id="second">
-                    <li><a href="#">测试题列表</a></li>
-                    <li><a href="#">答题列表</a></li>
-                </ul>
-            </li>
-            <li><a href="#">活动管理</a>
-                <ul id="second">
-                    <li><a href="#">活动列表</a></li>
-                </ul>
-            </li>
-            <li><a href="#">意见反馈</a>
-                <ul id="second">
-                    <li><a href="#">意见列表</a></li>
-                </ul>
-            </li>
-            <li><a href="#">权限管理</a>
-                <ul id="second">
-                    <li><a href="#">菜单管理</a></li>
-                    <li><a href="#">角色管理</a></li>
-                    <li><a href="#">后台用户管理</a></li>
-                </ul>
-            </li>
-            <li><a href="#">系统管理</a>
-                <ul id="second">
-                    <li><a href="#">修改密码</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</div>
-
-<div class="content">
-	<div class="rightBox">
-		<div class="main">
-			<h3>教师列表</h3>
-			<div class="topBtns">
-				<a href="#">新增教师</a>
-				<a href="#">批量上传</a>
-				<a href="#">zip模板</a>
-			</div>
-
-			<div class="seach_tigs">
-	            <form id="form1" method="" action="">
-	                <ul class="clearfix">
+            <div class="seach_tigs">
+                <form id="form1" method="" action="">
+                    <ul class="clearfix">
                         <li>
                             <label class="seach-label">
                                 教师姓名：
                             </label>
-                            <input type="text" name="teacher_name" value="" placeholder="请输入教师姓名" class="form-control">
+                            <input type="text" name="teacher_name" v-model="name"  placeholder="请输入教师姓名" class="form-control">
                         </li>
                         <li>
                             <label class="seach-label">
                                 教师编号：
                             </label>
-                            <input type="text" name="teacher_number" value="" placeholder="请输入教师编号" class="form-control">
+                            <input type="text" name="teacher_number" v-model="tid"  placeholder="请输入教师编号" class="form-control">
                         </li>
                         <li>
                             <label class="seach-label">
@@ -119,7 +31,8 @@
                             </label>
                             <select class="form-control" name="subject_id">
                                 <option value="">请选择</option>
-                                <option value="9" >化学</option><option value="8" >物理</option><option value="7" >生物</option><option value="6" >地理</option><option value="5" >历史</option><option value="4" >政治</option><option value="3" >英语</option><option value="2" >数学</option><option value="1" >语文</option>                                        </select>
+                                <option v-for='subject in subjectList' :value="subject.value">{{subject.label}}</option>
+                            </select>
                         </li>
                         <li style="width:32.33%;text-align:left;margin-left:40px;">
                             <label class="seach-label">
@@ -147,14 +60,14 @@
                             </select>
                         </li>
                     </ul>
-	                <div class="seach">
-	                    <input type="button" name="" value="搜索">
-	                </div>
-	            	
-	            </form>
-	        </div>
+                    <div class="seach">
+                        <input type="button" name="" value="搜索">
+                    </div>
+                    
+                </form>
+            </div>
 
-	        <table class="tableBox">
+            <table class="tableBox">
                     <thead>
                         <tr>
                             <th>选择</th>
@@ -455,35 +368,65 @@
                         </tbody>
                 </table>
                 <div class="topBtns1">
-	                <a href="javascript:;" onclick="selectAll()">全选</a>
-		            <a href="javascript:;" onclick="uselectAll()">反选</a>
-		            <a href="javascript:;" onclick="hideAll()">批量隐藏</a>
-	            </div>
-                <div class="page">
-                	<ul class="clearfix">
-                		<li><a href="">上一页</a></li>
-                		<li class="curr"><a href="">1</a></li>
-                		<li><a href="">2</a></li>
-                		<li><a href="">3</a></li>
-                		<li><a href="">下一页</a></li>
-                	</ul>
+                    <a href="javascript:;" onclick="selectAll()">全选</a>
+                    <a href="javascript:;" onclick="uselectAll()">反选</a>
+                    <a href="javascript:;" onclick="hideAll()">批量隐藏</a>
                 </div>
-		</div>
-	</div>
+                <div class="page">
+                    <ul class="clearfix">
+                        <li><a href="">上一页</a></li>
+                        <li class="curr"><a href="">1</a></li>
+                        <li><a href="">2</a></li>
+                        <li><a href="">3</a></li>
+                        <li><a href="">下一页</a></li>
+                    </ul>
+                </div>
+        </div>
+    </div>
 </div>
 
-<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="js/lesson.js"></script>
-<script type="text/javascript" src="js/common.js"></script>
-<script type="text/javascript" src="js/area.js"></script>
-<script type="text/javascript" src="http://bm.jinshiedu.net/Public/Plugins/layer/layer.js"></script>
+{include file="public/footer"}
+
+<script type="text/javascript">
+    /**
+     *****搜索*********
+    **/
+    new Vue({
+        el:'#teacher',
+        data:{
+            name:'',
+            tid:'',
+            subjectList:[
+                {value:'1',label:'语文'},
+                {value:'2',label:'数学'},
+                {value:'3',label:'英语'},
+                {value:'4',label:'政治'},
+                {value:'5',label:'历史'},
+                {value:'6',label:'地理'},
+                {value:'7',label:'生物'},
+                {value:'8',label:'物理'},
+                {value:'9',label:'化学'}
+            ]
+        },
+        method:{
+            get:function(){
+                this.$http.get('url',{}).then(function(res){
+
+                },function(res){
+                    console.log('请求失败处理，请检查Network!');
+                })
+            }
+        }
+    })
+</script>
+
 <script type="text/javascript">
     showLocation();
     CheckProvince('');
     CheckCity('');
     CheckTown('');
      /**
-     *批量隐藏
+     *****批量隐藏*********
     **/
     function hideAll(){
         if($('.check_one:checked').length < 1){
@@ -505,8 +448,7 @@
                 }
             },'JSON');
         });
-    }
-   
+    } 
 </script>
 <script>
 var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;

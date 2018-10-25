@@ -36,4 +36,8 @@ CREATE TABLE SHOP_SCHOOL(
    SCHOOL_NAME VARCHAR(50) NOT NULL,#校区名
    ADMIN_NAME VARCHAR(32) NOT NULL,#校区负责人
    PHONE INT #校区负责人电话
+<<<<<<< HEAD
 );
+=======
+);
+>>>>>>> 52bd58c5e0d00a207b7758f48f3410db3f2a5d91
