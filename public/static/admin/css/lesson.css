@@ -32,6 +32,7 @@
 	background: #217ebd;
 }
 .rightBox .topBtns a:first-child+a{
+	background: #32c5d2;
 }
 .rightBox .topBtns a:first-child+a:hover{
 	transition: all .3s;
