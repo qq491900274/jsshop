@@ -42,7 +42,7 @@ class Lesson extends Controller
       return $result;
     }
     //删除教师
-    public function get_teacher(){
+    public function dele_teacher(){
       $request = request()->post();
       $isok=DB::table('SHOP_TEACHER')
             ->where('ID',$request['id'])
@@ -53,7 +53,7 @@ class Lesson extends Controller
       }
     }
     //添加修改教师
-    public function get_teacher(){
+    public function update_teacher(){
       $request = request()->post();
       
       $data=['NAME'=>$request['name'],
