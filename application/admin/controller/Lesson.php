@@ -88,7 +88,7 @@ class Lesson extends Controller
         return '';exit;
       }
 
-      $result = $this->pmodel->select('SHOP_SCHOOL',"ID,NAME",$where);
+      $result = $this->pmodel->select('SHOP_SCHOOL',"ID,SCHOOLNAME",$where);
       return $result;
     }
     
