@@ -99,7 +99,7 @@ class Lesson extends Controller
     }
     //返回校区列表
     public function get_schoollist(){
-      $minpage = 0;
+      $minpage = 0; 
       $maxpage = 0;
       $request = request()->post();
       $this->pmodel =  new \app\admin\model\PublicModel();
@@ -110,7 +110,7 @@ class Lesson extends Controller
       
       //获取查询条件
       $where = "ID!='' LIMIT {$minpage},{$maxpage}";
-      $key = "ID,PROVINCE,CITY,AREA,SCHOOL_NAME,PHONE,ADMIN_NAME";
+      $key = "ID,PROVINCE,CITY,AREA,ADDRESS,SCHOOL_NAME,PHONE,ADMIN_NAME";
       $result = $this->pmodel->select('SHOP_SCHOOL',$key,$where);
 
       //返回校区数据
