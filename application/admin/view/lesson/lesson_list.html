@@ -9,7 +9,7 @@
 	}
 </style>
 
-<div class="content">
+<div class="content" id="list">
 	<div class="rightBox">
 		<div class="main">
 			<h3>课程列表</h3>
@@ -151,71 +151,7 @@
                                 <td>
                                 <a href="#">编辑</a><br><a href="#">复制详情</a>
                                 </td>
-                            </tr><tr>
-                                <td><input type="checkbox" name="" class="check_one" value="3382" /></td>
-                                <td>七年级数学进阶班[秋]</td>
-                                <td>20182742</td>
-                                <td style="color:red">&yen;6.60~200.00</td>
-                                <td>南京鼓楼校区</td>
-                                <td>金石拼课</td>
-                                <td>七年级数学</td>
-                                <td>宋昂</td>
-                                <td><img src="" height="60"></td>
-                                <td width="105">2018-08-31 11:16:20</td>
-                                <td>0</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="#">编辑</a><br><a href="#">复制详情</a>
-                                </td>
-                            </tr><tr>
-                                <td><input type="checkbox" name="" class="check_one" value="3381" /></td>
-                                <td>七年级语文进阶班[秋]</td>
-                                <td>20182741</td>
-                                <td style="color:red">&yen;6.60~200.00</td>
-                                <td>南京鼓楼校区</td>
-                                <td>金石拼课</td>
-                                <td>七年级语文</td>
-                                <td>黄威成</td>
-                                <td><img src="" height="60"></td>
-                                <td width="105">2018-08-31 11:12:29</td>
-                                <td>0</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="#">编辑</a><br><a href="#">复制详情</a>
-                                </td>
-                            </tr><tr>
-                                <td><input type="checkbox" name="" class="check_one" value="3380" /></td>
-                                <td>六年级英语基础班[秋]</td>
-                                <td>20182740</td>
-                                <td style="color:red">&yen;6.60~200.00</td>
-                                <td>南京鼓楼校区</td>
-                                <td>金石拼课</td>
-                                <td>六年级英语</td>
-                                <td>蒋晶</td>
-                                <td><img src="" height="60"></td>
-                                <td width="105">2018-08-31 11:10:24</td>
-                                <td>0</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="#">编辑</a><br><a href="#">复制详情</a>
-                                </td>
-                            </tr><tr>
-                                <td><input type="checkbox" name="" class="check_one" value="3379" /></td>
-                                <td>六年级数学基础班</td>
-                                <td>20182739</td>
-                                <td style="color:red">&yen;6.60~200.00</td>
-                                <td>南京鼓楼校区</td>
-                                <td>金石拼课</td>
-                                <td>六年级数学</td>
-                                <td>邵淇</td>
-                                <td><img src="" height="60"></td>
-                                <td width="105">2018-08-31 11:08:11</td>
-                                <td>0</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="#">编辑</a><br><a href="#">复制详情</a>
-                                </td>
-                            </tr>                 
+                            </tr>            
                         </tbody>
                 </table>
                 <div class="topBtns1">
@@ -237,6 +173,25 @@
 </div>
 
 {include file="public/footer"}
+<script type="text/javascript">
+    var baseurl="<?php echo BASE_URL;?>";
+    new Vue({
+        el:'#list',
+        data:{
+
+        },
+        methods:{
+            
+        },
+        created:function(){
+            this.$http.post(baseurl+'?s=admin/Lesson/Lesson_list').then(function(res){
+                console.log(res);
+            },function(res){
+                console.log('请求失败处理,请检查Network!');
+            })
+        }
+    })
+</script>
 <script type="text/javascript">
     showLocation();
     CheckProvince('');

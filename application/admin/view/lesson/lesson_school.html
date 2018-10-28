@@ -1,6 +1,6 @@
 {include file="public/header"}
 
-<div class="content">
+<div class="content" id="school">
 	<div class="rightBox">
 		<div class="main">
 			<h3>校区列表</h3>
@@ -68,162 +68,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                                <td>平度红旗路校区</td>
-                                <td>4006666911</td>
+                        <tr v-for="slist in schoolList">
+                                <td>{{slist.SCHOOL_NAME}}</td>
+                                <td>{{slist.PHONE}}</td>
                                 <td>山东省青岛市平度市红旗路中海电脑东侧20米</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="">编辑</a>
-                                </td>
-                            </tr><tr>
-                                <td>金石教育（通用）</td>
-                                <td>4006666911</td>
-                                <td>山东省青岛市市南区香港中路100号</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="">编辑</a>
-                                </td>
-                            </tr><tr>
-                                <td>中山路拼课校区</td>
-                                <td>4006666911</td>
-                                <td>山东省青岛市市南区中山路149号国货商务中心9层（丽达奥特莱斯楼上）</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="">编辑</a>
-                                </td>
-                            </tr><tr>
-                                <td>洪楼拼课校区</td>
-                                <td>4006666829</td>
-                                <td>山东省济南市历城区黄台南路5号康和东苑5-9（山东工人报社对面）</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="">编辑</a>
-                                </td>
-                            </tr><tr>
-                                <td>辽阳西路拼课校区</td>
-                                <td>4006666829</td>
-                                <td>山东省青岛市市北区辽阳西路19号</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="">编辑</a>
-                                </td>
-                            </tr><tr>
-                                <td>即墨文化路拼课校区</td>
-                                <td>4006666829</td>
-                                <td>山东省青岛市即墨市嵩山二路448号农业银行东侧</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="">编辑</a>
-                                </td>
-                            </tr><tr>
-                                <td>乐客城拼课校区</td>
-                                <td>4006666829</td>
-                                <td>山东省青岛市李沧区大崂路1118-7乐客城东北门斜对面（眼科医院往南50米）</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="">编辑</a>
-                                </td>
-                            </tr><tr>
-                                <td>湛山拼课校区</td>
-                                <td>4006666829</td>
-                                <td>山东省青岛市市南区延安三路206号诚基中心写字楼三层（延安三路与仰口路路口）</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="">编辑</a>
-                                </td>
-                            </tr><tr>
-                                <td>福州南路拼课校区</td>
-                                <td>4006666829</td>
-                                <td>山东省青岛市市南区福州南路6号1栋4层（福州南路与香港中路路口,佳世客斜对面）</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="">编辑</a>
-                                </td>
-                            </tr><tr>
-                                <td>南京鼓楼校区</td>
-                                <td>4006666911</td>
-                                <td>江苏省南京市鼓楼区南京市鼓楼区中山路55号新华大厦1层（华龙电子城旁）</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="">编辑</a>
-                                </td>
-                            </tr><tr>
-                                <td>日照威海路校区</td>
-                                <td>4006666911</td>
-                                <td>山东省日照市东港区东港区威海路90号新营中学东100米（威海路与胶州路交叉口东100米）</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="">编辑</a>
-                                </td>
-                            </tr><tr>
-                                <td>济南文化东路校区</td>
-                                <td>4006666911</td>
-                                <td>山东省济南市历下区文化东路59号大东科技城B座-301（历下教育局对面）</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="">编辑</a>
-                                </td>
-                            </tr><tr>
-                                <td>济南洪楼校区</td>
-                                <td>4006666911</td>
-                                <td>山东省济南市历城区黄台南路5号康和东苑5-9（山东工人报社对面）</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="">编辑</a>
-                                </td>
-                            </tr><tr>
-                                <td>济南杆石桥校区</td>
-                                <td>4006666911</td>
-                                <td>山东省济南市历下区泺源大街229号金龙大厦西楼17层</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="">编辑</a>
-                                </td>
-                            </tr><tr>
-                                <td>威海环翠校区</td>
-                                <td>4006666911</td>
-                                <td>山东省威海市环翠区世昌大道100号宏福广场C座二层外铺（肯德基楼上）</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="">编辑</a>
-                                </td>
-                            </tr><tr>
-                                <td>烟台万达校区</td>
-                                <td>4006666911</td>
-                                <td>山东省烟台市芝罘区西南河路107号1楼金石教育（万达百货西200米）</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="">编辑</a>
-                                </td>
-                            </tr><tr>
-                                <td>临沂成都路校区</td>
-                                <td>4006666911</td>
-                                <td>山东省临沂市兰山区市北城新区成都路与温凉河路交汇往东50米路北</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="">编辑</a>
-                                </td>
-                            </tr><tr>
-                                <td>临沂沂蒙路校区</td>
-                                <td>4006666911</td>
-                                <td>山东省临沂市兰山区沂蒙路与泰和路交汇往东50米路南（第十二中学南门对面）</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="">编辑</a>
-                                </td>
-                            </tr><tr>
-                                <td>临沂金坛路校区</td>
-                                <td>4006666911</td>
-                                <td>山东省临沂市兰山区金坛路59号（沂蒙路与金坛路交汇往西50米）</td>
-                                <td>显示</td>
-                                <td>
-                                <a href="">编辑</a>
-                                </td>
-                            </tr><tr>
-                                <td>潍坊高新校区</td>
-                                <td>4006666911</td>
-                                <td>山东省潍坊市奎文区金马路3552号1-3楼金石教育（高新双语学校往北50米路东）</td>
                                 <td>显示</td>
                                 <td>
                                 <a href="">编辑</a>
@@ -250,6 +98,28 @@
     CheckProvince('');
     CheckCity('');
     CheckTown('');
+</script>
+<script type="text/javascript">
+    var baseurl="<?php echo BASE_URL;?>";
+    new Vue({
+        el:'#school',
+        data:{
+            schoolList:[]
+        },
+        methods:{
+            get:function(){
+                
+            }
+        },
+        created:function(){
+            this.$http.post(baseurl+'?s=admin/Lesson/get_schoollist').then(function(res){
+                console.log(res);
+                this.schoolList=eval('('+res.bodyText+')');
+            },function(res){
+                console.log('请求失败处理，请检查Network!');
+            })
+        }
+    })
 </script>
 </body>
 </html>

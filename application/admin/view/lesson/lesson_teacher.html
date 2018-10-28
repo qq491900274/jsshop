@@ -111,12 +111,8 @@
                     <a href="javascript:;" onclick="hideAll()">批量隐藏</a>
                 </div>
                 <div class="page">
-                    <ul class="clearfix">
-                        <li><a href="">上一页</a></li>
-                        <li class="curr"><a href="">1</a></li>
-                        <li><a href="">2</a></li>
-                        <li><a href="">3</a></li>
-                        <li><a href="">下一页</a></li>
+                    <ul class="clearfix pageonload" v-html="html">
+                       {{html}}
                     </ul>
 
                 </div>
@@ -131,11 +127,12 @@
      *****搜索*********
     **/
     var baseurl="<?php echo BASE_URL;?>"
-    new Vue({
+    var vue=new Vue({
         el:'#teacher',
         data:{
             name:'',
             code:'',
+            page:'',
             subjectList:[
                 {value:1,label:'语文'},
                 {value:2,label:'数学'},
@@ -149,6 +146,7 @@
             province:'',
             city:'',
             area:'',
+            html:'',
             school_name:[],
             count:'',
             page:'1',
@@ -180,69 +178,118 @@
                 'area':this.area}).then(res=>{
                     //console.log(res);
                     this.school_name=eval('('+res.bodyText+')');
+
                 },res=>{
                     console.log('请求失败处理,请检查Network!');
                 })
             
+          },
+          page1:function(val){
+
+                this.$http.post(baseurl+'?s=admin/Lesson/get_teacherval',{page:val}).then(res=>{
+                //console.log(res);
+                var val=eval('('+res.bodyText+')');
+                this.page=val['page'];//当前页面
+                //赋值教师列表
+                this.products=val['value'];
+               
+            },res=>{
+                console.log('请求失败处理,请检查Network!');
+            })
           }
             
         },
         created:function(){
-            this.$http.get(baseurl+'?s=admin/Lesson/get_teacherval').then(res=>{
+            this.$http.post(baseurl+'?s=admin/Lesson/get_teacherval').then(res=>{
                 //console.log(res);
-                /*var val=eval('('+res.bodyText+')');
+                var val=eval('('+res.bodyText+')');
                 //赋值教师列表
                 this.products=val['value'];
                 //获取总共多少页面
                 this.count=val['count'];
                 //处理总共多少页
-                var html=上一页；
-                for(i=0; i<count; i++ ){
+                var html='<li><a href="javascript:void(0)" onclick="page1(\'prev\');">上一页</a></li>';
+                for(i=0; i<this.count; i++ ){
                     if(i < 8){
-                        html+=i+1;
+                        if (i=='0') {
+                            html+='<li class="curr"><a href="javascript:void(0)" onclick="page1(\''+(i+1)+'\');">'+(i+1)+'</a></li>';
+                        }else{
+                            html+='<li><a href="javascript:void(0)" onclick="page1(\''+(i+1)+'\');">'+(i+1)+'</a></li>';
+                        }
+                        
                     }
                 }
-                if(this.count>7){
-                    html+="";
+                if(this.count > 7){
+                    html+="<li><a href='javascript:void(0)' >...</a></li>";
                 }
-                html+=下一页;*/
-                this.products=eval('('+res.bodyText+')');
+                html+="<li><a href='javascript:void(0)' onclick='page1(\"next\")';>下一页</a></li>";
+                this.html=html;
+
             },res=>{
-                console.log('请求失败处理，请检查Network!');
+                console.log('请求失败处理,请检查Network!');
             })
             
-        }
+        },
+
+          
+
     })
-</script>
-<script type="text/javascript">
-    showLocation();
-    CheckProvince('');
-    CheckCity('');
-    CheckTown('');
+    function page1(data){
+        //从vue获取当前页
+        var page=vue.page;
+        //判断是否是超过总页数
+        if (data=='next') {
+            data=parseInt(vue.page)+1;
+        }else if(data=='prev'){
+            data=vue.page-1;
+        }
+        //判断是否是超过总页数，是否小于0页
+        if (data > vue.count || data <= '0') {
+            return;
+        }
+
+        //调用vue
+        vue.page1(data);
+        //添加高亮样式
+        $('.curr').attr('class',' ');
+        $('.pageonload > li').eq(data).attr('class','curr');
+    }  
+
+
+/****************点击事件***************************/
+ // showLocation();
+ //    CheckProvince('');
+ //    CheckCity('');
+ //    CheckTown('');
      /**
      *****批量隐藏*********
     **/
-    function hideAll(){
-        if($('.check_one:checked').length < 1){
-            layer.msg('您还未勾选任何项');
-            return false;
-        }
-        layer.confirm('确定要批量隐藏选中的项吗?',function(){
-            var ids = [];
-            $('.check_one:checked').each(function(){
-                ids.push($(this).val());
+   function hideAll(){
+            if($('.check_one:checked').length < 1){
+                layer.msg('您还未勾选任何项');
+                return false;
+            }
+            layer.confirm('确定要批量隐藏选中的项吗?',function(){
+                var ids = [];
+                $('.check_one:checked').each(function(){
+                    ids.push($(this).val());
+                });
+                ids = ids.join(',');
+
+                var url ="<?php echo BASE_URL;?>";
+                $.post(url+'?s=admin/Lesson/delete_teacher',{'id':ids},function(data){
+                    if(data.status == 1){
+                        layer.msg(data.info);
+                    }else{
+                        location.reload();
+                    }
+                },'JSON');
             });
-            ids = ids.join(',');
-            var url = '/admin/teacher/hideAll';
-            $.post(url,{'ids':ids},function(data){
-                if(data.status == 1){
-                    layer.msg(data.info);
-                }else{
-                    location.reload();
-                }
-            },'JSON');
-        });
-    } 
+        }
+
+
+
+
 
 </script>
 <script type="text/javascript">
