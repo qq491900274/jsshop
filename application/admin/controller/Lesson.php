@@ -99,7 +99,7 @@ class Lesson extends Controller
     }
     //返回校区列表
     public function get_schoollist(){
-      $minpage = 0;
+      $minpage = 0; 
       $maxpage = 0;
       $request = request()->post();
       $this->pmodel =  new \app\admin\model\PublicModel();
