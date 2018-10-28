@@ -36,8 +36,9 @@ class Lesson extends Controller
       //获取查询条件
       $where = "ID!='' LIMIT {$minpage},{$maxpage}";
       $key = "ID,NAME,CODE,SUBJECT,SCHOOL,SCHOOL_ADDRESS,INTRO,PIC,DATE";
-      $result = $this->pmodel->select('SHOP_TEACHER',$key,$where);
-
+      $result['value'] = $this->pmodel->select('SHOP_TEACHER',$key,$where);
+      $result['page'] = empty($request['page']) ? '1' : $request['page'];
+      $result['count'] = $this->pmodel->select('SHOP_TEACHER','count(ID)','');
       //返回校区数据
       return $result;
     }
