@@ -277,8 +277,8 @@
                 ids = ids.join(',');
 
                 var url ="<?php echo BASE_URL;?>";
-                $.post(url+'?s=admin/Lesson/delete_teacher',{'id':ids},function(data){
-                    if(data.status == 1){
+                $.post(url+'?s=admin/Lesson/dele_teacher',{'id':ids},function(data){
+                    if(data == 1){
                         layer.msg(data.info);
                     }else{
                         location.reload();
