@@ -16,7 +16,7 @@ class PublicModel extends Model
     	}
 
     	$sql="select {$key} from {$table} {$where}";
-    	//echo $sql;
+    	
 	 return Db::query($sql);
     }
 }
