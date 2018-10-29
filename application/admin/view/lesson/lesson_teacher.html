@@ -276,8 +276,8 @@
                 });
                 ids = ids.join(',');
 
-                var url ="<?php echo BASE_URL;?>";
-                $.post(url+'?s=admin/Lesson/dele_teacher',{'id':ids},function(data){
+                //var url ="<?php echo BASE_URL;?>";
+                $.post(baseurl+'?s=admin/Lesson/dele_teacher',{'id':ids},function(data){
                     if(data == 1){
                         layer.msg(data.info);
                     }else{
