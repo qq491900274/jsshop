@@ -22,6 +22,10 @@ class Lesson extends Controller
       return $this->fetch('lesson_teacher');
     }
 
+    //添加或修改教师
+    public function update_teacher(){
+      return $this->fetch('update_teacher');
+    }
     //返回教师列表页面数据
     public function get_teacherval(){
       $minpage = 0;
@@ -30,23 +34,25 @@ class Lesson extends Controller
       $this->pmodel =  new \app\admin\model\PublicModel();
 
       //获取post当前页数。与查询条件。
-      $maxpage = empty($request['page'])?'20':20*$request['page']-1;
-      $minpage = $maxpage-20;
+      $maxpage = empty($request['page'])?'19':$request['page']*20-1;
+      $minpage = $maxpage-19;
       
       //获取查询条件
       $where = "ID!='' LIMIT {$minpage},{$maxpage}";
       $key = "ID,NAME,CODE,SUBJECT,SCHOOL,SCHOOL_ADDRESS,INTRO,PIC,DATE";
       $result['value'] = $this->pmodel->select('SHOP_TEACHER',$key,$where);
       $result['page'] = empty($request['page']) ? '1' : $request['page'];
-      $result['count'] = $this->pmodel->select('SHOP_TEACHER','count(ID)','');
+      $count=$this->pmodel->select('SHOP_TEACHER','count(ID) num','')[0]['num'];
+      $result['count'] = ceil($count/20);
       //返回校区数据
       return $result;
     }
     //删除教师
     public function dele_teacher(){
       $request = request()->post();
+      $id=[$request['id']];
       $isok=DB::table('SHOP_TEACHER')
-            ->where('ID',$request['id'])
+            ->where('ID','in',$id)
             ->delete();
 
       if($isok){
