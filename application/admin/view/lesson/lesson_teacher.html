@@ -17,7 +17,7 @@
                             <label class="seach-label">
                                 教师姓名：
                             </label>
-                            <input type="text" name="teacher_name" v-model="subjectList.name"  placeholder="请输入教师姓名" class="form-control">
+                            <input type="text" name="teacher_name" v-model="name"  placeholder="请输入教师姓名" class="form-control">
                         </li>
                         <li>
                             <label class="seach-label">
@@ -29,7 +29,7 @@
                             <label class="seach-label">
                                 科目：
                             </label>
-                            <select class="form-control" name="subject_id">
+                            <select class="form-control" v-model="subject_id" name="subject_id">
                                 <option value="">请选择</option>
                                 <option v-for='subject in subjectList' :value="subject.value">{{subject.label}}</option>
                             </select>
@@ -38,7 +38,7 @@
                             <label class="seach-label">
                                 是否显示：
                             </label>
-                            <select class="form-control" name="status" style="width:60%;">
+                            <select class="form-control"  name="status" style="width:60%;">
                                 <option value="">请选择</option>
                                 <option  value="1">显示</option>
                                 <option  value="2">隐藏</option>
@@ -57,7 +57,7 @@
                             </select>
                             <select class="form-control input-median" text="true" name="district_id" id="district_id"   @change="choose()" v-model="area">
                             </select>
-                            <select class="form-control input-median" name="school_id" id="school_id">
+                            <select class="form-control input-median" v-model='school_id' name="school_id" id="school_id">
                                 <option value="">请选择校区</option>
                                 <option v-for="schoolName in school_name">{{schoolName.SCHOOL_NAME}}</option>
                             </select>
@@ -88,7 +88,7 @@
                     </thead>
                     <tbody id="storeList">
                         <tr v-for="product in products">
-                            <td><input type="checkbox" name="ids[]" class="check_one" value="658"  /></td>
+                            <td><input type="checkbox" name="ids[]" class="check_one" :value="product.ID"  /></td>
                             <td>{{product.NAME}}</td>
                             <td><img :src="product.imgUrl" height="60" /></td>
                             <td>{{product.CODE}}</td>
@@ -132,16 +132,18 @@
         data:{
             name:'',
             code:'',
+            subject_id:'',
+            school_id:'',
             page:'',
             subjectList:[
-                {value:1,label:'语文'},
-                {value:2,label:'数学'},
-                {value:3,label:'英语'},
-                {value:4,label:'历史'},
-                {value:5,label:'地理'},
-                {value:6,label:'生物'},
-                {value:7,label:'物理'},
-                {value:8,label:'化学'}
+                {value:'语文',label:'语文'},
+                {value:'数学',label:'数学'},
+                {value:'英语',label:'英语'},
+                {value:'历史',label:'历史'},
+                {value:'地理',label:'地理'},
+                {value:'生物',label:'生物'},
+                {value:'物理',label:'物理'},
+                {value:'化学',label:'化学'}
             ],
             province:'',
             city:'',
@@ -159,14 +161,11 @@
                 this.$http.post(baseurl+'?s=admin/Lesson/get_teacherval',{
                     'name':this.name,
                     'code':this.code,
-                    'subject':this.subjectList,
-                    'province':this.province,
-                    'city':this.city,
-                    'area':this.area,
-                    'school_name':this.school_name
+                    'subject_id':this.subject_id,
+                    'school_id':this.school_id
                 }).then(function(res){
                     console.log(res);
-                    this.products=eval('('+res.bodyText+')');
+                    this.products=eval('('+res.bodyText+')')['value'];
                 },function(res){
                     console.log('请求失败处理,请检查Network!');
                 })
@@ -269,7 +268,7 @@
                 layer.msg('您还未勾选任何项');
                 return false;
             }
-            layer.confirm('确定要批量隐藏选中的项吗?',function(){
+            layer.alert('确定要批量隐藏选中的项吗?',function(){
                 var ids = [];
                 $('.check_one:checked').each(function(){
                     ids.push($(this).val());
@@ -279,18 +278,14 @@
                 //var url ="<?php echo BASE_URL;?>";
                 $.post(baseurl+'?s=admin/Lesson/dele_teacher',{'id':ids},function(data){
                     if(data == 1){
-                        layer.msg(data.info);
+                        layer.msg('删除成功！',{time:1500});
+
                     }else{
                         location.reload();
                     }
                 },'JSON');
             });
         }
-
-
-
-
-
 </script>
 <script type="text/javascript">
     var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;

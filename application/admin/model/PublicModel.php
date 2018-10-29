@@ -6,17 +6,28 @@ use \think\Db;
 class PublicModel extends Model
 {
 
-    function __construct(){
-    	 //Db::connect('mysql://root:root@127.0.0.1:3306/test#utf8');	
+    public function __construct(){
+    	
     }
     
-    function select($table,$key,$where){
+    public function select($table,$key,$where=''){
     	if (!empty($where)) {
     		$where=" where ".$where;
     	}
 
     	$sql="select {$key} from {$table} {$where}";
     	
-	 return Db::query($sql);
+	    return Db::query($sql);
     }
+
+    public function dele($table,$where=''){
+        if (!empty($where)) {
+            $where=" where ".$where;
+        }
+
+        $sql="delete from {$table} {$where}";
+        
+     return Db::query($sql);
+    }
+
 }
