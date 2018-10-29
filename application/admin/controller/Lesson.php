@@ -23,8 +23,8 @@ class Lesson extends Controller
     }
 
     //添加或修改教师
-    public function view_teacher(){
-      return $this->fetch('view_teacher');
+    public function update_teacher(){
+      return $this->fetch('update_teacher');
     }
     //返回教师列表页面数据
     public function get_teacherval(){
@@ -60,7 +60,7 @@ class Lesson extends Controller
       }
     }
     //添加修改教师
-    public function update_teacher(){
+    public function update_teachers(){
       $request = request()->post();
       
       $data=['NAME'=>$request['name'],
