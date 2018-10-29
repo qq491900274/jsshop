@@ -33,12 +33,27 @@ class Lesson extends Controller
       $request = request()->post();
       $this->pmodel =  new \app\admin\model\PublicModel();
 
+      $where='1=1';
+      if(!empty($request['name'])){
+        $where .= " and NAME LIKE '%{$request['name']}%'";
+      }
+      if(!empty($request['code'])) {
+        $where .= " and CODE LIKE '%{$request['code']}%'";
+      }
+      if(!empty($request['school_id'])){
+        $where .= " and SCHOOL='{$request['school_id']}'";
+      }
+      if(!empty($request['subject_id'])){
+        $where .= " and SUBJECT='{$request['subject_id']}'";
+      }
+
       //获取post当前页数。与查询条件。
       $maxpage = empty($request['page'])?'19':$request['page']*20-1;
       $minpage = $maxpage-19;
       
       //获取查询条件
-      $where = "ID!='' LIMIT {$minpage},{$maxpage}";
+      $where .= " LIMIT {$minpage},{$maxpage}";
+
       $key = "ID,NAME,CODE,SUBJECT,SCHOOL,SCHOOL_ADDRESS,INTRO,PIC,DATE";
       $result['value'] = $this->pmodel->select('SHOP_TEACHER',$key,$where);
       $result['page'] = empty($request['page']) ? '1' : $request['page'];
@@ -49,15 +64,16 @@ class Lesson extends Controller
     }
     //删除教师
     public function dele_teacher(){
-      $request = request()->post();
-      $id=[$request['id']];
-      $isok=DB::table('SHOP_TEACHER')
-            ->where('ID','in',$id)
-            ->delete();
+      $this->pmodel =  new \app\admin\model\PublicModel();
 
-      if($isok){
-        return '1';
-      }
+      $request = request()->post();
+      $id=str_replace(',', "','", $request['id']);
+
+      $where=" ID IN ('{$id}')";
+      $isok=$this->pmodel->dele('SHOP_TEACHER',$where);
+      
+      return '1';
+      
     }
     //添加修改教师
     public function update_teachers(){
@@ -76,6 +92,7 @@ class Lesson extends Controller
             ->where('ID',$request['id'])
             ->update($data);
       }else{
+        $data['ID']=uniqid();
         $isok=DB::table('SHOP_TEACHER')
             ->insert($data);
       }
