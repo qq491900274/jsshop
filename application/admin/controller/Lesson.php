@@ -141,6 +141,9 @@ class Lesson extends Controller
       return $result;
     }
 
+    public function add_school(){
+      return $this->fetch('add_school');
+    }
     //添加修改校区 
     public function update_school(){
       $request = request()->post();
