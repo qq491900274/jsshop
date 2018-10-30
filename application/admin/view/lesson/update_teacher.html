@@ -1,0 +1,129 @@
+{include file="public/header"}
+ <!-- 配置文件 -->
+<script type="text/javascript" src="utf8-php/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="utf8-php/ueditor.all.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('container');
+</script>	
+<div class="content" id="update">
+	<div class="rightBox">
+		<div class="main">
+			<div class="seach_tigs" id="edit">
+				<h3>新增教师</h3>
+	            
+	                <ul class="clearfix">
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>教师名称：
+                            </label>
+                            <input type="text" name="" v-model="name" class="form-control">
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>教师编号：
+                            </label>
+                            <input type="text" name="" v-model="code" class="form-control">
+                        </li>
+                        <li>
+                        	<label class="seach-label">
+                                <span>*</span>教师头像：
+                            </label>
+	                        <div class="file_top">
+	                            <span>点击选择图片</span>
+	                            <input type="file" name="" id="file">
+	                            <input type="hidden" name="" value=" " v-model="pic">
+                            </div>
+                            <div class="fileBox"><p>建议上传图片的尺寸比例为1:1，大小不超过1M</p>
+                            <img src="images/1.jpg" height="100"></div>
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>所属校区：
+                            </label>
+                            <select class="form-control input-median" text="true" name="" id="province_id" selectedindex="2">
+                            </select>
+                            <select class="form-control input-median" text="true" name="" id="city_id">
+                            </select>
+                            <select class="form-control input-median" text="true" name="" id="district_id" onchange="getSchoolInfosByAreaId(this.value)">
+                            </select>
+                            <select class="form-control input-median" name="" id="school_id" v-model="school">
+                                <option value="">请选择校区</option>
+                            </select>
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>校区地址：
+                            </label>
+                            <input type="text" name="" v-model="school_address" class="form-control">
+                        </li>
+                       
+                        <li>
+                        	<label class="seach-label">
+                                <span>*</span>课程详情：
+                            </label>
+
+                            <style>
+                            	#edui1{width:100%;}
+                            </style>
+                            <!-- 加载编辑器的容器 -->
+						    <textarea id="container" style="width:900px;margin-left:137px;margin-top:-23px;"  v-model="intro"></textarea>  
+						    </script>
+                        </li>
+                        
+                        <li class="seach"><input type="submit" name="" value="确认" @click="get();"></li>
+                    </ul>
+                
+            </div>
+
+		</div>
+	</div>
+</div>
+
+
+
+{include file="public/footer"}
+<script src="http://bm.jinshiedu.net/Public/Plugins/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+    showLocation();
+    CheckProvince('');
+    CheckCity('');
+    CheckTown('');
+var url="<?php echo BASE_URL;?>";
+new Vue({
+	el:'#update',
+	data:{
+		name:'',
+		code:'',
+		pic:'',
+		school:'',
+		school_address:'',
+		intro:'',
+		date:''
+	},
+	methods:{
+		get:function(){
+			var intro=ue.getContent();
+			//console.log(a);
+			this.$http.post(url+'?s=admin/Lesson/update_teacher',{
+				'name':this.name,
+				'code':this.code,
+				'pic':this.pic,
+				'school':this.school,
+				'school_address':this.school_address,
+				'intro':intro,
+				'date':this.date
+			}).then(res=>{
+				console.log(res);
+			},res=>{
+				console.log('请求失败处理,请检查Network!');
+			})
+		}
+	}
+})
+
+</script>
+
+</body>
+</html>
