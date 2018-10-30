@@ -5768,7 +5768,7 @@ function Location() {
         }
     }
 }
-//$(function(){showLocation()}); 
+$(function(){showLocation()}); 
 Location.prototype.find = function(n) {
     
     return typeof this.items[n] == "undefined" ? !1 : this.items[n]
