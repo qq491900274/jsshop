@@ -192,6 +192,10 @@ class Lesson extends Controller
       return $this->fetch('Lesson_edit');
     }
     
+    //首页配置
+    public function index_config(){
+    	 return $this->fetch('index_config');
+    }
     //验证密码功能
      function getpwd(){
       $request = request()->post();
