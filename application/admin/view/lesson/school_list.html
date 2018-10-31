@@ -1,0 +1,165 @@
+{include file="public/header"}
+
+<div class="content">
+	<div class="rightBox">
+		<div class="main">
+			<h3>校区列表</h3>
+			<div class="topBtns">
+				<a href="#">新增教师</a>
+				<a href="#">批量上传</a>
+				<a href="#">zip模板</a>
+			</div>
+
+			<div class="seach_tigs">
+	            <form id="form1" method="" action="">
+	                <ul class="clearfix">
+                        <li>
+                            <label class="seach-label">
+                                校区名称：
+                            </label>
+                            <input type="text" name="teacher_name" value="" placeholder="请输入教师姓名" class="form-control">
+                        </li>
+                    </ul>
+	                <div class="seach">
+	                    <input type="button" name="" value="搜索">
+	                </div>
+	            	
+	            </form>
+	        </div>
+
+	        <table class="tableBox">
+                    <thead>
+                        <tr>
+                            <th>选择</th>
+                            <th>教师姓名</th>
+                            <th>教师头像</th>
+                            <th>编号</th>
+                            <th>所属校区</th>
+                            <th>科目</th>
+                            <th>课程数</th>
+                            <th>排序</th>
+                            <th>更新时间</th>
+                            <th>是否显示</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="storeList">
+                        <tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="658" /></td>
+                                <td>宋昂</td>
+                                <td><img src="" height="60" /></td>
+                                <td>658</td>
+                                <td>南京鼓楼校区</td>
+                                <td>数学</td>
+                                <td>4</td>
+                                <td>0</td>
+                                <td>2018-08-31 10:22:19</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="657" /></td>
+                                <td>黄威成</td>
+                                <td><img src="" height="60" /></td>
+                                <td>657</td>
+                                <td>南京鼓楼校区</td>
+                                <td>语文</td>
+                                <td>7</td>
+                                <td>0</td>
+                                <td>2018-08-31 10:20:19</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="656" /></td>
+                                <td>蒋晶</td>
+                                <td><img src="" height="60" /></td>
+                                <td>656</td>
+                                <td>南京鼓楼校区</td>
+                                <td>英语</td>
+                                <td>4</td>
+                                <td>0</td>
+                                <td>2018-08-31 10:18:26</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr><tr>
+                                <td><input type="checkbox" name="ids[]" class="check_one" value="655" /></td>
+                                <td>邵淇</td>
+                                <td><img src="" height="60" /></td>
+                                <td>655</td>
+                                <td>南京鼓楼校区</td>
+                                <td>数学</td>
+                                <td>3</td>
+                                <td>0</td>
+                                <td>2018-08-31 10:17:08</td>
+                                <td>显示</td>
+                                <td>
+                                <a href="#">编辑</a>
+                                </td>
+                            </tr>              
+                        </tbody>
+                </table>
+                <div class="topBtns1">
+	                <a href="javascript:;" onclick="selectAll()">全选</a>
+		            <a href="javascript:;" onclick="uselectAll()">反选</a>
+		            <a href="javascript:;" onclick="hideAll()">批量隐藏</a>
+	            </div>
+                <div class="page">
+                	<ul class="clearfix">
+                		<li><a href="">上一页</a></li>
+                		<li class="curr"><a href="">1</a></li>
+                		<li><a href="">2</a></li>
+                		<li><a href="">3</a></li>
+                		<li><a href="">下一页</a></li>
+                	</ul>
+                </div>
+		</div>
+	</div>
+</div>
+
+{include file="public/footer"}
+
+<script type="text/javascript">
+    showLocation();
+    CheckProvince('');
+    CheckCity('');
+    CheckTown('');
+     /**
+     *批量隐藏
+    **/
+    function hideAll(){
+        if($('.check_one:checked').length < 1){
+            layer.msg('您还未勾选任何项');
+            return false;
+        }
+        layer.confirm('确定要批量隐藏选中的项吗?',function(){
+            var ids = [];
+            $('.check_one:checked').each(function(){
+                ids.push($(this).val());
+            });
+            ids = ids.join(',');
+            var url = '/admin/teacher/';
+            $.post(url,{'ids':ids},function(data){
+                if(data.status == 1){
+                    layer.msg(data.info);
+                }else{
+                    location.reload();
+                }
+            },'JSON');
+        });
+    }
+</script>
+<script>
+var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+(function() {
+    if (!isChrome) {
+        $("#is_chrome").html("为了更好的使用效果请使用Chrome浏览器");
+    }
+})();
+</script>
+</body>
+</html>
