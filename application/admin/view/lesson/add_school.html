@@ -12,38 +12,7 @@
                             </label>
                             <input type="text" name="" v-model="name" class="form-control">
                         </li>
-                        <!-- <li>
-                            <label class="seach-label">
-                                <span>*</span>教师编号：
-                            </label>
-                            <input type="text" name="" v-model="code" class="form-control">
-                        </li>
-                        <li>
-                        	<label class="seach-label">
-                                <span>*</span>教师头像：
-                            </label>
-	                        <div class="file_top">
-	                            <span>点击选择图片</span>
-	                            <input type="file" name="" id="file">
-	                            <input type="hidden" name="" value=" " v-model="pic">
-                            </div>
-                            <div class="fileBox"><p>建议上传图片的尺寸比例为1:1，大小不超过1M</p>
-                            <img src="images/1.jpg" height="100"></div>
-                        </li>
-                        <li>
-                            <label class="seach-label">
-                                <span>*</span>所属校区：
-                            </label>
-                            <select class="form-control input-median" text="true" name="" id="province_id" selectedindex="2">
-                            </select>
-                            <select class="form-control input-median" text="true" name="" id="city_id">
-                            </select>
-                            <select class="form-control input-median" text="true" name="" id="district_id" onchange="getSchoolInfosByAreaId(this.value)">
-                            </select>
-                            <select class="form-control input-median" name="" id="school_id" v-model="school">
-                                <option value="">请选择校区</option>
-                            </select>
-                        </li>-->
+                        
                         <li>
                             <label class="seach-label">
                                 <span>*</span>所属校区：
@@ -57,10 +26,7 @@
                             </select>
                             <select class="form-control input-median" text="true" name="district_id" id="district_id"   @change="choose()" v-model="area">
                             </select>
-                            <select class="form-control input-median" v-model='school_id' name="school_id" id="school_id">
-                                <option value="">请选择校区</option>
-                                <option v-for="schoolName in school_name">{{schoolName.SCHOOL_NAME}}</option>
-                            </select>
+                            
                         </li>
                         <li> 
                             <label class="seach-label">
@@ -95,15 +61,13 @@ new Vue({
 		province:'',
         city:'',
         area:'',
-        school_name:[],
-        school_id:''
+        school_name:[]
 	},
 	methods:{
 		get:function(){
 			this.$http.post(baseurl+'?s=admin/Lesson/add_school',{
 				'name':this.name,
-				'school_address':this.school_address,
-				'school_id':this.school_id
+				'school_address':this.school_address
 			}).then(res=>{
 				console.log(res);
 			},res=>{
