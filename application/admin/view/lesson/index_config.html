@@ -4,11 +4,120 @@
 	<div class="main">
 		<div class="indexLi">
 			<h3>banner幻灯片</h3>
-			<ul>
-				<li><span>轮播图片：</span><input type="text" name=""><input type="file" name="" value="上传"></li>
-			</ul>
+			<div class='indexBox'>
+				<ul>
+					<li>
+						<span>轮播图片：</span>
+						<input type="text" name="" class="inputOne em">
+						<div><p class="on">上传</p><input type="file" name="" value="上传" class="upload" onclick="file()"></div>
+					</li>
+					<li>
+						<span>轮播链接：</span>
+						<input type="text" name="" class="inputOne">
+					</li>
+					<li>
+						<span>轮播排序：</span>
+						<input type="text" name="" class="inputOne">
+						<div><p class="on">删除</p></div>
+					</li>
+				</ul>
+			</div>
+			<a href="javascript:void(0)" class="banner on">添加轮播图</a>
 		</div>
+		<div class="indexLi">
+			<h3><input type="text" name="" value="学习性格测试"></h3>
+			<div class='indexBox'>
+				<ul>
+					<li>
+						<span>轮播图片：</span>
+						<input type="text" name="" class="inputOne em">
+						<div><p class="on">上传</p><input type="file" name="" value="上传" class="upload" onclick="file()"></div>
+					</li>
+					<li>
+						<span>轮播链接：</span>
+						<input type="text" name="" class="inputOne">
+					</li>
+					<li>
+						<span>轮播排序：</span>
+						<input type="text" name="" class="inputOne">
+						<div><p class="on">删除</p></div>
+					</li>
+				</ul>
+			</div>
+			<a href="javascript:void(0)" class="banner on">添加轮播图</a>
+		</div>
+		<div class="indexLi">
+			<h3>热门活动</h3>
+			<div class='indexBox'>
+				<ul>
+					<li>
+						<span>轮播图片：</span>
+						<input type="text" name="" class="inputOne em">
+						<div><p class="on">上传</p><input type="file" name="" value="上传" class="upload" onclick="file()"></div>
+					</li>
+					<li>
+						<span>轮播链接：</span>
+						<input type="text" name="" class="inputOne">
+					</li>
+					<li>
+						<span>轮播排序：</span>
+						<input type="text" name="" class="inputOne">
+						<div><p class="on">删除</p></div>
+					</li>
+				</ul>
+			</div>
+			<a href="javascript:void(0)" class="banner on">添加轮播图</a>
+		</div>
+		<div class="indexLi">
+			<h3>碎片管理</h3>
+			<ul>
+				<li>
+					<span>金石教育热线：</span>
+					<input type="text" name="" class="inputOne">
+				</li>
+				<li>
+					<span>小学拼客专线：</span>
+					<input type="text" name="" class="inputOne">
+				</li>
+			</ul>
+			<!-- <a href="javascript:void(0)" class="on" class="add">添加碎片</a>-->
+		</div> 
 	</div>
 </div>
 
+
 {include file="public/footer"}
+<script type="text/javascript">
+	$(function(){
+		$('.banner').click(function(){
+			var html='';
+				html+=`
+				<ul>
+				<li>
+					<span>轮播图片：</span>
+					<input type="text" name="" class="inputOne em">
+					<div><p class="on">上传</p><input type="file" name="" value="上传" class="upload" onclick="file()"></div>
+				</li>
+				<li>
+					<span>轮播链接：</span>
+					<input type="text" name="" class="inputOne">
+				</li>
+				<li>
+					<span>轮播排序：</span>
+					<input type="text" name="" class="inputOne">
+					<div><p class="on">删除</p></div>
+				</li>
+			</ul>`;
+			$(this).prev('.indexBox').append(html);
+		});
+
+	});
+function file(){
+	$('.upload').change(function(){
+		$(this).parents('.indexBox').find('.em').val($(this).val());
+	});
+}
+</script>
+
+</body>
+</html>
