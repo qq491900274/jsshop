@@ -1,131 +1,145 @@
 {include file="public/header"}
 
-<div class="content index_config">
+<div class="content index_config" id="indexConfig">
 	<div class="main">
 		<div class="indexLi">
 			<h3>banner幻灯片</h3>
 			<div class='indexBox'>
-				<ul>
+				<ul v-for="v in bannerLis">
 					<li>
 						<span>轮播图片：</span>
-						<input type="text" name="" class="inputOne em">
+						<input type="text" name="" class="inputOne em" v-model="v.imgUrl">
 						<div><p class="on">上传</p><input type="file" name="" value="上传" class="upload" onclick="file()"></div>
 					</li>
 					<li>
 						<span>轮播链接：</span>
-						<input type="text" name="" class="inputOne">
+						<input type="text" name="" class="inputOne" v-model="v.imgHref">
 					</li>
 					<li>
 						<span>轮播排序：</span>
-						<input type="text" name="" class="inputOne">
+						<input type="text" name="" class="inputOne" v-model="v.num">
 						<div><p class="on remove" onclick="remove();">删除</p></div>
 					</li>
 				</ul>
 			</div>
-			<a href="javascript:void(0)" class="banner on">添加轮播图</a>
+			<a href="javascript:void(0)" class="add on" @click="addList()">添加轮播图</a>
 		</div>
 		<div class="indexLi">
 			<h3><input type="text" name="" value="学习性格测试"></h3>
 			<div class='indexBox'>
-				<ul>
+				<ul v-for="v in imgLis">
 					<li>
 						<span>轮播图片：</span>
-						<input type="text" name="" class="inputOne em">
+						<input type="text" name="" class="inputOne em" v-model="v.imgUrl">
 						<div><p class="on">上传</p><input type="file" name="" value="上传" class="upload" onclick="file()"></div>
 					</li>
 					<li>
 						<span>轮播链接：</span>
-						<input type="text" name="" class="inputOne">
+						<input type="text" name="" class="inputOne" v-model="v.imgHref">
 					</li>
 					<li>
 						<span>轮播排序：</span>
-						<input type="text" name="" class="inputOne">
+						<input type="text" name="" class="inputOne" v-model="v.num">
 						<div><p class="on remove" onclick="remove();">删除</p></div>
 					</li>
 				</ul>
 			</div>
-			<a href="javascript:void(0)" class="banner on">添加轮播图</a>
+			<a href="javascript:void(0)" class="add on" @click="addImgList()">添加轮播图</a>
 		</div>
 		<div class="indexLi">
 			<h3><input type="text" name="" value="热门活动"></h3>
 			<div class='indexBox'>
-				<ul>
+				<ul v-for="v in hotLis">
 					<li>
 						<span>轮播图片：</span>
-						<input type="text" name="" class="inputOne em">
+						<input type="text" name="" class="inputOne em" v-model="v.imgUrl">
 						<div><p class="on">上传</p><input type="file" name="" value="上传" class="upload" onclick="file()"></div>
 					</li>
 					<li>
 						<span>轮播链接：</span>
-						<input type="text" name="" class="inputOne">
+						<input type="text" name="" class="inputOne" v-model="v.imgHref">
 					</li>
 					<li>
 						<span>轮播排序：</span>
-						<input type="text" name="" class="inputOne">
+						<input type="text" name="" class="inputOne" v-model="v.num">
 						<div><p class="on remove" onclick="remove();">删除</p></div>
 					</li>
 				</ul>
 			</div>
-			<a href="javascript:void(0)" class="banner on">添加轮播图</a>
+			<a href="javascript:void(0)" class="add on" @click="addHotList()">添加轮播图</a>
 		</div>
 		<div class="indexLi">
 			<h3>碎片管理</h3>
 			<ul>
 				<li>
 					<span>金石教育热线：</span>
-					<input type="text" name="" class="inputOne">
+					<input type="text" name="" class="inputOne" v-model="hotPhone">
 				</li>
 				<li>
 					<span>小学拼客专线：</span>
-					<input type="text" name="" class="inputOne">
+					<input type="text" name="" class="inputOne" v-model="majorPhone">
 				</li>
 			</ul>
 			<!-- <a href="javascript:void(0)" class="on" class="add">添加碎片</a>-->
-		</div> 
+		</div>
+		<div class="seach" style="margin-top: 20px;margin-left: 2%;"><input type="submit" name="" value="确认" @click="get()"></div> 
 	</div>
 </div>
 
 
 {include file="public/footer"}
 <script type="text/javascript">
-	$(function(){
-		/*******点击添加图片***********/
-		$('.banner').click(function(){
-			var html='';
-				html+=`
-				<ul>
-				<li>
-					<span>轮播图片：</span>
-					<input type="text" name="" class="inputOne em">
-					<div><p class="on">上传</p><input type="file" name="" value="上传" class="upload" onclick="file()"></div>
-				</li>
-				<li>
-					<span>轮播链接：</span>
-					<input type="text" name="" class="inputOne">
-				</li>
-				<li>
-					<span>轮播排序：</span>
-					<input type="text" name="" class="inputOne">
-					<div><p class="on" onclick="remove();">删除</p></div>
-				</li>
-			</ul>`;
-			$(this).prev('.indexBox').append(html);
-		});
 
-	});
 	/*******点击上传获取文件路径***********/
 	function file(){
 		$('.upload').change(function(){
 			$(this).parents('.indexBox').find('.em').val($(this).val());
+			//console.log($('.em').val());
 		});
 	}
 	/***********点击删除图片轮播*********************/
 	function remove(){
-
+ 
 		//$('.remove').parents('.indexBox').children('ul').remove();
 		//alert(111);
 	
 	}
+	/*************添加轮播图*******************/
+	var baseurl="<?php echo BASE_URL;?>";
+	new Vue({
+    el:'#indexConfig',
+	    data:{
+	    	bannerLis:[
+	    		{imgUrl:'',imgHref:'',num:''}
+	    	],
+	    	imgLis:[
+	    		{imgUrl:'',imgHref:'',num:''}
+	    	],
+	    	hotLis:[
+	    		{imgUrl:'',imgHref:'',num:''}
+	    	],
+	    	hotPhone:'',
+	    	majorPhone:''
+	    },
+	    methods:{
+	        get:function(){
+	        	this.$http.post(baseurl+'?s=admin/Lesson/index_config',{'bannerLis':this.bannerLis,'imgLis':this.imgLis,'hotLis':this.hotLis,'hotPhone':this.hotPhone,'majorPhone':this.majorPhone}).then(res=>{
+	        		//console.log(res);
+	        	},res=>{
+	        		
+	        	})
+	        },
+	        addList:function(){
+	        	this.bannerLis.push({imgUrl:'',imgHref:'',num:''});
+	        },
+	        addImgList:function(){
+	        	this.imgLis.push({imgUrl:'',imgHref:'',num:''});
+	        },
+	        addHotList:function(){
+	        	this.hotLis.push({imgUrl:'',imgHref:'',num:''});
+	        }
+	    }
+	})
 </script>
 
 </body>
