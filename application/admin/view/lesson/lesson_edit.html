@@ -1,6 +1,6 @@
 {include file="public/header"}
 
-<div class="content">
+<div class="content" id="lessonEdit">
 	<div class="rightBox">
 		<div class="main">
 			
@@ -39,7 +39,7 @@
                             </select>
                             <select class="form-control input-median" text="true" name="" id="city_id">
                             </select>
-                            <select class="form-control input-median" text="true" name="" id="district_id" onchange="getSchoolInfosByAreaId(this.value)">
+                            <select class="form-control input-median" text="true" name="" id="district_id">
                             </select>
                             <select class="form-control input-median" name="" id="school_id">
                                 <option value="">请选择校区</option>
@@ -53,6 +53,21 @@
                                 <option value="">请选择课堂</option>
                                 <option value="1" >金石V课</option><option value="2" >金石拼课</option><option value="3" >金石1对1</option>
                             </select>
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>班型：
+                            </label>
+                            <select class="form-control" name="type">
+                                <option value="">请选择班型</option>
+                                <option value="1" >班型1</option><option value="2" >班型2</option><option value="3" >班型3</option>
+                            </select>
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>学期：
+                            </label>
+                            <input type="text" name="" value="" class="form-control">
                         </li>
                         <li>
                         	<label class="seach-label">
@@ -94,7 +109,7 @@
                                 <option value="">请选择老师</option>
                             </select>
                         </li>
-                        <li>
+                        <!-- <li>
                         	<label class="seach-label" style="float:left">
                                 <span>*</span>商品规格：
                             </label>
@@ -139,7 +154,7 @@
                             	</tbody>
                             </table>
                             <div class="topBtns"><a href="javascript:;">添加规格</a></div>
-                        </li>
+                        </li> -->
                         <li>
                         	<label class="seach-label">
                                 <span>*</span>开课时间：
@@ -188,7 +203,7 @@
                             </label>
                             <input type="number" name="" value="" class="form-control">
                         </li>
-                        <li>
+                        <!-- <li>
                         	<label class="seach-label">
                                 <span>*</span>是否推荐：
                             </label>
@@ -199,7 +214,7 @@
                                 <span>*</span>显示状态：
                             </label>
                             <input type="radio" name="s1" value="" class="radio"> 显示 &nbsp;&nbsp;&nbsp;<input type="radio" name="s1" value="" class="radio"> 隐藏
-                        </li>
+                        </li> -->
                         <li class="seach"><input type="submit" name="" value="确认"></li>
                     </ul>
                 </form>
@@ -216,6 +231,18 @@ showLocation();
 CheckProvince('');
 CheckCity('');
 CheckTown('');
+
+new Vue({
+    el:'#lessonEdit',
+    data:{
+        
+    },
+    methods:{
+        
+    }
+})
+
+
 </script>
 </body>
 </html>
