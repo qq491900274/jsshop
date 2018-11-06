@@ -19,7 +19,7 @@ class Lesson extends Controller
     //教师列表页
     public function Lesson_teacher()
     {
-      return $this->fetch('lesson_teacher');
+      return $this->fetch('lesson_teacher');uif
     }
 
     //添加或修改教师
@@ -31,19 +31,20 @@ class Lesson extends Controller
       $minpage = 0;
       $maxpage = 0;
       $request = request()->post();
-      $this->pmodel =  new \app\admin\model\PublicModel();
 
+      $this->pmodel =  new \app\admin\model\PublicModel();
+ 
       $where='1=1';
-      if(!empty($request['name'])){
+      if(!empty($request['where']['name'])){
         $where .= " and NAME LIKE '%{$request['name']}%'";
       }
-      if(!empty($request['code'])) {
+      if(!empty($request['where']['code'])) {
         $where .= " and CODE LIKE '%{$request['code']}%'";
       }
-      if(!empty($request['school_id'])){
+      if(!empty($request['where']['school_id'])){
         $where .= " and SCHOOL='{$request['school_id']}'";
       }
-      if(!empty($request['subject_id'])){
+      if(!empty($request['where']['subject_id'])){
         $where .= " and SUBJECT='{$request['subject_id']}'";
       }
 
@@ -78,16 +79,16 @@ class Lesson extends Controller
     //添加修改教师
     public function update_teachers(){
       $request = request()->post();
-      
+      $time=date('Y-m-d H:i:s');
       $data=['NAME'=>$request['name'],
             'CODE'=>$request['code'],
             'SCHOOL'=>$request['school'],
             'SCHOOL_ADDRESS'=>$request['school_address'],
             'INTRO'=>$request['intro'],
             'PIC'=>$request['pic'],
-            'DATE'=>$request['date']
+            'DATE'=>$time
             ];
-      if (empty($request['id'])) {
+      if (!empty($request['id'])) {
         $isok=DB::table('SHOP_TEACHER')
             ->where('ID',$request['id'])
             ->update($data);
@@ -129,13 +130,13 @@ class Lesson extends Controller
       $this->pmodel =  new \app\admin\model\PublicModel();
 
       //获取post当前页数。与查询条件。
-      $maxpage = empty($request['page'])?'20':20*$request['page']-1;
-      $minpage = $maxpage-20;
+      $maxpage = empty($request['page'])?'19':19*$request['page']-1;
+      $minpage = $maxpage-19;
       
       //获取查询条件
       $where = "ID!='' LIMIT {$minpage},{$maxpage}";
       $key = "ID,PROVINCE,CITY,AREA,ADDRESS,SCHOOL_NAME,PHONE,ADMIN_NAME";
-      $result = $this->pmodel->select('SHOP_SCHOOL',$key,$where);
+      $result['value'] = $this->pmodel->select('SHOP_SCHOOL',$key,$where);
 
       //返回校区数据
       return $result;
@@ -170,7 +171,7 @@ class Lesson extends Controller
     }
     //删除校区
     public function dele_school(){
-      $request = request()->post();
+      
       $isok=DB::table('SHOP_SCHOOL')
             ->where('ID',$request['id'])
             ->delete();
@@ -189,12 +190,15 @@ class Lesson extends Controller
     //修改课程页
     public function Lesson_edit()
     {
+      $request = request()->post();
+      if ($request) {
+          
+      }
       return $this->fetch('Lesson_edit');
     }
-    
-    //首页配置
-    public function index_config(){
-    	 return $this->fetch('index_config');
+    //获取修改课程默认数据
+    public function Lesson_editval(){
+        return;
     }
     //验证密码功能
      function getpwd(){
