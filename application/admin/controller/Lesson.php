@@ -224,7 +224,7 @@ class Lesson extends Controller
       $where = "ID!='' LIMIT {$minpage},{$maxpage}";
       $key = "ID,NAME";
       $result['value'] = $this->pmodel->select('SHOP_CURRICULUM',$key,$where);
-      $result['allCount']=ceil($this->pmodel->select('SHOP_CURRICULUM','count(ID) num',$where)[0]['num'] / 20)
+      $result['allCount']=ceil($this->pmodel->select('SHOP_CURRICULUM','count(ID) num',$where)[0]['num'] / 20);
       //返回校区数据
       return $result;
     }
