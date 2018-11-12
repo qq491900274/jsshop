@@ -209,6 +209,7 @@ class Lesson extends Controller
 
       return $this->fetch('Lesson_list');
     }
+    //返回课程列表
     public  function get_curriculum(){
       $minpage = 0; 
       $maxpage = 0;
@@ -237,10 +238,57 @@ class Lesson extends Controller
       }
       return $this->fetch('Lesson_edit');
     }
-    //获取修改课程默认数据
-    public function Lesson_editval(){
-        return;
+    //年级
+    public function school_class(){
+      return $this->fetch('school_class');
     }
+    public function addSchool_class(){
+
+    }
+    public function school_classList(){
+      $minpage = 0; 
+      $maxpage = 0;
+      $request = request()->post();
+      $this->pmodel =  new \app\admin\model\PublicModel();
+
+      //获取post当前页数。与查询条件。
+      $maxpage = empty($request['page'])?'19':19*$request['page']-1;
+      $minpage = $maxpage-19;
+      
+      //获取查询条件
+      $where = "TYPE='1' LIMIT {$minpage},{$maxpage}";
+      $key = "ID,NAME";
+      $result['value'] = $this->pmodel->select('SHOP_SUBJECT',$key,$where);
+
+      //返回校区数据
+      return $result;
+    }
+   //科目
+    public function subject(){
+      return $this->fetch('school_class');
+    }
+    public function add_subject(){
+
+    }
+    public function subject_list(){
+      $minpage = 0; 
+      $maxpage = 0;
+      $request = request()->post();
+      $this->pmodel =  new \app\admin\model\PublicModel();
+
+      //获取post当前页数。与查询条件。
+      $maxpage = empty($request['page'])?'19':19*$request['page']-1;
+      $minpage = $maxpage-19;
+      
+      //获取查询条件
+      $where = "TYPE='2' LIMIT {$minpage},{$maxpage}";
+      $key = "ID,NAME";
+      $result['value'] = $this->pmodel->select('SHOP_SUBJECT',$key,$where);
+
+      //返回校区数据
+      return $result;
+    }
+
     //验证密码功能
      function getpwd(){
       $request = request()->post();
