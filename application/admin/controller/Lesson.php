@@ -209,7 +209,7 @@ class Lesson extends Controller
 
       return $this->fetch('Lesson_list');
     }
-    public get_curriculum(){
+    public  function get_curriculum(){
       $minpage = 0; 
       $maxpage = 0;
       $request = request()->post();
