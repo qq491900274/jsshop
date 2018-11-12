@@ -51,8 +51,8 @@ class Lesson extends Controller
       //获取post当前页数。与查询条件。
       // $maxpage = empty($request['page'])?'19':$request['page']*20-1;
       // $minpage = $maxpage-19;
-      $maxpage =2;
-      $minpage =  empty($request['page'])?'0':($request['page']-1)*2;//$maxpage-19;
+      $maxpage =20;
+      $minpage =  empty($request['page'])?'19':($request['page']-19)*2;//$maxpage-19;
       $count=$this->pmodel->select('SHOP_TEACHER','count(ID) num',$where)[0]['num'];
       //获取查询条件
       $where .= " LIMIT {$minpage},{$maxpage}";
@@ -60,8 +60,8 @@ class Lesson extends Controller
       $key = "ID,NAME,CODE,SUBJECT,SCHOOL,SCHOOL_ADDRESS,INTRO,PIC,DATE";
       $result['value'] = $this->pmodel->select('SHOP_TEACHER',$key,$where);
       $result['page'] = empty($request['page']) ? '1' : $request['page'];
-      $count=$this->pmodel->select('SHOP_TEACHER','count(ID) num','')[0]['num'];
-      $result['allCount'] = ceil($count/2);
+      
+      $result['allCount'] = ceil($count/20);
       //返回校区数据
       return $result;
     }
@@ -159,7 +159,7 @@ class Lesson extends Controller
       $where1=$where." LIMIT {$minpage},{$maxpage}";
       $key = "ID,PROVINCE,CITY,AREA,ADDRESS,SCHOOL_NAME,PHONE,ADMIN_NAME";
       $result['value'] = $this->pmodel->select('SHOP_SCHOOL',$key,$where);
-      $result['allCount'] = $this->pmodel->select('SHOP_SCHOOL','count(ID) num ',$where)[0]['num'] / 20;
+      $result['allCount'] = ceil($this->pmodel->select('SHOP_SCHOOL','count(ID) num ',$where)[0]['num'] / 20);
       //返回校区数据
       return $result;
     }
@@ -224,7 +224,7 @@ class Lesson extends Controller
       $where = "ID!='' LIMIT {$minpage},{$maxpage}";
       $key = "ID,NAME";
       $result['value'] = $this->pmodel->select('SHOP_CURRICULUM',$key,$where);
-
+      $result['allCount']=ceil($this->pmodel->select('SHOP_CURRICULUM','count(ID) num',$where)[0]['num'] / 20)
       //返回校区数据
       return $result;
     }
@@ -259,7 +259,7 @@ class Lesson extends Controller
       $where = "TYPE='1' LIMIT {$minpage},{$maxpage}";
       $key = "ID,NAME";
       $result['value'] = $this->pmodel->select('SHOP_SUBJECT',$key,$where);
-      $result['allCount'] = $this->pmodel->select('SHOP_SUBJECT','count(ID) num ',$where)[0]['num'] / 20;
+      $result['allCount'] = ceil($this->pmodel->select('SHOP_SUBJECT','count(ID) num ',$where)[0]['num'] / 20);
       //返回校区数据
       return $result;
     }
@@ -284,7 +284,7 @@ class Lesson extends Controller
       $where = "TYPE='2' LIMIT {$minpage},{$maxpage}";
       $key = "ID,NAME";
       $result['value'] = $this->pmodel->select('SHOP_SUBJECT',$key,$where);
-      $result['allCount'] = $this->pmodel->select('SHOP_SUBJECT','count(ID) num ',$where)[0]['num'] / 20;
+      $result['allCount'] = ceil($this->pmodel->select('SHOP_SUBJECT','count(ID) num ',$where)[0]['num'] / 20);
       //返回校区数据
       return $result;
     }
