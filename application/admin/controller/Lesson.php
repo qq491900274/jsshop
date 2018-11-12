@@ -259,7 +259,7 @@ class Lesson extends Controller
       $where = "TYPE='1' LIMIT {$minpage},{$maxpage}";
       $key = "ID,NAME";
       $result['value'] = $this->pmodel->select('SHOP_SUBJECT',$key,$where);
-
+      $result['allCount'] = $this->pmodel->select('SHOP_SUBJECT','count(ID) num ',$where)[0]['num'];
       //返回校区数据
       return $result;
     }
@@ -284,7 +284,7 @@ class Lesson extends Controller
       $where = "TYPE='2' LIMIT {$minpage},{$maxpage}";
       $key = "ID,NAME";
       $result['value'] = $this->pmodel->select('SHOP_SUBJECT',$key,$where);
-
+      $result['allCount'] = $this->pmodel->select('SHOP_SUBJECT','count(ID) num ',$where)[0]['num'];
       //返回校区数据
       return $result;
     }
