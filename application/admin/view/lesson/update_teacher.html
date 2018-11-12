@@ -73,7 +73,7 @@
                             </style>
                             <!-- 加载编辑器的容器 -->
 						    <textarea id="container" style="width:900px;margin-left:137px;margin-top:-23px;"  v-model="intro"></textarea>  
-						    </script>
+						    
                         </li>
                         
                         <li class="seach"><input type="submit" name="" value="确认" @click="get();"></li>
@@ -115,7 +115,7 @@ new Vue({
 		get:function(){
 			var intro=ue.getContent();
 			//console.log(a);
-			this.$http.post(url+'?s=admin/Lesson/update_teacher',{
+			this.$http.post(baseurl+'?s=admin/Lesson/update_teacher',{
 				'name':this.name,
 				'code':this.code,
 				'pic':this.pic,

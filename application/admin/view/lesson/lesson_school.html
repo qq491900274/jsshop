@@ -5,23 +5,23 @@
 		<div class="main">
 			<h3>校区列表</h3>
 			<div class="topBtns sc">
-				<a href="#">新增校区</a>
+				<a href="http://www.k2.cn/?s=admin/lesson/add_school.html">新增校区</a>
 			</div>
 
 			<div class="seach_tigs">
-	            <form id="form1" method="" action="">
+	            
 	                <ul class="clearfix">
 	                    <li>
 	                        <label class="seach-label">
 	                            校区名称：
 	                        </label>
-	                        <input type="text" name="" value="" placeholder="请输入校区名称" class="form-control">
+	                        <input type="text" name="" placeholder="请输入校区名称" class="form-control" v-model="name">
 	                    </li>
 	                    <li>
 	                        <label class="seach-label">
 	                            校区电话：
 	                        </label>
-	                        <input type="number" maxlength="15" name="" value="" placeholder="请输入校区电话" class="form-control">
+	                        <input type="number" maxlength="15" name="" value="" placeholder="请输入校区电话" class="form-control" v-model="phone">
 	                    </li>
 	                    <li>
 	                        <label class="seach-label">
@@ -37,24 +37,20 @@
 	                        <label class="seach-label">
 	                            校区地址：
 	                        </label>
-	                        <select class="form-control input-median" text="true" name="province_id" id="province_id" selectedindex="0">
-		                       <option value="">省份</option><option value="1">北京市</option><option value="22">天津市</option><option value="44">上海市</option><option value="66">重庆市</option><option value="108">河北省</option><option value="406">山西省</option><option value="622">内蒙古</option><option value="804">辽宁省</option><option value="945">吉林省</option><option value="1036">黑龙江省</option><option value="1226">江苏省</option><option value="1371">浙江省</option><option value="1500">安徽省</option><option value="1679">福建省</option><option value="1812">江西省</option><option value="1992">山东省</option><option value="2197">河南省</option><option value="2456">湖北省</option><option value="2613">湖南省</option><option value="2822">广东省</option><option value="3015">广西</option><option value="3201">海南省</option><option value="3235">四川省</option><option value="3561">贵州省</option><option value="3728">云南省</option><option value="3983">西藏</option><option value="4136">陕西省</option><option value="4334">甘肃省</option><option value="4499">青海省</option><option value="4588">宁夏</option><option value="4624">新疆</option><option value="4802">香港</option><option value="4822">澳门</option><option value="4825">台湾省</option>
-	                        </select>
-	                        <select class="form-control input-median" text="true" name="" id="city_id">
+	                        <select class="form-control input-median" text="true" name="province_id" id="province_id" selectedindex="0" v-model="province"></select>
+	                        <select class="form-control input-median" text="true" name="" id="city_id" v-model="city">
 	                        	<option value="">地级市</option>
 	                        </select>
-	                        <select class="form-control input-median" text="true" name="" id="district_id">
+	                        <select class="form-control input-median" text="true" name="" id="district_id" v-model="area">
 	                        	<option value="">市、县、区</option>
 	                        </select>
 	                    </li>
 	                </ul>
 	                <div class="topBtns seach">
-	                    <a href="javascript:void(0)" id="search">
-	                        搜索
-	                    </a>
+	                    <input type="button" name="" value="搜索" @click="get()">
 	                </div>
-	            	<input type="hidden" name="__hash__" value="431b31b73a89e828a65367634749af0d_8ff637e812d3b861a08c430fd0c2f31a">
-	            </form>
+	            	
+	            
 	        </div>
 
 	        <table class="tableBox">
@@ -68,10 +64,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="slist in schoolList">
+                        <tr v-for="slist in products">
                                 <td>{{slist.SCHOOL_NAME}}</td>
                                 <td>{{slist.PHONE}}</td>
-                                <td>山东省青岛市平度市红旗路中海电脑东侧20米</td>
+                                <td>{{slist.ADDRESS}}</td>
                                 <td>显示</td>
                                 <td>
                                 <a href="">编辑</a>
@@ -79,20 +75,17 @@
                             </tr>                   
                         </tbody>
                 </table>
-                <div class="page">
-                	<ul class="clearfix">
-                		<li><a href="">上一页</a></li>
-                		<li class="curr"><a href="">1</a></li>
-                		<li><a href="">2</a></li>
-                		<li><a href="">3</a></li>
-                		<li><a href="">下一页</a></li>
-                	</ul>
-                </div>
+                
 		</div>
 	</div>
 </div>
-
+<div class="page">
+	<ul class="clearfix pageonload" v-html="html">
+       {{html}}
+    </ul>
+</div>
 {include file="public/footer"}
+<script type="text/javascript" src="__PUBLIC__/admin/js/page.js"></script>
 <script type="text/javascript">
     showLocation();
     CheckProvince('');
@@ -100,25 +93,44 @@
     CheckTown('');
 </script>
 <script type="text/javascript">
-    var baseurl="<?php echo BASE_URL;?>";
-    new Vue({
+    
+    var vue=new Vue({
         el:'#school',
         data:{
-            schoolList:[]
+            products:[],
+            name:'',
+            phone:'',
+            province:'',
+            city:'',
+            area:'',
+            address:''
         },
         methods:{
             get:function(){
-                
+                this.$http.post(baseurl+'?s=admin/Lesson/get_schoollist',{where:{
+                	'PROVINCE':this.province,
+                	'CITY':this.city,
+                	'AREA':this.area,
+                	'PHONE':this.phone,
+                	'SCHOOL_NAME':this.name
+                }}).then(function(res){
+                	page.where={'SCHOOL_NAME':this.name,'PROVINCE':this.province,'CITY':this.city,'AREA':this.area,'PHONE':this.phone,'ADDRESS':this.address};
+                	var val=eval('('+res.bodyText+')');
+                    this.products=val['value'];
+                    //console.log(this.products);
+                   //给分页组件传入总页数
+                   page.htmlPage(val['allCount']);
+                   //console.log(page.allCount);
+                },function(res){
+                	console.log('请求失败处理，请检查Network!');
+                })
             }
         },
         created:function(){
-            this.$http.post(baseurl+'?s=admin/Lesson/get_schoollist').then(function(res){
-                console.log(res);
-                this.schoolList=eval('('+res.bodyText+')');
-            },function(res){
-                console.log('请求失败处理，请检查Network!');
-            })
+        	 page.url='admin/Lesson/get_schoollist';
+             page.onload();
         }
+        
     })
 </script>
 </body>

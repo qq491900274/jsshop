@@ -123,7 +123,13 @@
 	    },
 	    methods:{
 	        get:function(){
-	        	this.$http.post(baseurl+'?s=admin/Lesson/index_config',{'bannerLis':this.bannerLis,'imgLis':this.imgLis,'hotLis':this.hotLis,'hotPhone':this.hotPhone,'majorPhone':this.majorPhone}).then(res=>{
+	        	this.$http.post(baseurl+'?s=admin/Lesson/index_config',{
+	        		'bannerLis':this.bannerLis,
+	        		'imgLis':this.imgLis,
+	        		'hotLis':this.hotLis,
+	        		'hotPhone':this.hotPhone,
+	        		'majorPhone':this.majorPhone
+	        	}).then(res=>{
 	        		//console.log(res);
 	        	},res=>{
 	        		
