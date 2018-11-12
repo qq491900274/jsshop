@@ -11,7 +11,7 @@
             </div>
 
             <div class="seach_tigs">
-                <form id="form1" method="" action="">
+                
                     <ul class="clearfix">
                         <li>
                             <label class="seach-label">
@@ -67,7 +67,7 @@
                         <input type="button" name="" value="搜索" @click="get();">
                     </div>
                     
-                </form>
+                
             </div>
 
             <table class="tableBox">
@@ -110,23 +110,20 @@
                     <a href="javascript:;" onclick="uselectAll()">反选</a>
                     <a href="javascript:;" onclick="hideAll()">批量隐藏</a>
                 </div>
-                <div class="page">
-                    <ul class="clearfix pageonload" v-html="html">
-                       {{html}}
-                    </ul>
-
-                </div>
         </div>
     </div>
 </div>
-
+<div class="page">
+    <ul class="clearfix pageonload" v-html="html">
+       {{html}}
+    </ul>
+</div>
 {include file="public/footer"}
-
+<script type="text/javascript" src="__PUBLIC__/admin/js/page.js"></script>
 <script type="text/javascript">
     /**
      *****搜索*********
     **/
-    var baseurl="<?php echo BASE_URL;?>";
     var vue=new Vue({
         el:'#teacher',
         data:{
@@ -134,7 +131,6 @@
             code:'',
             subject_id:'',
             school_id:'',
-            page:'',
             subjectList:[
                 {value:'语文',label:'语文'},
                 {value:'数学',label:'数学'},
@@ -148,24 +144,23 @@
             province:'',
             city:'',
             area:'',
-            html:'',
             school_name:[],
-            count:'',
-            page:'1',
-            products:[
-                
-            ]
+            products:[],
+        
         },
         methods:{
             get:function(){
-                this.$http.post(baseurl+'?s=admin/Lesson/get_teacherval',{
-                    'name':this.name,
-                    'code':this.code,
-                    'subject_id':this.subject_id,
-                    'school_id':this.school_id
-                }).then(function(res){
-                    console.log(res);
-                    this.products=eval('('+res.bodyText+')')['value'];
+                this.$http.post(baseurl+'?s=admin/Lesson/get_teacherval',{where:{'name':this.name,'code':this.code,'subject_id':this.subject_id,'school_id':this.school_id}}).then(function(res){
+                    //给分页组件添加条件
+                    page.where={'name':this.name,'code':this.code,'subject_id':this.subject_id,'school_id':this.school_id};
+                   
+                    var val=eval('('+res.bodyText+')');
+                    this.products=val['value'];
+                    //console.log(this.products);
+                   //给分页组件传入总页数
+                   page.htmlPage(val['allCount']);
+                   //console.log(page.allCount);
+
                 },function(res){
                     console.log('请求失败处理,请检查Network!');
                 })
@@ -181,78 +176,15 @@
                 },res=>{
                     console.log('请求失败处理,请检查Network!');
                 })
-            
-          },
-          page1:function(val){
-
-                this.$http.post(baseurl+'?s=admin/Lesson/get_teacherval',{page:val}).then(res=>{
-                //console.log(res);
-                var val=eval('('+res.bodyText+')');
-                this.page=val['page'];//当前页面
-                //赋值教师列表
-                this.products=val['value'];
-               
-            },res=>{
-                console.log('请求失败处理,请检查Network!');
-            })
           }
-            
         },
         created:function(){
-            this.$http.post(baseurl+'?s=admin/Lesson/get_teacherval').then(res=>{
-                //console.log(res);
-                var val=eval('('+res.bodyText+')');
-                //赋值教师列表
-                this.products=val['value'];
-                //获取总共多少页面
-                this.count=val['count'];
-                //处理总共多少页
-                var html='<li><a href="javascript:void(0)" onclick="page1(\'prev\');">上一页</a></li>';
-                for(i=0; i<this.count; i++ ){
-                    if(i < 8){
-                        if (i=='0') {
-                            html+='<li class="curr"><a href="javascript:void(0)" onclick="page1(\''+(i+1)+'\');">'+(i+1)+'</a></li>';
-                        }else{
-                            html+='<li><a href="javascript:void(0)" onclick="page1(\''+(i+1)+'\');">'+(i+1)+'</a></li>';
-                        }
-                        
-                    }
-                }
-                if(this.count > 7){
-                    html+="<li><a href='javascript:void(0)' >...</a></li>";
-                }
-                html+="<li><a href='javascript:void(0)' onclick='page1(\"next\")';>下一页</a></li>";
-                this.html=html;
-
-            },res=>{
-                console.log('请求失败处理,请检查Network!');
-            })
+            page.url='admin/Lesson/get_teacherval';
+            page.onload();
             
-        },
-
-          
-
+        }
     })
-    function page1(data){
-        //从vue获取当前页
-        var page=vue.page;
-        //判断是否是超过总页数
-        if (data=='next') {
-            data=parseInt(vue.page)+1;
-        }else if(data=='prev'){
-            data=vue.page-1;
-        }
-        //判断是否是超过总页数，是否小于0页
-        if (data > vue.count || data <= '0') {
-            return;
-        }
 
-        //调用vue
-        vue.page1(data);
-        //添加高亮样式
-        $('.curr').attr('class',' ');
-        $('.pageonload > li').eq(data).attr('class','curr');
-    }  
 
 
 /****************点击事件***************************/
