@@ -297,7 +297,5 @@ class Lesson extends Controller
       }else{
         return array('msg'=>'登陆失败！','state'=>'2');
       }
-
-    }
     }
 }
