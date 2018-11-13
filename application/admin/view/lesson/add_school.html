@@ -12,7 +12,12 @@
                             </label>
                             <input type="text" name="" v-model="name" class="form-control">
                         </li>
-                        
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>校区电话：
+                            </label>
+                            <input type="text" name="" v-model="phone" class="form-control">
+                        </li>
                         <li>
                             <label class="seach-label">
                                 <span>*</span>所属校区：
@@ -53,6 +58,7 @@ new Vue({
 	el:'#update',
 	data:{
 		name:'',
+        phone:'',
 		school_address:'',
 		province:'',
         city:'',
@@ -62,6 +68,7 @@ new Vue({
 		get:function(){
 			this.$http.post(baseurl+'?s=admin/Lesson/add_school',{
 				'name':this.name,
+                'phone':this.phone,
 				'school_address':this.school_address,
                 'province':this.province,
                 'city':this.city,
