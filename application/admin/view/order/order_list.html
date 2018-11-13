@@ -1,0 +1,170 @@
+{include file="public/header"}
+
+<div class="content" id="teacher">
+    <div class="rightBox">
+        <div class="main">
+            <h3>订单列表</h3>
+
+            <div class="seach_tigs">
+                
+            </div>
+
+            <table class="tableBox">
+                    <thead>
+                        <tr>
+                            <th>选择</th>
+                            <th>教师姓名</th>
+                            <th>教师头像</th>
+                            <th>编号</th>
+                            <th>所属校区</th>
+                            <th>科目</th>
+                            <th>课程数</th>
+                            <th>排序</th>
+                            <th>更新时间</th>
+                            <th>是否显示</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="storeList">
+                        <tr v-for="product in products">
+                            <td><input type="checkbox" name="ids[]" class="check_one" :value="product.ID"  /></td>
+                            <td>{{product.NAME}}</td>
+                            <td><img :src="product.imgUrl" height="60" /></td>
+                            <td>{{product.CODE}}</td>
+                            <td>{{product.SCHOOL}}</td>
+                            <td>{{product.SUBJECT}}</td>
+                            <td>{{product.num}}</td>
+                            <td>{{product.order}}</td>
+                            <td>{{product.DATE}}</td>
+                            <td>显示</td>
+                            <td>
+                            <a href="<?php echo BASE_URL;?>?s=admin/lesson/update_teacher.html">编辑</a>
+                            </td>
+                        </tr>
+                                   
+                        </tbody>
+                </table>
+                <div class="topBtns1">
+                    <a href="javascript:;" onclick="selectAll()">全选</a>
+                    <a href="javascript:;" onclick="uselectAll()">反选</a>
+                    <a href="javascript:;" onclick="hideAll()">批量隐藏</a>
+                </div>
+        </div>
+    </div>
+</div>
+<div class="page">
+    <ul class="clearfix pageonload" v-html="html">
+       {{html}}
+    </ul>
+</div>
+{include file="public/footer"}
+<script type="text/javascript" src="__PUBLIC__/admin/js/page.js"></script>
+<script type="text/javascript">
+    /**
+     *****搜索*********
+    **/
+    var vue=new Vue({
+        el:'#teacher',
+        data:{
+            name:'',
+            code:'',
+            subject_id:'',
+            school_id:'',
+            subjectList:[
+                {value:'语文',label:'语文'},
+                {value:'数学',label:'数学'},
+                {value:'英语',label:'英语'},
+                {value:'历史',label:'历史'},
+                {value:'地理',label:'地理'},
+                {value:'生物',label:'生物'},
+                {value:'物理',label:'物理'},
+                {value:'化学',label:'化学'}
+            ],
+            province:'',
+            city:'',
+            area:'',
+            school_name:[],
+            products:[],
+        
+        },
+        methods:{
+            get:function(){
+                this.$http.post(baseurl+'?s=admin/Lesson/get_teacherval',{where:{'name':this.name,'code':this.code,'subject_id':this.subject_id,'school_id':this.school_id}}).then(function(res){
+                    //给分页组件添加条件
+                    page.where={'name':this.name,'code':this.code,'subject_id':this.subject_id,'school_id':this.school_id};
+                   
+                    var val=eval('('+res.bodyText+')');
+                    this.products=val['value'];
+                    //console.log(this.products);
+                   //给分页组件传入总页数
+                   page.htmlPage(val['allCount']);
+                   //console.log(page.allCount);
+
+                },function(res){
+                    console.log('请求失败处理,请检查Network!');
+                })
+            },
+          choose:function(){
+            this.$http.post(baseurl+'?s=admin/Lesson/get_school',{
+                'province':this.province,
+                'city':this.city,
+                'area':this.area}).then(res=>{
+                    console.log(res);
+                    this.school_name=eval('('+res.bodyText+')');
+
+                },res=>{
+                    console.log('请求失败处理,请检查Network!');
+                })
+          }
+        },
+        created:function(){
+            page.url='admin/Lesson/get_teacherval';
+            page.onload();
+            
+        }
+    })
+
+
+
+/****************点击事件***************************/
+ showLocation();
+    CheckProvince('');
+    CheckCity('');
+    CheckTown('');
+     /**
+     *****批量隐藏*********
+    **/
+   function hideAll(){
+            if($('.check_one:checked').length < 1){
+                layer.msg('您还未勾选任何项');
+                return false;
+            }
+            layer.alert('确定要批量隐藏选中的项吗?',function(){
+                var ids = [];
+                $('.check_one:checked').each(function(){
+                    ids.push($(this).val());
+                });
+                ids = ids.join(',');
+
+                //var url ="<?php echo BASE_URL;?>";
+                $.post(baseurl+'?s=admin/Lesson/dele_teacher',{'id':ids},function(data){
+                    if(data == 1){
+                        layer.msg('删除成功！',{time:1500});
+
+                    }else{
+                        location.reload();
+                    }
+                },'JSON');
+            });
+        }
+</script>
+<script type="text/javascript">
+    var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+(function() {
+    if (!isChrome) {
+        $("#is_chrome").html("为了更好的使用效果请使用Chrome浏览器");
+    }
+})();
+</script>
+</body>
+</html>
