@@ -221,7 +221,7 @@ class Lesson extends Controller
       
       //获取查询条件
       $where = "ID!='' LIMIT {$minpage},{$maxpage}";
-      $key = "ID,NAME";
+      $key = "`ID`, `NAME`, `CODE`, `PRICE`, `CLASSGUID`, `SUBJECTGUID`, `CLASSTYPEGUID`, `TEACHERGUID`, `DATETIME`, `ORDERINDEX`, `CONTENT`, `PROVINCE`, `CITY`, `AREA`, `ADDRESS`";
       $result['value'] = $this->pmodel->select('SHOP_CURRICULUM',$key,$where);
       $result['allCount']=ceil($this->pmodel->select('SHOP_CURRICULUM','count(ID) num',$where)[0]['num'] / 20);
       //返回校区数据
@@ -242,7 +242,7 @@ class Lesson extends Controller
       return $this->fetch('school_class');
     }
     public function addSchool_class(){
-
+      return $this->fetch('addschool_class');
     }
     public function school_classList(){
       $minpage = 0; 
@@ -267,7 +267,7 @@ class Lesson extends Controller
       return $this->fetch('school_class');
     }
     public function add_subject(){
-
+      return $this->fetch('add_subject');
     }
     public function subject_list(){
       $minpage = 0; 
@@ -298,5 +298,6 @@ class Lesson extends Controller
         return array('msg'=>'登陆失败！','state'=>'2');
       }
 
+    }
     }
 }
