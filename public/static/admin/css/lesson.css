@@ -60,29 +60,32 @@
 
 .rightBox .seach_tigs{
 	background: #FFF;
-	padding:20px 20px;
+	padding:20px 40px;
 	border:1px solid #e7ecf1;
 }
 .rightBox .seach_tigs ul li{
 	float: left;
 	width:33%;
-	text-align: center;
 	margin-bottom: 20px;
 }
 .rightBox .seach_tigs ul li:last-child{
 	text-align: left;
-	margin-left:40px;
 	width:100%;
 }
 .rightBox .seach_tigs ul li input{
 	
 	color:#333;
 }
+.rightBox .seach_tigs ul li.right{
+	float: right;
+	width: 30%;
+}
 .input-median{
 	width:115px;
+	margin-bottom: 10px;
 }
 .seach{
-	margin-left: 126px;
+	margin-left: 86px;
     margin-top: 5px;
 }
 .sc a,.seach a{
