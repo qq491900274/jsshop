@@ -34,7 +34,7 @@
                             </label>
                             <input type="text" name="" value="" placeholder="请输入课程编号" class="form-control" v-model="code">
                         </li>
-                        <li>
+                        <li class="right">
                             <label class="seach-label">
                                 显示状态：
                             </label>
@@ -59,7 +59,7 @@
                                  <option v-for="schoolName in school_name">{{schoolName.SCHOOL_NAME}}</option>
                             </select>
                         </li>
-                        <li style="float:right;margin-right:12px;">
+                        <li class="right">
                             <label class="seach-label">
                                 所属课堂：
                             </label>
@@ -68,7 +68,7 @@
                                 <option :value="t.value" v-for="t in lessonType">{{t.label}}</option>
                             </select>
                         </li>
-                        <li style="width:52%;margin-left:21px;">
+                        <li style="width:52%;">
                             <label class="seach-label">
                                 年级科目：
                             </label>
@@ -83,11 +83,11 @@
                         </li>
                         
                         
-                        <li style="float:right;width:30%;">
+                        <li class="right">
                             <label class="seach-label">
                                 关联老师：
                             </label>
-                            <select class="form-control" name="teacher_id" id="teacher_id" style="width:60%;" v-model="teacher2">
+                            <select class="form-control" name="teacher_id" id="teacher_id" v-model="teacher2">
                                 <option value="">请选择</option>
                                 <option :value="t.value" v-for="t in teacher">{{t.label}}</option>                                  
                             </select>
@@ -152,6 +152,7 @@
        {{html}}
     </ul>
 </div>
+
 {include file="public/footer"}
 <script type="text/javascript" src="__PUBLIC__/admin/js/page.js"></script>
 <script type="text/javascript">

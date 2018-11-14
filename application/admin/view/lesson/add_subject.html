@@ -1,0 +1,49 @@
+{include file="public/header"}	
+<div class="content" id="update">
+	<div class="rightBox">
+		<div class="main">
+			<div class="seach_tigs" id="edit">
+				<h3>添加科目</h3>
+                <ul class="clearfix">
+                    <li>
+                        <label class="seach-label">
+                            <span>*</span>科目名称：
+                        </label>
+                        <input type="text" name="" v-model="name" class="form-control">
+                    </li>
+                    <li class="seach"><input type="submit" name="" value="确认" @click="get();"></li>
+                </ul>
+            </div>
+
+		</div>
+	</div>
+</div>
+
+{include file="public/footer"}
+<script type="text/javascript">
+    showLocation();
+    CheckProvince('');
+    CheckCity('');
+    CheckTown('');
+new Vue({
+	el:'#update',
+	data:{
+		name:''
+	},
+	methods:{
+		get:function(){
+			this.$http.post(baseurl+'?s=admin/Lesson/add_subject',{
+				'name':this.name
+			}).then(res=>{
+				console.log(res);
+			},res=>{
+				console.log('请求失败处理,请检查Network!');
+			})
+		}
+	}
+})
+
+</script>
+
+</body>
+</html>
