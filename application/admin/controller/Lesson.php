@@ -162,7 +162,15 @@ class Lesson extends Controller
       //返回校区数据
       return $result;
     }
-
+    //删除年级科目功能
+    public function delete_school(){
+      $request = request()->post();
+      $this->pmodel =  new \app\admin\model\PublicModel();
+      str_replace(',', "','", $request['id']);
+      $where = "ID IN ('{$request['id']}')";
+      $isok=$this->pmodel->dele('SHOP_SCHOOL',$where);
+      echo '1';
+    }
     public function add_school(){
       return $this->fetch('add_school');
     }
@@ -262,11 +270,12 @@ class Lesson extends Controller
       //返回校区数据
       return $result;
     }
+    //删除年级科目功能
     public function delete_classSubject(){
       $request = request()->post();
       $this->pmodel =  new \app\admin\model\PublicModel();
       str_replace(',', "','", $request['id']);
-      $where = "GUID IN ('{$request['id']}')";
+      $where = "ID IN ('{$request['id']}')";
       $isok=$this->pmodel->dele('SHOP_SUBJECT',$where);
       echo '1';
     }
