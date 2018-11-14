@@ -267,7 +267,8 @@ class Lesson extends Controller
       $this->pmodel =  new \app\admin\model\PublicModel();
       str_replace(',', "','", $request['id']);
       $where = "GUID IN ('{$request['id']}')";
-      $this->pmodel->select('SHOP_SUBJECT',$where);
+      $isok=$this->pmodel->dele('SHOP_SUBJECT',$where);
+      echo '1';
     }
    //科目
     public function subject(){
