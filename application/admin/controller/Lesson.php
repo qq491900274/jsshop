@@ -262,6 +262,13 @@ class Lesson extends Controller
       //返回校区数据
       return $result;
     }
+    public function delete_classSubject(){
+      $request = request()->post();
+      $this->pmodel =  new \app\admin\model\PublicModel();
+      str_replace(',', "','", $request['id']);
+      $where = "GUID IN ('{$request['id']}')";
+      $this->pmodel->select('SHOP_SUBJECT',$where);
+    }
    //科目
     public function subject(){
       return $this->fetch('subject');
