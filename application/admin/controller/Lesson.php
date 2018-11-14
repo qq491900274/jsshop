@@ -264,7 +264,7 @@ class Lesson extends Controller
     }
    //科目
     public function subject(){
-      return $this->fetch('school_class');
+      return $this->fetch('subject');
     }
     public function add_subject(){
       return $this->fetch('add_subject');
