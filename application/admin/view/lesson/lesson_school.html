@@ -64,13 +64,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="slist in products">
+                        <tr v-for="(slist,index) in products">
                                 <td>{{slist.SCHOOL_NAME}}</td>
                                 <td>{{slist.PHONE}}</td>
                                 <td>{{slist.ADDRESS}}</td>
                                 <td>显示</td>
                                 <td>
-                                <a href="<?php echo BASE_URL;?>?s=admin/lesson/add_school.html">编辑</a>
+                                <a href="javascript:void(0)" @click="goupdate(slist.ID)" >编辑</a>
                                 </td>
                             </tr>                   
                         </tbody>
@@ -106,6 +106,9 @@
             address:''
         },
         methods:{
+            goupdate:function(id){
+                window.location.href=baseurl+'?s=admin/Lesson/add_school&id='+id;
+            },
             get:function(){
                 this.$http.post(baseurl+'?s=admin/Lesson/get_schoollist',{where:{
                 	'PROVINCE':this.province,

@@ -11,6 +11,7 @@
                                 <span>*</span>校区名称：
                             </label>
                             <input type="text" name="" v-model="name" class="form-control">
+                            <input type="hidden" name="" v-model="id" class="form-control">
                         </li>
                         <li>
                             <label class="seach-label">
@@ -45,8 +46,6 @@
 	</div>
 </div>
 
-
-
 {include file="public/footer"}
 <script type="text/javascript">
     showLocation();
@@ -62,7 +61,8 @@ new Vue({
 		school_address:'',
 		province:'',
         city:'',
-        area:''     
+        area:'',
+        id:'<?php echo @$_GET['id']?>'     
 	},
 	methods:{
 		get:function(){
@@ -72,14 +72,38 @@ new Vue({
 				'school_address':this.school_address,
                 'province':this.province,
                 'city':this.city,
-                'area':this.area
+                'area':this.area,
+                'id':this.id
 			}).then(res=>{
-				console.log(res);
+                
+				if (res.bodyText==1) {
+                    layer.alert('保存成功！',function(){
+                        window.history.go(-1);
+                    });
+                    
+                }
 			},res=>{
 				console.log('请求失败处理,请检查Network!');
 			})
 		}
-	}
+	},
+    created:function(){
+        if (!this.id) {return;}
+        this.$http.post(baseurl+'?s=admin/Lesson/get_schoollist',{
+        'id':this.id
+        }).then(res=>{
+            var val=eval('('+res.bodyText+')')['value'][0];
+            this.name=val['SCHOOL_NAME'];
+            this.phone=val['PHONE'];
+            this.school_address=val['ADDRESS'];
+            this.province=val['PROVINCE'];
+            this.city=val['CITY'];
+            this.area=val['AREA'];
+
+        },res=>{
+            console.log('请求失败处理,请检查Network!');
+        })
+    }
 })
 
 </script>
