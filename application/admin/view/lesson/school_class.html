@@ -16,12 +16,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="slist in products">
+                        <tr v-for="(slist,index) in products">
                             <td>{{slist.NAME}}</td>
                             <td>显示</td>
                             <td>
                             <a href="<?php echo BASE_URL;?>?s=admin/lesson/addSchool_class.html" style="margin-right: 20px;">编辑</a>
-                            <a href="#">删除</a>
+                            <a href="#" @click="remove(slist.ID,index)">删除</a>
                             </td>
                         </tr>                   
                     </tbody>
@@ -33,22 +33,45 @@
 
 <script type="text/javascript">
     
-new Vue({
+var vue=new Vue({
 	el:'#update',
 	data:{
 		products:[]
 	},
 	methods:{
-
-	},
-	created:function(){
+		onload:function(){
 			this.$http.post(baseurl+'?s=admin/Lesson/school_classList').then(res=>{
 				this.products=eval('('+res.bodyText+')')['value'];
 				//console.log(this.products);
 			},res=>{
 				console.log('请求失败处理,请检查Network!');
 			})
+		},
+		remove:function(ids,arrid){
+
+			layer.alert('确定要删除吗?',function(){
+				//console.log(i);
+				vue.$http.post(baseurl+'?s=admin/Lesson/delete_classSubject',{id:ids}).then(res=>{
+					//console.log(res);
+					var num=eval('('+res.bodyText+')');
+					
+					if(num==1){
+						layer.msg('删除成功！',{time:1500});
+						vue.products.splice(arrid);
+						
+					}else{
+						location.reload();
+					}
+				},res=>{
+					console.log("请求失败处理，请检查Network！");
+				})	
+			});
+			
 		}
+	},
+	created:function(){ 
+		this.onload();
+	}
 })
 
 </script>
