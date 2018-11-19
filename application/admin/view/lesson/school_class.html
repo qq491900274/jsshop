@@ -2,8 +2,11 @@
 <div class="content" id="update">
 	<div class="rightBox">
 		<div class="main">
-			<div class="seach_tigs" id="edit">
+			<div class="seach_tigs">
 				<h3>年级列表</h3>
+				<div class="topBtns sc">
+					<a href="<?php echo BASE_URL;?>?s=admin/lesson/addSchool_class.html">新增年级</a>
+				</div>
                 <table class="tableBox">
                     <thead>
                         <tr>
@@ -17,7 +20,7 @@
                             <td>{{slist.NAME}}</td>
                             <td>显示</td>
                             <td>
-                            <a href="<?php echo BASE_URL;?>?s=admin/lesson/add_school.html" style="margin-right: 20px;">编辑</a>
+                            <a href="<?php echo BASE_URL;?>?s=admin/lesson/addSchool_class.html" style="margin-right: 20px;">编辑</a>
                             <a href="#">删除</a>
                             </td>
                         </tr>                   

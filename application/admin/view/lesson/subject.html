@@ -2,8 +2,11 @@
 <div class="content" id="update">
 	<div class="rightBox">
 		<div class="main">
-			<div class="seach_tigs" id="edit">
-				<h3>科目列表11111111111111111111111111111111111111111111111111111111111111</h3>
+			<div class="seach_tigs">
+				<h3>科目列表</h3>
+				<div class="topBtns sc">
+					<a href="<?php echo BASE_URL;?>?s=admin/lesson/add_subject.html">新增科目</a>
+				</div>
                 <table class="tableBox">
                     <thead>
                         <tr>
@@ -18,9 +21,9 @@
                             <td>显示</td>
                             <td>
                             <a href="<?php echo BASE_URL;?>?s=admin/lesson/add_subject.html" style="margin-right: 20px;">编辑</a>
-                            <a href="#">删除</a>
+                            <a href="javascript:void(0);" @click="remove(slist.ID)">删除</a>
                             </td>
-                        </tr>                   
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -32,14 +35,34 @@
 
 
 <script type="text/javascript">
-    
-new Vue({
+
+var vue=new Vue({
 	el:'#update',
 	data:{
 		products:[]
+		
 	},
 	methods:{
-
+		remove:function(ids){
+			layer.alert('确定要删除吗?',function(){
+				//console.log(i);
+				vue.$http.post(baseurl+'?s=admin/Lesson/delete_classSubject',{id:ids}).then(res=>{
+					//console.log(res);
+					var num=eval('('+res.bodyText+')');
+					
+					if(num==1){
+						layer.msg('删除成功！',{time:1500});
+						ids.parent().parent().remove();
+						//console.log(ids);
+					}else{
+						location.reload();
+					}
+				},res=>{
+					console.log("请求失败处理，请检查Network！");
+				})	
+			});
+			
+		}
 	},
 	created:function(){
 			this.$http.post(baseurl+'?s=admin/Lesson/subject_list').then(res=>{
