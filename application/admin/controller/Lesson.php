@@ -47,9 +47,12 @@ class Lesson extends Controller
       if(!empty($request['where']['subject_id'])){
         $where .= " and SUBJECT='{$request['where']['subject_id']}'";
       }
+      if(!empty($request['id'])){
+        $where .= " and ID='{$request['id']}'";
+      }
 
       //获取post当前页数。与查询条件。
-      $maxpage = empty($request['page'])?'19':19*$request['page']-1;
+      $maxpage = empty($request['page'])?'20':20*$request['page']-1;
       $minpage = $maxpage-19;
       
       $count=$this->pmodel->select('SHOP_TEACHER','count(ID) num',$where)[0]['num'];
@@ -132,7 +135,8 @@ class Lesson extends Controller
 
 
       //获取post当前页数。与查询条件。
-      $maxpage = empty($request['page'])?'19':19*$request['page']-1;
+
+      $maxpage = empty($request['page'])?'20':20*$request['page']-1;
       $minpage = $maxpage-19;
       
       //获取查询条件
@@ -159,8 +163,9 @@ class Lesson extends Controller
       }
 
       $where1=$where." LIMIT {$minpage},{$maxpage}";
+      
       $key = "ID,PROVINCE,CITY,AREA,ADDRESS,SCHOOL_NAME,PHONE,ADMIN_NAME";
-      $result['value'] = $this->pmodel->select('SHOP_SCHOOL',$key,$where);
+      $result['value'] = $this->pmodel->select('SHOP_SCHOOL',$key,$where1);
       $result['allCount'] = ceil($this->pmodel->select('SHOP_SCHOOL','count(ID) num ',$where)[0]['num'] / 20);
       //返回校区数据
       return $result;
@@ -252,7 +257,7 @@ class Lesson extends Controller
       $this->pmodel =  new \app\admin\model\PublicModel();
 
       //获取post当前页数。与查询条件。
-      $maxpage = empty($request['page'])?'19':19*$request['page']-1;
+      $maxpage = empty($request['page'])?'20':20*$request['page']-1;
       $minpage = $maxpage-19;
       
       //获取查询条件
@@ -287,7 +292,7 @@ class Lesson extends Controller
       $this->pmodel =  new \app\admin\model\PublicModel();
 
       //获取post当前页数。与查询条件。
-      $maxpage = empty($request['page'])?'19':19*$request['page']-1;
+      $maxpage = empty($request['page'])?'20':20*$request['page']-1;
       $minpage = $maxpage-19;
       
       //获取查询条件
@@ -321,7 +326,7 @@ class Lesson extends Controller
       $this->pmodel =  new \app\admin\model\PublicModel(); 
 
       //获取post当前页数。与查询条件。
-      $maxpage = empty($request['page'])?'19':19*$request['page']-1;
+      $maxpage = empty($request['page'])?'20':20*$request['page']-1;
       $minpage = $maxpage-19;
       
       //获取查询条件
