@@ -12,15 +12,13 @@ var page=new Vue({
 	},
 	methods:{
 		page1:function(val){
-				
+				this.page=val;//当前页面
 				this.where['page'] = val;
 				
                 this.$http.post(baseurl+'?s='+this.url,{page:val,where:this.where}).then(res=>{
                
                 var val=eval('('+res.bodyText+')');
-
-                this.page=val['page'];//当前页面
-
+                
                 //赋值教师列表
                 vue.products=val['value'];
                 
