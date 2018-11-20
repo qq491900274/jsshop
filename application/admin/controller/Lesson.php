@@ -154,6 +154,9 @@ class Lesson extends Controller
       if(!empty($request['where']['SCHOOL_NAME'])){
         $where .= " and SCHOOL_NAME like '%{$request['where']['SCHOOL_NAME']}%'";
       }
+      if(!empty($request['id']) && $request['id']!=' '){
+        $where .= " and id = '{$request['id']}'";
+      }
 
       $where1=$where." LIMIT {$minpage},{$maxpage}";
       $key = "ID,PROVINCE,CITY,AREA,ADDRESS,SCHOOL_NAME,PHONE,ADMIN_NAME";
@@ -172,6 +175,31 @@ class Lesson extends Controller
       echo '1';
     }
     public function add_school(){
+      $request = request()->post();
+      
+      if (!empty($request)) {
+        $time=date('Y-m-d H:i:s');
+        $data=['SCHOOL_NAME'=>$request['name'],
+              'PROVINCE'=>$request['province'],
+              'CITY'=>$request['city'],
+              'AREA'=>$request['area'],
+              'ADDRESS'=>$request['school_address'],
+              'PHONE'=>$request['phone']
+              ];
+        if (!empty($request['id'])) {
+          $isok=DB::table('SHOP_SCHOOL')
+              ->where('ID',$request['id'])
+              ->update($data);
+              return 1;
+        }else{
+          $data['ID']=uniqid();
+          $isok=DB::table('SHOP_SCHOOL')
+              ->insert($data);
+              return 1;
+        }
+      }
+      
+
       return $this->fetch('add_school');
     }
     //添加修改校区 
@@ -290,7 +318,7 @@ class Lesson extends Controller
       $minpage = 0; 
       $maxpage = 0;
       $request = request()->post();
-      $this->pmodel =  new \app\admin\model\PublicModel();
+      $this->pmodel =  new \app\admin\model\PublicModel(); 
 
       //获取post当前页数。与查询条件。
       $maxpage = empty($request['page'])?'19':19*$request['page']-1;
