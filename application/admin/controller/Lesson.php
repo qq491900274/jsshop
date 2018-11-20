@@ -24,6 +24,7 @@ class Lesson extends Controller
 
     //添加或修改教师
     public function update_teacher(){
+
       return $this->fetch('update_teacher');
     }
     //返回教师列表页面数据
@@ -42,10 +43,10 @@ class Lesson extends Controller
         $where .= " and CODE LIKE '%{$request['where']['code']}%'";
       }
       if(!empty($request['where']['school_id'])){
-        $where .= " and SCHOOL='{$request['where']['school_id']}'";
+        $where .= " and SCHOOL like '{$request['where']['school_id']}'";
       }
       if(!empty($request['where']['subject_id'])){
-        $where .= " and SUBJECT='{$request['where']['subject_id']}'";
+        $where .= " and SUBJECT like '{$request['where']['subject_id']}'";
       }
       if(!empty($request['id'])){
         $where .= " and ID='{$request['id']}'";
@@ -73,37 +74,55 @@ class Lesson extends Controller
 
       $request = request()->post();
       $id=str_replace(',', "','", $request['id']);
-
+      if (empty($id)) {
+        return;
+      }
       $where=" ID IN ('{$id}')";
       $isok=$this->pmodel->dele('SHOP_TEACHER',$where);
       
       return '1';
       
     }
+    //f
+    public function get_schoolval(){
+      $request = request()->post();
+      $this->pmodel =  new \app\admin\model\PublicModel();
+      $where='';
+      if ($request['area']) {
+        $where=" AREA='{$request['area']}'";
+      }
+      return $result = $this->pmodel->select('SHOP_SCHOOL',"ID,SCHOOL_NAME",$where);
+    }
+    //返回教师列表页的科目
+    public function get_subjectval(){
+      $request = request()->post();
+      $this->pmodel =  new \app\admin\model\PublicModel();
+      $where="TYPE='2'";
+     
+      return $result = $this->pmodel->select('SHOP_SUBJECT',"ID,NAME",$where);
+    }
     //添加修改教师
     public function update_teachers(){
       $request = request()->post();
-      $time=date('Y-m-d H:i:s');
-      $data=['NAME'=>$request['name'],
-            'CODE'=>$request['code'],
-            'SCHOOL'=>$request['school'],
-            'SCHOOL_ADDRESS'=>$request['school_address'],
-            'INTRO'=>$request['intro'],
-            'PIC'=>$request['pic'],
-            'DATE'=>$time
-            ];
-      if (!empty($request['id'])) {
-        $isok=DB::table('SHOP_TEACHER')
-            ->where('ID',$request['id'])
-            ->update($data);
-      }else{
-        $data['ID']=uniqid();
-        $isok=DB::table('SHOP_TEACHER')
-            ->insert($data);
-      }
-
-      if($isok){
-        return '1';
+      if (empty($request)) {
+        $time=date('Y-m-d H:i:s');
+        $data=['NAME'=>$request['name'],
+              'CODE'=>$request['code'],
+              'SCHOOL'=>$request['school'],
+              'SCHOOL_ADDRESS'=>$request['school_address'],
+              'INTRO'=>$request['intro'],
+              'PIC'=>$request['pic'],
+              'DATE'=>$time
+              ];
+        if (!empty($request['id'])) {
+          $isok=DB::table('SHOP_TEACHER')
+              ->where('ID',$request['id'])
+              ->update($data);
+        }else{
+          $data['ID']=uniqid();
+          $isok=DB::table('SHOP_TEACHER')
+              ->insert($data);
+        }
       }
     }
     //返回教师列表页的校区数据
@@ -170,7 +189,7 @@ class Lesson extends Controller
       //返回校区数据
       return $result;
     }
-    //删除年级科目功能
+    
     public function delete_school(){
       $request = request()->post();
       $this->pmodel =  new \app\admin\model\PublicModel();
