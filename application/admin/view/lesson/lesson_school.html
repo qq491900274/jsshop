@@ -23,17 +23,8 @@
 	                        </label>
 	                        <input type="number" maxlength="15" name="" value="" placeholder="请输入校区电话" class="form-control" v-model="phone">
 	                    </li>
-	                    <li>
-	                        <label class="seach-label">
-	                            是否显示：
-	                        </label>
-	                        <select class="form-control" name="">
-	                            <option value="">请选择</option>
-	                            <option value="1">显示</option>
-	                            <option value="2">隐藏</option>
-	                        </select>
-	                    </li>
-	                    <li>
+	                    
+	                    <li style="width: 33%">
 	                        <label class="seach-label">
 	                            校区地址：
 	                        </label>
@@ -59,8 +50,7 @@
                             <th>校区名称</th>
                             <th>校区电话</th>
                             <th>校区地址</th>
-                            <th>是否显示</th>
-                            <th>操作</th>
+                            <th width="10%">操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,9 +58,9 @@
                                 <td>{{slist.SCHOOL_NAME}}</td>
                                 <td>{{slist.PHONE}}</td>
                                 <td>{{slist.ADDRESS}}</td>
-                                <td>显示</td>
                                 <td>
-                                <a href="javascript:void(0)" @click="goupdate(slist.ID)" >编辑</a>
+                                <a href="javascript:void(0)" @click="goupdate(slist.ID)" >编辑</a>&nbsp;
+                                <a href="javascript:void(0)" @click="remove(slist.ID,index)" >删除</a>
                                 </td>
                             </tr>                   
                         </tbody>
@@ -86,12 +76,6 @@
 </div>
 {include file="public/footer"}
 <script type="text/javascript" src="__PUBLIC__/admin/js/page.js"></script>
-<script type="text/javascript">
-    showLocation();
-    CheckProvince('');
-    CheckCity('');
-    CheckTown('');
-</script>
 <script type="text/javascript">
     
     var vue=new Vue({
@@ -126,6 +110,21 @@
                    //console.log(page.allCount);
                 },function(res){
                 	console.log('请求失败处理，请检查Network!');
+                })
+            },
+            remove:function(ids,arrid){
+                layer.alert('确定要删除吗？',function(){
+                    vue.$http.post(baseurl+'?s=admin/Lesson/delete_school',{id:ids}).then(res=>{
+                        var num=eval('('+res.bodyText+')');
+                        if(num==1){
+                            layer.msg('删除成功！',{time:1500});
+                            vue.products.splice(arrid);
+                        }else{
+                            location.reload();
+                        }
+                    },res=>{
+                        console.log('请求失败处理，请检查Network!');
+                    })
                 })
             }
         },

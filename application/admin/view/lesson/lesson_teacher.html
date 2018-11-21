@@ -31,31 +31,19 @@
                             </label>
                             <select class="form-control" v-model="subject_id" name="subject_id">
                                 <option value="">请选择</option>
-                                <option v-for='subject in subjectList' :value="subject.value">{{subject.label}}</option>
+                                <option v-for='subject in subjectList'>{{subject.NAME}}</option>
                             </select>
                         </li>
-                        <li style="">
-                            <label class="seach-label">
-                                是否显示：
-                            </label>
-                            <select class="form-control"  name="status" style="width:55%;">
-                                <option value="">请选择</option>
-                                <option  value="1">显示</option>
-                                <option  value="2">隐藏</option>
-                            </select>
-                        </li>
-                        <li style="width:50%;">
+                        <li>
                             <label class="seach-label">
                                 所属校区：
                             </label>
                             <select class="form-control input-median" text="true" name="province_id"
-                                    id="province_id" selectedindex="2" v-model="province">
-                                   
+                                    id="province_id">
                             </select>
-                            <select class="form-control input-median" text="true" name="city_id" id="city_id" v-model="city">
-                                
+                            <select class="form-control input-median" text="true" name="city_id" id="city_id">
                             </select>
-                            <select class="form-control input-median" text="true" name="district_id" id="district_id"   @change="choose()" v-model="area">
+                            <select class="form-control input-median" text="true" name="district_id" id="district_id" v-model="area" @change="choose()">
                             </select>
                             <select class="form-control input-median" v-model='school_id' name="school_id" id="school_id">
                                 <option value="">请选择校区</option>
@@ -80,10 +68,9 @@
                             <th>所属校区</th>
                             <th>科目</th>
                             <th>课程数</th>
-                            <th>排序</th>
+                            <!-- <th>排序</th> -->
                             <th>更新时间</th>
-                            <th>是否显示</th>
-                            <th>操作</th>
+                            <th width="8%">操作</th>
                         </tr>
                     </thead>
                     <tbody id="storeList">
@@ -95,11 +82,11 @@
                             <td>{{product.SCHOOL}}</td>
                             <td>{{product.SUBJECT}}</td>
                             <td>{{product.num}}</td>
-                            <td>{{product.order}}</td>
+                            <!-- <td>{{product.order}}</td> -->
                             <td>{{product.DATE}}</td>
-                            <td>显示</td>
                             <td>
                             <a href="<?php echo BASE_URL;?>?s=admin/lesson/update_teacher.html">编辑</a>
+                            <a href="javascript:;">删除</a>
                             </td>
                         </tr>
                                    
@@ -131,22 +118,12 @@
             code:'',
             subject_id:'',
             school_id:'',
-            subjectList:[
-                {value:'语文',label:'语文'},
-                {value:'数学',label:'数学'},
-                {value:'英语',label:'英语'},
-                {value:'历史',label:'历史'},
-                {value:'地理',label:'地理'},
-                {value:'生物',label:'生物'},
-                {value:'物理',label:'物理'},
-                {value:'化学',label:'化学'}
-            ],
+            subjectList:[],
             province:'',
             city:'',
             area:'',
             school_name:[],
             products:[],
-        
         },
         methods:{
             get:function(){
@@ -166,13 +143,11 @@
                 })
             },
           choose:function(){
-            this.$http.post(baseurl+'?s=admin/Lesson/get_school',{
-                'province':this.province,
+            this.$http.post(baseurl+'?s=admin/Lesson/get_schoolval',{
                 'city':this.city,
                 'area':this.area}).then(res=>{
-                    console.log(res);
+                    //console.log(res);
                     this.school_name=eval('('+res.bodyText+')');
-
                 },res=>{
                     console.log('请求失败处理,请检查Network!');
                 })
@@ -181,6 +156,12 @@
         created:function(){
             page.url='admin/Lesson/get_teacherval';
             page.onload();
+            this.$http.post(baseurl+'?s=admin/Lesson/get_subjectval').then(res=>{
+                //console.log(res);
+                this.subjectList=eval('('+res.bodyText+')');
+            },res=>{
+                console.log('请求失败处理,请检查Network!');
+            })
             
         }
     })

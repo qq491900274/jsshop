@@ -37,7 +37,7 @@
                             </label>
                             <input type="text" name="" v-model="school_address" class="form-control">
                         </li>
-                        <li class="seach"><input type="submit" name="" value="确认" @click="get();"></li>
+                        <li class="seach"><input type="submit" name="" value="确认" @click="get();"> <a href="javascript:history.back(-1)" id="back">返回</a></li>
                     </ul>
                 
             </div>
@@ -48,12 +48,7 @@
 
 {include file="public/footer"}
 <script type="text/javascript">
-    showLocation();
-    CheckProvince('');
-    CheckCity('');
-    CheckTown('');
-var baseurl="<?php echo BASE_URL;?>";
-new Vue({
+var vue=new Vue({
 	el:'#update',
 	data:{
 		name:'',
@@ -66,6 +61,31 @@ new Vue({
 	},
 	methods:{
 		get:function(){
+            //console.log(data);
+            if(!this.name){
+                layer.alert('姓名不能为空！');
+                return;
+            }
+            if(!this.phone){
+                layer.alert('电话不能为空！');
+                return;
+            }
+            if(!this.province){
+                layer.alert('省份不能为空！');
+                return;
+            }
+            if(!this.city){
+                layer.alert('地级市不能为空！');
+                return;
+            }
+            if(!this.area){
+                layer.alert('市、县、区不能为空！');
+                return;
+            }
+            if(!this.school_address){
+                layer.alert('校区地址不能为空！');
+                return;
+            }
 			this.$http.post(baseurl+'?s=admin/Lesson/add_school',{
 				'name':this.name,
                 'phone':this.phone,
@@ -75,17 +95,16 @@ new Vue({
                 'area':this.area,
                 'id':this.id
 			}).then(res=>{
-                
 				if (res.bodyText==1) {
-                    layer.alert('保存成功！',function(){
+                    layer.msg('保存成功！',function(){
                         window.history.go(-1);
-                    });
-                    
+                    });  
                 }
 			},res=>{
 				console.log('请求失败处理,请检查Network!');
 			})
 		}
+
 	},
     created:function(){
         if (!this.id) {return;}
@@ -99,7 +118,6 @@ new Vue({
             this.province=val['PROVINCE'];
             this.city=val['CITY'];
             this.area=val['AREA'];
-
         },res=>{
             console.log('请求失败处理,请检查Network!');
         })
