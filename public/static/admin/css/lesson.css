@@ -361,5 +361,14 @@
 /***
 *********************************订单列表*****************************************************
 ***/
+#storeList tr td{
+	padding:10px 0;
+}
+#storeList tr td.succ{
+	color:#0F0;
+}
+#storeList tr td.noth{
+	color:#F00;
+}
 
 
