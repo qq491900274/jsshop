@@ -53,13 +53,13 @@ class Lesson extends Controller
       }
 
       //获取post当前页数。与查询条件。
-      $maxpage = empty($request['page'])?'20':20*$request['page']-1;
+      $maxpage = empty($request['page'])?'19':20*$request['page']-1;
       $minpage = $maxpage-19;
       
       $count=$this->pmodel->select('SHOP_TEACHER','count(ID) num',$where)[0]['num'];
       //获取查询条件
       $where .= " LIMIT {$minpage},{$maxpage}";
-
+      
       $key = "ID,NAME,CODE,SUBJECT,SCHOOL,SCHOOL_ADDRESS,INTRO,PIC,DATE";
       $result['value'] = $this->pmodel->select('SHOP_TEACHER',$key,$where);
       $result['page'] = empty($request['page']) ? '1' : $request['page'];
@@ -123,6 +123,7 @@ class Lesson extends Controller
           $isok=DB::table('SHOP_TEACHER')
               ->insert($data);
         }
+        echo '1';
       }
     }
     //返回教师列表页的校区数据
@@ -152,10 +153,7 @@ class Lesson extends Controller
       $request = request()->post();
       $this->pmodel =  new \app\admin\model\PublicModel();
 
-
-      //获取post当前页数。与查询条件。
-
-      $maxpage = empty($request['page'])?'20':20*$request['page']-1;
+      $maxpage = empty($request['page'])?'19':20*$request['page']-1;
       $minpage = $maxpage-19;
       
       //获取查询条件
@@ -182,7 +180,7 @@ class Lesson extends Controller
       }
 
       $where1=$where." LIMIT {$minpage},{$maxpage}";
-      
+     
       $key = "ID,PROVINCE,CITY,AREA,ADDRESS,SCHOOL_NAME,PHONE,ADMIN_NAME";
       $result['value'] = $this->pmodel->select('SHOP_SCHOOL',$key,$where1);
       $result['allCount'] = ceil($this->pmodel->select('SHOP_SCHOOL','count(ID) num ',$where)[0]['num'] / 20);
@@ -250,17 +248,6 @@ class Lesson extends Controller
         return '1';
       }
     }
-    //删除校区
-    public function dele_school(){
-      
-      $isok=DB::table('SHOP_SCHOOL')
-            ->where('ID',$request['id'])
-            ->delete();
-
-      if($isok){
-        return '1';
-      }
-    }
 
     //课程列表页面
     public function Lesson_list()
@@ -276,7 +263,7 @@ class Lesson extends Controller
       $this->pmodel =  new \app\admin\model\PublicModel();
 
       //获取post当前页数。与查询条件。
-      $maxpage = empty($request['page'])?'20':20*$request['page']-1;
+      $maxpage = empty($request['page'])?'19':20*$request['page']-1;
       $minpage = $maxpage-19;
       
       //获取查询条件
@@ -311,7 +298,7 @@ class Lesson extends Controller
       $this->pmodel =  new \app\admin\model\PublicModel();
 
       //获取post当前页数。与查询条件。
-      $maxpage = empty($request['page'])?'20':20*$request['page']-1;
+      $maxpage = empty($request['page'])?'19':20*$request['page']-1;
       $minpage = $maxpage-19;
       
       //获取查询条件
@@ -345,26 +332,20 @@ class Lesson extends Controller
       $this->pmodel =  new \app\admin\model\PublicModel(); 
 
       //获取post当前页数。与查询条件。
-      $maxpage = empty($request['page'])?'20':20*$request['page']-1;
-      $minpage = $maxpage-19;
+      $member = 20;
+      $maxpage = empty($request['page'])?'19':$member*$request['page']-1;
+      $minpage = $maxpage-$member-1;
       
       //获取查询条件
       $where = "TYPE='2' LIMIT {$minpage},{$maxpage}";
       $key = "ID,NAME";
       $result['value'] = $this->pmodel->select('SHOP_SUBJECT',$key,$where);
-      $result['allCount'] = ceil($this->pmodel->select('SHOP_SUBJECT','count(ID) num ',$where)[0]['num'] / 20);
+      $num=$this->pmodel->select('SHOP_SUBJECT','count(ID) num ',$where);
+      if ($num) {
+        $result['allCount'] = ceil([0]['num'] / 20);
+      }
       //返回校区数据
       return $result;
     }
 
-    //验证密码功能
-     function getpwd(){
-      $request = request()->post();
-
-      if ($request['user']=='1' && $request['pwd']=='2') {
-        return array('msg'=>'登陆成功！','state'=>'1');  
-      }else{
-        return array('msg'=>'登陆失败！','state'=>'2');
-      }
-    }
 }
