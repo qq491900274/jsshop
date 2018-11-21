@@ -54,7 +54,7 @@
                             </select>
                             <select class="form-control input-median" v-model='school_id' name="school_id" id="school_id">
                                 <option value="">请选择校区</option>
-                                <option v-for="schoolName in school_name">{{schoolName.SCHOOL_NAME}}</option>
+                                <option v-for="schoolName in school_name" :value="schoolName.ID">{{schoolName.SCHOOL_NAME}}</option>
                             </select>
                         </li>
                         <li>
@@ -111,24 +111,23 @@ var vue=new Vue({
 		get:function(){
 			var intro=ue.getContent();
 			//console.log(a);
-			this.$http.post(baseurl+'?s=admin/Lesson/update_teachers',{
+			this.$http.post(baseurl+'?s=admin/Lesson/update_teacher',{
 				'name':this.name,
 				'code':this.code,
 				'pic':this.pic,
 				'school':this.school,
 				'school_address':this.school_address,
 				'intro':intro,
-                'school_id':this.school_id
+                'school_id':this.school_id,
+                'id':this.id
 			}).then(res=>{
-                console.log(res.bodyText);
-				if (res.bodyText==1) {
-                    layer.msg('保存成功！',function(){
-                        window.history.go(-1);
-                    });  
-                }
-			},res=>{
-				console.log('请求失败处理,请检查Network!');
-			})
+                
+				if(res.bodyText==1) {
+                    		layer.msg('保存成功！',function(){
+                       		 window.history.go(-1);
+                    	});  
+			    }
+            });
 		},
         choose:function(){
             this.$http.post(baseurl+'?s=admin/Lesson/get_schoolval',{
