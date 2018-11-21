@@ -53,7 +53,7 @@
                             </select>
                             <select class="form-control input-median" v-model='school_id' name="school_id" id="school_id">
                                 <option value="">请选择校区</option>
-                                <option v-for="schoolName in school_name">{{schoolName.SCHOOL_NAME}}</option>
+                                <option v-for="schoolName in school_name" :value="schoolName.ID">{{schoolName.SCHOOL_NAME}}</option>
                             </select>
                         </li>
                         <li>
@@ -124,7 +124,7 @@ new Vue({
 				'date':this.date,
                 'school_id':this.school_id
 			}).then(res=>{
-				console.log(res);
+				
 			},res=>{
 				console.log('请求失败处理,请检查Network!');
 			})
