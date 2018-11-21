@@ -11,6 +11,7 @@
                                 <span>*</span>校区名称：
                             </label>
                             <input type="text" name="" v-model="name" class="form-control">
+                            <input type="hidden" name="" v-model="id" class="form-control">
                         </li>
                         <li>
                             <label class="seach-label">
@@ -36,7 +37,7 @@
                             </label>
                             <input type="text" name="" v-model="school_address" class="form-control">
                         </li>
-                        <li class="seach"><input type="submit" name="" value="确认" @click="get();"></li>
+                        <li class="seach"><input type="submit" name="" value="确认" @click="get();"> <a href="javascript:history.back(-1)" id="back">返回</a></li>
                     </ul>
                 
             </div>
@@ -45,16 +46,9 @@
 	</div>
 </div>
 
-
-
 {include file="public/footer"}
 <script type="text/javascript">
-    showLocation();
-    CheckProvince('');
-    CheckCity('');
-    CheckTown('');
-var baseurl="<?php echo BASE_URL;?>";
-new Vue({
+var vue=new Vue({
 	el:'#update',
 	data:{
 		name:'',
@@ -62,24 +56,72 @@ new Vue({
 		school_address:'',
 		province:'',
         city:'',
-        area:''     
+        area:'',
+        id:'<?php echo @$_GET['id']?>'     
 	},
 	methods:{
 		get:function(){
+            //console.log(data);
+            if(!this.name){
+                layer.alert('姓名不能为空！');
+                return;
+            }
+            if(!this.phone){
+                layer.alert('电话不能为空！');
+                return;
+            }
+            if(!this.province){
+                layer.alert('省份不能为空！');
+                return;
+            }
+            if(!this.city){
+                layer.alert('地级市不能为空！');
+                return;
+            }
+            if(!this.area){
+                layer.alert('市、县、区不能为空！');
+                return;
+            }
+            if(!this.school_address){
+                layer.alert('校区地址不能为空！');
+                return;
+            }
 			this.$http.post(baseurl+'?s=admin/Lesson/add_school',{
 				'name':this.name,
                 'phone':this.phone,
 				'school_address':this.school_address,
                 'province':this.province,
                 'city':this.city,
-                'area':this.area
+                'area':this.area,
+                'id':this.id
 			}).then(res=>{
-				console.log(res);
+				if (res.bodyText==1) {
+                    layer.msg('保存成功！',function(){
+                        window.history.go(-1);
+                    });  
+                }
 			},res=>{
 				console.log('请求失败处理,请检查Network!');
 			})
 		}
-	}
+
+	},
+    created:function(){
+        if (!this.id) {return;}
+        this.$http.post(baseurl+'?s=admin/Lesson/get_schoollist',{
+        'id':this.id
+        }).then(res=>{
+            var val=eval('('+res.bodyText+')')['value'][0];
+            this.name=val['SCHOOL_NAME'];
+            this.phone=val['PHONE'];
+            this.school_address=val['ADDRESS'];
+            this.province=val['PROVINCE'];
+            this.city=val['CITY'];
+            this.area=val['AREA'];
+        },res=>{
+            console.log('请求失败处理,请检查Network!');
+        })
+    }
 })
 
 </script>
