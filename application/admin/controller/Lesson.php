@@ -24,6 +24,29 @@ class Lesson extends Controller
 
     //添加或修改教师
     public function update_teacher(){
+      $request = request()->post();
+      if (!empty($request)) {
+        $time=date('Y-m-d H:i:s');
+        $data=['NAME'=>$request['name'],
+              'CODE'=>$request['code'],
+              'SCHOOL'=>$request['school_id'],
+              'SCHOOL_ADDRESS'=>$request['school_address'],
+              'INTRO'=>$request['intro'],
+              'PIC'=>$request['pic'],
+              'DATE'=>$time
+              ];
+             
+        if (!empty($request['id'])) {
+          $isok=DB::table('SHOP_TEACHER')
+              ->where('ID',$request['id'])
+              ->update($data);
+        }else{
+          $data['ID']=uniqid();
+          $isok=DB::table('SHOP_TEACHER')
+              ->insert($data);
+        }
+        echo '1';exit;
+      }
 
       return $this->fetch('update_teacher');
     }
@@ -101,31 +124,7 @@ class Lesson extends Controller
      
       return $result = $this->pmodel->select('SHOP_SUBJECT',"ID,NAME",$where);
     }
-    //添加修改教师
-    public function update_teachers(){
-      $request = request()->post();
-      if (empty($request)) {
-        $time=date('Y-m-d H:i:s');
-        $data=['NAME'=>$request['name'],
-              'CODE'=>$request['code'],
-              'SCHOOL'=>$request['school'],
-              'SCHOOL_ADDRESS'=>$request['school_address'],
-              'INTRO'=>$request['intro'],
-              'PIC'=>$request['pic'],
-              'DATE'=>$time
-              ];
-        if (!empty($request['id'])) {
-          $isok=DB::table('SHOP_TEACHER')
-              ->where('ID',$request['id'])
-              ->update($data);
-        }else{
-          $data['ID']=uniqid();
-          $isok=DB::table('SHOP_TEACHER')
-              ->insert($data);
-        }
-        echo '1';
-      }
-    }
+
     //返回教师列表页的校区数据
     public function get_school(){
       $request = request()->post();
@@ -342,7 +341,7 @@ class Lesson extends Controller
       $result['value'] = $this->pmodel->select('SHOP_SUBJECT',$key,$where);
       $num=$this->pmodel->select('SHOP_SUBJECT','count(ID) num ',$where);
       if ($num) {
-        $result['allCount'] = ceil([0]['num'] / 20);
+        $result['allCount'] = ceil($num[0]['num'] / 20);
       }
       //返回校区数据
       return $result;
