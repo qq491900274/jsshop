@@ -120,6 +120,7 @@ var vue=new Vue({
 				'intro':intro,
                 'school_id':this.school_id
 			}).then(res=>{
+                console.log(res.bodyText);
 				if (res.bodyText==1) {
                     layer.msg('保存成功！',function(){
                         window.history.go(-1);
