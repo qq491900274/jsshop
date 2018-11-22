@@ -74,14 +74,14 @@ class Lesson extends Controller
         $where .= " and SUBJECT like '{$request['where']['subject_id']}'";
       }
       if(!empty($request['id'])){
-        $where .= " and ID='{$request['id']}'";
+        $where .= " and t.ID='{$request['id']}'";
       }
 
       //获取post当前页数。与查询条件。
       $maxpage = empty($request['page'])?'19':20*$request['page']-1;
       $minpage = $maxpage-19;
       
-      $count=$this->pmodel->select('SHOP_TEACHER','count(ID) num',$where)[0]['num'];
+      $count=$this->pmodel->select('SHOP_TEACHER t','count(ID) num',$where)[0]['num'];
       //获取查询条件
       $where .= " LIMIT {$minpage},{$maxpage}";
       
