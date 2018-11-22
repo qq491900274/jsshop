@@ -36,7 +36,7 @@
 	                        <div class="file_top">
 	                            <span>点击选择图片</span>
 	                            <input type="file" name="pic" id="file" class="upload" onchange="uploadpic(this)">
-	                            <input type="hidden" name="" class="" id="hpic">
+	                            <input type="hidden" name="" class="" id="hpic" v-model="pic">
                             </div>
                             <div class="fileBox"><p>建议上传图片的尺寸比例为1:1，大小不超过1M</p>
                             <img src="" height="100" id="image"></div>
@@ -121,7 +121,6 @@ var vue=new Vue({
 		school:'',
 		school_address:'',
 		intro:'',
-		
         province:'',
         city:'',
         area:'',
@@ -132,11 +131,13 @@ var vue=new Vue({
 	methods:{
 		get:function(){
 			var intro=ue.getContent();
+            var img=$('#hpic').val();
+            //console.log(img);
 			//console.log(a);
 			this.$http.post(baseurl+'?s=admin/Lesson/update_teacher',{
 				'name':this.name,
 				'code':this.code,
-				'pic':this.pic,
+				'pic':img,
 				'school':this.school,
 				'school_address':this.school_address,
 				'intro':intro,
