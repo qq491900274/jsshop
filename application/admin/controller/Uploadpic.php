@@ -18,13 +18,14 @@ class Uploadpic extends Controller
       if($file){
             $info = $file->validate(['size'=>5242880,'ext'=>'jpg,png,gif'])->move(ROOT_PATH.'public'.DS.'uploads');
             if($info){
-                echo ROOT_PATH.$info->getFilename(); 
+                $arr=json_encode(array('src' => BASE_URL.'/public/uploads/'.$info->getSaveName()));
+                return $arr; 
             }else{
                 // 上传失败获取错误信息
-                echo $file->getError();
+                return $file->getError();
             }
          }else{
-            echo "未获取到图片！";
+            return "未获取到图片！";
          }
     }
 }
