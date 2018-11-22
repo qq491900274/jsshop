@@ -85,8 +85,8 @@
                             <!-- <td>{{product.order}}</td> -->
                             <td>{{product.DATE}}</td>
                             <td>
-                            <a href="<?php echo BASE_URL;?>?s=admin/lesson/update_teacher.html">编辑</a>
-                            <a href="javascript:;">删除</a>
+                            <a href="javascript:void(0)" @click="goupdate(product.ID)">编辑</a>
+                            <a href="javascript:void(0)">删除</a>
                             </td>
                         </tr>
                                    
@@ -126,6 +126,9 @@
             products:[],
         },
         methods:{
+            goupdate:function(id){
+                window.location.href=baseurl+'?s=admin/Lesson/update_teacher&id='+id;
+            },
             get:function(){
                 this.$http.post(baseurl+'?s=admin/Lesson/get_teacherval',{where:{'name':this.name,'code':this.code,'subject_id':this.subject_id,'school_id':this.school_id}}).then(function(res){
                     //给分页组件添加条件
