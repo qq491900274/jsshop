@@ -26,7 +26,7 @@
                         <tr>
                             <td>12356844</td>
                             <td>2018-11-21 15:32</td>
-                            <td><img src="__PUBLIC__/index/images/echart_10.jpg" width="60px">金石V课</td>
+                            <td><img src="__PUBLIC__/index/images/echart_10.jpg" width="60px"><span>金石V课</span></td>
                             <td>￥299</td>
                             <td>×1</td>
                             <td>299</td>
@@ -36,7 +36,7 @@
                         <tr>
                             <td>12356844</td>
                             <td>2018-11-21 15:32</td>
-                            <td><img src="__PUBLIC__/index/images/echart_10.jpg" width="60px">金石V课</td>
+                            <td><img src="__PUBLIC__/index/images/echart_10.jpg" width="60px"><span>金石1对1</span></td>
                             <td>￥299</td>
                             <td>×1</td>
                             <td>299</td>
@@ -69,7 +69,7 @@
             price:'',
             num:'',
             money:'',
-                    
+            state:''    
         },
         methods:{
             get:function(){
@@ -91,7 +91,7 @@
           
         },
         created:function(){
-            page.url='admin/Lesson/get_teacherval';
+            page.url='admin/Lesson/';
             page.onload();
             
         }
