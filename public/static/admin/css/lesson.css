@@ -382,5 +382,9 @@
 #storeList tr td.noth{
 	color:#F00;
 }
-
-
+#storeList tr td span{
+	margin-left: 10px;
+}
+#storeList tr:nth-child(odd){
+	background: #eee;
+}
