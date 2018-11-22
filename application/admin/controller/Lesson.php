@@ -85,7 +85,7 @@ class Lesson extends Controller
       //获取查询条件
       $where .= " LIMIT {$minpage},{$maxpage}";
       
-      $key = "t.ID,NAME,CODE,SUBJECT,s.SCHOOL_NAME SCHOOL,SCHOOL_ADDRESS,INTRO,PIC,DATE";
+      $key = "t.ID,NAME,CODE,SUBJECT,s.SCHOOL_NAME SCHOOL,s.ID SCHOOLID,SCHOOL_ADDRESS,INTRO,PIC,DATE";
       $result['value'] = $this->pmodel->select('SHOP_TEACHER as t left join SHOP_SCHOOL as s ON t.SCHOOL=s.ID',$key,$where);
       $result['page'] = empty($request['page']) ? '1' : $request['page'];
       
