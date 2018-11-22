@@ -59,7 +59,7 @@ class Lesson extends Controller
       $request = request()->post();
 
       $this->pmodel =  new \app\admin\model\PublicModel();
- 
+    
       $where='1=1';
       if(!empty($request['where']['name'])){
         $where .= " and NAME LIKE '%{$request['where']['name']}%'";
@@ -271,31 +271,32 @@ class Lesson extends Controller
       //获取post当前页数。与查询条件。
       $maxpage = empty($request['page'])?'19':20*$request['page']-1;
       $minpage = $maxpage-19;
-      $where='';
-      if ($request['name']) {
+      $where='1=1';
+      if (!empty($request['name'])) {
         $where.="NAME='{$request['name']}'";
       }
-      if ($request['name']) {
+      if (!empty($request['name'])) {
         $where.="NAME='{$request['name']}'";
       }
-      if ($request['name']) {
+      if (!empty($request['name'])) {
         $where.="NAME='{$request['name']}'";
       }
-      if ($request['name']) {
+      if (!empty($request['name'])) {
         $where.="NAME='{$request['name']}'";
       }
-      if ($request['name']) {
+      if (!empty($request['name'])) {
         $where.="NAME='{$request['name']}'";
       }
-      if ($request['name']) {
+      if (!empty($request['name'])) {
         $where.="NAME='{$request['name']}'";
       }
-      if ($request['name']) {
+      if (!empty($request['name'])) {
         $where.="NAME='{$request['name']}'";
       }
 
       //获取查询条件
       $where .= " LIMIT {$minpage},{$maxpage}";
+
       $key = "`ID`, `NAME`, `CODE`, `PRICE`, `CLASSGUID`, `SUBJECTGUID`, `CLASSTYPEGUID`, `TEACHERGUID`, `DATETIME`, `ORDERINDEX`, ".
               "`CONTENT`, `PROVINCE`, `CITY`, `AREA`, `ADDRESS`";
       $result['value'] = $this->pmodel->select('SHOP_CURRICULUM',$key,$where);
