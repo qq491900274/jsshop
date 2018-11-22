@@ -4,6 +4,8 @@
 <!-- 编辑器源码文件 -->
 <script type="text/javascript" src="utf8-php/ueditor.all.js"></script>
 <!-- 实例化编辑器 -->
+
+
 <script type="text/javascript">
     var ue = UE.getEditor('container');
 </script>	
@@ -15,6 +17,7 @@
 	            
 	                <ul class="clearfix">
                         <li>
+
                             <label class="seach-label">
                                 <span>*</span>教师名称：
                             </label>
@@ -32,11 +35,11 @@
                             </label>
 	                        <div class="file_top">
 	                            <span>点击选择图片</span>
-	                            <input type="file" name="" id="file">
-	                            <input type="hidden" name="" value=" " v-model="pic">
+	                            <input type="file" name="pic" id="file" class="upload" onchange="uploadpic(this)">
+	                            <input type="hidden" name="" class="" id="hpic">
                             </div>
                             <div class="fileBox"><p>建议上传图片的尺寸比例为1:1，大小不超过1M</p>
-                            <img src="images/1.jpg" height="100"></div>
+                            <img src="" height="100" id="image"></div>
 
                         </li>
                         <li>
@@ -90,6 +93,25 @@
 
 {include file="public/footer"}
 <script type="text/javascript">
+
+function uploadpic(this0){
+    
+        $.ajaxFileUpload({
+            fileElementId: 'file',    //需要上传的文件域的ID，即<input type="file">的ID。
+            url: baseurl+'?s=admin/Uploadpic/index', //后台方法的路径
+            type: 'post',   //当要提交自定义参数时，这个参数要设置成post
+            dataType: 'json', //返回值类型 一般设置为json
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function(data) {   //提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+                console.log(data.src);
+                $('#hpic').val(data.src);
+                $('#image').attr('src',data.src);
+            }
+        });
+    
+}
+
+
 var vue=new Vue({
 	el:'#update',
 	data:{
@@ -123,9 +145,9 @@ var vue=new Vue({
 			}).then(res=>{
                 
 				if(res.bodyText==1) {
-                    		layer.msg('保存成功！',function(){
-                       		 window.history.go(-1);
-                    	});  
+            		layer.msg('保存成功！',function(){
+               		 window.history.go(-1);
+            	    });  
 			    }
             });
 		},
@@ -141,7 +163,27 @@ var vue=new Vue({
                 })
             
           },
-	}
+	},
+    created:function(){
+        if (!this.id) {return;}
+        this.$http.post(baseurl+'?s=admin/Lesson/get_teacherval',{
+        'id':this.id
+        }).then(res=>{
+
+            var val=eval('('+res.bodyText+')')['value'][0];
+           
+            this.name=val['NAME'];
+            this.code=val['CODE'];
+            this.pic=val['PIC'];
+            this.school=val['SCHOOL'];
+            this.school_address=val['SCHOOL_ADDRESS'];
+            this.intro=val['INTRO'];
+            
+            
+        },res=>{
+            console.log('请求失败处理,请检查Network!');
+        })
+    }
 })
 
 </script>
