@@ -32,4 +32,13 @@ class Login extends Controller
           return array('msg'=>'登陆失败！','state'=>'2');
         }
     }
+
+     //退出
+     function exituser(){
+        
+        if (Session::set('admin','')) {
+          //登陆成功保存session
+          return array('msg'=>'退出成功！','state'=>'1');  
+        }
+    }
 }
