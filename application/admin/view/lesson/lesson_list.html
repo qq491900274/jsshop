@@ -211,7 +211,8 @@
         },
         methods:{
             get:function(){
-                this.$http.post(baseurl+'?s=admin/Lesson/subject_list',{where:{'name':this.name,'code':this.code,'province':this.province,'city':this.city,'area':this.area,'school_name2':this.school_name2,'lessonType2':this.lessonType2,'grade2':this.grade2,'subjects2':this.subjects2,'teacher2':this.teacher2}}).then(res=>{
+                this.$http.post(baseurl+'?s=admin/Lesson/get_curriculum',{where:{
+                     'name':this.name,'code':this.code,'province':this.province,'city':this.city,'area':this.area,'school_name2':this.school_name2,'lessonType2':this.lessonType2,'grade2':this.grade2,'subjects2':this.subjects2,'teacher2':this.teacher2}}).then(res=>{
                     page.where={'name':this.name,'code':this.code,'province':this.province,'city':this.city,'area':this.area,'school_name2':this.school_name2,'lessonType2':this.lessonType2,'grade2':this.grade2,'subjects2':this.subjects2,'teacher2':this.teacher2};
                         var val=eval('('+res.bodyText+')');
                         this.products=val['value'];
@@ -235,7 +236,7 @@
             } 
         },
         created:function(){
-            page.url='admin/Lesson/subject_list';
+            page.url='admin/Lesson/get_curriculum';
             page.onload();
         }
     })
