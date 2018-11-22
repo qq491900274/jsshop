@@ -126,14 +126,12 @@ class Lesson extends Controller
      
       return $result = $this->pmodel->select('SHOP_SUBJECT',"ID,NAME",$where);
     }
-<<<<<<< HEAD
+
     //添加修改教师
     public function update_teachers(){
       
     }
-=======
 
->>>>>>> 6d12c14265e57c3af66c9fab72148319cbd7ad8f
     //返回教师列表页的校区数据
     public function get_school(){
       $request = request()->post();
