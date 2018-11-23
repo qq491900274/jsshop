@@ -230,30 +230,6 @@ class Lesson extends Controller
 
       return $this->fetch('add_school');
     }
-    //添加修改校区 
-    public function update_school(){
-      $request = request()->post();
-      
-      $sql=['PROVINCE'=>$request['name'],
-            'CITY'=>$request['code'],
-            'AREA'=>$request['school'],
-            'SCHOOL_NAME'=>$request['school_address'],
-            'PHONE'=>$request['intro'],
-            'ADMIN_NAME'=>$request['pic']
-            ];
-
-      if (empty($request['id'])) {
-        $isok=DB::table('SHOP_SCHOOL')
-            ->where('ID',$request['id'])
-            ->update($sql);
-      }else{
-        $isok=DB::table('SHOP_SCHOOL')->insert($sql);
-      }
-
-      if($isok){
-        return '1';
-      }
-    }
 
     //课程列表页面
     public function Lesson_list()
@@ -371,14 +347,37 @@ class Lesson extends Controller
     public function school_class(){
       return $this->fetch('school_class');
     }
+    //修改年级
     public function addSchool_class(){
-      return $this->fetch('addschool_class');
+      $request = request()->post();
+      if (empty($request)) {
+        return $this->fetch('addschool_class');
+      }
+
+      $request = request()->post();
+     
+      $sql=['NAME'=>$request['name'],'TYPE'=>'1'];
+
+      if (!empty($request['id'])) {
+        $isok=DB::table('SHOP_SUBJECT')
+            ->where('ID',$request['id'])
+            ->update($sql);
+      }else{
+        $sql['ID']=uniqid();
+        $isok=DB::table('SHOP_SUBJECT')->insert($sql);
+      }
+      echo '1';
     }
+    //年级
     public function school_classList(){
       $minpage = 0; 
       $maxpage = 0;
       $request = request()->post();
       $this->pmodel =  new \app\admin\model\PublicModel();
+      $where='';
+      if(!empty($request['id'])){
+        $where=" ID='{$request['id']}' and ";
+      }
 
       //获取post当前页数。与查询条件。
       $maxpage = empty($request['page'])?'19':20*$request['page']-1;
@@ -405,8 +404,25 @@ class Lesson extends Controller
     public function subject(){
       return $this->fetch('subject');
     }
+    //修改科目
     public function add_subject(){
-      return $this->fetch('add_subject');
+      $request = request()->post();
+      
+      if (empty($request)) {
+        return $this->fetch('add_subject');
+      }
+
+      $sql=['NAME'=>$request['name'],'TYPE'=>'2'];
+
+      if (!empty($request['id'])) {
+        $isok=DB::table('SHOP_SUBJECT')
+            ->where('ID',$request['id'])
+            ->update($sql);
+      }else{
+        $sql['ID']=uniqid();
+        $isok=DB::table('SHOP_SUBJECT')->insert($sql);
+      }
+      return 1;
     }
     public function subject_list(){
       $minpage = 0; 
@@ -415,12 +431,16 @@ class Lesson extends Controller
       $this->pmodel =  new \app\admin\model\PublicModel(); 
 
       //获取post当前页数。与查询条件。
-      
+      $where='';
+      if(!empty($request['id'])){
+        $where=" ID='{$request['id']}' and ";
+      }
+
       $maxpage = empty($request['page'])?'19':20*$request['page']-1;
       $minpage = $maxpage-19;
       
       //获取查询条件
-      $where = "TYPE='2' LIMIT {$minpage},{$maxpage}";
+      $where.= "TYPE='2' LIMIT {$minpage},{$maxpage}";
       $key = "ID,NAME";
       $result['value'] = $this->pmodel->select('SHOP_SUBJECT',$key,$where);
       $num=$this->pmodel->select('SHOP_SUBJECT','count(ID) num ',$where);
@@ -430,5 +450,6 @@ class Lesson extends Controller
       //返回校区数据
       return $result;
     }
+  
 
 }
