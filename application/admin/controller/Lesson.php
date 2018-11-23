@@ -137,8 +137,8 @@ class Lesson extends Controller
       $request = request()->post();
       $this->pmodel =  new \app\admin\model\PublicModel();
 
-      if(!empty($request['province']) && !empty($request['city']) && !empty($request['area'])){
-        $where="PROVINCE='{$request['province']}' and CITY='{$request['city']}' and AREA='{$request['area']}'";
+      if(!empty($request['area'])){
+        $where=" AREA='{$request['area']}'";
       }else{
         return '';exit;
       }
@@ -271,40 +271,93 @@ class Lesson extends Controller
       //获取post当前页数。与查询条件。
       $maxpage = empty($request['page'])?'19':20*$request['page']-1;
       $minpage = $maxpage-19;
-      $where='1=1';
-      if (!empty($request['name'])) {
-        $where.="NAME='{$request['name']}'";
+      $where="C.ID!=''";
+      //课程名字
+      if (!empty($request['where']['name'])) {
+        $where=empty($where) ? '' : $where.' and ';
+        $where.="C.NAME='{$request['where']['name']}'";
       }
-      if (!empty($request['name'])) {
-        $where.="NAME='{$request['name']}'";
+      //课程编号
+      if (!empty($request['where']['code'])) {
+        $where=empty($where) ? '' : $where.' and ';
+        $where.="C.CODE='{$request['where']['code']}'";
       }
-      if (!empty($request['name'])) {
-        $where.="NAME='{$request['name']}'";
+      //班形
+      if (!empty($request['where']['lessonType'])) {
+        $where=empty($where) ? '' : $where.' and ';
+        $where.="C.CLASSTYPEGUID='{$request['where']['lessonType']}'";
       }
-      if (!empty($request['name'])) {
-        $where.="NAME='{$request['name']}'";
+      //班级
+      if (!empty($request['where']['grade'])) {
+        $where=empty($where) ? '' : $where.' and ';
+        $where.="C.CLASSGUID='{$request['where']['grade']}'";
       }
-      if (!empty($request['name'])) {
-        $where.="NAME='{$request['name']}'";
+      //校区
+      if (!empty($request['where']['school_id'])) {
+        $where=empty($where) ? '' : $where.' and ';
+        $where.="C.SCHOOLID='{$request['where']['school_id']}'";
       }
-      if (!empty($request['name'])) {
-        $where.="NAME='{$request['name']}'";
+      //科目
+      if (!empty($request['where']['subjects'])) {  
+        $where=empty($where) ? '' : $where.' and ';
+        $where.="C.SUBJECTGUID='{$request['where']['subjects']}'";
       }
-      if (!empty($request['name'])) {
-        $where.="NAME='{$request['name']}'";
+      //教师
+      if (!empty($request['where']['teacher'])) {
+        $where=empty($where) ? '' : $where.' and ';
+        $where.="C.TEACHERGUID='{$request['where']['teacher']}'";
       }
-
+     
       //获取查询条件
       $where .= " LIMIT {$minpage},{$maxpage}";
 
-      $key = "`ID`, `NAME`, `CODE`, `PRICE`, `CLASSGUID`, `SUBJECTGUID`, `CLASSTYPEGUID`, `TEACHERGUID`, `DATETIME`, `ORDERINDEX`, ".
-              "`CONTENT`, `PROVINCE`, `CITY`, `AREA`, `ADDRESS`";
-      $result['value'] = $this->pmodel->select('SHOP_CURRICULUM',$key,$where);
-      $result['allCount']=ceil($this->pmodel->select('SHOP_CURRICULUM','count(ID) num',$where)[0]['num'] / 20);
+      $key = "C.ID, C.NAME, C.CODE, C.PRICE, C.CLASSGUID GRADE, SUBJECTGUID SUBJECT, ".
+              "C.CLASSTYPEGUID LESSON_TYPE,T.NAME TEACHER, DATETIME, ORDERINDEX, ".
+              "CONTENT, C.PROVINCE, C.CITY, C.AREA, C.ADDRESS,S.SCHOOL_NAME,T.PIC TEACHERIMG";
+      $table='SHOP_CURRICULUM C '.
+              ' LEFT JOIN SHOP_SCHOOL S ON S.ID=C.SCHOOLID'.
+              ' LEFT JOIN SHOP_TEACHER T ON T.ID=C.TEACHERGUID';
+
+      $value= $this->pmodel->select($table,$key,$where);
+      //获取年级科目
+      $subjectval=$this->pmodel->select('SHOP_SUBJECT','ID,NAME');
+      $subjectv=array();
+      foreach ($subjectval as $k => $v) {
+         $subjectv[$v['ID']]=$v['NAME'];
+      }
+
+      foreach ($value as $key => $v) {
+        if (!empty($subjectv[$v['GRADE']])) {
+           $value[$key]['GRADE']=$subjectv[$v['GRADE']];//年级
+        }
+       if (!empty($subjectv[$v['SUBJECT']])) {
+            $value[$key]['SUBJECT']=$subjectv[$v['SUBJECT']];//科目
+        }
+        $value[$key]['DATETIME']=DATE('Y-m-d H:i:s',strtotime($v['DATETIME']));
+      }
+
+      $result['value']=$value;
+      $result['allCount']=ceil($this->pmodel->select('SHOP_CURRICULUM C','count(C.ID) num',$where)[0]['num'] / 20);
       //返回校区数据
       return $result;
     }
-    
+    //根据id获取课程
+    public function getcurriculum(){
+      $this->pmodel =  new \app\admin\model\PublicModel();
+      $request = request()->post();
+       //根据id搜索
+      if (empty($request['id'])) {
+        return '未获取到id';
+      }
+
+      $where="ID='{$request['id']}'";
+      $key = "ID, NAME, CODE, PRICE, CLASSGUID, SUBJECTGUID,SEASONTYPE,".
+              "CLASSTYPEGUID,NAME, DATETIME, ORDERINDEX, SEMESTER,STARTTIME,ENDTIME,".
+              "CONTENT, PROVINCE, CITY, AREA, ADDRESS,SCHOOLID,COURSENUM,COURSETIME,TEACHERGUID";
+      $table='SHOP_CURRICULUM ';
+
+      return $value['value']= $this->pmodel->select($table,$key,$where);
+    }
     //修改课程页
     public function Lesson_edit()
     {
