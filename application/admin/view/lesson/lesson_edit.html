@@ -43,15 +43,15 @@
                             <label class="seach-label">
                                 <span>*</span>所属校区：
                             </label>
-                            <select class="form-control input-median" text="true" name="" id="province_id" v-model="province">
+                            <select class="form-control input-median" text="true" name="" id="province_id">
                             </select>
-                            <select class="form-control input-median" text="true" name="" id="city_id" v-model="city">
+                            <select class="form-control input-median" text="true" name="" id="city_id">
                             </select>
                             <select class="form-control input-median" text="true" name="" id="district_id" v-model="area" @change="choose()">
                             </select>
                             <select class="form-control input-median" name="" id="school_id">
                                 <option value="">请选择校区</option>
-                                <option v-for='school_name in school_name' :value="school_name.value">{{school_name.label}}</option>
+                                <option v-for='t in school_name' :value="t.ID">{{t.SCHOOL_NAME}}</option>
                             </select>
                         </li>
                         <li>
@@ -84,12 +84,12 @@
                             </label>
                         	<select name="grade_id" class="form-control input-xlarge" id="grade_id" v-model="grade2">
 		                        <option value="">请选择年级</option>
-		                        <option :value="t.value" v-for="t in grade">{{t.label}}</option>
+		                        <option :value="t.ID" v-for="t in grade">{{t.NAME}}</option>
 		                        
 	                        </select>
 	                    	<select name="subject_id" id="subject_id" class="form-control input-xlarge" v-model="subjects2">
 		                        <option value="">请选择科目</option>
-		                        <option :value="t.value" v-for="t in subjects">{{t.label}}</option>
+		                        <option :value="t.ID" v-for="t in subjects">{{t.NAME}}</option>
 		                        
 	                        </select>
                         </li>
@@ -99,55 +99,10 @@
                             </label>
                             <select class="form-control" name="type" v-model="teacher2">
                                 <option value="">请选择老师</option>
-                                <option :value="t.value" v-for="t in teacher">{{t.label}}</option>
+                                <option :value="t.ID" v-for="t in teacher">{{t.NAME}}</option>
                             </select>
                         </li>
-                        <!-- <li>
-                        	<label class="seach-label" style="float:left">
-                                <span>*</span>商品规格：
-                            </label>
-                            <table id="goods_spe" border="1" width="950">
-		                        <thead>
-			                        <tr>
-			                            <th style="text-align:center;background:#ccc" width="20%">规格名称</th>
-			                            <th style="text-align:center;background:#ccc" width="16%">价格</th>
-			                            <th style="text-align:center;background:#ccc" width="16%">库存</th>
-			                            <th style="text-align:center;background:#ccc" width="16%">排序</th>
-			                            <th style="text-align:center;background:#ccc" width="16%">每人限购</th>
-			                            <th style="text-align:center;background:#ccc" width="16%">操作</th>
-			                        </tr>
-			                    </thead>
-                        		<tbody>
-		                            <tr>
-		                                <td>
-		                                    <input name="" value="体验课1节" maxlength="50" style="width:100%" type="text">
-		                                    <input name="" value="3382" type="hidden">
-		                                    <input name="" value="31562" type="hidden">
-		                                </td>
-		                                <td>
-		                                	<input name="" value="6.60" style="width:100%" type="text">
-		                                </td>
-		                                <td><input name="" value="200" min="0" max="999999999" style="width:100%" type="number"></td>
-		                                <td><input name="" value="1" max="999999" style="width:100%" type="number"></td>
-		                                <td><input name="" value="1" min="0" max="99999" style="width:100%" type="number"></td>
-		                                <td align="center"><a href="javascript:;">删除</a></td>
-		                            </tr>
-		                            <tr>
-		                                <td>
-		                                    <input name="" value="课程定金" maxlength="50" style="width:100%" type="text">
-		                                    <input name="" value="3382" type="hidden">
-		                                    <input name="" value="31563" type="hidden">
-		                                </td>
-		                                <td><input name="" value="200.00" style="width:100%" type="text"></td>
-		                                <td><input name="" value="300" min="0" max="999999999" style="width:100%" type="number"></td>
-		                                <td><input name="" value="1" max="999999" style="width:100%" type="number"></td>
-		                                <td><input name="" value="1" min="0" max="99999" style="width:100%" type="number"></td>
-		                                <td align="center"><a href="javascript:;">删除</a></td>
-		                            </tr>
-                            	</tbody>
-                            </table>
-                            <div class="topBtns"><a href="javascript:;">添加规格</a></div>
-                        </li> -->
+                        
                         <li>
                         	<label class="seach-label">
                                 <span>*</span>开课时间：
@@ -185,19 +140,8 @@
                             </label>
                             <input type="number" name="" value="" class="form-control" v-model="num">
                         </li>
-                        <!-- <li>
-                        	<label class="seach-label">
-                                <span>*</span>是否推荐：
-                            </label>
-                            <input type="radio" name="t1" value="" class="radio"> 是 &nbsp;&nbsp;&nbsp;<input type="radio" name="t1" value="" class="radio"> 否
-                        </li>
-                        <li>
-                        	<label class="seach-label">
-                                <span>*</span>显示状态：
-                            </label>
-                            <input type="radio" name="s1" value="" class="radio"> 显示 &nbsp;&nbsp;&nbsp;<input type="radio" name="s1" value="" class="radio"> 隐藏
-                        </li> -->
-                        <li class="seach"><input type="submit" name="" value="确认" @click="get()"></li>
+                        
+                        <li class="seach"><input type="submit" name="" value="确认" @click="get()"><a href="javascript:history.back(-1)" id="back">返回</a></li>
                     </ul>
                 
             </div>
@@ -210,11 +154,6 @@
 <script src="__PUBLIC__/admin/js/laydate.js"></script>
 <script type="text/javascript">
 
-showLocation();
-CheckProvince('');
-CheckCity('');
-CheckTown('');
-
 laydate.render({
   elem: '#test5',
   type: 'datetime'
@@ -223,8 +162,6 @@ laydate.render({
   elem: '#test4',
   type: 'datetime'
 });
-
-
 
 
 var vue=new Vue({
@@ -252,42 +189,22 @@ var vue=new Vue({
         semester:'',//学期
         grade2:'',
         grade:[
-            {value:'高三',label:'高三'},
-            {value:'高二',label:'高二'},
-            {value:'高一',label:'高一'},
-            {value:'九年级',label:'九年级'},
-            {value:'八年级',label:'八年级'},
-            {value:'七年级',label:'七年级'},
-            {value:'六年级',label:'六年级'},
-            {value:'五年级',label:'五年级'},
-            {value:'四年级',label:'四年级'},
-            {value:'三年级',label:'三年级'},
-            {value:'二年级',label:'二年级'},
-            {value:'一年级',label:'一年级'}
+            
         ],//年级
         subjects2:'',
         subjects:[
-            {value:'化学',label:'化学'},
-            {value:'物理',label:'物理'},
-            {value:'生物',label:'生物'},
-            {value:'地理',label:'地理'},
-            {value:'政治',label:'政治'},
-            {value:'英语',label:'英语'},
-            {value:'数学',label:'数学'},
-            {value:'语文',label:'语文'}
+            
         ],//科目
         teacher2:'',
         teacher:[
-            {value:'慕承和',label:'慕承和'},
-            {value:'薛桐',label:'薛桐'},
-            {value:'柏林',label:'柏林'},
-            {value:'胡歌',label:'胡歌'}
+            
         ],//老师
         
         lessonNum:'',//课程节数
         lessonTime:'',//课程时长
         intro:'',//课程详情
-        num:''//序号
+        num:'',//序号
+        id:'<?php echo @$_GET['id']?>'
     },
     methods:{
         get:function(){
@@ -322,14 +239,17 @@ var vue=new Vue({
                 'startTime':startTime,
                 'endTime':endTime
             }).then(res=>{
-                console.log(res);
+                if(res.bodyText==1){
+                    layer.msg('保存成功！',function(){
+                        window.history.go(-1);
+                    })
+                }
             },res=>{
                 console.log('请求失败处理,请检查Network!');
             })
         },
         choose:function(){
-            this.$http.post(baseurl+'?s=admin/Lesson/get_school',{
-                'province':this.province,
+            this.$http.post(baseurl+'?s=admin/Lesson/get_schoolval',{
                 'city':this.city,
                 'area':this.area}).then(res=>{
                     //console.log(res);
@@ -340,6 +260,38 @@ var vue=new Vue({
             
         },
         
+    },
+    created:function(){
+        if(!this.id){
+            return;
+        }
+        this.$http.post(baseurl+'?s=admin/Lesson/get_curriculum',{'id':this.id}).then(res=>{
+            var val=eval('('+res.bodyText+')');
+            
+        },res=>{
+             console.log('请求失败处理,请检查Network!');
+        });
+        //教师
+            this.$http.post(baseurl+'?s=admin/Lesson/get_teacherval').then(res=>{
+                var teaName=eval('('+res.bodyText+')');
+                this.teacher=teaName['value'];
+            },res=>{
+                console.log('请求失败处理,请检查Network!');
+            });
+            //年级
+            this.$http.post(baseurl+'?s=admin/Lesson/school_classList').then(res=>{
+                var grade=eval('('+res.bodyText+')');
+                this.grade=grade['value'];
+            },res=>{
+                console.log('请求失败处理,请检查Network!');
+            });
+            //科目
+            this.$http.post(baseurl+'?s=admin/Lesson/subject_list').then(res=>{
+                var subject=eval('('+res.bodyText+')');
+                this.subjects=subject['value'];
+            },res=>{
+                console.log('请求失败处理,请检查Network!');
+            })
     }
 })
 

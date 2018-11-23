@@ -11,7 +11,7 @@
                         </label>
                         <input type="text" name="" v-model="name" class="form-control">
                     </li>
-                    <li class="seach"><input type="submit" name="" value="确认" @click="get();"></li>
+                    <li class="seach"><input type="submit" name="" value="确认" @click="get();"><a href="javascript:history.back(-1)" id="back">返回</a></li>
                 </ul>
             </div>
 		</div>
@@ -25,18 +25,35 @@
 new Vue({
 	el:'#update',
 	data:{
-		name:''
+		name:'',
+		id:'<?php echo @$_GET['id']?>'
 	},
 	methods:{
 		get:function(){
 			this.$http.post(baseurl+'?s=admin/Lesson/addschool_class',{
-				'name':this.name
+				'name':this.name,
+				'id':this.id
 			}).then(res=>{
-				console.log(res);
+				if(res.bodyText==1) {
+            		layer.msg('保存成功！',function(){
+               		 window.history.go(-1);
+            	    });  
+			    }
 			},res=>{
 				console.log('请求失败处理,请检查Network!');
 			})
 		}
+	},
+	created:function(){
+		if(!this.id){
+			return;
+		}
+		this.$http.post(baseurl+'?s=admin/Lesson/school_classList',{'id':this.id}).then(res=>{
+			var val=eval('('+res.bodyText+')')['value'][0];
+			this.name=val['NAME'];
+		},res=>{
+			console.log('请求失败处理,请检查Network!');
+		})
 	}
 })
 

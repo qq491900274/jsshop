@@ -37,7 +37,11 @@ new Vue({
 				'name':this.name,
 				'id':this.id
 			}).then(res=>{
-				console.log(res);
+				if(res.bodyText==1) {
+            		layer.msg('保存成功！',function(){
+               		 window.history.go(-1);
+            	    });  
+			    }
 			},res=>{
 				console.log('请求失败处理,请检查Network!');
 			})

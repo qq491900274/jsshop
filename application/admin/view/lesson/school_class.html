@@ -20,8 +20,8 @@
                             <td>{{slist.NAME}}</td>
                             <td>显示</td>
                             <td>
-                            <a href="<?php echo BASE_URL;?>?s=admin/lesson/addSchool_class.html" style="margin-right: 20px;">编辑</a>
-                            <a href="#" @click="remove(slist.ID,index)">删除</a>
+                            <a href="javascript:void(0)" style="margin-right: 20px;" @click="goUpdate(slist.ID)">编辑</a>
+                            <a href="javascript:void(0)" @click="remove(slist.ID,index)">删除</a>
                             </td>
                         </tr>                   
                     </tbody>
@@ -39,6 +39,9 @@ var vue=new Vue({
 		products:[]
 	},
 	methods:{
+		goUpdate:function(id){
+			window.location.href=baseurl+'?s=admin/Lesson/addSchool_class&id='+id;
+		},
 		onload:function(){
 			this.$http.post(baseurl+'?s=admin/Lesson/school_classList').then(res=>{
 				this.products=eval('('+res.bodyText+')')['value'];
@@ -57,7 +60,7 @@ var vue=new Vue({
 					
 					if(num==1){
 						layer.msg('删除成功！',{time:1500});
-						vue.products.splice(arrid);
+						vue.products.splice(arrid,1);
 						
 					}else{
 						location.reload();

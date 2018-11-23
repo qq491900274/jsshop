@@ -39,15 +39,15 @@
                             <label class="seach-label">
                                 所属校区：
                             </label>
-                            <select class="form-control input-median" text="true" name="" id="province_id" v-model="province">
+                            <select class="form-control input-median" text="true" name="" id="province_id">
                             </select>
-                            <select class="form-control input-median" text="true" name="" id="city_id" v-model="city">
+                            <select class="form-control input-median" text="true" name="" id="city_id">
                             </select>
                             <select class="form-control input-median" text="true" name="" id="district_id" v-model="area" @change="choose();">
                             </select>
                             <select class="form-control input-median" name="" id="school_id" v-model="school_name2">
                                 <option value="">请选择校区</option>
-                                 <option v-for="schoolName in school_name">{{schoolName.SCHOOL_NAME}}</option>
+                                 <option v-for="t in school_name" :value="t.ID">{{t.SCHOOL_NAME}}</option>
                             </select>
                         </li>
                         <li class="right">
@@ -122,7 +122,7 @@
                                 <td width="105">{{t.DATATIME}}</td>
                                 <td>0</td>
                                 <td>
-                                <a href="<?php echo BASE_URL;?>?s=admin/lesson/lesson_edit.html">编辑</a>
+                                <a href="javascript:void(0)" @click="goUpdate(t.ID)">编辑</a>
                                 <a href="javascript:void(0)" @click="remove(t.ID,index)">删除</a>
                                 </td>
                             </tr>        
@@ -179,6 +179,9 @@
             products:[]
         },
         methods:{
+            goUpdate:function(id){
+                window.location.href=baseurl+'?s=admin/Lesson/lesson_edit&id='+id;
+            },
             get:function(){
                 this.$http.post(baseurl+'?s=admin/Lesson/get_curriculum',{where:{
                      'name':this.name,'code':this.code,'province':this.province,'city':this.city,'area':this.area,'school_name2':this.school_name2,'lessonType2':this.lessonType2,'grade2':this.grade2,'subjects2':this.subjects2,'teacher2':this.teacher2}}).then(res=>{
@@ -194,7 +197,6 @@
             },
             choose:function(){
                 this.$http.post(baseurl+'?s=admin/Lesson/get_school',{
-                'province':this.province,
                 'city':this.city,
                 'area':this.area}).then(res=>{
                     console.log(res);
