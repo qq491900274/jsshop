@@ -135,7 +135,7 @@
                                 <td>
                                 <a href="<?php echo BASE_URL;?>?s=admin/lesson/lesson_edit.html">编辑</a><br><a href="#">复制详情</a>
                                 </td>
-                            </tr>        
+                            </tr>
                         </tbody>
                 </table>
                 <div class="topBtns1">
@@ -213,7 +213,8 @@
             get:function(){
                 this.$http.post(baseurl+'?s=admin/Lesson/get_curriculum',{where:{
                      'name':this.name,'code':this.code,'province':this.province,'city':this.city,'area':this.area,'school_name2':this.school_name2,'lessonType2':this.lessonType2,'grade2':this.grade2,'subjects2':this.subjects2,'teacher2':this.teacher2}}).then(res=>{
-                    page.where={'name':this.name,'code':this.code,'province':this.province,'city':this.city,'area':this.area,'school_name2':this.school_name2,'lessonType2':this.lessonType2,'grade2':this.grade2,'subjects2':this.subjects2,'teacher2':this.teacher2};
+                        
+                        page.where={'name':this.name,'code':this.code,'province':this.province,'city':this.city,'area':this.area,'school_name2':this.school_name2,'lessonType2':this.lessonType2,'grade2':this.grade2,'subjects2':this.subjects2,'teacher2':this.teacher2};
                         var val=eval('('+res.bodyText+')');
                         this.products=val['value'];
                         console.log(this.products);
