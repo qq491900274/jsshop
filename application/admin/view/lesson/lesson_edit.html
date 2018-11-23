@@ -43,13 +43,13 @@
                             <label class="seach-label">
                                 <span>*</span>所属校区：
                             </label>
-                            <select class="form-control input-median" text="true" name="" id="province_id">
+                            <select class="form-control input-median" text="true" name="" id="province_id" v-model="province_id">
                             </select>
-                            <select class="form-control input-median" text="true" name="" id="city_id">
+                            <select class="form-control input-median" text="true" name="" id="city_id" v-model="city_id">
                             </select>
-                            <select class="form-control input-median" text="true" name="" id="district_id" v-model="area" @change="choose()">
+                            <select class="form-control input-median" text="true" name="" id="area" v-model="area" @change="choose()">
                             </select>
-                            <select class="form-control input-median" name="" id="school_id">
+                            <select class="form-control input-median" name="" id="school_id" v-model='school_id'>
                                 <option value="">请选择校区</option>
                                 <option v-for='t in school_name' :value="t.ID">{{t.SCHOOL_NAME}}</option>
                             </select>
@@ -131,7 +131,9 @@
                             	#edui1{width:100%;}
                             </style>
                             <!-- 加载编辑器的容器 -->
-                            <textarea id="container" style="width:900px;margin-left:137px;margin-top:-23px;"  v-model="intro"></textarea> 
+                            <textarea id="container" style="width:900px;margin-left:137px;margin-top:-23px;"  v-model="intro">
+                                
+                            </textarea> 
 	
                         </li>
                         <li>
@@ -265,33 +267,33 @@ var vue=new Vue({
         if(!this.id){
             return;
         }
-        this.$http.post(baseurl+'?s=admin/Lesson/get_curriculum',{'id':this.id}).then(res=>{
+        this.$http.post(baseurl+'?s=admin/Lesson/getcurriculum',{'id':this.id}).then(res=>{
             var val=eval('('+res.bodyText+')');
             
         },res=>{
              console.log('请求失败处理,请检查Network!');
         });
         //教师
-            this.$http.post(baseurl+'?s=admin/Lesson/get_teacherval').then(res=>{
-                var teaName=eval('('+res.bodyText+')');
-                this.teacher=teaName['value'];
-            },res=>{
-                console.log('请求失败处理,请检查Network!');
-            });
-            //年级
-            this.$http.post(baseurl+'?s=admin/Lesson/school_classList').then(res=>{
-                var grade=eval('('+res.bodyText+')');
-                this.grade=grade['value'];
-            },res=>{
-                console.log('请求失败处理,请检查Network!');
-            });
-            //科目
-            this.$http.post(baseurl+'?s=admin/Lesson/subject_list').then(res=>{
-                var subject=eval('('+res.bodyText+')');
-                this.subjects=subject['value'];
-            },res=>{
-                console.log('请求失败处理,请检查Network!');
-            })
+        this.$http.post(baseurl+'?s=admin/Lesson/get_teacherval').then(res=>{
+            var teaName=eval('('+res.bodyText+')');
+            this.teacher=teaName['value'];
+        },res=>{
+            console.log('请求失败处理,请检查Network!');
+        });
+        //年级
+        this.$http.post(baseurl+'?s=admin/Lesson/school_classList').then(res=>{
+            var grade=eval('('+res.bodyText+')');
+            this.grade=grade['value'];
+        },res=>{
+            console.log('请求失败处理,请检查Network!');
+        });
+        //科目
+        this.$http.post(baseurl+'?s=admin/Lesson/subject_list').then(res=>{
+            var subject=eval('('+res.bodyText+')');
+            this.subjects=subject['value'];
+        },res=>{
+            console.log('请求失败处理,请检查Network!');
+        })
     }
 })
 

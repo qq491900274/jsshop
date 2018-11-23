@@ -119,8 +119,8 @@
                                 <td>{{t.GRADE}}{{t.SUBJECT}}</td><!--九年级数学-->
                                 <td>{{t.TEACHER}}</td><!--宋昂-->
                                 <td><img :src="t.TEACHERIMG" height="60"></td><!--img-->
-                                <td width="105">{{t.DATATIME}}</td>
-                                <td>0</td>
+                                <td width="105">{{t.DATETIME}}</td>
+                                <td>{{t.ORDERINDEX}}</td>
                                 <td>
                                 <a href="javascript:void(0)" @click="goUpdate(t.ID)">编辑</a>
                                 <a href="javascript:void(0)" @click="remove(t.ID,index)">删除</a>
@@ -184,7 +184,7 @@
             },
             get:function(){
                 this.$http.post(baseurl+'?s=admin/Lesson/get_curriculum',{where:{
-                     'name':this.name,'code':this.code,'province':this.province,'city':this.city,'area':this.area,'school_name2':this.school_name2,'lessonType2':this.lessonType2,'grade2':this.grade2,'subjects2':this.subjects2,'teacher2':this.teacher2}}).then(res=>{
+                     'name':this.name,'code':this.code,'school_id':this.school_name2,'lessonType':this.lessonType2,'grade':this.grade2,'subjects':this.subjects2,'teacher':this.teacher2}}).then(res=>{
                         
                         page.where={'name':this.name,'code':this.code,'province':this.province,'city':this.city,'area':this.area,'school_name2':this.school_name2,'lessonType2':this.lessonType2,'grade2':this.grade2,'subjects2':this.subjects2,'teacher2':this.teacher2};
                         var val=eval('('+res.bodyText+')');
