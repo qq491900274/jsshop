@@ -13,6 +13,7 @@
 <script type="text/javascript" src="__PUBLIC__/admin/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/admin/js/vue.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/admin/js/vue-resource.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/ajaxfileupload.js" ></script>
 <script type="text/javascript">
     var baseurl="<?php echo BASE_URL;?>";
 </script>
@@ -38,7 +39,7 @@
         <ul id="first" class="clearfix">
             <li class="active"><a href="#">订单管理</a>
                 <ul id="second">
-                    <li><a href="#">订单列表</a></li>
+                    <li><a href="<?php echo BASE_URL;?>?s=admin/order/order_list.html">订单列表</a></li>
                     <li><a href="#">评价列表</a></li>
                 </ul>
             </li>
@@ -52,6 +53,8 @@
                     <li><a href="<?php echo BASE_URL;?>?s=admin/lesson/lesson_school.html">校区列表</a></li>
                     <li><a href="<?php echo BASE_URL;?>?s=admin/lesson/lesson_teacher.html">教师列表</a></li>
                     <li><a href="<?php echo BASE_URL;?>?s=admin/lesson/lesson_list.html">课程列表</a></li>
+                    <li><a href="<?php echo BASE_URL;?>?s=admin/lesson/subject.html">科目列表</a></li>
+                    <li><a href="<?php echo BASE_URL;?>?s=admin/lesson/school_class.html">年级列表</a></li>
                 </ul>
             </li>
             <li><a href="#">优惠券</a>
