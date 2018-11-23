@@ -74,7 +74,7 @@
                         </tr>
                     </thead>
                     <tbody id="storeList">
-                        <tr v-for="product in products">
+                        <tr v-for="(product,index) in products">
                             <td><input type="checkbox" name="ids[]" class="check_one" :value="product.ID"  /></td>
                             <td>{{product.NAME}}</td>
                             <td><img :src="product.imgUrl" height="60" /></td>
@@ -86,7 +86,7 @@
                             <td>{{product.DATE}}</td>
                             <td>
                             <a href="javascript:void(0)" @click="goupdate(product.ID)">编辑</a>
-                            <a href="javascript:void(0)">删除</a>
+                            <a href="javascript:void(0)" @click="remove(product.ID,index)">删除</a>
                             </td>
                         </tr>
                                    
@@ -154,6 +154,24 @@
                 },res=>{
                     console.log('请求失败处理,请检查Network!');
                 })
+          },
+          remove:function(ids,arrid){
+            layer.alert('确定要删除吗？',function(){
+                vue.$http.post(baseurl+'?s=admin/Lesson/dele_teacher',{id:ids}).then(res=>{
+                    var num=eval('('+res.bodyText+')');
+                    if(num==1){
+                        console.log(vue.products);
+                        console.log(vue.products.arrid);
+                        console.log(arrid);
+                        layer.msg('删除成功！',{time:1500});
+                        vue.products.splice(arrid,1);
+                    }else{
+                        location.reload();
+                    }
+                },res=>{
+                    console.log('请求失败处理，请检查Network!');
+                })
+            })
           }
         },
         created:function(){

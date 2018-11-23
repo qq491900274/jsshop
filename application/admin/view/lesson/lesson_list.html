@@ -34,16 +34,7 @@
                             </label>
                             <input type="text" name="" value="" placeholder="请输入课程编号" class="form-control" v-model="code">
                         </li>
-                        <li class="right">
-                            <label class="seach-label">
-                                显示状态：
-                            </label>
-                            <select class="form-control" name="">
-                                <option value="">请选择</option>
-                                <option  value="1">显示</option>
-                                <option  value="2">隐藏</option>
-                            </select>
-                        </li>
+                        
                         <li style="width:52%">
                             <label class="seach-label">
                                 所属校区：
@@ -74,11 +65,11 @@
                             </label>
                             <select class="form-control" name="grade_id" style="width:40%" v-model="grade2">
                                 <option value="">请选择年级</option>
-                                <option :value="t.value" v-for="t in grade">{{t.label}}</option>
+                                <option :value="t.ID" v-for="t in grade">{{t.NAME}}</option>
                             </select>
                             <select class="form-control" name="subject_id" id="subject_id" style="width:40%" v-model="subjects2">
                                 <option value="">请选择科目</option>
-                                <option :value="t.value" v-for="t in subjects">{{t.label}}</option>
+                                <option :value="t.ID" v-for="t in subjects">{{t.NAME}}</option>
                             </select>
                         </li>
                         
@@ -89,7 +80,7 @@
                             </label>
                             <select class="form-control" name="teacher_id" id="teacher_id" v-model="teacher2">
                                 <option value="">请选择</option>
-                                <option :value="t.value" v-for="t in teacher">{{t.label}}</option>                                  
+                                <option :value="t.ID" v-for="t in teacher">{{t.NAME}}</option>                                  
                             </select>
                         </li>
                     </ul>
@@ -114,26 +105,25 @@
                             <th>教师头像</th>
                             <th>添加时间</th>
                             <th>排序</th>
-                            <th>状态</th>
                             <th>操作</th>
                         </tr>
                     </thead>
                     <tbody id="storeList">
-                        <tr v-for="t in products">
+                        <tr v-for="(t,index) in products">
                                 <td><input type="checkbox" name="" class="check_one" :value="t.ID" /></td>
                                 <td>{{t.NAME}}</td> <!--九年级数学基金班[秋]--> 
-                                <td>{{t.code}}</td> <!--20182744-->
-                                <td style="color:red">&yen;{{t.price}}</td><!--1.00~200.00-->
-                                <td>{{t.school_name2}}</td><!--南京鼓楼校区-->
-                                <td>{{t.lessonType2}}</td><!--金石V课-->
-                                <td>{{t.grade2}}{{t.subjects2}}</td><!--九年级数学-->
-                                <td>{{t.teacher2}}</td><!--宋昂-->
-                                <td><img :src="t.teacherImg" height="60"></td><!--img-->
-                                <td width="105"></td>
+                                <td>{{t.CODE}}</td> <!--20182744-->
+                                <td style="color:red">&yen;{{t.PRICE}}</td><!--1.00~200.00-->
+                                <td>{{t.SCHOOL_NAME}}</td><!--南京鼓楼校区-->
+                                <td>{{t.LESSON_TYPE}}</td><!--金石V课-->
+                                <td>{{t.GRADE}}{{t.SUBJECT}}</td><!--九年级数学-->
+                                <td>{{t.TEACHER}}</td><!--宋昂-->
+                                <td><img :src="t.TEACHERIMG" height="60"></td><!--img-->
+                                <td width="105">{{t.DATATIME}}</td>
                                 <td>0</td>
-                                <td>显示</td>
                                 <td>
-                                <a href="<?php echo BASE_URL;?>?s=admin/lesson/lesson_edit.html">编辑</a><br><a href="#">复制详情</a>
+                                <a href="<?php echo BASE_URL;?>?s=admin/lesson/lesson_edit.html">编辑</a>
+                                <a href="javascript:void(0)" @click="remove(t.ID,index)">删除</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -174,36 +164,15 @@
             ],
             grade2:'',
             grade:[
-                {value:'高三',label:'高三'},
-                {value:'高二',label:'高二'},
-                {value:'高一',label:'高一'},
-                {value:'九年级',label:'九年级'},
-                {value:'八年级',label:'八年级'},
-                {value:'七年级',label:'七年级'},
-                {value:'六年级',label:'六年级'},
-                {value:'五年级',label:'五年级'},
-                {value:'四年级',label:'四年级'},
-                {value:'三年级',label:'三年级'},
-                {value:'二年级',label:'二年级'},
-                {value:'一年级',label:'一年级'}
+                
             ],//年级
             subjects2:'',
             subjects:[
-                {value:'化学',label:'化学'},
-                {value:'物理',label:'物理'},
-                {value:'生物',label:'生物'},
-                {value:'地理',label:'地理'},
-                {value:'政治',label:'政治'},
-                {value:'英语',label:'英语'},
-                {value:'数学',label:'数学'},
-                {value:'语文',label:'语文'}
+                
             ],//科目
             teacher2:'',
             teacher:[
-                {value:'慕承和',label:'慕承和'},
-                {value:'薛桐',label:'薛桐'},
-                {value:'柏林',label:'柏林'},
-                {value:'胡歌',label:'胡歌'}
+                
             ],//老师
             price:'',
             teacherImg:'',
@@ -234,11 +203,47 @@
                 },res=>{
                     console.log('请求失败处理,请检查Network!');
                 })
+            },
+            remove:function(ids,arrid){
+                layer.alert('确定是删除吗？',function(){
+                    vue.$http.post(baseurl+'?s=admin/Lesson/delete_list').then(res=>{
+                        var num=eval('('+res.bodyText+')');
+                        if(num==1){
+                            layer.msg('删除成功！',{time:1500});
+                            vue.products.splice(arrid,1);
+                        }else{
+                            location.reload();
+                        }
+                    },res=>{
+                        console.log('请求失败处理,请检查Network!');
+                    })
+                })
             } 
         },
         created:function(){
             page.url='admin/Lesson/get_curriculum';
             page.onload();
+            //教师
+            this.$http.post(baseurl+'?s=admin/Lesson/get_teacherval').then(res=>{
+                var teaName=eval('('+res.bodyText+')');
+                this.teacher=teaName['value'];
+            },res=>{
+                console.log('请求失败处理,请检查Network!');
+            });
+            //年级
+            this.$http.post(baseurl+'?s=admin/Lesson/school_classList').then(res=>{
+                var grade=eval('('+res.bodyText+')');
+                this.grade=grade['value'];
+            },res=>{
+                console.log('请求失败处理,请检查Network!');
+            });
+            //科目
+            this.$http.post(baseurl+'?s=admin/Lesson/subject_list').then(res=>{
+                var subject=eval('('+res.bodyText+')');
+                this.subjects=subject['value'];
+            },res=>{
+                console.log('请求失败处理,请检查Network!');
+            })
         }
     })
 /********************************************************************/
