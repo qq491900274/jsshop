@@ -202,6 +202,7 @@ class Lesson extends Controller
       $isok=$this->pmodel->dele('SHOP_SCHOOL',$where);
       echo '1';
     }
+    //添加修改学校
     public function add_school(){
       $request = request()->post();
       
@@ -229,30 +230,6 @@ class Lesson extends Controller
       
 
       return $this->fetch('add_school');
-    }
-    //添加修改校区 
-    public function update_school(){
-      $request = request()->post();
-      
-      $sql=['PROVINCE'=>$request['name'],
-            'CITY'=>$request['code'],
-            'AREA'=>$request['school'],
-            'SCHOOL_NAME'=>$request['school_address'],
-            'PHONE'=>$request['intro'],
-            'ADMIN_NAME'=>$request['pic']
-            ];
-
-      if (empty($request['id'])) {
-        $isok=DB::table('SHOP_SCHOOL')
-            ->where('ID',$request['id'])
-            ->update($sql);
-      }else{
-        $isok=DB::table('SHOP_SCHOOL')->insert($sql);
-      }
-
-      if($isok){
-        return '1';
-      }
     }
 
     //课程列表页面
@@ -313,7 +290,7 @@ class Lesson extends Controller
 
       $key = "C.ID, C.NAME, C.CODE, C.PRICE, C.CLASSGUID GRADE, SUBJECTGUID SUBJECT, ".
               "C.CLASSTYPEGUID LESSON_TYPE,T.NAME TEACHER, DATETIME, ORDERINDEX, ".
-              "CONTENT, C.PROVINCE, C.CITY, C.AREA, C.ADDRESS,S.SCHOOL_NAME,T.PIC TEACHERIMG";
+              "CONTENT, C.PROVINCE, C.CITY, C.AREA,S.SCHOOL_NAME,T.PIC TEACHERIMG";
       $table='SHOP_CURRICULUM C '.
               ' LEFT JOIN SHOP_SCHOOL S ON S.ID=C.SCHOOLID'.
               ' LEFT JOIN SHOP_TEACHER T ON T.ID=C.TEACHERGUID';
@@ -353,7 +330,7 @@ class Lesson extends Controller
       $where="ID='{$request['id']}'";
       $key = "ID, NAME, CODE, PRICE, CLASSGUID, SUBJECTGUID,SEASONTYPE,".
               "CLASSTYPEGUID,NAME, DATETIME, ORDERINDEX, SEMESTER,STARTTIME,ENDTIME,".
-              "CONTENT, PROVINCE, CITY, AREA, ADDRESS,SCHOOLID,COURSENUM,COURSETIME,TEACHERGUID";
+              "CONTENT, PROVINCE, CITY, AREA,SCHOOLID,COURSENUM,COURSETIME,TEACHERGUID,IMG";
       $table='SHOP_CURRICULUM ';
 
       return $value['value']= $this->pmodel->select($table,$key,$where);
@@ -362,23 +339,80 @@ class Lesson extends Controller
     public function Lesson_edit()
     {
       $request = request()->post();
-      if ($request) {
-          
+      if (empty($request)) {
+        return $this->fetch('Lesson_edit');
       }
-      return $this->fetch('Lesson_edit');
+
+      $sql=[
+        'NAME'=>$request['name'],
+        'CODE'=>$request['code'],
+        'PRICE'=>$request['price'],
+        'CLASSGUID'=>$request['gradeid'],
+        'SUBJECTGUID'=>$request['subjectsid'],
+        'CLASSTYPEGUID'=>$request['lessonTypeid'],
+        'TEACHERGUID'=>$request['teacherid'],
+        'DATETIME'=>date('Y-m-d H:i:s'),
+        'ORDERINDEX'=>$request['num'],
+        'CONTENT'=>$request['intro'],
+        'PROVINCE'=>$request['province'],
+        'CITY'=>$request['city'],
+        'AREA'=>$request['area'],
+        'SCHOOLID'=>$request['schoolid'],
+        'SEASONTYPE'=>$request['classTypeid'],
+        'SEMESTER'=>$request['semester'],
+        'STARTTIME'=>$request['startTime'],
+        'ENDTIME'=>$request['endTime'],
+        'COURSENUM'=>$request['lessonNum'],
+        'COURSETIME'=>$request['lessonTime'],
+        'IMG'=>$request['img']
+      ];
+
+      if (!empty($request['id'])) {
+        $isok=DB::table('SHOP_CURRICULUM')
+            ->where('ID',$request['id'])
+            ->update($sql);
+      }else{
+        $sql['ID']=uniqid();
+        $isok=DB::table('SHOP_CURRICULUM')->insert($sql);
+      }
+
+      echo '1';
     }
     //年级
     public function school_class(){
       return $this->fetch('school_class');
     }
+    //修改年级
     public function addSchool_class(){
-      return $this->fetch('addschool_class');
+      $request = request()->post();
+      if (empty($request)) {
+        return $this->fetch('addschool_class');
+      }
+
+      $request = request()->post();
+     
+      $sql=['NAME'=>$request['name'],'TYPE'=>'1'];
+
+      if (!empty($request['id'])) {
+        $isok=DB::table('SHOP_SUBJECT')
+            ->where('ID',$request['id'])
+            ->update($sql);
+      }else{
+        $sql['ID']=uniqid();
+        $isok=DB::table('SHOP_SUBJECT')->insert($sql);
+      }
+      echo '1';
     }
+    //年级
     public function school_classList(){
       $minpage = 0; 
       $maxpage = 0;
       $request = request()->post();
       $this->pmodel =  new \app\admin\model\PublicModel();
+      $where='';
+      if(!empty($request['id'])){
+        $where=" ID='{$request['id']}' and ";
+      }
 
       //获取post当前页数。与查询条件。
       $maxpage = empty($request['page'])?'19':20*$request['page']-1;
@@ -405,8 +439,25 @@ class Lesson extends Controller
     public function subject(){
       return $this->fetch('subject');
     }
+    //修改科目
     public function add_subject(){
-      return $this->fetch('add_subject');
+      $request = request()->post();
+      
+      if (empty($request)) {
+        return $this->fetch('add_subject');
+      }
+
+      $sql=['NAME'=>$request['name'],'TYPE'=>'2'];
+
+      if (!empty($request['id'])) {
+        $isok=DB::table('SHOP_SUBJECT')
+            ->where('ID',$request['id'])
+            ->update($sql);
+      }else{
+        $sql['ID']=uniqid();
+        $isok=DB::table('SHOP_SUBJECT')->insert($sql);
+      }
+      return 1;
     }
     public function subject_list(){
       $minpage = 0; 
@@ -415,12 +466,16 @@ class Lesson extends Controller
       $this->pmodel =  new \app\admin\model\PublicModel(); 
 
       //获取post当前页数。与查询条件。
-      
+      $where='';
+      if(!empty($request['id'])){
+        $where=" ID='{$request['id']}' and ";
+      }
+
       $maxpage = empty($request['page'])?'19':20*$request['page']-1;
       $minpage = $maxpage-19;
       
       //获取查询条件
-      $where = "TYPE='2' LIMIT {$minpage},{$maxpage}";
+      $where.= "TYPE='2' LIMIT {$minpage},{$maxpage}";
       $key = "ID,NAME";
       $result['value'] = $this->pmodel->select('SHOP_SUBJECT',$key,$where);
       $num=$this->pmodel->select('SHOP_SUBJECT','count(ID) num ',$where);
@@ -430,5 +485,6 @@ class Lesson extends Controller
       //返回校区数据
       return $result;
     }
+  
 
 }
