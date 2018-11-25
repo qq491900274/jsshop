@@ -342,6 +342,27 @@ class Lesson extends Controller
       if (empty($request)) {
         return $this->fetch('Lesson_edit');
       }
+      
+      $request['name']=empty($request['name'])?'':$request['name'];
+      $request['code']=empty($request['code'])?'':$request['code'];
+      $request['price']=empty($request['price'])?'':$request['price'];
+      $request['gradeid']=empty($request['gradeid'])?'':$request['gradeid'];
+      $request['subjectsid']=empty($request['subjectsid'])?'':$request['subjectsid'];
+      $request['lessonTypeid']=empty($request['lessonTypeid'])?'':$request['lessonTypeid'];
+      $request['teacherid']=empty($request['teacherid'])?'':$request['teacherid'];
+      $request['num']=empty($request['num'])?'':$request['num'];
+      $request['intro']=empty($request['intro'])?'':$request['intro'];
+      $request['province']=empty($request['province'])?'':$request['province'];
+      $request['city']=empty($request['city'])?'':$request['city'];
+      $request['area']=empty($request['area'])?'':$request['area'];
+      $request['schoolid']=empty($request['schoolid'])?'':$request['schoolid'];
+      $request['classTypeid']=empty($request['classTypeid'])?'':$request['classTypeid'];
+      $request['semester']=empty($request['semester'])?'':$request['semester'];
+      $request['startTime']=empty($request['startTime'])?'':$request['startTime'];
+      $request['endTime']=empty($request['endTime'])?'':$request['endTime'];
+      $request['lessonNum']=empty($request['lessonNum'])?'':$request['lessonNum'];
+      $request['lessonTime']=empty($request['lessonTime'])?'':$request['lessonTime'];
+      $request['img']=empty($request['img'])?'':$request['img'];
 
       $sql=[
         'NAME'=>$request['name'],
