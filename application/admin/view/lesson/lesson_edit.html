@@ -4,9 +4,7 @@
 <!-- 编辑器源码文件 -->
 <script type="text/javascript" src="utf8-php/ueditor.all.js"></script>
 <!-- 实例化编辑器 -->
-<script type="text/javascript">
-    var ue = UE.getEditor('container');
-</script>
+
 
 <div class="content" id="lessonEdit">
 	<div class="rightBox">
@@ -34,26 +32,12 @@
                             </label>
 	                        <div class="file_top">
 	                            <span>点击选择图片</span>
-	                            <input type="file" name="img" id="file" class="upload" onchange="uploadpic(this)">
+	                            <input type="file" name="pic" id="file" class="upload" onchange="uploadpic(this)">
                                 <input type="hidden" name="" class="" id="hpic" v-model="img">
                             </div>
                             <div class="fileBox">
                                 <p>建议上传图片的尺寸比例为1:1，大小不超过1M</p>
                                 <img :src="img" height="100" id="image">
-                            </div>
-                        </li>
-                        <li>
-                            <label class="seach-label">
-                                <span>*</span>教师头像：
-                            </label>
-                            <div class="file_top">
-                                <span>点击选择图片</span>
-                                <input type="file" name="img" id="fileTea" class="upload" onchange="uploadTea(this)">
-                                <input type="hidden" name="" class="" id="teac" v-model="pic">
-                            </div>
-                            <div class="fileBox">
-                                <p>建议上传图片的尺寸比例为1:1，大小不超过1M</p>
-                                <img :src="pic" height="100" id="imageTea">
                             </div>
                         </li>
                         <li>
@@ -64,7 +48,7 @@
                             </select>
                             <select class="form-control input-median" text="true" name="" id="city_id" v-model="city">
                             </select>
-                            <select class="form-control input-median" text="true" name="" id="area" v-model="area" @change="choose()">
+                            <select class="form-control input-median" text="true" name="" id="district_id" v-model="area" @change="choose()">
                             </select>
                             <select class="form-control input-median" name="" id="school_id" v-model='school_id'>
                                 <option value="">请选择校区</option>
@@ -75,19 +59,16 @@
                         	<label class="seach-label">
                                 <span>*</span>课堂类型：
                             </label>
-                            <select class="form-control" name="type" v-model="lessonType2">
+                            <select class="form-control" name="type" v-model="lessonTypeid">
                                 <option value="">请选择课堂</option>
-                                <option :value="t.value" v-for="t in lessonType" name="selectId">{{t.label}}</option>
+                                <option v-for="t in lessonType" name="selectId">{{t.label}}</option>
                             </select>
                         </li>
                         <li>
                             <label class="seach-label">
                                 <span>*</span>班型：
                             </label>
-                            <select class="form-control" name="type" v-model="classType">
-                                <option value="">请选择班型</option>
-                                <option :value="t.value" v-for="t in classType">{{t.label}}</option>
-                            </select>
+                            <input type="text" name="" value="" class="form-control" v-model="classType">
                         </li>
                         <li>
                             <label class="seach-label">
@@ -99,12 +80,12 @@
                         	<label class="seach-label">
                                 <span>*</span>选择年级科目：
                             </label>
-                        	<select name="grade_id" class="form-control input-xlarge" id="grade_id" v-model="grade2">
+                        	<select name="grade_id" class="form-control input-xlarge" id="grade_id" v-model="gradeid">
 		                        <option value="">请选择年级</option>
 		                        <option :value="t.ID" v-for="t in grade">{{t.NAME}}</option>
 		                        
 	                        </select>
-	                    	<select name="subject_id" id="subject_id" class="form-control input-xlarge" v-model="subjects2">
+	                    	<select name="subject_id" id="subject_id" class="form-control input-xlarge" v-model="subjectsid">
 		                        <option value="">请选择科目</option>
 		                        <option :value="t.ID" v-for="t in subjects">{{t.NAME}}</option>
 		                        
@@ -114,7 +95,7 @@
                         	<label class="seach-label">
                                 <span>*</span>选择老师：
                             </label>
-                            <select class="form-control" name="type" v-model="teacher2">
+                            <select class="form-control" name="type" v-model="teacherid">
                                 <option value="">请选择老师</option>
                                 <option :value="t.ID" v-for="t in teacher">{{t.NAME}}</option>
                             </select>
@@ -148,8 +129,8 @@
                             	#edui1{width:100%;}
                             </style>
                             <!-- 加载编辑器的容器 -->
-                            <textarea id="container" style="width:900px;margin-left:137px;margin-top:-23px;"  v-model="intro">
-                                
+                            <textarea id="container" style="width:900px;margin-left:137px;margin-top:-23px;">
+                                {{intro}}
                             </textarea> 
 	
                         </li>
@@ -172,9 +153,9 @@
 {include file="public/footer"}
 <script src="__PUBLIC__/admin/js/laydate.js"></script>
 <script type="text/javascript">
-
+var ue = UE.getEditor('container');//加载编辑器
 function uploadpic(this0){
-    
+        
         $.ajaxFileUpload({
             fileElementId: 'file',    //需要上传的文件域的ID，即<input type="file">的ID。
             url: baseurl+'?s=admin/Uploadpic/index', //后台方法的路径
@@ -189,22 +170,7 @@ function uploadpic(this0){
         });
     
 }
-function uploadTea(this0){
-    
-        $.ajaxFileUpload({
-            fileElementId: 'fileTea',    //需要上传的文件域的ID，即<input type="file">的ID。
-            url: baseurl+'?s=admin/Uploadpic/index', //后台方法的路径
-            type: 'post',   //当要提交自定义参数时，这个参数要设置成post
-            dataType: 'json', //返回值类型 一般设置为json
-            contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            success: function(data) {   //提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
-                console.log(data.src);
-                $('#teac').val(data.src);
-                $('#imageTea').attr('src',data.src);
-            }
-        });
-    
-}
+
 
 laydate.render({
   elem: '#test5',
@@ -223,11 +189,11 @@ var vue=new Vue({
         code:'',//编号
         price:'',
         img:'',//图片
-        pic:'',
         province:'',//省
         city:'',//市
         area:'',//区
-        school_id:[],//校区名
+        school_id,
+        school_name:[],//校区名
         lessonTypeid:'',
         lessonType:[
             {value:'金石V课',label:'金石V课'},
@@ -237,18 +203,11 @@ var vue=new Vue({
         classType:'',//班型
         semester:'',//学期
         gradeid:'',
-        grade:[
-            
-        ],//年级
+        grade:[],//年级
         subjectsid:'',
-        subjects:[
-            
-        ],//科目
+        subjects:[],//科目
         teacherid:'',
-        teacher:[
-            
-        ],//老师
-        
+        teacher:[],//老师
         lessonNum:'',//课程节数
         lessonTime:'',//课程时长
         intro:'',//课程详情
@@ -261,17 +220,16 @@ var vue=new Vue({
             var endTime=$('#test4').val();
             var intro=ue.getContent();
             var img=$('#hpic').val();
-            console.log(intro);
+            console.log(this.lessonTypeid);
             this.$http.post(baseurl+'?s=admin/Lesson/lesson_edit',{
                 'name':this.name,//
                 'code':this.code,//
                 'price':this.price,//
-                'img':img,//
+                'img':this.img,//
                 'province':this.province,//
                 'city':this.city,//
                 'area':this.area,//
-                'school_id':this.school_id,
-                'classType':this.classType,//
+                'schoolid':this.school_id,
                 'semester':this.semester,//
                 'lessonNum':this.lessonNum,//
                 'lessonTime':this.lessonTime,//
@@ -282,7 +240,8 @@ var vue=new Vue({
                 'subjectsid':this.subjectsid,
                 'teacherid':this.teacherid,//
                 'startTime':startTime,//
-                'endTime':endTime//
+                'endTime':endTime,
+                'classTypeid':this.classType//
             }).then(res=>{
                 if(res.bodyText==1){
                     layer.msg('保存成功！',function(){
@@ -295,6 +254,7 @@ var vue=new Vue({
         },
         choose:function(){
             this.$http.post(baseurl+'?s=admin/Lesson/get_schoolval',{
+                'province':this.province,
                 'city':this.city,
                 'area':this.area}).then(res=>{
                     //console.log(res);
@@ -314,22 +274,24 @@ var vue=new Vue({
             var val=eval('('+res.bodyText+')')[0];
             this.name=val['NAME'];
             this.code=val['CODE'];
+            this.price=val['PRICE'];
             this.img=val['IMG'];
             this.province=val['PROVINCE'];
             this.city=val['CITY'];
             this.area=val['AREA'];
-            this.school_name=val['SCHOOLID'];
-            this.lessonType2=val['CLASSTYPEGUID'];
+            this.school_id=val['SCHOOLID'];
+            this.lessonTypeid=val['CLASSTYPEGUID'];
             this.classType=val['SEASONTYPE'];
             this.semester=val['SEMESTER'];
-            this.grade2=val['CLASSGUID'];
-            this.subjects2=val['SUBJECTGUID'];
-            this.teacher2=val['TEACHERGUID'];
+            this.gradeid=val['CLASSGUID'];
+            this.subjectsid=val['SUBJECTGUID'];
+            this.teacherid=val['TEACHERGUID'];
             this.lessonNum=val['COURSETNUM'];
             this.lessonTime=val['COURSETIME'];
-            this.intro=val['CONTENT'];
             this.num=val['ORDERINDEX'];
-            this.pic=val['PIC']
+            startTime=val['STARTTIME'];
+            endTime=val['ENDTIME'];
+            ue.setContent(val['CONTENT']);
         },res=>{
              console.log('请求失败处理,请检查Network!');
         });
