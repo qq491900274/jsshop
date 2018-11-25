@@ -202,6 +202,7 @@ class Lesson extends Controller
       $isok=$this->pmodel->dele('SHOP_SCHOOL',$where);
       echo '1';
     }
+    //添加修改学校
     public function add_school(){
       $request = request()->post();
       
@@ -289,7 +290,7 @@ class Lesson extends Controller
 
       $key = "C.ID, C.NAME, C.CODE, C.PRICE, C.CLASSGUID GRADE, SUBJECTGUID SUBJECT, ".
               "C.CLASSTYPEGUID LESSON_TYPE,T.NAME TEACHER, DATETIME, ORDERINDEX, ".
-              "CONTENT, C.PROVINCE, C.CITY, C.AREA, C.ADDRESS,S.SCHOOL_NAME,T.PIC TEACHERIMG";
+              "CONTENT, C.PROVINCE, C.CITY, C.AREA,S.SCHOOL_NAME,T.PIC TEACHERIMG";
       $table='SHOP_CURRICULUM C '.
               ' LEFT JOIN SHOP_SCHOOL S ON S.ID=C.SCHOOLID'.
               ' LEFT JOIN SHOP_TEACHER T ON T.ID=C.TEACHERGUID';
@@ -329,7 +330,7 @@ class Lesson extends Controller
       $where="ID='{$request['id']}'";
       $key = "ID, NAME, CODE, PRICE, CLASSGUID, SUBJECTGUID,SEASONTYPE,".
               "CLASSTYPEGUID,NAME, DATETIME, ORDERINDEX, SEMESTER,STARTTIME,ENDTIME,".
-              "CONTENT, PROVINCE, CITY, AREA, ADDRESS,SCHOOLID,COURSENUM,COURSETIME,TEACHERGUID";
+              "CONTENT, PROVINCE, CITY, AREA,SCHOOLID,COURSENUM,COURSETIME,TEACHERGUID,IMG";
       $table='SHOP_CURRICULUM ';
 
       return $value['value']= $this->pmodel->select($table,$key,$where);
@@ -338,10 +339,44 @@ class Lesson extends Controller
     public function Lesson_edit()
     {
       $request = request()->post();
-      if ($request) {
-          
+      if (empty($request)) {
+        return $this->fetch('Lesson_edit');
       }
-      return $this->fetch('Lesson_edit');
+
+      $sql=[
+        'NAME'=>$request['name'],
+        'CODE'=>$request['code'],
+        'PRICE'=>$request['price'],
+        'CLASSGUID'=>$request['gradeid'],
+        'SUBJECTGUID'=>$request['subjectsid'],
+        'CLASSTYPEGUID'=>$request['lessonTypeid'],
+        'TEACHERGUID'=>$request['teacherid'],
+        'DATETIME'=>date('Y-m-d H:i:s'),
+        'ORDERINDEX'=>$request['num'],
+        'CONTENT'=>$request['intro'],
+        'PROVINCE'=>$request['province'],
+        'CITY'=>$request['city'],
+        'AREA'=>$request['area'],
+        'SCHOOLID'=>$request['schoolid'],
+        'SEASONTYPE'=>$request['classTypeid'],
+        'SEMESTER'=>$request['semester'],
+        'STARTTIME'=>$request['startTime'],
+        'ENDTIME'=>$request['endTime'],
+        'COURSENUM'=>$request['lessonNum'],
+        'COURSETIME'=>$request['lessonTime'],
+        'IMG'=>$request['img']
+      ];
+
+      if (!empty($request['id'])) {
+        $isok=DB::table('SHOP_CURRICULUM')
+            ->where('ID',$request['id'])
+            ->update($sql);
+      }else{
+        $sql['ID']=uniqid();
+        $isok=DB::table('SHOP_CURRICULUM')->insert($sql);
+      }
+
+      echo '1';
     }
     //年级
     public function school_class(){
