@@ -28,7 +28,7 @@
             <span><i class="icon iconfont">&#xe638;</i> admin <i class="icon iconfont">&#xe65c;</i></span>
             <ul>
                 <li><a href=""><i class="icon iconfont">&#xe62c;</i> 修改密码</a></li>
-                <li><a href=""><i class="icon iconfont">&#xe62e;</i> 退出</a></li>
+                <li><a href="javascript:void(0)" @click="get()"><i class="icon iconfont">&#xe62e;</i> 退出</a></li>
             </ul>
 
         </div>
@@ -100,3 +100,24 @@
         </ul>
     </div>
 </div>
+
+<script type="text/javascript">
+    var vue=new Vue({
+        el:'.top',
+        data:{
+
+        },
+        methods:{
+            get:function(){
+                this.$http.post(baseurl+'?s=admin/Login/exituser').then(res=>{
+                    layer.msg('退出成功！',{time:1500},function(){
+                        location.href=baseurl+'?s=admin/login/index';
+                    })
+                },res=>{
+                    console.log('请求失败处理，请检查Network!');
+                })
+            }
+        }
+    })
+
+</script>

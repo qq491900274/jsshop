@@ -34,18 +34,35 @@
                             </label>
 	                        <div class="file_top">
 	                            <span>点击选择图片</span>
-	                            <input type="file" name="" id="file"  v-model="img">
+	                            <input type="file" name="img" id="file" class="upload" onchange="uploadpic(this)">
+                                <input type="hidden" name="" class="" id="hpic" v-model="img">
                             </div>
-                            <div class="fileBox"><p>建议上传图片的尺寸比例为1:1，大小不超过1M</p>
-                            <img src="images/1.jpg" height="100"></div>
+                            <div class="fileBox">
+                                <p>建议上传图片的尺寸比例为1:1，大小不超过1M</p>
+                                <img :src="img" height="100" id="image">
+                            </div>
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>教师头像：
+                            </label>
+                            <div class="file_top">
+                                <span>点击选择图片</span>
+                                <input type="file" name="img" id="fileTea" class="upload" onchange="uploadTea(this)">
+                                <input type="hidden" name="" class="" id="teac" v-model="pic">
+                            </div>
+                            <div class="fileBox">
+                                <p>建议上传图片的尺寸比例为1:1，大小不超过1M</p>
+                                <img :src="pic" height="100" id="imageTea">
+                            </div>
                         </li>
                         <li>
                             <label class="seach-label">
                                 <span>*</span>所属校区：
                             </label>
-                            <select class="form-control input-median" text="true" name="" id="province_id" v-model="province_id">
+                            <select class="form-control input-median" text="true" name="" id="province_id" v-model="province">
                             </select>
-                            <select class="form-control input-median" text="true" name="" id="city_id" v-model="city_id">
+                            <select class="form-control input-median" text="true" name="" id="city_id" v-model="city">
                             </select>
                             <select class="form-control input-median" text="true" name="" id="area" v-model="area" @change="choose()">
                             </select>
@@ -67,7 +84,7 @@
                             <label class="seach-label">
                                 <span>*</span>班型：
                             </label>
-                            <select class="form-control" name="type" v-model="classType2">
+                            <select class="form-control" name="type" v-model="classType">
                                 <option value="">请选择班型</option>
                                 <option :value="t.value" v-for="t in classType">{{t.label}}</option>
                             </select>
@@ -156,6 +173,39 @@
 <script src="__PUBLIC__/admin/js/laydate.js"></script>
 <script type="text/javascript">
 
+function uploadpic(this0){
+    
+        $.ajaxFileUpload({
+            fileElementId: 'file',    //需要上传的文件域的ID，即<input type="file">的ID。
+            url: baseurl+'?s=admin/Uploadpic/index', //后台方法的路径
+            type: 'post',   //当要提交自定义参数时，这个参数要设置成post
+            dataType: 'json', //返回值类型 一般设置为json
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function(data) {   //提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+                console.log(data.src);
+                $('#hpic').val(data.src);
+                $('#image').attr('src',data.src);
+            }
+        });
+    
+}
+function uploadTea(this0){
+    
+        $.ajaxFileUpload({
+            fileElementId: 'fileTea',    //需要上传的文件域的ID，即<input type="file">的ID。
+            url: baseurl+'?s=admin/Uploadpic/index', //后台方法的路径
+            type: 'post',   //当要提交自定义参数时，这个参数要设置成post
+            dataType: 'json', //返回值类型 一般设置为json
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function(data) {   //提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+                console.log(data.src);
+                $('#teac').val(data.src);
+                $('#imageTea').attr('src',data.src);
+            }
+        });
+    
+}
+
 laydate.render({
   elem: '#test5',
   type: 'datetime'
@@ -171,33 +221,30 @@ var vue=new Vue({
     data:{
         name:'',//课程名称
         code:'',//编号
+        price:'',
         img:'',//图片
+        pic:'',
         province:'',//省
         city:'',//市
         area:'',//区
-        school_name:[],//校区名
-        lessonType2:'',
+        school_id:[],//校区名
+        lessonTypeid:'',
         lessonType:[
             {value:'金石V课',label:'金石V课'},
             {value:'金石拼课',label:'金石拼课'},
             {value:'金石1对1',label:'金石1对1'}
         ],//课堂类型
-        classType2:'',
-        classType:[
-            {value:'班型1',label:'班型1'},
-            {value:'班型2',label:'班型2'},
-            {value:'班型3',label:'班型3'}
-        ],//班型
+        classType:'',//班型
         semester:'',//学期
-        grade2:'',
+        gradeid:'',
         grade:[
             
         ],//年级
-        subjects2:'',
+        subjectsid:'',
         subjects:[
             
         ],//科目
-        teacher2:'',
+        teacherid:'',
         teacher:[
             
         ],//老师
@@ -213,33 +260,29 @@ var vue=new Vue({
             var startTime=$('#test5').val();
             var endTime=$('#test4').val();
             var intro=ue.getContent();
+            var img=$('#hpic').val();
             console.log(intro);
             this.$http.post(baseurl+'?s=admin/Lesson/lesson_edit',{
-                'name':this.name,
-                'code':this.code,
-                'img':this.img,
-                'province':this.province,
-                'city':this.city,
-                'area':this.area,
-                'school_name':this.school_name,
-                'lessonType':this.lessonType,
-                'classType':this.classType,
-                'semester':this.semester,
-                'grade':this.grade,
-                'subjects':this.subjects,
-                'teacher':this.teacher,
-                'time':this.time,
-                'lessonNum':this.lessonNum,
-                'lessonTime':this.lessonTime,
-                'intro':intro,
-                'num':this.num,
-                'classType2':this.classType2,
-                'lessonType2':this.lessonType2,
-                'grade2':this.grade2,
-                'subjects2':this.subjects2,
-                'teacher2':this.teacher2,
-                'startTime':startTime,
-                'endTime':endTime
+                'name':this.name,//
+                'code':this.code,//
+                'price':this.price,//
+                'img':img,//
+                'province':this.province,//
+                'city':this.city,//
+                'area':this.area,//
+                'school_id':this.school_id,
+                'classType':this.classType,//
+                'semester':this.semester,//
+                'lessonNum':this.lessonNum,//
+                'lessonTime':this.lessonTime,//
+                'intro':intro,//
+                'num':this.num,//
+                'lessonTypeid':this.lessonTypeid,
+                'gradeid':this.gradeid,
+                'subjectsid':this.subjectsid,
+                'teacherid':this.teacherid,//
+                'startTime':startTime,//
+                'endTime':endTime//
             }).then(res=>{
                 if(res.bodyText==1){
                     layer.msg('保存成功！',function(){
@@ -268,8 +311,25 @@ var vue=new Vue({
             return;
         }
         this.$http.post(baseurl+'?s=admin/Lesson/getcurriculum',{'id':this.id}).then(res=>{
-            var val=eval('('+res.bodyText+')');
-            
+            var val=eval('('+res.bodyText+')')[0];
+            this.name=val['NAME'];
+            this.code=val['CODE'];
+            this.img=val['IMG'];
+            this.province=val['PROVINCE'];
+            this.city=val['CITY'];
+            this.area=val['AREA'];
+            this.school_name=val['SCHOOLID'];
+            this.lessonType2=val['CLASSTYPEGUID'];
+            this.classType=val['SEASONTYPE'];
+            this.semester=val['SEMESTER'];
+            this.grade2=val['CLASSGUID'];
+            this.subjects2=val['SUBJECTGUID'];
+            this.teacher2=val['TEACHERGUID'];
+            this.lessonNum=val['COURSETNUM'];
+            this.lessonTime=val['COURSETIME'];
+            this.intro=val['CONTENT'];
+            this.num=val['ORDERINDEX'];
+            this.pic=val['PIC']
         },res=>{
              console.log('请求失败处理,请检查Network!');
         });
