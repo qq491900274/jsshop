@@ -27,6 +27,18 @@
                             <input type="text" name="" value="" class="form-control" v-model="code">
                         </li>
                         <li>
+                            <label class="seach-label">
+                                <span>*</span>价格：
+                            </label>
+                            <input type="text" name="" value="" class="form-control" v-model="price">
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>库存：
+                            </label>
+                            <input type="text" name="" value="" class="form-control" v-model="count">
+                        </li>
+                        <li>
                         	<label class="seach-label">
                                 <span>*</span>课程图片：
                             </label>
@@ -37,7 +49,7 @@
                             </div>
                             <div class="fileBox">
                                 <p>建议上传图片的尺寸比例为1:1，大小不超过1M</p>
-                                <img :src="img" height="100" id="image">
+                                <img :src="img" height="100" id="image" v-model="img">
                             </div>
                         </li>
                         <li>
@@ -188,13 +200,14 @@ var vue=new Vue({
         name:'',//课程名称
         code:'',//编号
         price:'',
+        count:'',
         img:'',//图片
         province:'',//省
         city:'',//市
         area:'',//区
         school_id,
         school_name:[],//校区名
-        lessonTypeid:'',
+        lessonTypeid:' ',
         lessonType:[
             {value:'金石V课',label:'金石V课'},
             {value:'金石拼课',label:'金石拼课'},
@@ -222,10 +235,12 @@ var vue=new Vue({
             var img=$('#hpic').val();
             console.log(this.lessonTypeid);
             this.$http.post(baseurl+'?s=admin/Lesson/lesson_edit',{
+                'id':this.id,
                 'name':this.name,//
                 'code':this.code,//
                 'price':this.price,//
-                'img':this.img,//
+                'count':this.count,
+                'img':img,//
                 'province':this.province,//
                 'city':this.city,//
                 'area':this.area,//
@@ -267,34 +282,7 @@ var vue=new Vue({
         
     },
     created:function(){
-        if(!this.id){
-            return;
-        }
-        this.$http.post(baseurl+'?s=admin/Lesson/getcurriculum',{'id':this.id}).then(res=>{
-            var val=eval('('+res.bodyText+')')[0];
-            this.name=val['NAME'];
-            this.code=val['CODE'];
-            this.price=val['PRICE'];
-            this.img=val['IMG'];
-            this.province=val['PROVINCE'];
-            this.city=val['CITY'];
-            this.area=val['AREA'];
-            this.school_id=val['SCHOOLID'];
-            this.lessonTypeid=val['CLASSTYPEGUID'];
-            this.classType=val['SEASONTYPE'];
-            this.semester=val['SEMESTER'];
-            this.gradeid=val['CLASSGUID'];
-            this.subjectsid=val['SUBJECTGUID'];
-            this.teacherid=val['TEACHERGUID'];
-            this.lessonNum=val['COURSETNUM'];
-            this.lessonTime=val['COURSETIME'];
-            this.num=val['ORDERINDEX'];
-            startTime=val['STARTTIME'];
-            endTime=val['ENDTIME'];
-            ue.setContent(val['CONTENT']);
-        },res=>{
-             console.log('请求失败处理,请检查Network!');
-        });
+        
         //教师
         this.$http.post(baseurl+'?s=admin/Lesson/get_teacherval').then(res=>{
             var teaName=eval('('+res.bodyText+')');
@@ -315,7 +303,36 @@ var vue=new Vue({
             this.subjects=subject['value'];
         },res=>{
             console.log('请求失败处理,请检查Network!');
-        })
+        });
+
+        if(!this.id){
+            return;
+        }
+        this.$http.post(baseurl+'?s=admin/Lesson/getcurriculum',{'id':this.id}).then(res=>{
+            var val=eval('('+res.bodyText+')')[0];
+            this.name=val['NAME'];
+            this.code=val['CODE'];
+            this.price=val['PRICE'];
+            this.img=val['IMG'];
+            this.province=val['PROVINCE'];
+            this.city=val['CITY'];
+            this.area=val['AREA'];
+            this.school_id=val['SCHOOLID'];
+            this.lessonTypeid=val['CLASSTYPEGUID'];
+            this.classType=val['SEASONTYPE'];
+            this.semester=val['SEMESTER'];
+            this.gradeid=val['CLASSGUID'];
+            this.subjectsid=val['SUBJECTGUID'];
+            this.teacherid=val['TEACHERGUID'];
+            this.lessonNum=val['COURSENUM'];
+            this.lessonTime=val['COURSETIME'];
+            this.num=val['ORDERINDEX'];
+            $('#test5').val(val['STARTTIME']);
+            $('#test4').val(val['ENDTIME']);
+            ue.setContent(val['CONTENT']);
+        },res=>{
+             console.log('请求失败处理,请检查Network!');
+        });
     }
 })
 

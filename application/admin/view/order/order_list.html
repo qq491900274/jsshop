@@ -1,35 +1,44 @@
 {include file="public/header"}
 
-<div class="content" id="teacher">
+<div class="content" id="order">
     <div class="rightBox">
         <div class="main">
             <h3>订单列表</h3>
-            <div class="seach_tigs">
+            <!-- <div class="seach_tigs">
                 
-            </div>
+            </div> -->
             <table class="tableBox" id="orderList">
                 <thead>
                     <tr>
-                        <th>商品信息</th>
-                        <th>单价</th>
-                        <th>数量</th>
+                        <th align="left" style="padding-left: 15px;width: 50%;">商品信息</th>
+                        <th></th>
+                        <th>用户名</th>
+                        <th>手机号</th>
                         <th>实付金额</th>
                         <th>订单状态</th>
                         <th>操作</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td colspan="6" align="left"><span class="topId">订单编号：123545165136844</span> <span>下单时间：2018-11-21 15:32</span></td>
-                    </tr>
-                    <tr>
-                        <td align="left" style="padding-left:30px;"><img src="__PUBLIC__/index/images/echart_10.jpg" width="60px"><span>金石V课</span></td>
-                        <td>￥299</td>
-                        <td>×1</td>
-                        <td>299</td>
-                        <td class="succ">已付款</td>
-                        <td><a href="">删除</a></td>
-                    </tr>    
+                    <template v-for="t in products">
+                        <tr class="firstTd">
+                            <td colspan="8" align="left">
+                                <span class="topId">订单编号：{{t.orderId}}</span> 
+                                <span class="topId">交易流水号：{{t.tranId}}</span> 
+                                <span>下单时间：2018-11-21 15:32</span>
+                                <span>支付时间：2018-11-21 15:36</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" style="padding-left:30px;"><img src="__PUBLIC__/index/images/echart_10.jpg" width="60px" style="float: left;"><span>{{t.name}}</span><br><span class="price">单价：￥{{t.price}}</span></td>
+                            <td style="font-size: 14px;">×{{t.num}}</td>
+                            <td>{{t.userName}}</td>
+                            <td>13956487789</td>
+                            <td>￥299</td>
+                            <td class="state">{{t.state}}</td>
+                            <td><a href="" class="remove">删除</a></td>
+                        </tr>
+                    </template> 
                 </tbody>
             </table>
                 
@@ -44,25 +53,43 @@
 {include file="public/footer"}
 <script type="text/javascript" src="__PUBLIC__/admin/js/page.js"></script>
 <script type="text/javascript">
-    /**
-     *****搜索*********
-    **/
     var vue=new Vue({
-        el:'#teacher',
+        el:'#order',
         data:{
-            id:'',
-            time:'',
-            infor:[],
-            price:'',
-            num:'',
-            money:'',
-            state:''    
+            products:[
+                {
+                    orderId:'123545165136844',
+                    tranId:'54316541123121',
+                    orderTime:'',
+                    payTime:'',
+                    name:'金石V课',
+                    price:'399',
+                    num:'1',
+                    userName:'向阳',
+                    phone:'13958456623',
+                    allMoney:'399',
+                    state:'已付款'
+                },
+                {
+                    orderId:'12354584652145',
+                    tranId:'54316541123132',
+                    orderTime:'',
+                    payTime:'',
+                    name:'金石1对1',
+                    price:'399',
+                    num:'2',
+                    userName:'杨南',
+                    phone:'18765412259',
+                    allMoney:'598',
+                    state:'待付款'
+                }
+            ]    
         },
         methods:{
             get:function(){
-                this.$http.post(baseurl+'?s=admin/Lesson/get_teacherval',{where:{'name':this.name,'code':this.code,'subject_id':this.subject_id,'school_id':this.school_id}}).then(function(res){
+                this.$http.post(baseurl+'?s=admin/Lesson/get_teacherval',{where:{'orderId':this.orderId,'orderTime':this.orderTime,'price':this.price,'num':this.num,'name':this.name,'phone':this.phone,'allMoney':this.allMoney,'state':this.state}}).then(function(res){
                     //给分页组件添加条件
-                    page.where={'name':this.name,'code':this.code,'subject_id':this.subject_id,'school_id':this.school_id};
+                    page.where={'orderId':this.orderId,'orderTime':this.orderTime,'price':this.price,'num':this.num,'name':this.name,'phone':this.phone,'allMoney':this.allMoney,'state':this.state};
                    
                     var val=eval('('+res.bodyText+')');
                     this.products=val['value'];
@@ -78,11 +105,23 @@
           
         },
         created:function(){
-            page.url='admin/Lesson/';
-            page.onload();
+            //page.url='admin/Order/order_list';
+            //page.onload();
             
         }
     })
+
+$(function(){
+    $('table tbody tr .state').each(function(){
+        var html=$(this).html();
+        if(html=='已付款'){
+            $(this).addClass('succ');
+        }else if(html=='待付款'){
+            $(this).addClass('noth');
+        }
+    })
+ 
+})
 </script>
 <script type="text/javascript">
     var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;

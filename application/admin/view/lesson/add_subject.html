@@ -33,6 +33,11 @@ new Vue({
 	},
 	methods:{
 		get:function(){
+			if(!this.name){
+                layer.alert('姓名不能为空！');
+                return;
+            }
+			
 			this.$http.post(baseurl+'?s=admin/Lesson/add_subject',{
 				'name':this.name,
 				'id':this.id
