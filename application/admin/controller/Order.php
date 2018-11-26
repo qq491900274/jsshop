@@ -4,7 +4,8 @@ use think\Controller;
 use think\View;
 use think\Request;
 use think\Session;
-use app\index\lib\Home;
+
+use \think\Db;
 
 
 class Order extends Controller
@@ -14,7 +15,11 @@ class Order extends Controller
 	}
 		
     public function order_list(){
-       return $this->fetch('order_list');
+    	$request = request()->post();
+    	//判断是否
+    	if(empty($request['list'])){
+    		return $this->fetch('order_list');
+    	}
     }
    
 }
