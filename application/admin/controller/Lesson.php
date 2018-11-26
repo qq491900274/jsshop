@@ -480,6 +480,7 @@ class Lesson extends Controller
       }
       return 1;
     }
+    //科目列表
     public function subject_list(){
       $minpage = 0; 
       $maxpage = 0;
