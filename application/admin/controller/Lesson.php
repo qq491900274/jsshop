@@ -440,7 +440,8 @@ class Lesson extends Controller
       $minpage = $maxpage-19;
       
       //获取查询条件
-      $where = "TYPE='1' LIMIT {$minpage},{$maxpage}";
+      $where .= "TYPE='1' LIMIT {$minpage},{$maxpage}";
+
       $key = "ID,NAME";
       $result['value'] = $this->pmodel->select('SHOP_SUBJECT',$key,$where);
       $result['allCount'] = ceil($this->pmodel->select('SHOP_SUBJECT','count(ID) num ',$where)[0]['num'] / 20);
