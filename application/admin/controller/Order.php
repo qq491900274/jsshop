@@ -16,8 +16,12 @@ class Order extends Controller
 		
     public function order_list(){
 	  $request = request()->post();
-	  //判断是否
- 	  $request['page']=empty($request['page'])?'1':$request['page'];
+	  //判断是否只请求页面
+ 	  if(empty($request['list'])){
+	 	return $this->fetch('order_list');
+	  }
+
+      $request['page']=empty($request['page'])?'1':$request['page'];
 
       $this->pmodel =  new \app\admin\model\PublicModel();
       $where=" ifnull(STATE,0) != '1'";
@@ -31,7 +35,7 @@ class Order extends Controller
         $where.=" and ID='{$request['where']['phone']}' and ";
       }
 
-      //获取查询条件
+      //获取分页查询条件
       $page=$this->return_page($request['page']);
       
       $where1 =$where. " LIMIT {$page['min']},{$page['max']}";
@@ -48,7 +52,6 @@ class Order extends Controller
       if(!empty($count)){
          $result['allCount'] = ceil( $count[0]['num']/ 20);
       }
-
       //返回校区数据
       return $result;
     }
@@ -69,6 +72,7 @@ class Order extends Controller
         //获取post当前页数。与查询条件。
         $page['max'] = empty($request)?'19':20*$request-1;
         $page['min'] = $page['max']-19;
+
         return $page;
     }
    
