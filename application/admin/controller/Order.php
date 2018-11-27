@@ -24,7 +24,7 @@ class Order extends Controller
       $request['page']=empty($request['page'])?'1':$request['page'];
 
       $this->pmodel =  new \app\admin\model\PublicModel();
-      $where=" ifnull(O.STATE,0) != '1'";
+      $where=" ifnull(STATE,0) != '1'";
       if(!empty($request['where']['orderCode'])){
         $where.=" and O.CODE='{$request['where']['orderCode']}' ";
       }
