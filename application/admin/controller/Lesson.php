@@ -112,6 +112,7 @@ class Lesson extends Controller
     public function get_schoolval(){
       $request = request()->post();
       $this->pmodel =  new \app\admin\model\PublicModel();
+      $request['area']=empty($request['area']) ? '' : $request['area'];
       $where='';
       if ($request['area']) {
         $where=" AREA='{$request['area']}'";

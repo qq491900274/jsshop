@@ -24,15 +24,15 @@ class Order extends Controller
       $request['page']=empty($request['page'])?'1':$request['page'];
 
       $this->pmodel =  new \app\admin\model\PublicModel();
-      $where=" ifnull(STATE,0) != '1'";
+      $where=" ifnull(O.STATE,0) != '1'";
       if(!empty($request['where']['orderCode'])){
-        $where.=" and ID='{$request['where']['orderCode']}' and ";
+        $where.=" and O.CODE='{$request['where']['orderCode']}' ";
       }
       if(!empty($request['where']['name'])){
-        $where.=" and ID='{$request['where']['name']}' and ";
+        $where.=" and U.NAME='{$request['where']['name']}' ";
       }
       if(!empty($request['where']['phone'])){
-        $where.=" and ID='{$request['where']['phone']}' and ";
+        $where.=" and U.PHONE='{$request['where']['phone']}' ";
       }
 
       //获取分页查询条件
