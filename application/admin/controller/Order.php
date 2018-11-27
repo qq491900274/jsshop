@@ -24,7 +24,7 @@ class Order extends Controller
       $request['page']=empty($request['page'])?'1':$request['page'];
 
       $this->pmodel =  new \app\admin\model\PublicModel();
-      $where=" ifnull(STATE,0) != '1'";
+      $where=" 1=1";
       if(!empty($request['where']['orderCode'])){
         $where.=" and O.CODE='{$request['where']['orderCode']}' ";
       }
@@ -34,7 +34,7 @@ class Order extends Controller
       if(!empty($request['where']['phone'])){
         $where.=" and U.PHONE='{$request['where']['phone']}' ";
       }
-
+      
       //获取分页查询条件
       $page=$this->return_page($request['page']);
       
