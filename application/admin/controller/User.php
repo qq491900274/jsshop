@@ -50,6 +50,43 @@ class User extends Controller
     return $result;
      
   }
+  function get_onevalue(){
+    if (empty($request['id'])) {
+      return '缺少id！';
+    }
+
+    $this->pmodel =  new \app\admin\model\PublicModel();
+    $key = "ID,NAME,PHONE,DATETIME,WXNO,PASSWORD,USER";
+    $table="SHOP_USER";
+    $where=" ID='{$request['id']}'";
+    return $result['value'] = $this->pmodel->select($table,$key,$where);
+  }
+  function updateUser(){
+    $request = request()->post();
+      if (!empty($request)) {
+        $time=date('Y-m-d H:i:s');
+        $data=['NAME'=>$request['name'],
+              'PHONE'=>$request['phone'],
+              'PASSWORD'=>$request['pwd'],
+              'USER'=>$request['user'],
+              'DATE'=>$time
+              ];
+
+        if (!empty($request['id'])) {
+          $isok=DB::table('SHOP_USER')
+              ->where('ID',$request['id'])
+              ->update($data);
+        }else{
+          $data['ID']=uniqid();
+          $isok=DB::table('SHOP_USER')
+              ->insert($data);
+        }
+
+        echo '1';exit();
+      }
+
+      return $this->fetch('updateUser');
+  }
 
   //删除用户
   function deleUser(){
