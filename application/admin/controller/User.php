@@ -23,7 +23,7 @@ class User extends Controller
     $request['page']=empty($request['page'])?'1':$request['page'];
 
     $this->pmodel =  new \app\admin\model\PublicModel();
-    $where=" ifnull(id,0) != 0";
+    $where=" ifnull(id,0) != 0 AND IFNULL(STATE,'0')!='1'";
     
     if(!empty($request['where']['name'])){
       $where.=" and NAME='{$request['where']['name']}' ";
