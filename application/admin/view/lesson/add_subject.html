@@ -21,10 +21,6 @@
 
 {include file="public/footer"}
 <script type="text/javascript">
-    showLocation();
-    CheckProvince('');
-    CheckCity('');
-    CheckTown('');
 new Vue({
 	el:'#update',
 	data:{
@@ -34,10 +30,10 @@ new Vue({
 	methods:{
 		get:function(){
 			if(!this.name){
-                layer.alert('姓名不能为空！');
+                layer.alert('参数不能为空！');
                 return;
             }
-			
+
 			this.$http.post(baseurl+'?s=admin/Lesson/add_subject',{
 				'name':this.name,
 				'id':this.id

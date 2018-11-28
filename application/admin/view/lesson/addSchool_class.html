@@ -30,6 +30,10 @@ new Vue({
 	},
 	methods:{
 		get:function(){
+			if(!this.name){
+				layer.alert('参数不能为空！');
+				return;
+			}
 			this.$http.post(baseurl+'?s=admin/Lesson/addschool_class',{
 				'name':this.name,
 				'id':this.id

@@ -59,6 +59,7 @@
                             <select class="form-control input-median" text="true" name="" id="province_id" v-model="province">
                             </select>
                             <select class="form-control input-median" text="true" name="" id="city_id" v-model="city">
+                                
                             </select>
                             <select class="form-control input-median" text="true" name="" id="district_id" v-model="area" @change="choose()">
                             </select>
@@ -233,7 +234,23 @@ var vue=new Vue({
             var endTime=$('#test4').val();
             var intro=ue.getContent();
             var img=$('#hpic').val();
-            console.log(this.lessonTypeid);
+            //console.log(this.lessonTypeid);
+            if(!this.name){
+                layer.alert('课程名称不能为空！');
+                return;
+            }
+            if(!this.code){
+                layer.alert('课程编号不能为空！');
+                return;
+            }
+            if(!this.price){
+                layer.alert('价格不能为空！');
+                return;
+            }
+            if(!this.count){
+                layer.alert('库存不能为空！');
+                return;
+            }
             this.$http.post(baseurl+'?s=admin/Lesson/lesson_edit',{
                 'id':this.id,
                 'name':this.name,//

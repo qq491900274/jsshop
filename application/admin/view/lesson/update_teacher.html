@@ -1,4 +1,9 @@
 {include file="public/header"}
+<style type="text/css">
+    .schoolArea .form-control{
+        width: 170px!important;
+    }
+</style>
  <!-- 配置文件 -->
 <script type="text/javascript" src="utf8-php/ueditor.config.js"></script>
 <!-- 编辑器源码文件 -->
@@ -42,19 +47,10 @@
                             <img :src="pic" height="100" id="image"></div>
 
                         </li>
-                        <li>
+                        <li class="schoolArea">
                             <label class="seach-label">
                                 <span>*</span>所属校区：
                             </label>
-                            <select class="form-control input-median" text="true" name="province_id"
-                                    id="province_id">
-                                   
-                            </select>
-                            <select class="form-control input-median" text="true" name="city_id" id="city_id">
-                                
-                            </select>
-                            <select class="form-control input-median" text="true" name="district_id" id="district_id"   @change="choose()" v-model="area">
-                            </select>
                             <select class="form-control input-median" v-model='school_id' name="school_id" id="school_id">
                                 <option value="">请选择校区</option>
                                 <option v-for="schoolName in school_name" :value="schoolName.ID">{{schoolName.SCHOOL_NAME}}</option>
@@ -131,11 +127,29 @@ var vue=new Vue({
         id:'<?php echo @$_GET['id']?>'
 	},
 	methods:{
+
 		get:function(){
 			var intro=ue.getContent();
             var img=$('#hpic').val();
             //console.log(img);
 			//console.log(a);
+            if(!this.name){
+                layer.alert('姓名不能为空！');
+                return;
+            }
+            if(!this.code){
+                layer.alert('编号不能为空！');
+                return;
+            }
+            if(!this.area){
+                layer.alert('省、市、区不能为空！');
+                return;
+            }
+            if(!this.school_id){
+                layer.alert('校区不能为空！');
+                return;
+            }
+          
 			this.$http.post(baseurl+'?s=admin/Lesson/update_teacher',{
 				'name':this.name,
 				'code':this.code,
@@ -168,19 +182,23 @@ var vue=new Vue({
           },
 	},
     created:function(){
-        if (!this.id) {return;}
+        if(!this.id){
+            return;
+        }
+         this.$http.post(baseurl+'?s=admin/Lesson/get_schoolval').then(res=>{
+                this.school_name=eval('('+res.bodyText+')');
+            },res=>{
+                console.log('请求失败处理,请检查Network!');
+        });
         this.$http.post(baseurl+'?s=admin/Lesson/get_teacherval',{
         'id':this.id
         }).then(res=>{
-
             var val=eval('('+res.bodyText+')')['value'][0];
-           
             this.name=val['NAME'];
             this.code=val['CODE'];
             this.pic=val['PIC'];
-            this.school=val['SCHOOLID'];
+            this.school_id=val['SCHOOLID'];
             this.school_address=val['SCHOOL_ADDRESS'];
-            
             ue.setContent(val['INTRO']);
         },res=>{
             console.log('请求失败处理,请检查Network!');
