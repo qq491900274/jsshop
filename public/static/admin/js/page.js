@@ -99,7 +99,7 @@ var page=new Vue({
         },
         onload:function(){
 
-                this.$http.post(baseurl+'?s='+this.url,{'where':this.where}).then(res=>{
+                this.$http.post(baseurl+'?s='+this.url,{'where':this.where,'list':1}).then(res=>{
                 //console.log(res);
                 var val=eval('('+res.bodyText+')');
                 //赋值教师列表
