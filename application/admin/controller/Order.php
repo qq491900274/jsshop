@@ -59,7 +59,7 @@ class Order extends Controller
     public function delete_order(){
       $request = request()->post();
       //判断是否
-      if(empty($request['id'])){
+      if(!empty($request['id'])){
         $data=['STATE'=>'1'];
         $isok=DB::table('SHOP_TEACHER')
           ->where('ID',$request['id'])
