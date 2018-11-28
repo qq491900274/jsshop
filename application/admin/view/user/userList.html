@@ -22,21 +22,21 @@
             <table class="tableBox">
                     <thead>
                         <tr>
+                        	<th>账号</th>
                             <th>用户名</th>
                             <th>手机号</th>
                             <th>注册时间</th>
-                            <th>微信号</th>
                             <th>密码</th>
                             <th width="10%">操作</th>
                         </tr>
                     </thead>
                     <tbody id="storeList">
                         <tr v-for="(t,index) in products">
-                                <td>{{t.name}}</td>
-                                <td>{{t.phone}}</td>
-                                <td>{{t.registerTime}}</td>
-                                <td>{{t.wx}}</td>
-                                <td>{{t.pwd}}</td>
+                        		<td>{{t.USER}}</td>
+                                <td>{{t.NAME}}</td>
+                                <td>{{t.PHONE}}</td>
+                                <td>{{t.DATETIME}}</td>
+                                <td>{{t.PASSWORD}}</td>
                                 <td>
                                 <a href="javascript:void(0)" @click="goUpdate(t.ID)">编辑</a>
                                 <a href="javascript:void(0)" @click="remove(t.ID,index)">删除</a>
@@ -59,17 +59,18 @@
 	var vue=new Vue({
 		el:'#user',
 		data:{
+			user:'',
 			name:'',
 			phone:'',
 			id:'',
-			products:[
-				{name:'黄冈你',phone:'13954687745',registerTime:'2018-11-12',wx:'15489856645','pwd':'2256'},
-				{name:'黄冈你',phone:'13954687745',registerTime:'2018-11-12',wx:'15489856645','pwd':'2256'},
-			]
+			products:[],
 		},
 		methods:{
+			goUpdate:function(id){
+				window.location.href=baseurl+'?s=admin/User/updateUser&id='+id;
+			},
 			get:function(){
-				this.$http.post(baseUrl+'?s=admin/User/userList',{where:{list:1}}).then(res=>{
+				this.$http.post(baseurl+'?s=admin/User/userList',{where:{'name':this.name,'phone':this.phone},list:1}).then(res=>{
 					page.where={'name':this.name,'phone':this.phone};
 					var val=eval('('+res.bodyText+')');
 					this.products=val['value'];
@@ -79,7 +80,7 @@
 			},
 			remove:function(ids,arrid){
 				layer.alert('确定要删除吗？',function(){
-					vue.$http.post(baseUrl+'?s=admin/',{id:ids}).then(res=>{
+					vue.$http.post(baseUrl+'?s=admin/User/deleUser',{id:ids}).then(res=>{
 						var val=eval('('+res.bodyText+')');
 						if(val==1){
 							layer.msg('删除成功!',{time:1500});
@@ -94,8 +95,8 @@
 			}
 		},
 		created:function(){
-            // page.url='admin/Lesson/get_curriculum';
-            // page.onload();
+            page.url='admin/User/userList';
+            page.onload();
         }
 	})
 

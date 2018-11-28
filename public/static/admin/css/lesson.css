@@ -236,7 +236,7 @@
 .fileBox p{
 	margin:10px 0;
 }
-#edit ul li:first-child+li+li+li .form-control{
+#edit ul li:first-child+li+li+li+li+li .form-control{
 	width: 170px;
 }
 #edit ul li:first-child+li+li+li .form-control:last-child{
@@ -373,18 +373,65 @@
 /***
 *********************************订单列表*****************************************************
 ***/
-#storeList tr td{
-	padding:10px 0;
+#orderList{
+	border: 1px solid #DDD;
+	box-shadow: 1px 1px 37px #ddd;
+	overflow: hidden;
+
 }
-#storeList tr td.succ{
+#orderList thead{
+	background:#f5f5f5;
+	color:#444;
+	border-bottom: 1px solid #DDD;
+}
+#orderList thead th{
+	border:none;
+}
+#orderList tr td{
+	padding:8px 0;
+	border:none;
+	color:#555;
+}
+#orderList tr td.succ{
 	color:#0F0;
 }
-#storeList tr td.noth{
+#orderList tr td.noth{
 	color:#F00;
 }
-#storeList tr td span{
+#orderList tr td span{
 	margin-left: 10px;
+	line-height: 2;
 }
-#storeList tr:nth-child(odd){
-	background: #eee;
+#orderList tr:nth-child(odd){
+	background: #f5f5f5;
+}
+#orderList tr{
+	border-bottom: 1px solid #DDD;
+}
+#orderList tr td span.topId{
+	display: inline-block;
+	margin-left: 15px;
+}
+#orderList tr td span.price{
+	color:#888;
+	font-size: 14px;
+}
+
+#orderList tr td .remove{
+	color: #FFF;
+    display: block;
+    background: #32c5d2;
+    width: 70%;
+    margin: 0 auto;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 5px;
+}
+#orderList tr td .remove:hover{
+	text-decoration: none;
+	transition: all .3s;
+	background: #1f858e;
+}
+#orderList tr.firstTd td span{
+	font-size: 14px;
 }

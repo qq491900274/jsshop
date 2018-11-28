@@ -1,0 +1,96 @@
+{include file="public/header"}
+
+<div class="content" id="lessonEdit">
+    <div class="rightBox">
+        <div class="main">
+            
+            <div class="seach_tigs" id="edit">
+                <h3>新增用户</h3>
+                
+                    <ul class="clearfix">
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>账号：
+                            </label>
+                            <input type="text" name="" value="" class="form-control" v-model="user">
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>用户名：
+                            </label>
+                            <input type="text" name="" value="" class="form-control" v-model="name">
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>手机号：
+                            </label>
+                            <input type="text" name="" value="" class="form-control" v-model="pnone">
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>密码：
+                            </label>
+                            <input type="text" name="" value="" class="form-control" v-model="pwd">
+                        </li>
+                        <li class="seach"><input type="submit" name="" value="确认" @click="get()"><a href="javascript:history.back(-1)" id="back">返回</a></li>
+                    </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{include file="public/footer"}
+<script src="__PUBLIC__/admin/js/laydate.js"></script>
+<script type="text/javascript">
+
+var vue=new Vue({
+    el:'#lessonEdit',
+    data:{
+        user:'',
+        name:'',
+        phone:,
+        pwd:'',
+        id:'<?php echo @$_GET['id']?>'
+    },
+    methods:{
+        get:function(){
+            this.$http.post(baseurl+'?s=admin/User/updateUser',{
+                'id':this.id,
+                'user':this.user,
+                'name':this.name,
+                'phone':this.phone,
+                'pwd':this.pwd
+            }).then(res=>{
+                if(res.bodyText==1){
+                    layer.msg('保存成功！',function(){
+                        window.history.go(-1);
+                    })
+                }
+            },res=>{
+                console.log('请求失败处理,请检查Network!');
+            })
+        },
+        
+    },
+    created:function(){
+        if(!this.id){
+            return;
+        }
+        this.$http.post(baseurl+'?s=admin/User/updateUser',{'id':this.id}).then(res=>{
+            var val=eval('('+res.bodyText+')')[0];
+            this.name=val['NAME'];
+            this.phone=val['PHONE'];
+            this.wx=val['WXNO'];
+            this.pwd=val['PASSWORD'];
+        },res=>{
+             console.log('请求失败处理,请检查Network!');
+        });
+    }
+})
+
+
+</script>
+</body>
+</html>

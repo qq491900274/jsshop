@@ -277,7 +277,7 @@ var vue=new Vue({
             }).then(res=>{
                 if(res.bodyText==1){
                     layer.msg('保存成功！',function(){
-                        window.history.go(-1);
+                        //window.history.go(-1);
                     })
                 }
             },res=>{
@@ -330,6 +330,7 @@ var vue=new Vue({
             this.name=val['NAME'];
             this.code=val['CODE'];
             this.price=val['PRICE'];
+            this.count=val['COUNT'];
             this.img=val['IMG'];
             this.province=val['PROVINCE'];
             this.city=val['CITY'];

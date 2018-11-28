@@ -8,18 +8,18 @@
                 <ul class="clearfix">
                     <li>
                         <label class="seach-label"> 订单编号：</label>
-                        <input type="text" name="" value="" placeholder="请输入用户名" class="form-control">
+                        <input type="text" name="" value="" placeholder="请输入用户名" class="form-control" v-model="code">
                     </li>
                     <li style="width: 33%;">
                         <label class="seach-label">用户名：</label>
-                        <input type="text" name="" value="" placeholder="请输入用户号" class="form-control">
+                        <input type="text" name="" value="" placeholder="请输入用户号" class="form-control" v-model="user">
                     </li>
                     <li style="width: 33%;">
                         <label class="seach-label">手机号：</label>
-                        <input type="text" name="" value="" placeholder="请输入手机号" class="form-control">
+                        <input type="text" name="" value="" placeholder="请输入手机号" class="form-control" v-model="phone">
                     </li>
                 </ul>
-                <div class="seach" style="margin-left: 70px;">
+                <div class="seach">
                     <input type="button" name="" value="搜索" @click="get()">
                 </div>
             </div>
@@ -39,19 +39,19 @@
                     <template v-for="(t,index) in products">
                         <tr class="firstTd">
                             <td colspan="8" align="left">
-                                <span class="topId">订单编号：{{t.orderCode}}</span> 
-                                <span class="topId">交易流水号：{{t.tranId}}</span> 
-                                <span>下单时间：2018-11-21 15:32</span>
-                                <span>支付时间：2018-11-21 15:36</span>
+                                <span class="topId">订单编号：{{t.CODE}}</span> 
+                                <span class="topId">交易流水号：{{t.PAYCODE}}</span> 
+                                <span>下单时间：{{t.DATETIME}}</span>
+                                <span>支付时间：{{t.PAYTIME}}</span>
                             </td>
                         </tr>
                         <tr>
-                            <td align="left" style="padding-left:30px;"><img src="__PUBLIC__/index/images/echart_10.jpg" width="60px" style="float: left;"><span>{{t.name}}</span><br><span class="price">单价：￥{{t.price}}</span></td>
-                            <td style="font-size: 14px;">×{{t.num}}</td>
-                            <td>{{t.userName}}</td>
-                            <td>13956487789</td>
-                            <td>￥299</td>
-                            <td class="state">{{t.state}}</td>
+                            <td align="left" style="padding-left:30px;"><img src="__PUBLIC__/index/images/echart_10.jpg" width="60px" style="float: left;"><span>{{t.NAME}}</span><br><span class="price">单价：￥{{t.CPRICE}}</span></td>
+                            <td style="font-size: 14px;">×1</td>
+                            <td>{{t.USERNAME}}</td>
+                            <td>{{t.PHONE}}</td>
+                            <td>￥{{t.PRICE}}</td>
+                            <td class="state">{{t.STATE}}</td>
                             <td><a href="javascript:void(0)" class="remove" @click="remove(t.ID,index)">删除</a></td>
                         </tr>
                     </template> 
@@ -72,42 +72,17 @@
     var vue=new Vue({
         el:'#order',
         data:{
-            products:[
-                {
-                    orderCode:'123545165136844',
-                    tranId:'54316541123121',
-                    orderTime:'',
-                    payTime:'',
-                    name:'金石V课',
-                    price:'399',
-                    num:'1',
-                    userName:'向阳',
-                    phone:'13958456623',
-                    allMoney:'399',
-                    state:'已付款'
-                },
-                {
-                    orderCode:'12354584652145',
-                    tranId:'54316541123132',
-                    orderTime:'',
-                    payTime:'',
-                    name:'金石1对1',
-                    price:'399',
-                    num:'2',
-                    userName:'杨南',
-                    phone:'18765412259',
-                    allMoney:'598',
-                    state:'待付款'
-                }
-            ],
+            code:'',
+            user:'',
+            phone:'',
+            products:[],
             id:'<?php echo @$_GET['id']?>'    
         },
         methods:{
             get:function(){
-                this.$http.post(baseurl+'?s=admin/Order/order_list',{where:{'orderCode':this.orderCode,'name':this.name,'phone':this.phone}}).then(function(res){
+                this.$http.post(baseurl+'?s=admin/Order/order_list',{where:{'CODE':this.code,'USERNAME':this.user,'PHONE':this.phone},list:1}).then(function(res){
                     //给分页组件添加条件
-                    page.where={'orderCode':this.orderCode,'name':this.name,'phone':this.phone};
-                   
+                    page.where={'CODE':this.code,'USERNAME':this.user,'PHONE':this.phone};
                     var val=eval('('+res.bodyText+')');
                     this.products=val['value'];
                     //console.log(this.products);
@@ -120,17 +95,20 @@
                 })
             },
             remove:function(ids,arrid){
-                this.$http.post(baseurl+'?s=admin/Order/delete_order',{id:ids}).then(res=>{
-                    var num=eval('('+res.bodyText+')');
-                    if(num==1){
-                        layer.alert('确定删除吗？',{time:1500});
-                        this.products.splice(arrid,1);
-                    }else{
-                        location.reload();
-                    }
-                },res=>{
-                    console.log('请求失败处理,请检查Network!');
+                layer.alert('确定要删除吗？',function(){
+                    vue.$http.post(baseurl+'?s=admin/Order/delete_order',{id:ids}).then(res=>{
+                        var num=eval('('+res.bodyText+')');
+                        if(num==1){
+                            layer.alert('删除成功！',{time:1500});
+                            vue.products.splice(arrid,1);
+                        }else{
+                            location.reload();
+                        }
+                    },res=>{
+                        console.log('请求失败处理,请检查Network!');
+                    })
                 })
+                
             }
         },
         created:function(){
