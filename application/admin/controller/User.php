@@ -51,6 +51,7 @@ class User extends Controller
      
   }
   function get_onevalue(){
+    $request = request()->post();
     if (empty($request['id'])) {
       return '缺少id！';
     }
