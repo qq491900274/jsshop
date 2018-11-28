@@ -50,7 +50,17 @@ class User extends Controller
     return $result;
      
   }
+  function get_onevalue(){
+    if (empty($request['id'])) {
+      return '缺少id！';
+    }
 
+    $this->pmodel =  new \app\admin\model\PublicModel();
+    $key = "ID,NAME,PHONE,DATETIME,WXNO,PASSWORD,USER";
+    $table="SHOP_USER";
+    $where=" ID='{$request['id']}'";
+    return $result['value'] = $this->pmodel->select($table,$key,$where);
+  }
   function updateUser(){
     $request = request()->post();
       if (!empty($request)) {
