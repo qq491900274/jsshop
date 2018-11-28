@@ -41,7 +41,7 @@ class Order extends Controller
       $where1 =$where. " LIMIT {$page['min']},{$page['max']}";
 
       $key = "O.ID,O.CODE,O.PAYCODE,O.PRICE,O.DATETIME,O.PAYTIME,O.STATE,".
-             "U.NAME,U.PHONE,C.NAME,C.PRICE CPRICE";
+             "U.NAME USERNAME,U.PHONE,C.NAME,C.PRICE CPRICE";
       $table=" SHOP_ORDER O LEFT JOIN SHOP_USER U ON U.ID=O.USERID".
              " LEFT JOIN SHOP_CURRICULUM C ON C.ID=O.CURRICULUMID";
 
