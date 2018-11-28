@@ -80,9 +80,9 @@
 			},
 			remove:function(ids,arrid){
 				layer.alert('确定要删除吗？',function(){
-					vue.$http.post(baseUrl+'?s=admin/User/deleUser',{id:ids}).then(res=>{
-						var val=eval('('+res.bodyText+')');
-						if(val==1){
+					vue.$http.post(baseurl+'?s=admin/User/deleUser',{id:ids}).then(res=>{
+						var num=eval('('+res.bodyText+')');
+						if(num==1){
 							layer.msg('删除成功!',{time:1500});
 							vue.products.splice(arrid,1);
 						}else{
