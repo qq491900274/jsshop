@@ -16,7 +16,7 @@ class User extends Controller
   function userList(){
     $request = request()->post();
     //判断是否只请求页面
-    if(empty($request['list'])){
+    if(empty($request['where']['list'])){
        return $this->fetch('userlist');
     }
 
