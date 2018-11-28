@@ -51,6 +51,33 @@ class User extends Controller
      
   }
 
+  function updateUser(){
+    $request = request()->post();
+      if (!empty($request)) {
+        $time=date('Y-m-d H:i:s');
+        $data=['NAME'=>$request['name'],
+              'PHONE'=>$request['phone'],
+              'PASSWORD'=>$request['pwd'],
+              'USER'=>$request['user'],
+              'DATE'=>$time
+              ];
+
+        if (!empty($request['id'])) {
+          $isok=DB::table('SHOP_USER')
+              ->where('ID',$request['id'])
+              ->update($data);
+        }else{
+          $data['ID']=uniqid();
+          $isok=DB::table('SHOP_USER')
+              ->insert($data);
+        }
+
+        echo '1';exit();
+      }
+
+      return $this->fetch('updateUser');
+  }
+
   //删除用户
   function deleUser(){
       $request = request()->post();
