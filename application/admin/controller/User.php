@@ -70,7 +70,7 @@ class User extends Controller
               'PHONE'=>$request['phone'],
               'PASSWORD'=>$request['pwd'],
               'USER'=>$request['user'],
-              'DATE'=>$time
+              'DATETIME'=>$time
               ];
 
         if (!empty($request['id'])) {
