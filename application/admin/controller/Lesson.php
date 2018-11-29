@@ -386,7 +386,8 @@ class Lesson extends Controller
         'ENDTIME'=>$request['endTime'],
         'COURSENUM'=>$request['lessonNum'],
         'COURSETIME'=>$request['lessonTime'],
-        'IMG'=>$request['img']
+        'IMG'=>$request['img'],
+        'COUNT'=>$request['count']
       ];
 
       if (!empty($request['id'])) {
