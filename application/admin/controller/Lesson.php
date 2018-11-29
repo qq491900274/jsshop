@@ -511,5 +511,7 @@ class Lesson extends Controller
       return $result;
     }
   
-
+    public function index_config(){
+      return $this->fetch('index_config');
+    }
 }
