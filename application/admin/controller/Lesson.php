@@ -289,7 +289,7 @@ class Lesson extends Controller
       //获取查询条件
       $where .= " LIMIT {$minpage},{$maxpage}";
 
-      $key = "C.ID, C.NAME, C.CODE, C.PRICE, C.CLASSGUID GRADE, SUBJECTGUID SUBJECT, ".
+      $key = "C.ID,C.COUNT, C.NAME, C.CODE, C.PRICE, C.CLASSGUID GRADE, SUBJECTGUID SUBJECT, ".
               "C.CLASSTYPEGUID LESSON_TYPE,T.NAME TEACHER, DATETIME, ORDERINDEX, ".
               "CONTENT, C.PROVINCE, C.CITY, C.AREA,S.SCHOOL_NAME,T.PIC TEACHERIMG";
       $table='SHOP_CURRICULUM C '.
@@ -329,7 +329,7 @@ class Lesson extends Controller
       }
 
       $where="ID='{$request['id']}'";
-      $key = "ID, NAME, CODE, PRICE, CLASSGUID, SUBJECTGUID,SEASONTYPE,".
+      $key = "ID, NAME, CODE,COUNT, PRICE, CLASSGUID, SUBJECTGUID,SEASONTYPE,".
               "CLASSTYPEGUID,NAME, DATETIME, ORDERINDEX, SEMESTER,STARTTIME,ENDTIME,".
               "CONTENT, PROVINCE, CITY, AREA,SCHOOLID,COURSENUM,COURSETIME,TEACHERGUID,IMG";
       $table='SHOP_CURRICULUM ';
