@@ -28,4 +28,8 @@ class Uploadpic extends Controller
             return "未获取到图片！";
          }
     }
+
+    function config_pic(){
+      return $this->fetch('config_pic');
+    }
 }
