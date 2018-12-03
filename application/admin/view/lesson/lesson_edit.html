@@ -56,12 +56,12 @@
                             <label class="seach-label">
                                 <span>*</span>所属校区：
                             </label>
-                            <select class="form-control input-median" text="true" name="" id="province_id" v-model="province">
+                            <select class="form-control input-median" text="true" name="" id="province_id" v-model="provinceid">
                             </select>
-                            <select class="form-control input-median" text="true" name="" id="city_id" v-model="city">
+                            <select class="form-control input-median" text="true" name="" id="city_id" v-model="cityid">
                                 
                             </select>
-                            <select class="form-control input-median" text="true" name="" id="district_id" v-model="area" @change="choose()">
+                            <select class="form-control input-median" text="true" name="" id="district_id" v-model="areaid" @change="choose()">
                             </select>
                             <select class="form-control input-median" name="" id="school_id" v-model='school_id'>
                                 <option value="">请选择校区</option>
@@ -203,6 +203,9 @@ var vue=new Vue({
         price:'',
         count:'',
         img:'',//图片
+        provinceid:'',//省
+        cityid:'',//市
+        areaid:'',//区
         province:'',//省
         city:'',//市
         area:'',//区
@@ -251,6 +254,50 @@ var vue=new Vue({
                 layer.alert('库存不能为空！');
                 return;
             }
+            if(!this.img){
+                layer.alert('课程图片不能为空！');
+                return;
+            }
+            if(!this.school_id){
+                layer.alert('所属校区不能为空！');
+                return;
+            }
+            if(!this.lessonTypeid){
+                layer.alert('课堂类型不能为空！');
+                return;
+            }
+            if(!this.classType){
+                layer.alert('班型不能为空！');
+                return;
+            }
+            if(!this.semester){
+                layer.alert('学期不能为空！');
+                return;
+            }
+            if(!this.gradeid || !this.subjectsid){
+                layer.alert('年级科目不能为空！');
+                return;
+            }
+            if(!this.teacherid){
+                layer.alert('教师不能为空！');
+                return;
+            }
+            if(!startTime || !endTime){
+                layer.alert('开课时间不能为空！');
+                return;
+            }
+            if(!this.lessonNum){
+                layer.alert('课程节数不能为空！');
+                return;
+            }
+            if(!this.lessonTime){
+                layer.alert('课程时长不能为空！');
+                return;
+            }
+            if(!intro){
+                layer.alert('课程详情不能为空！');
+                return;
+            }
             this.$http.post(baseurl+'?s=admin/Lesson/lesson_edit',{
                 'id':this.id,
                 'name':this.name,//
@@ -258,9 +305,9 @@ var vue=new Vue({
                 'price':this.price,//
                 'count':this.count,
                 'img':img,//
-                'province':this.province,//
-                'city':this.city,//
-                'area':this.area,//
+                'provinceid':this.provinceid,//
+                'cityid':this.cityid,//
+                'areaid':this.areaid,//
                 'schoolid':this.school_id,
                 'semester':this.semester,//
                 'lessonNum':this.lessonNum,//
@@ -332,9 +379,9 @@ var vue=new Vue({
             this.price=val['PRICE'];
             this.count=val['COUNT'];
             this.img=val['IMG'];
-            this.province=val['PROVINCE'];
-            this.city=val['CITY'];
-            this.area=val['AREA'];
+            this.provinceid=val['PROVINCE'];
+            this.cityid=val['CITY'];
+            this.areaid=val['AREA'];
             this.school_id=val['SCHOOLID'];
             this.lessonTypeid=val['CLASSTYPEGUID'];
             this.classType=val['SEASONTYPE'];
