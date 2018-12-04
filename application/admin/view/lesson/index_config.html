@@ -8,8 +8,8 @@
 				<ul v-for="(v,index) in bannerLis">
 					<li>
 						<span>轮播图片：</span>
-						<input type="text" name="" class="inputOne em" v-model="v.imgUrl">
-						<div><p class="on">上传</p><input type="file" name="" value="上传" class="upload" onclick="file()"></div>
+						<input type="text" name="" class="inputOne em" v-model="v.imgUrl" id="hpic"> 
+						<div><p class="on" onclick="file(this,'bannerLis')">上传</p></div>
 					</li>
 					<li>
 						<span>轮播链接：</span>
@@ -31,7 +31,7 @@
 					<li>
 						<span>轮播图片：</span>
 						<input type="text" name="" class="inputOne em" v-model="v.imgUrl">
-						<div><p class="on">上传</p><input type="file" name="" value="上传" class="upload" onclick="file()"></div>
+						<div><p class="on" onclick="file(this,'imgLis')">上传</p></div>
 					</li>
 					<li>
 						<span>轮播链接：</span>
@@ -53,7 +53,7 @@
 					<li>
 						<span>轮播图片：</span>
 						<input type="text" name="" class="inputOne em" v-model="v.imgUrl">
-						<div><p class="on">上传</p><input type="file" name="" value="上传" class="upload" onclick="file()"></div>
+						<div><p class="on" onclick="file(this,'hotLis')">上传</p></div>
 					</li>
 					<li>
 						<span>轮播链接：</span>
@@ -89,13 +89,34 @@
 
 {include file="public/footer"}
 <script type="text/javascript">
+	function getsrc(src){
 
+		var key=vue.picname;
+		var index=vue.picindex;
+		if (key=='bannerLis') {
+			vue.bannerLis[index].imgUrl=src;
+		}else if(key=='imgLis'){
+			vue.imgLis[index].imgUrl=src;
+		}else if(key=='hotLis'){
+			vue.hotLis[index].imgUrl=src;
+		}
+		
+	}
 	/*******点击上传获取文件路径***********/
-	function file(){
-		$('.upload').change(function(){
-			$(this).parents('.indexBox').find('.em').val($(this).val());
-			//console.log($('.em').val());
+	function file(this0,str){
+		vue.picindex=$(this0).parents('ul').index();
+		vue.picname=str;
+		layer.open({
+		  type: 2,
+		  title: '上传图片',
+		  shadeClose: true,
+		  shade: 0.8,
+		  area: ['400px', '200px'],
+		  content: baseurl+'?s=admin/uploadpic/config_pic' //iframe的url
 		});
+		var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+		console.log(index);
+		//parent.layer.close(index);
 	}
 
 	/*************添加轮播图*******************/
@@ -112,7 +133,9 @@
 	    		{imgUrl:'',imgHref:'',num:''}
 	    	],
 	    	hotPhone:'',
-	    	majorPhone:''
+	    	majorPhone:'',
+	    	picindex:'',
+	    	picname:''
 	    },
 	    methods:{
 	        get:function(){
@@ -123,9 +146,9 @@
 	        		'hotPhone':this.hotPhone,
 	        		'majorPhone':this.majorPhone
 	        	}).then(res=>{
-	        		
+	        		var val=eval('('+res.bodyText+')');
 	        	},res=>{
-	        		console.log('请求失败，请检查NEtwork！');
+	        		console.log('请求失败，请检查Network！');
 	        	})
 	        },
 	        remove:function(ids,arrid){
@@ -143,13 +166,14 @@
 	        		})
 	        	})
 	        },
+
 	        addList:function(){
 	        	this.bannerLis.push({imgUrl:'',imgHref:'',num:''});
 	        },
 	        addImgList:function(){
 	        	this.imgLis.push({imgUrl:'',imgHref:'',num:''});
 	        },
-	        addHotList:function(){
+	        addHotList:function(){ 
 	        	this.hotLis.push({imgUrl:'',imgHref:'',num:''});
 	        }
 	    }
