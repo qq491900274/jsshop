@@ -510,8 +510,118 @@ class Lesson extends Controller
       //返回校区数据
       return $result;
     }
-  
+    //首页配置
     public function index_config(){
+      $request = request()->post();
+      $this->pmodel =  new \app\admin\model\PublicModel(); 
+      //获取默认数据
+      if (!empty($request['list']) && $request['list']=='1') {
+        $key = "TITLE1,SLIDESHOWPICID1,TITLE2,SLIDESHOWPICID2,TITLE3,SLIDESHOWPICID3,PHONE,PHONE1";
+        $value = $this->pmodel->select('SHOP_SLIDESHOW',$key);
+
+        if (!empty($value)) {
+           //查询轮播图
+           $title1=str_replace(',',"','",$value[0]['SLIDESHOWPICID1']);
+           $title2=str_replace(',',"','",$value[0]['SLIDESHOWPICID2']);
+           $title3=str_replace(',',"','",$value[0]['SLIDESHOWPICID3']);
+
+           $where="ID IN ('{$title1}')";
+           $value[0]['SLIDESHOWPICID1'] = $this->pmodel->select('SHOP_SLIDESHOWPIC',$key,$where);
+           $where="ID IN ('{$title2}')";
+           $value[0]['SLIDESHOWPICID2'] = $this->pmodel->select('SHOP_SLIDESHOWPIC',$key,$where);
+           $where="ID IN ('{$title3}')";
+           $value[0]['SLIDESHOWPICID3'] = $this->pmodel->select('SHOP_SLIDESHOWPIC',$key,$where);
+
+           return $value[0];
+        }
+      }
       return $this->fetch('index_config');
     }
+
+    public function insert_index(){
+      $request = request()->post();
+      $this->pmodel =  new \app\admin\model\PublicModel(); 
+
+      if (!empty($request)) {
+       $sql=[
+          'PICURL'=>$request['name'],
+          'URL'=>$request['code'],
+          'ORDERINDEX'=>$request['price'],
+        ];
+        //获取关联ID
+        $slideshowID=$this->pmodel->select('SHOP_SLIDESHOW',' top 1 ID');
+        if (empty($slideshowID[0]['ID'])) {
+          $sql1['ID']=uniqid();
+          $sql1['PHONE']=$request['hotPhone'];
+          $sql1['PHONE1']=$request['majorPhone'];
+
+          $isok=DB::table('SHOP_SLIDESHOWPIC')
+            ->insert($sql);
+
+          $slideshowID=$sql1['ID'];
+        }else{
+          $slideshowID=$slideshowID[0]['ID'];
+          //修改操作
+
+          $sql1['PHONE']=$request['hotPhone'];
+          $sql1['PHONE1']=$request['majorPhone'];
+
+          $isok=DB::table('SHOP_SLIDESHOWPIC')
+            ->update($sql)
+            ->where('ID',$slideshowID);
+        }
+
+        foreach ($request['bannerLis'] as $key => $value) {
+          if (empty(['bannerLis']['ID'])) {
+                $sql['ID']=uniqid();
+                $sql['TYPE']='bannerLis';
+                $sql['SLDESHOWID']=$slideshowID;
+                $isok=DB::table('SHOP_SLIDESHOWPIC')
+                ->insert($sql);
+          }
+        }
+
+        foreach ($request['bannerLis'] as $key => $value) {
+            if (empty(['bannerLis']['ID'])) {
+                $sql['ID']=uniqid();
+                $sql['TYPE']='bannerLis';
+                $sql['SLDESHOWID']=$slideshowID;
+                $isok=DB::table('SHOP_SLIDESHOWPIC')
+                ->insert($sql);
+          }
+        }
+
+        foreach ($request['bannerLis'] as $key => $value) {
+            if (empty(['bannerLis']['ID'])) {
+                $sql['ID']=uniqid();
+                $sql['TYPE']='bannerLis';
+                $sql['SLDESHOWID']=$slideshowID;
+                $isok=DB::table('SHOP_SLIDESHOWPIC')
+                ->insert($sql);
+          }
+        }
+
+      }
+
+    }
+    //修改图片 
+    public function update_index(){
+      $sql=[
+          'PICURL'=>$request['picurl'],
+          'URL'=>$request['url'],
+          'ORDERINDEX'=>$request['orderindex'],
+        ];
+      $isok=DB::table('SHOP_SLIDESHOWPIC')
+            ->update($sql)
+            ->where('ID',$);
+    }
+    public function dele_config(){
+      $request = request()->post();
+      $this->pmodel =  new \app\admin\model\PublicModel();
+      
+      $where = "ID = '{$request['id']}'";
+      $isok=$this->pmodel->dele('SHOP_SLIDESHOWPIC',$where);
+      echo '1';
+    }
 }
+ 
