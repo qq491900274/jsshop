@@ -37,10 +37,12 @@
 <div class="nav">
     <div class="main">
         <ul id="first" class="clearfix">
-            <li><a href="<?php echo BASE_URL;?>?s=admin/Order/order_list.html">订单列表</a>
+            <li <?php if(request()->controller()=='Order') echo 'class="active"'?>>
+                <a href="<?php echo BASE_URL;?>?s=admin/Order/order_list.html">订单列表</a>
             </li>
             <li><a href="<?php echo BASE_URL;?>?s=admin/lesson/index_config.html">首页配置</a></li>
-            <li><a href="#">课程管理</a>
+            <li <?php if(request()->controller()=='Lesson') echo 'class="active"'?>>
+                <a href="<?php echo BASE_URL;?>?s=admin/lesson/lesson_list.html">课程管理</a>
                 <ul id="second">
                     <li><a href="<?php echo BASE_URL;?>?s=admin/lesson/lesson_school.html">校区列表</a></li>
                     <li><a href="<?php echo BASE_URL;?>?s=admin/lesson/lesson_teacher.html">教师列表</a></li>
@@ -56,7 +58,8 @@
                 </ul>
             </li>
             
-            <li><a href="#">用户管理</a>
+            <li <?php if(request()->controller()=='User') echo 'class="active"'?>>
+                <a href="<?php echo BASE_URL;?>?s=admin/User/userList.html">用户管理</a>
                 <ul id="second">
                     <li><a href="<?php echo BASE_URL;?>?s=admin/User/userList.html">用户列表</a></li>
                 </ul>
