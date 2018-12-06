@@ -1,4 +1,183 @@
-{$name} 
-<input id='ce' value=''>
-<script src="sourceindex/js/jquery-3.3.1.min.js"></script>
-<script> $('#ce').val('hehe');</script>
+{include file="common/header"}
+<body id="index">
+<div class="top">
+	<div class="main clearfix">
+		<div class="position left"><i class="icon iconfont">&#xe6c1;</i><span id="posi"></span></div>
+		<div class="seach right"><input type="text" name="" placeholder="请在搜索框内输入搜索内容"><button type="submit"><i class="icon iconfont">&#xe614;</i></button></div>
+	</div>
+</div>
+
+<!--banner-->
+<div class="banner">
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+
+    <div class="swiper-slide" v-for="t in banner"><img src="__PUBLIC__/index/images/banner.jpg" alt=""></div>
+	<!-- <div class="swiper-slide"><img src="__PUBLIC__/index/images/banner.jpg" alt=""></div>
+    <div class="swiper-slide"><img src="__PUBLIC__/index/images/banner.jpg" alt=""></div>  --> 
+    </div>
+    <!-- 如果需要分页器-->
+    <div class="swiper-pagination"></div>
+  </div>
+</div>
+<div class="clear"></div>
+<script>
+	var mySwiper = new Swiper('.banner .swiper-container',{
+    loop: true,
+	autoplay:5000,
+    autoplayDisableOnInteraction: false,
+	speed:500,
+	// 如果需要分页器
+    pagination: '.banner .swiper-pagination',
+	paginationClickable: true,
+	grabCursor : true,
+	nextButton: '.arrow-right',
+    prevButton: '.arrow-left',
+	parallax:true,
+  });  
+</script>
+
+<div class="test">
+	<h3 class="title">学习性格测试</h3>
+	<div class="swiper-container">
+    <div class="swiper-wrapper">
+            <div class="swiper-slide" v-for="t in test" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div>
+            <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div>
+            <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div>
+            <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div>
+            <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div>
+            <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div>
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+  </div>
+
+</div>
+
+<script>
+    var swiper = new Swiper('.test .swiper-container', {
+      effect: 'coverflow',
+      loop : true,
+	  //slidesPerView : 'auto',
+	  //loopedSlides :8,
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows : true,
+      },
+      pagination: {
+        el: '.test .swiper-pagination',
+      },
+    });
+  </script>
+
+<div class="ticket">
+	<div class="main">
+		<h3 class="title">票券领取</h3>
+		<ul class="clearfix">
+			<li class="on"><a href="" class="color">
+				<h2>200</h2>
+				<span>RMB</span>
+				<p>领取票券</p>
+				<i class="icon iconfont">&#xe629;</i>
+			</a></li>
+			<li class="default"><a href="" class="color">
+				<h2>200</h2>
+				<span>RMB</span>
+				<p>领取票券</p>
+				<i class="icon iconfont">&#xe629;</i>
+			</a></li>
+			<li class="default"><a href="" class="color">
+				<h2>200</h2>
+				<span>RMB</span>
+				<p>领取票券</p>
+				<i class="icon iconfont">&#xe629;</i>
+			</a></li>
+		</ul>
+	</div>
+</div>
+
+<div class="hot">
+	<div class="main">
+		<h3 class="title">热门活动</h3>
+		<a href=""><img src="__PUBLIC__/index/images/index_09.jpg"></a>
+		<a href=""><img src="__PUBLIC__/index/images/index_09.jpg"></a>
+	</div>
+</div>
+<div class="phone addr">
+	<div class="main">
+		<a href=""><i class="icon iconfont">&#xe6c1;</i> &nbsp;查看各校区地址<span><i class="icon iconfont">&#xe615;</i></span></a>
+	</div>
+</div>
+<div class="phone">
+	<div class="main">
+		<a href=""><i class="icon iconfont">&#xe688;</i> &nbsp;金石教育热线：4006666911<span><i class="icon iconfont">&#xe615;</i></span></a>
+	</div>
+</div>
+<div class="phone">
+	<div class="main">
+		<a href=""><i class="icon iconfont">&#xe688;</i> &nbsp;小学拼课专线：4006666829<span><i class="icon iconfont">&#xe615;</i></span></a>
+	</div>
+</div>
+
+<div class="name">
+	<h4>青岛金石教育科技股份有限公司</h4>
+	<p>www.jinshiedu.net</p>
+</div>
+
+
+<div class="fixedNav">
+	<div class="main">
+		<ul>
+			<li><a href="" class="active">
+				<i class="icon iconfont">&#xe65e;</i>
+				<p>首页</p>
+			</a></li>
+			<li><a href="">
+				<i class="icon iconfont">&#xe626;</i>
+				<p>课程</p>
+			</a></li>
+			<li><a href="">
+				<i class="icon iconfont">&#xe617;</i>
+				<p>购物车</p>
+			</a></li>
+			<li><a href="">
+				<i class="icon iconfont">&#xe638;</i>
+				<p>我的</p>
+			</a></li>
+		</ul>
+	</div>
+</div>
+<script type="text/javascript"> 
+	var geolocation = new BMap.Geolocation();
+	// 创建地理编码实例    
+	var myGeo = new BMap.Geocoder();    
+	geolocation.getCurrentPosition(function(r){
+		if(this.getStatus() == BMAP_STATUS_SUCCESS){
+			var pt = r.point; 
+			// 根据坐标得到地址描述  
+			myGeo.getLocation(pt, function(result){    
+				if (result){    
+				var addComp = result.addressComponents;
+					posi.innerHTML=addComp.city+" "+addComp.district;
+				  	//alert(addComp.province + " " + addComp.city+" "+addComp.district);    
+				}
+			});
+		}
+	});
+
+var vue=new Vue({
+	el:'#index',
+	data:{
+		banner:[]
+	}
+})
+
+
+</script>
+{include file="common/footer"}
