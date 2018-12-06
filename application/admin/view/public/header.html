@@ -40,8 +40,9 @@
             <li <?php if(request()->controller()=='Order') echo 'class="active"'?>>
                 <a href="<?php echo BASE_URL;?>?s=admin/Order/order_list.html">订单列表</a>
             </li>
-            <li><a href="<?php echo BASE_URL;?>?s=admin/lesson/index_config.html">首页配置</a></li>
-            <li <?php if(request()->controller()=='Lesson') echo 'class="active"'?>>
+            <li <?php if(request()->controller()=='Lesson' && request()->action()=='index_config') echo 'class="active"'?>>
+                    <a href="<?php echo BASE_URL;?>?s=admin/lesson/index_config.html">首页配置</a></li>
+            <li <?php if(request()->controller()=='Lesson' && request()->action() !='index_config') echo 'class="active"'?>>
                 <a href="<?php echo BASE_URL;?>?s=admin/lesson/lesson_list.html">课程管理</a>
                 <ul id="second">
                     <li><a href="<?php echo BASE_URL;?>?s=admin/lesson/lesson_school.html">校区列表</a></li>
