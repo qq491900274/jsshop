@@ -11,24 +11,30 @@ class Index extends Controller
 {	
 	public function __construct(){
 		parent::__construct();
-	    //判断用户是否登录
-   
-        // if(empty($_SESSION['user'])){
-        // 	$this->error('请登录！',url('Login/index'));
-        // }
 	}
 		
     public function index(){
-      //$this->assign('name','ThinkPHP');
-      $home=new Home();
-      $home->hell();
        return $this->fetch('index'); 
     }
-    public function test()
+    
+    public function get_index()
     {
-      $this->HelloWordModel =  new \app\index\model\HelloWord();
-      $result = $this->HelloWordModel->hello('helloword');
-      var_dump($result);
+        $this->pmodel =  new \app\index\model\PublicModel(); 
+
+        $key = "ID,PHONE,PHONE1";
+        $value = $this->pmodel->select('SHOP_SLIDESHOW',$key);
+
+        if (!empty($value)) {
+           //查询轮播图
+           $key=" ID,PICURL imgUrl,URL imgHref,ORDERINDEX num";
+           $where=" TYPE='bannerLis'";
+           $value[0]['bannerLis'] = $this->pmodel->select('SHOP_SLIDESHOWPIC',$key,$where);
+           $where=" TYPE='imgLis'";
+           $value[0]['imgLis'] = $this->pmodel->select('SHOP_SLIDESHOWPIC',$key,$where);
+           $where=" TYPE='hotLis'";
+           $value[0]['hotLis'] = $this->pmodel->select('SHOP_SLIDESHOWPIC',$key,$where);
+           return $value[0];
+        }
     }
     
     //购物车
