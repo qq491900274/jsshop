@@ -11,7 +11,7 @@
 		<div class="main">
 			
 			<div class="seach_tigs" id="edit">
-				<h3>修改课程</h3>
+				<h3 id="addLesson"></h3>
 	            
 	                <ul class="clearfix">
                         <li>
@@ -370,9 +370,11 @@ var vue=new Vue({
         });
 
         if(!this.id){
+            $('#addLesson').html('新增课程');
             return;
         }
         this.$http.post(baseurl+'?s=admin/Lesson/getcurriculum',{'id':this.id}).then(res=>{
+            $('#addLesson').html('修改课程');
             var val=eval('('+res.bodyText+')')[0];
             this.name=val['NAME'];
             this.code=val['CODE'];

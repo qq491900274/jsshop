@@ -66,9 +66,9 @@
                             <th>教师头像</th>
                             <th>编号</th>
                             <th>所属校区</th>
-                            <th>科目</th>
+                            <!-- <th>科目</th>
                             <th>课程数</th>
-                            <!-- <th>排序</th> -->
+                            <th>排序</th> -->
                             <th>更新时间</th>
                             <th width="8%">操作</th>
                         </tr>
@@ -77,12 +77,12 @@
                         <tr v-for="(product,index) in products">
                             <td><input type="checkbox" name="ids[]" class="check_one" :value="product.ID"  /></td>
                             <td>{{product.NAME}}</td>
-                            <td><img :src="product.imgUrl" height="60" /></td>
+                            <td style="padding:10px 0"><img :src="product.PIC" height="60" width="60" /></td>
                             <td>{{product.CODE}}</td>
                             <td>{{product.SCHOOL}}</td>
-                            <td>{{product.SUBJECT}}</td>
+                            <!-- <td>{{product.SUBJECT}}</td>
                             <td>{{product.num}}</td>
-                            <!-- <td>{{product.order}}</td> -->
+                            <td>{{product.order}}</td> -->
                             <td>{{product.DATE}}</td>
                             <td>
                             <a href="javascript:void(0)" @click="goupdate(product.ID)">编辑</a>
@@ -160,9 +160,9 @@
                 vue.$http.post(baseurl+'?s=admin/Lesson/dele_teacher',{id:ids}).then(res=>{
                     var num=eval('('+res.bodyText+')');
                     if(num==1){
-                        console.log(vue.products);
-                        console.log(vue.products.arrid);
-                        console.log(arrid);
+                        // console.log(vue.products);
+                        // console.log(vue.products.arrid);
+                        // console.log(arrid);
                         layer.msg('删除成功！',{time:1500});
                         vue.products.splice(arrid,1);
                     }else{

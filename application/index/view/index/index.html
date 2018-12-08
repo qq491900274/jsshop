@@ -1,5 +1,6 @@
 {include file="common/header"}
-<body id="index">
+<body>
+	<div id="index">
 <div class="top">
 	<div class="main clearfix">
 		<div class="position left"><i class="icon iconfont">&#xe6c1;</i><span id="posi"></span></div>
@@ -12,7 +13,9 @@
   <div class="swiper-container">
     <div class="swiper-wrapper">
 
-    <div class="swiper-slide" v-for="t in banner"><img src="__PUBLIC__/index/images/banner.jpg" alt=""></div>
+    <div class="swiper-slide" v-for="t in bannerLis">
+    	<img :src="t.imgUrl" alt="">
+    </div>
 	<!-- <div class="swiper-slide"><img src="__PUBLIC__/index/images/banner.jpg" alt=""></div>
     <div class="swiper-slide"><img src="__PUBLIC__/index/images/banner.jpg" alt=""></div>  --> 
     </div>
@@ -21,60 +24,23 @@
   </div>
 </div>
 <div class="clear"></div>
-<script>
-	var mySwiper = new Swiper('.banner .swiper-container',{
-    loop: true,
-	autoplay:5000,
-    autoplayDisableOnInteraction: false,
-	speed:500,
-	// 如果需要分页器
-    pagination: '.banner .swiper-pagination',
-	paginationClickable: true,
-	grabCursor : true,
-	nextButton: '.arrow-right',
-    prevButton: '.arrow-left',
-	parallax:true,
-  });  
-</script>
 
 <div class="test">
 	<h3 class="title">学习性格测试</h3>
 	<div class="swiper-container">
     <div class="swiper-wrapper">
-            <div class="swiper-slide" v-for="t in test" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div>
+           
+            <div class="swiper-slide" v-for="v in imgLis" :style="{backgroundImage:'url('+v.imgUrl+')'}"></div>
+           <!--  <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div>
             <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div>
             <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div>
-            <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div>
-            <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div>
-            <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div>
+            <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div> -->
     </div>
     <!-- Add Pagination -->
     <div class="swiper-pagination"></div>
   </div>
 
 </div>
-
-<script>
-    var swiper = new Swiper('.test .swiper-container', {
-      effect: 'coverflow',
-      loop : true,
-	  //slidesPerView : 'auto',
-	  //loopedSlides :8,
-      grabCursor: true,
-      centeredSlides: true,
-      slidesPerView: 'auto',
-      coverflowEffect: {
-        rotate: 50,
-        stretch: 0,
-        depth: 100,
-        modifier: 1,
-        slideShadows : true,
-      },
-      pagination: {
-        el: '.test .swiper-pagination',
-      },
-    });
-  </script>
 
 <div class="ticket">
 	<div class="main">
@@ -105,8 +71,8 @@
 <div class="hot">
 	<div class="main">
 		<h3 class="title">热门活动</h3>
-		<a href=""><img src="__PUBLIC__/index/images/index_09.jpg"></a>
-		<a href=""><img src="__PUBLIC__/index/images/index_09.jpg"></a>
+		<a :href="v.imgHref" v-for="v in hotLis"><img :src="v.imgUrl"></a>
+		<!-- <a href=""><img src="__PUBLIC__/index/images/index_09.jpg"></a> -->
 	</div>
 </div>
 <div class="phone addr">
@@ -116,18 +82,18 @@
 </div>
 <div class="phone">
 	<div class="main">
-		<a href=""><i class="icon iconfont">&#xe688;</i> &nbsp;金石教育热线：4006666911<span><i class="icon iconfont">&#xe615;</i></span></a>
+		<a :href="'tel:'+phone"><i class="icon iconfont">&#xe688;</i> &nbsp;金石教育热线：{{phone}}<span><i class="icon iconfont">&#xe615;</i></span></a>
 	</div>
 </div>
 <div class="phone">
 	<div class="main">
-		<a href=""><i class="icon iconfont">&#xe688;</i> &nbsp;小学拼课专线：4006666829<span><i class="icon iconfont">&#xe615;</i></span></a>
+		<a :href="'tel:'+phoneKe"><i class="icon iconfont">&#xe688;</i> &nbsp;小学拼课专线：{{phoneKe}}<span><i class="icon iconfont">&#xe615;</i></span></a>
 	</div>
 </div>
 
 <div class="name">
 	<h4>青岛金石教育科技股份有限公司</h4>
-	<p>www.jinshiedu.net</p>
+	<p>www.jinshiedu.com</p>
 </div>
 
 
@@ -153,7 +119,71 @@
 		</ul>
 	</div>
 </div>
+</div>
+
+{include file="common/footer"}
 <script type="text/javascript"> 
+
+var vue= new Vue({
+	el:'#index',
+	data:{
+		bannerLis:[],
+		hotLis:[],
+		imgLis:[],
+		phone:'',
+		phoneKe:''
+	},
+	mounted(){
+		var mySwiper = new Swiper('.banner .swiper-container',{
+		    loop: true,
+			autoplay:5000,
+		    autoplayDisableOnInteraction: false,
+			speed:500,
+			// 如果需要分页器
+		    pagination: '.banner .swiper-pagination',
+			paginationClickable: true,
+			grabCursor : true,
+			nextButton: '.arrow-right',
+		    prevButton: '.arrow-left',
+			parallax:true,
+		  });  
+		var swiper = new Swiper('.test .swiper-container', {
+	      effect: 'coverflow',
+	      loop : true,
+		  //slidesPerView : 'auto',
+		  //loopedSlides :8,
+	      grabCursor: true,
+	      centeredSlides: true,
+	      slidesPerView: 'auto',
+	      coverflowEffect: {
+	        rotate: 50,
+	        stretch: 0,
+	        depth: 100,
+	        modifier: 1,
+	        slideShadows : true,
+	      },
+	      pagination: {
+	        el: '.test .swiper-pagination',
+	      },
+	    });
+	},
+	created:function(){
+		this.$http.post(baseurl+'?s=index/index/get_index').then(res=>{
+			
+			var val=eval('('+res.bodyText+')');
+			this.bannerLis=val['bannerLis'];
+			this.hotLis=val['hotLis'];
+			this.imgLis=val['imgLis'];
+			this.phone=val['PHONE'];
+			this.phoneKe=val['PHONE1'];
+		},res=>{
+			console.log('请求失败,请检查Network!');
+		});
+
+		
+	}
+})
+
 	var geolocation = new BMap.Geolocation();
 	// 创建地理编码实例    
 	var myGeo = new BMap.Geocoder();    
@@ -170,14 +200,7 @@
 			});
 		}
 	});
-
-var vue=new Vue({
-	el:'#index',
-	data:{
-		banner:[]
-	}
-})
-
-
 </script>
-{include file="common/footer"}
+
+</body>
+</html>

@@ -149,7 +149,10 @@
 	        		'hotPhone':this.hotPhone,
 	        		'majorPhone':this.majorPhone
 	        	}).then(res=>{
-	        		var val=eval('('+res.bodyText+')');
+	        		var num=eval('('+res.bodyText+')');
+	        		if(num==1){
+	        			layer.msg('保存成功！',{time:1500});
+	        		}
 	        	},res=>{
 	        		console.log('请求失败，请检查Network！');
 	        	})
