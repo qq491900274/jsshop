@@ -5806,7 +5806,7 @@ Location.prototype.selectid=function(s,s1,q){
     //获取市以及当前省的所有市
     $.each(items['0,'+arr['provinceid']],function(i){
         if (items['0,'+arr['provinceid']][i]==s1) {
-            arr['cityid']=i;//省的id
+            arr['cityid']=i;//市的id
         }
     });
     arr['city']=items['0,'+arr['provinceid']];
@@ -5814,7 +5814,7 @@ Location.prototype.selectid=function(s,s1,q){
     //获取所有区以及当前区
     $.each(items['0,'+arr['provinceid']+','+arr['cityid']],function(i){
         if (items['0,'+arr['provinceid']+','+arr['cityid']][i]==q) {
-            arr['areaid']=i;//省的id
+            arr['areaid']=i;//区的id
         }
     });
     arr['area']=items['0,'+arr['provinceid']+','+arr['cityid']];
