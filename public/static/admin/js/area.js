@@ -5816,7 +5816,7 @@ Location.prototype.selectid=function(s,s1,q){
         if (items['0,'+arr['provinceid']+','+arr['cityid']][i]==q) {
             arr['areaid']=i;//省的id
         }
-    });
+    }); 
     arr['area']=items['0,'+arr['provinceid']+','+arr['cityid']];
     return arr;
 }
