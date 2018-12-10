@@ -1,13 +1,13 @@
 <?php
 namespace app\index\controller;
-use think\Controller;
+use think\mobile_controller;
 use think\View;
 use think\Request;
 use think\Session;
 use app\index\lib\Home;
 
 
-class Index extends Controller
+class Index extends mobile_controller
 {	
 	public function __construct(){
 		parent::__construct();
