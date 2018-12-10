@@ -1,3 +1,7 @@
+function getadd(s,s1,q){
+    var a=new Location;
+    a.selectid(s,s1,q);
+}
 function UpdateAddress(n) {
     var t = n.addressComponents.province;
     t == "" && (t = n.addressComponents.city);
@@ -5786,3 +5790,34 @@ Location.prototype.fillOption = function(n, t, i) {
     }),
     f.attr("selectedIndex", u))
 }
+
+Location.prototype.selectid=function(s,s1,q){
+    items=this.items;
+    
+    var arr=[];
+    //获取省以及所有的省
+    $.each(items[0],function(i){
+        if (items[0][i]==s) {
+            arr['provinceid']=i;//省的id
+        }
+    });
+    arr['province']=items[0];//所有省
+   
+    //获取市以及当前省的所有市
+    $.each(items['0,'+arr['provinceid']],function(i){
+        if (items['0,'+arr['provinceid']][i]==s1) {
+            arr['cityid']=i;//省的id
+        }
+    });
+    arr['city']=items['0,'+arr['provinceid']];
+
+    //获取所有区以及当前区
+    $.each(items['0,'+arr['provinceid']+','+arr['cityid']],function(i){
+        if (items['0,'+arr['provinceid']+','+arr['cityid']][i]==q) {
+            arr['areaid']=i;//省的id
+        }
+    });
+    arr['area']=items['0,'+arr['provinceid']+','+arr['cityid']];
+    return arr;
+}
+
