@@ -18,7 +18,7 @@
 	<div class="rightBox">
 		<div class="main">
 			<div class="seach_tigs" id="edit">
-				<h3>新增教师</h3>
+				<h3 id="addTeacher"></h3>
 	            
 	                <ul class="clearfix">
                         <li>
@@ -177,9 +177,11 @@ var vue=new Vue({
 	},
     created:function(){
         if(!this.id){
+            $('#addTeacher').html('新增教师');
             return;
         }
          this.$http.post(baseurl+'?s=admin/Lesson/get_schoolval').then(res=>{
+                $('#addTeacher').html('教师编辑');
                 this.school_name=eval('('+res.bodyText+')');
             },res=>{
                 console.log('请求失败处理,请检查Network!');

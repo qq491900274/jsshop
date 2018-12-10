@@ -1,21 +1,21 @@
 /***
 **功能点1、头部高亮部分
 *********/
-$('#header').on('mouseenter','#first>li',function(){
-	$(this).addClass('active');
-});
-$('#header').on('mouseleave','#first>li',function(){
-	$(this).removeClass('active');
-});
 
-$('#header').on('mouseenter','#second>li',function(){
-	$(this).addClass('active');
-});
-$('#header').on('mouseleave','#second>li',function(){
-	$(this).removeClass('active');
-});
-
-
+/*$('#first>li').each(function(){
+    $(this).hover(function(){
+        $(this).addClass('active');
+    },function(){
+        $(this).removeClass('active');
+    })
+})
+$('#second>li').each(function(){
+    $(this).hover(function(){
+        $(this).addClass('active');
+    },function(){
+        $(this).removeClass('active');
+    })
+})*/
 /**
  *全选 
 **/

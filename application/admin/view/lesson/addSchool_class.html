@@ -3,7 +3,7 @@
 	<div class="rightBox">
 		<div class="main">
 			<div class="seach_tigs" id="edit">
-				<h3>添加年级</h3>
+				<h3 id="addClass"></h3>
                 <ul class="clearfix">
                     <li>
                         <label class="seach-label">
@@ -50,9 +50,11 @@ new Vue({
 	},
 	created:function(){
 		if(!this.id){
+			$('#addClass').html('新增年级');
 			return;
 		}
 		this.$http.post(baseurl+'?s=admin/Lesson/school_classList',{'id':this.id}).then(res=>{
+			$('#addClass').html('修改年级');
 			var val=eval('('+res.bodyText+')')['value'][0];
 			this.name=val['NAME'];
 		},res=>{

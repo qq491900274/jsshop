@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+<meta content="telephone=no" name="format-detection" />
+<meta content="email=no" name="format-detection" />
+<title>金石教育微商城_定位页面</title>
+<link href="http://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/reset.css?v=1.0">
+<link rel="stylesheet" type="text/css" href="css/index.css?v=1.0">
+<link rel="stylesheet" href="css/sideNav.css?v=1.0">
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4&ak=s4u13aUZAj36D4XWMm52TexzlwGGg7GG"></script>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script src="http://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+</head>
+
+<body style="background: #FFF;">
+<div class="top posiTop">
+	<div class="main clearfix">
+		<div class="position left"><i class="icon iconfont">&#xe6c1;</i><span id="posi"></span></div>
+		<div class="seach right"><input type="text" name="" placeholder="请在搜索框内输入搜索内容"><button type="submit"><i class="icon iconfont">&#xe614;</i></button></div>
+	</div>
+</div>
+<div class="posAll">
+	<div class="posBox">
+		<div class="main">
+			<i class="icon iconfont">&#xe6c1;</i><span id="posi2"></span><span>(GPS定位)</span>
+		</div>
+	</div>
+	<div class="posBox">
+		<div class="main2">
+			<p>历史访问</p>
+			<ul class="clearfix">
+				<li><a href="">潍坊</a></li>
+				<li><a href="">潍坊</a></li>
+				<li><a href="">潍坊</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="posBox">
+		<div class="main2">
+			<p>选择其他城市</p>
+			<ul class="clearfix">
+				<li><a href="" class="on">青岛</a></li>
+				<li><a href="">济南</a></li>
+				<li><a href="">潍坊</a></li>
+				<li><a href="">滨海</a></li>
+				<li><a href="">临沂</a></li>
+				<li><a href="">日照</a></li>
+				<li><a href="">威海</a></li>
+				<li><a href="">烟台</a></li>
+				<li><a href="">淄博</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="posBox">
+		<div class="main2">
+			<p>选择地区</p>
+			<ul class="clearfix">
+				<li><a href="" class="on">市南</a></li>
+				<li><a href="">市北</a></li>
+				<li><a href="">崂山</a></li>
+				<li><a href="">李沧</a></li>
+				<li><a href="">城阳</a></li>
+				<li><a href="">黄岛</a></li>
+				<li><a href="">即墨</a></li>
+				<li><a href="">胶州</a></li>
+				<li><a href="">莱西</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="posBox">
+		<div class="main2">
+			<p>选择校区</p>
+			<ul class="clearfix">
+				<li><a href="" class="on">香港中路校区</a></li>
+				<li><a href="">延安三路校区</a></li>
+				<li><a href="">中山路校区</a></li>
+				<li><a href="">银川西路校区</a></li>
+				<li><a href="">宁夏路校区</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="fixedNav">
+	<div class="main">
+		<ul>
+			<li><a href="" class="active">
+				<i class="icon iconfont">&#xe65e;</i>
+				<p>首页</p>
+			</a></li>
+			<li><a href="">
+				<i class="icon iconfont">&#xe626;</i>
+				<p>课程</p>
+			</a></li>
+			<li><a href="">
+				<i class="icon iconfont">&#xe617;</i>
+				<p>购物车</p>
+			</a></li>
+			<li><a href="">
+				<i class="icon iconfont">&#xe638;</i>
+				<p>我的</p>
+			</a></li>
+		</ul>
+	</div>
+</div>
+<script type="text/javascript"> 
+	var geolocation = new BMap.Geolocation();
+	// 创建地理编码实例    
+	var myGeo = new BMap.Geocoder();    
+	geolocation.getCurrentPosition(function(r){
+		if(this.getStatus() == BMAP_STATUS_SUCCESS){
+			var pt = r.point; 
+			// 根据坐标得到地址描述  
+			myGeo.getLocation(pt, function(result){    
+				if (result){    
+				var addComp = result.addressComponents;
+					posi.innerHTML=addComp.city+" "+addComp.district;
+					posi2.innerHTML=addComp.city+" "+addComp.district;
+				  //alert(addComp.province + " " + addComp.city+" "+addComp.district);    
+				}    
+			}); 
+		}
+	});
+</script>
+<script type="text/javascript" src="js/common2.js"></script>
+</body>
+</html>

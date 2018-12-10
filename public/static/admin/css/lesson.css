@@ -415,6 +415,7 @@
 #orderList tr td span.price{
 	color:#888;
 	font-size: 14px;
+	vertical-align: middle;
 }
 
 #orderList tr td .remove{
@@ -435,3 +436,10 @@
 #orderList tr.firstTd td span{
 	font-size: 14px;
 }
+
+/************上传图片弹窗************************/
+#uploadPic{
+	width: 50px;
+	height:15px;
+}
+
