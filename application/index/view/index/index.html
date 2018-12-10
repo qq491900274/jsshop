@@ -1,9 +1,11 @@
 {include file="common/header"}
+
 <body>
-	<div id="index">
+<div id="index">
+	<div id="allmap"></div>
 <div class="top">
 	<div class="main clearfix">
-		<div class="position left"><i class="icon iconfont">&#xe6c1;</i><span id="posi"></span></div>
+		<div class="position left" @click="get()"><i class="icon iconfont">&#xe6c1;</i><span id="posi"></span></div>
 		<div class="seach right"><input type="text" name="" placeholder="请在搜索框内输入搜索内容"><button type="submit"><i class="icon iconfont">&#xe614;</i></button></div>
 	</div>
 </div>
@@ -12,12 +14,9 @@
 <div class="banner">
   <div class="swiper-container">
     <div class="swiper-wrapper">
-
-    <div class="swiper-slide" v-for="t in bannerLis">
-    	<img :src="t.imgUrl" alt="">
-    </div>
-	<!-- <div class="swiper-slide"><img src="__PUBLIC__/index/images/banner.jpg" alt=""></div>
-    <div class="swiper-slide"><img src="__PUBLIC__/index/images/banner.jpg" alt=""></div>  --> 
+	    <div class="swiper-slide" v-for="t in bannerLis">
+	    	<img :src="t.imgUrl" alt="">
+	    </div>
     </div>
     <!-- 如果需要分页器-->
     <div class="swiper-pagination"></div>
@@ -121,9 +120,72 @@
 </div>
 </div>
 
-{include file="common/footer"}
-<script type="text/javascript"> 
+<div class="posAll">
+	<div class="posBox">
+		<div class="main">
+			<i class="icon iconfont">&#xe6c1;</i><span id="posi2" style="font-size:1.024rem;"></span><span style="font-size:1.024rem;">(GPS定位)</span>
+		</div>
+	</div>
+	<div class="posBox">
+		<div class="main2">
+			<p>历史访问</p>
+			<ul class="clearfix">
+				<li><a href="">潍坊</a></li>
+				<li><a href="">潍坊</a></li>
+				<li><a href="">潍坊</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="posBox">
+		<div class="main2">
+			<p>选择其他城市</p>
+			<ul class="clearfix">
+				<li><a href="" class="on">青岛</a></li>
+				<li><a href="">济南</a></li>
+				<li><a href="">潍坊</a></li>
+				<li><a href="">滨海</a></li>
+				<li><a href="">临沂</a></li>
+				<li><a href="">日照</a></li>
+				<li><a href="">威海</a></li>
+				<li><a href="">烟台</a></li>
+				<li><a href="">淄博</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="posBox">
+		<div class="main2">
+			<p>选择地区</p>
+			<ul class="clearfix">
+				<li><a href="" class="on">市南</a></li>
+				<li><a href="">市北</a></li>
+				<li><a href="">崂山</a></li>
+				<li><a href="">李沧</a></li>
+				<li><a href="">城阳</a></li>
+				<li><a href="">黄岛</a></li>
+				<li><a href="">即墨</a></li>
+				<li><a href="">胶州</a></li>
+				<li><a href="">莱西</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="posBox">
+		<div class="main2">
+			<p>选择校区</p>
+			<ul class="clearfix">
+				<li><a href="" class="on">香港中路校区</a></li>
+				<li><a href="">延安三路校区</a></li>
+				<li><a href="">中山路校区</a></li>
+				<li><a href="">银川西路校区</a></li>
+				<li><a href="">宁夏路校区</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="shade"></div>
 
+{include file="common/footer"}
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=s4u13aUZAj36D4XWMm52TexzlwGGg7GG"></script>
+<script type="text/javascript"> 
 var vue= new Vue({
 	el:'#index',
 	data:{
@@ -132,6 +194,15 @@ var vue= new Vue({
 		imgLis:[],
 		phone:'',
 		phoneKe:''
+	},
+	methods:{
+		get:function(){
+	   		this.$http.get('http://api.map.baidu.com/geoconv/v1/?coords=120.38442818,36.1052149&from=1&to=5&ak=s4u13aUZAj36D4XWMm52TexzlwGGg7GG').then(res=>{
+	   				alert(res);
+	   		},res=>{
+
+	   		});
+	   }
 	},
 	mounted(){
 		var mySwiper = new Swiper('.banner .swiper-container',{
@@ -166,8 +237,40 @@ var vue= new Vue({
 	        el: '.test .swiper-pagination',
 	      },
 	    });
+
 	},
 	created:function(){
+		// 百度地图API功能
+		var map = new BMap.Map("allmap");
+		var point = new BMap.Point(116.331398,39.897445);
+		map.centerAndZoom(point,12);
+		var lat , lng;
+		var geolocation = new BMap.Geolocation();
+		geolocation.getCurrentPosition(function(r){
+		    if(this.getStatus() == BMAP_STATUS_SUCCESS){
+		        var mk = new BMap.Marker(r.point);
+		        map.addOverlay(mk);
+		        map.panTo(r.point);
+		        lng=r.point.lng;
+		        lat=r.point.lat;
+		        
+		        //获取省市区
+		        $.ajax({ 
+				    url: 'http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location='+lat+','+lng+'&output=json&pois=1&ak=s4u13aUZAj36D4XWMm52TexzlwGGg7GG', 
+				    type: 'GET', 
+				    dataType: 'JSONP', 
+				    success: function(res){
+				    console.log(res);
+				      console.log(res.result.formatted_address);
+				    } 
+				});
+		    }
+		    else {
+		        layer.msg('获取地理位置失败！');
+		    }        
+		},{enableHighAccuracy: true});
+		
+		
 		this.$http.post(baseurl+'?s=index/index/get_index').then(res=>{
 			
 			var val=eval('('+res.bodyText+')');
@@ -179,28 +282,24 @@ var vue= new Vue({
 		},res=>{
 			console.log('请求失败,请检查Network!');
 		});
-
-		
 	}
 })
 
-	var geolocation = new BMap.Geolocation();
-	// 创建地理编码实例    
-	var myGeo = new BMap.Geocoder();    
-	geolocation.getCurrentPosition(function(r){
-		if(this.getStatus() == BMAP_STATUS_SUCCESS){
-			var pt = r.point; 
-			// 根据坐标得到地址描述  
-			myGeo.getLocation(pt, function(result){    
-				if (result){    
-				var addComp = result.addressComponents;
-					posi.innerHTML=addComp.city+" "+addComp.district;
-				  	//alert(addComp.province + " " + addComp.city+" "+addComp.district);    
-				}
-			});
-		}
+$(function(){
+	$('.position').click(function(){
+		$('.posAll').animate({left:0},400);
+		$('.shade').css({'display':'block','background':'rgba(0,0,0,.5)'})
 	});
-</script>
+	$('.shade').click(function(){
+		$('.posAll').animate({left:'-80%'},400);
+		$(this).css({'display':'none'});
+	})
+})
 
+
+
+
+ 
+</script>
 </body>
 </html>
