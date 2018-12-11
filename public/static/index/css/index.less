@@ -86,6 +86,7 @@
 }
 .top .position span{
 	display: inline-block;
+	font-size:24/@r;
 }
 .top .seach{
 	width:65%;
@@ -228,7 +229,7 @@
 .addr{
 	margin:10/@r 0!important;
 }
-.addr i{
+.phone i{
 	font-size:36/@r;
 }
 .addr span i{
@@ -2101,7 +2102,7 @@
 	border-bottom:2/@r solid #eee;
 }
 .posBox{
-	padding:40/@r 0;
+	padding:30/@r 0;
 }
 .posBox i{
 	font-size:34/@r;
@@ -2132,6 +2133,22 @@
 	color:@c;
 }
 .posAll{
-	margin-bottom: 150/@r;
+	width: 80%;
+	height: 100%;
+	position:fixed;
+	left: -80%;
+	top:0;
+	z-index: 99;
+	background:#FFF;
+	overflow-y: scroll;
 }
-
+.shade{
+	width: 100%;
+	height: 100%;
+	position:fixed;
+	left: 0;
+	top:0;
+	z-index: 90;
+	background:rgba(0,0,0,0);
+	display: none;
+}
