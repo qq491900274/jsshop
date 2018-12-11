@@ -1,6 +1,8 @@
 function getadd(s,s1,q){
+    
     var a=new Location;
-    a.selectid(s,s1,q);
+
+    return a.selectid(s,s1,q);
 }
 function UpdateAddress(n) {
     var t = n.addressComponents.province;

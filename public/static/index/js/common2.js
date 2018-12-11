@@ -126,7 +126,7 @@ $(function(){
 		//找到id为qx的input,为其绑定单击事件为function：
 		
 		window.onload=function(){
-			var chbAll=document.querySelector("#qx");
+			var chbAll=$("#qx");
 			chbAll.onclick=function(){
 				//获得cartBox下ul下所有第一个li中的input,保存在chbs
 				var chbs=document.querySelectorAll(".cartBox ul li input");
