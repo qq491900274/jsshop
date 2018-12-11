@@ -4,6 +4,12 @@ function getadd(s,s1,q){
 
     return a.selectid(s,s1,q);
 }
+
+function getaddress(s,s1){
+    var a=new Location;
+
+    return a.selectid(s,s1);
+}
 function UpdateAddress(n) {
     var t = n.addressComponents.province;
     t == "" && (t = n.addressComponents.city);
@@ -5792,7 +5798,7 @@ Location.prototype.fillOption = function(n, t, i) {
     }),
     f.attr("selectedIndex", u))
 }
-
+//分别传入省市区 返回所有省市区，包括当前地址
 Location.prototype.selectid=function(s,s1,q){
     items=this.items;
     
@@ -5822,4 +5828,18 @@ Location.prototype.selectid=function(s,s1,q){
     arr['area']=items['0,'+arr['provinceid']+','+arr['cityid']];
     return arr;
 }
+//分别传入省市返回区
+Location.prototype.get_area(s,s1){
+    items=this.items;
+    var arr=[];
 
+    if (s && s1) {//接受传入的省跟市返回区
+        arr['val']=items['0,'+s+','+s1];
+    }else if (s) {//接受传入的省返回市
+        arr['val']=items['0,'+s];
+    }else{//未接收到参数，返回所有省
+        arr['val']=items[0];
+    }
+
+    return arr;
+}
