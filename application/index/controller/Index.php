@@ -14,7 +14,14 @@ class Index extends mobile_controller
 	}
 		
     public function index(){
-       return $this->fetch('index'); 
+      $this->pmodel =  new \app\index\model\PublicModel(); 
+
+      $key=" ID,PICURL imgUrl,URL imgHref,ORDERINDEX num";
+      $where=" TYPE='imgLis'";
+      $value['imgLis'] = $this->pmodel->select('SHOP_SLIDESHOWPIC',$key,$where);
+      $this->assign('bannerlis',$value);
+
+      return $this->fetch('index'); 
     }
     
     public function get_index()
@@ -39,6 +46,7 @@ class Index extends mobile_controller
     
     //购物车
     public function shopping(){
+
     	return $this->fetch('shopping');
     }
 }
