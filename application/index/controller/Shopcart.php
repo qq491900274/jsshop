@@ -14,7 +14,7 @@ class Shopcart extends mobile_controller
 		parent::__construct();
 	}
 	
-    public function index(){
+    public function cart(){
     	return $this->fetch('cart'); 
     }
    
