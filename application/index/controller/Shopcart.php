@@ -1,6 +1,6 @@
 <?php
 namespace app\index\controller;
-use think\Controller;
+use think\mobile_controller;
 use think\View;
 use think\Request;
 use think\Session;
