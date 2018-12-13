@@ -105,11 +105,9 @@
 	</div>
 	<div class="posBox">
 		<div class="main2">
-			<p>历史访问</p>
+			<p>当前省</p>
 			<ul class="clearfix">
-				<li><a href="">潍坊</a></li>
-				<li><a href="">潍坊</a></li>
-				<li><a href="">潍坊</a></li>
+				<li ><a href="javascript:void(0);" class='on'>{{provincename}}</a></li>
 			</ul>
 		</div>
 	</div>
@@ -117,15 +115,15 @@
 		<div class="main2">
 			<p>选择其他城市</p>
 			<ul class="clearfix">
-				<li v-for="(key,index) in city"><a href="javascript:void(0)" @click="">{{key}}</a></li>
-				<!-- <li><a href="">济南</a></li>
-				<li><a href="">潍坊</a></li>
-				<li><a href="">滨海</a></li>
-				<li><a href="">临沂</a></li>
-				<li><a href="">日照</a></li>
-				<li><a href="">威海</a></li>
-				<li><a href="">烟台</a></li>
-				<li><a href="">淄博</a></li> -->
+				<li v-for="(key,index) in city">
+					<div v-if="index === cityid">
+						<a href="javascript:void(0)" @click="getcity(index,event)" class='on'>{{key}}</a>	
+					</div>
+					<div v-else>
+						<a href="javascript:void(0)" @click="getcity(index,event)">{{key}}</a>	
+					</div>
+				</li>
+
 			</ul>
 		</div>
 	</div>
@@ -133,15 +131,14 @@
 		<div class="main2">
 			<p>选择地区</p>
 			<ul class="clearfix">
-				<li v-for="(key,index) in area"><a href="javascript:void(0)" @click="">{{key}}</a></li>
-				<!-- <li><a href="">市北</a></li>
-				<li><a href="">崂山</a></li>
-				<li><a href="">李沧</a></li>
-				<li><a href="">城阳</a></li>
-				<li><a href="">黄岛</a></li>
-				<li><a href="">即墨</a></li>
-				<li><a href="">胶州</a></li>
-				<li><a href="">莱西</a></li> -->
+				<li v-for="(key,index) in area">
+					<div v-if="index === areaid">
+						<a href="javascript:void(0)" @click="getschool(index,event)" class='on1'>{{key}}</a>
+					</div>
+					<div v-else>
+						<a href="javascript:void(0)" @click="getschool(index,event)">{{key}}</a>
+					</div>
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -149,11 +146,9 @@
 		<div class="main2">
 			<p>选择校区</p>
 			<ul class="clearfix">
-				<li><a href="" class="on">香港中路校区</a></li>
-				<li><a href="">延安三路校区</a></li>
-				<li><a href="">中山路校区</a></li>
-				<li><a href="">银川西路校区</a></li>
-				<li><a href="">宁夏路校区</a></li>
+				<li v-for="(key,index) in school">
+					<a href="javascript:void(0)" @click="addschool(key.ID,event)">{{key.SCHOOL_NAME}}</a>
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -173,11 +168,37 @@ var vue= new Vue({
 		phone:'',
 		phoneKe:'',
 		city:[],
+		cityid:'',
 		area:[],
-		active:''
+		areaid:'',
+		active:'',
+		provinceid:'',
+		provincename:'',
+		school:[]
 	},
 	methods:{
-		
+		getcity:function(id,e){
+			this.area=getaddress(this.provinceid,id).val;
+			$('.on').attr('class','');
+			$(e.srcElement).attr('class','on');
+		},
+		getschool:function(area,e){
+			this.areaid=area;
+			this.$http.post(baseurl+'?s=index/index/get_school',{'area':area}).then(res=>{
+				var val=eval('('+res.bodyText+')');
+				this.school=val;
+				
+				$('.on1').attr('class','');
+				$(e.srcElement).attr('class','on1');
+			},res=>{
+				console.log('请求失败,请检查Network!');
+			});
+			
+		},
+		addschool:function(index,e){//记录值
+			$('.on2').attr('class','');
+			$(e.srcElement).attr('class','on2');
+		}
 	},
 	mounted:function(){
 		//var that = this;
@@ -259,9 +280,13 @@ var vue= new Vue({
 				      posi2.innerHTML=res.result.addressComponent.city;
 				      
 				      var a=getadd(res.result.addressComponent.province,res.result.addressComponent.city,res.result.addressComponent.district);
-				     console.log(a);
+				      //记录省市区
+				      vue.provinceid=a.provinceid;
+				      vue.provincename=res.result.addressComponent.province;
 				      vue.city=a.city;
+				      vue.cityid=a.cityid;
 				      vue.area=a.area;
+				      vue.areaid=a.areaid;
 				    } 
 				});
 		    }
