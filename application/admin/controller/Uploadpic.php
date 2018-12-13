@@ -14,19 +14,32 @@ class Uploadpic extends Controller
 	}
       
    function index(){
-      $file = request()->file("pic");
-      if($file){
-            $info = $file->validate(['size'=>5242880,'ext'=>'jpg,png,gif'])->move(ROOT_PATH.'public'.DS.'uploads');
-            if($info){
-                $arr=json_encode(array('src' => BASE_URL.'/public/uploads/'.$info->getSaveName()));
-                return $arr; 
-            }else{
-                // 上传失败获取错误信息
-                return $file->getError();
-            }
-         }else{
-            return "未获取到图片！";
-         }
+
+      if(($_FILES["pic"]["type"]=="image/png"||$_FILES["pic"]["type"]=="image/jpg")&&$_FILES["pic"]["size"]<1024000)
+      {       
+        $file=time().'.jpg';
+        //防止文件名重复
+        $filename =ROOT_PATH.'public'.DS."uploads/".time().'.jpg';
+
+        //转码，把utf-8转成gb2312,返回转换后的字符串， 或者在失败时返回 FALSE。
+        $filename =iconv("UTF-8","gb2312",$filename);
+         //检查文件或目录是否存在
+        if(file_exists($filename))
+        {
+            echo"该文件已存在";
+        }
+        else
+        {  
+            //保存文件,   move_uploaded_file 将上传的文件移动到新位置  
+            move_uploaded_file($_FILES["pic"]["tmp_name"],$filename);//将临时地址移动到指定地址    
+            return json_encode(array('src'=>BASE_URL.'/public/uploads/'.$file));
+        }        
+      }
+      else
+      {
+          echo"文件类型不对";
+      }
+     
     }
 
     function config_pic(){
