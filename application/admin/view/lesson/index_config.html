@@ -95,16 +95,23 @@
 	function getsrc(src){
 		var key=vue.picname;
 		var index=vue.picindex;
-		
 		var id= $('.indexLi').index();
 		if (key=='bannerLis'){
 			vue.bannerLis[index].imgUrl=src;
+			vue.go_url(vue.bannerLis[index].ID,vue.bannerLis[index].imgHref,vue.bannerLis[index].num,vue.bannerLis[index].imgUrl);
 		}else if(key=='imgLis'){
 			vue.imgLis[index].imgUrl=src;
+			vue.go_url(vue.imgLis[index].ID,vue.imgLis[index].imgHref,vue.imgLis[index].num,vue.imgLis[index].imgUrl);
 		}else if(key=='hotLis'){
 			vue.hotLis[index].imgUrl=src;
-		}
+			vue.go_url(vue.hotLis[index].ID,vue.hotLis[index].imgHref,vue.hotLis[index].num,vue.hotLis[index].imgUrl);
+		}; 
+		
+		
+		
+		
 	}
+
 
 	/*******点击上传获取文件路径***********/
 	function file(this0,str){
@@ -171,9 +178,10 @@
 	        remove:function(ids,arrid){
 	        	layer.alert('确定要删除吗？',function(index){
 	        		vue.$http.post(baseurl+'?s=admin/Lesson/dele_config',{id:ids}).then(res=>{
+	        			var num=eval('('+res.bodyText+')');
 	        			if(num==1){
 	        				layer.msg('删除成功！',{time:1500});
-	        				vue.picname[vue.picindex].splice(arrid,1);
+	        				//vue.picname[vue.picindex].splice(arrid,1);
 	        				layer.close(index);
 	        			}else{
 	        				location.reload();
