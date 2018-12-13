@@ -1,7 +1,7 @@
 {include file="common/header"}
 
 <body>
-<div class="cart">
+<div class="cart" id="cart">
 	<form action="" id="cartForm"></form>
 	<div class="cartTop">
 		<div class="main">
@@ -10,7 +10,7 @@
 			<a href="javascript:;" id="sc"><i  class="icon iconfont">&#xe732;</i></a>
 		</div>
 	</div>
-	<div class="cartBox" id="cart">
+	<div class="cartBox">
 		<ul>
 			
 			<li v-for="cart in carts">
@@ -41,17 +41,18 @@
 <div class="result">
 	<div class="main">
 		<h1>合计：￥<span id="allmoney">0</span></h1>
-		<a href="#">立即购买</a>
+		<a href="#" @click="get()">立即购买</a>
 	</div>
 </div>
 
 
 <script>
-new Vue({
+var vue=new Vue({
   el: '#cart',
   data: {
     carts:[
 	    {
+	    	'id':''
 	    	'title':'[寒假课程报名] 金石教育七年级语文基金班',
 		    'xiaoqu':'海尔路校区',
 		    'price':'15.6',
@@ -59,6 +60,7 @@ new Vue({
 		    'name':'许向前'
 		},
 	    {
+	    	'id':'',
 	    	'title':'[寒假课程报名] 金石教育七年级语文基金班',
 	    	'xiaoqu':'海尔路校区',
 	    	'price':'10.6',
@@ -66,6 +68,23 @@ new Vue({
 	    	'name':'许向前'
 	    }
     ]
+  },
+  methods:{
+  	get:function(){
+  		this.$http.post(baseurl+'?s=index/Shopcart/',{'cart':this.cart}).then(res=>{
+  			
+  		},res=>{
+  			console.log('请求失败,请检查Network!');
+  		})
+  	}
+  },
+  created:function(){
+  	this.$http.post(baseurl+'?s=index/Shopcart/cart').then(res=>{
+  			var val=eval('('+res.bodyText+')');
+  			//this.carts=val['carts'];
+  	},res=>{
+  		console.log('请求失败,请检查Network!');
+  	})
   }
 })
 </script>
