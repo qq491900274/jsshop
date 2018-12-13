@@ -20,7 +20,7 @@ class Index extends mobile_controller
       $where=" TYPE='imgLis'";
       $value['imgLis'] = $this->pmodel->select('SHOP_SLIDESHOWPIC',$key,$where);
       $this->assign('bannerlis',$value);
-
+      
       return $this->fetch('index'); 
     }
     
@@ -42,6 +42,15 @@ class Index extends mobile_controller
            $value[0]['hotLis'] = $this->pmodel->select('SHOP_SLIDESHOWPIC',$key,$where);
            return $value[0];
         }
+    }
+    public function get_school(){
+      //根据省获取校区
+      $Request=request()->post();
+      $this->pmodel =  new \app\index\model\PublicModel(); 
+
+      $key = "SCHOOL_NAME,ID";
+      $where=" AREA='{$Request['area']}'";
+      return $value = $this->pmodel->select('SHOP_SCHOOL',$key,$where);
     }
     
     //购物车
