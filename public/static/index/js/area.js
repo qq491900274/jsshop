@@ -5829,7 +5829,7 @@ Location.prototype.selectid=function(s,s1,q){
     return arr;
 }
 //分别传入省市返回区
-Location.prototype.get_area(s,s1){
+Location.prototype.get_area=function(s,s1){
     items=this.items;
     var arr=[];
 
