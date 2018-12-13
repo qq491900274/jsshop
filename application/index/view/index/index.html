@@ -30,11 +30,11 @@
 	<div class="swiper-container">
     <div class="swiper-wrapper">
            
-            <div class="swiper-slide" v-for="v in imgLis" :style="{backgroundImage:'url('+v.imgUrl+')'}"></div>
-           <!--  <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div>
-            <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div>
-            <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div>
-            <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div> -->
+            <?php foreach($bannerlis['imgLis'] as $v):?>
+           	<div  class="swiper-slide" style="backgroundImage:url(<?php echo $v['imgUrl']?>)">
+           		<a href="<?php echo $v['imgHref']?>" style="width: 100%;height: 100%;display: flex;"></a>
+           	</div>
+           <?php endforeach;?>
     </div>
     <!-- Add Pagination -->
     <div class="swiper-pagination"></div>
