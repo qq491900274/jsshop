@@ -1,0 +1,84 @@
+{include file="common/header"}
+
+<body>
+<div class="cart">
+	<form action="" id="cartForm"></form>
+	<div class="cartTop">
+		<div class="main">
+			<input type="checkbox" name="" form="cartForm" class="shopChoice"  id="qx">
+			<span>全部选择</span>
+			<a href="javascript:;" id="sc"><i  class="icon iconfont">&#xe732;</i></a>
+		</div>
+	</div>
+	<div class="cartBox" id="cart">
+		<ul>
+			
+			<li v-for="cart in carts">
+				<div class="topLi clearfix">
+					<a href="javascript:;">
+						<div class="main">
+							<input type="checkbox" name="" class="left son_check" form="cartForm">
+							<img :src="cart.url" alt="" class="left">
+							<div class="left cartTxt">
+								<h2>{{cart.title}}</h2>
+								<p>{{cart.xiaoqu}}丨{{cart.name}}</p>
+								<p>课程定金</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="botLi main">
+					<h3>￥<span class="price1">{{cart.price}}</span></h3>
+					<div class="right">
+						<a href="javascript:void(0)" val='1'  class="reduce num">-</a><span>1</span><a href="javascript:void(0)" class="plus num">+</a>
+					</div>
+				</div>
+			</li>
+            
+		</ul>
+	</div>
+</div>
+<div class="result">
+	<div class="main">
+		<h1>合计：￥<span id="allmoney">0</span></h1>
+		<a href="#">立即购买</a>
+	</div>
+</div>
+
+
+<script>
+var vue=new Vue({
+  el: '#cart',
+  data: {
+    carts:[
+	    {
+	    	'title':'[寒假课程报名] 金石教育七年级语文基金班',
+		    'xiaoqu':'海尔路校区',
+		    'price':'15.6',
+		    'url':'__PUBLIC__/index/images/gw_03.jpg',
+		    'name':'许向前'
+		},
+	    {
+	    	'title':'[寒假课程报名] 金石教育七年级语文基金班',
+	    	'xiaoqu':'海尔路校区',
+	    	'price':'10.6',
+	    	'url':'__PUBLIC__/index/images/gw_03.jpg',
+	    	'name':'许向前'
+	    }
+    ]
+  },
+  methods:{
+  	get:function(){
+  		this.$http.post(baseurl+'?s=index/cart/index',).then(res=>{
+  			var val=eval('('+res.bodyText+')');
+  			console.log(val);
+  		},res=>{
+  			console.log('请求失败，请检查Network!');
+  		})
+  	}
+  }
+})
+</script>
+{include file="common/footer"}
+</body>
+</html>
