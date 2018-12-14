@@ -147,7 +147,13 @@
 			<p>选择校区</p>
 			<ul class="clearfix">
 				<li v-for="(key,index) in school">
-					<a href="javascript:void(0)" @click="addschool(key.ID,event)">{{key.SCHOOL_NAME}}</a>
+					<div v-if="key.ID === schoolid">
+						<a href="javascript:void(0)" @click="addschool(key.ID,event)" class='on'>{{key.SCHOOL_NAME}}</a>
+					</div>
+					<div v-else>
+						<a href="javascript:void(0)" @click="addschool(key.ID,event)">{{key.SCHOOL_NAME}}</a>
+					</div>
+					
 				</li>
 			</ul>
 		</div>
@@ -174,7 +180,8 @@ var vue= new Vue({
 		active:'',
 		provinceid:'',
 		provincename:'',
-		school:[]
+		school:[],
+		schoolid:''
 	},
 	methods:{
 		getcity:function(id,e){
@@ -195,7 +202,11 @@ var vue= new Vue({
 			});
 			
 		},
-		addschool:function(index,e){//记录值
+		addschool:function(index,e){
+			//记录值
+			setcookie('city',this.cityid);
+			setcookie('area',this.areaid);
+			setcookie('school',index);//记录校区
 			$('.on2').attr('class','');
 			$(e.srcElement).attr('class','on2');
 		}
@@ -274,19 +285,38 @@ var vue= new Vue({
 				    type: 'GET', 
 				    dataType: 'JSONP', 
 				    success: function(res){
-				    //console.log(res);
+				      //console.log(res);
 				    
 				      posi.innerHTML=res.result.addressComponent.city;
 				      posi2.innerHTML=res.result.addressComponent.city;
 				      
 				      var a=getadd(res.result.addressComponent.province,res.result.addressComponent.city,res.result.addressComponent.district);
 				      //记录省市区
-				      vue.provinceid=a.provinceid;
+				      
 				      vue.provincename=res.result.addressComponent.province;
 				      vue.city=a.city;
-				      vue.cityid=a.cityid;
 				      vue.area=a.area;
-				      vue.areaid=a.areaid;
+				      
+				      //查看cookie是否有记录值
+					  vue.cityid=getcookie('city');
+					  vue.areaid=getcookie('area');
+					  vue.schoolid=getcookie('school');
+					  vue.provinceid=a.provinceid;
+
+					  if (!vue.cityid && !vue.areaid && !vue.schoolid) {
+					  	  vue.areaid=a.areaid;
+					      vue.cityid=a.cityid;
+					  }
+					  
+					 if (vue.schoolid) {
+						vue.$http.post(baseurl+'?s=index/index/get_school',{'area':vue.areaid}).then(res=>{
+							var val=eval('('+res.bodyText+')');
+							vue.school=val;
+							
+						},res=>{
+							console.log('请求失败,请检查Network!');
+						});
+					  }
 				    } 
 				});
 		    }
@@ -295,7 +325,6 @@ var vue= new Vue({
 		    }       
 
 		},{enableHighAccuracy: true});
-		
 		
 		this.$http.post(baseurl+'?s=index/index/get_index').then(res=>{
 			var val=eval('('+res.bodyText+')');
@@ -307,6 +336,7 @@ var vue= new Vue({
 		},res=>{
 			console.log('请求失败,请检查Network!');
 		});
+
 	}
 });
 
