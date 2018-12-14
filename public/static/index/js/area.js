@@ -8,7 +8,7 @@ function getadd(s,s1,q){
 function getaddress(s,s1){
     var a=new Location;
 
-    return a.selectid(s,s1);
+    return a.get_area(s,s1);
 }
 function UpdateAddress(n) {
     var t = n.addressComponents.province;
