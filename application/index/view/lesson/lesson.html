@@ -1,6 +1,6 @@
 {include file="common/header"}
 
-<body>
+<body id="lessonList">
 <div class="tab">
 	<div class="main2">
 		<ul>
@@ -164,61 +164,70 @@
             </li>
           </ul>
         </nav>
-        <a class="toggle"><img src="images/less_02.png"></a>
+        <a class="toggle"><img src="__PUBLIC__/index/images/less_02.png"></a>
       </div>
 </div>
 <div class="lessSearch"><i class="icon iconfont">&#xe614;</i></div>
+{include file="common/footer2"}
+<script type="text/javascript" src="__PUBLIC__/index/js/hc-mobile-nav.js"></script>
+<script>
+var vue=new Vue({
+  el:'#lessonList',
+  data:{
 
-<script type="text/javascript" src="js/hc-mobile-nav.js"></script>
-	<script>
-        (function($) {
-          var $nav = $('#main-nav');
-          var $toggle = $('.toggle');
-          var defaultData = {
-            maxWidth: false,
-            customToggle: $toggle,
-            navTitle: '金石教育',
-            levelTitles: true
-          };
+  },
+  methods:{
 
-          // we'll store our temp stuff here
-          var $clone = null;
-          var data = {};
+  },
+  created:function(){
+    this.$http.post().then(res=>{
 
-          // calling like this only for demo purposes
+    },res=>{
 
-          const initNav = function(conf) {
-            if ($clone) {
-              // clear previous instance
-              $clone.remove();
-            }
+    })
+  }
+})
+// $(function(){
 
-            // remove old toggle click event
-            $toggle.off('click');
+// })
 
-            // make new copy
-            $clone = $nav.clone();
+  $(function(){
+    var $nav = $('#main-nav');
+    var $toggle = $('.toggle');
+    var defaultData = {
+      maxWidth: false,
+      customToggle: $toggle,
+      navTitle: '金石教育',
+      levelTitles: true
+    };
+    // we'll store our temp stuff here
+    var $clone = null;
+    var data = {};
+    // calling like this only for demo purposes
+    const initNav = function(conf) {
+      if ($clone) {
+        // clear previous instance
+        $clone.remove();
+      }
+      // remove old toggle click event
+      $toggle.off('click');
+      // make new copy
+      $clone = $nav.clone();
+      // remember data
+      $.extend(data, conf);
+      // call the plugin
+      $clone.hcMobileNav($.extend({}, defaultData, data));
+    }
+    // run first demo
+    initNav({});
+    $('.actions').find('a').on('click', function(e) {
+      e.preventDefault();
+      var $this = $(this).addClass('active');
+      var $siblings = $this.parent().siblings().children('a').removeClass('active');
+      initNav(eval('(' + $this.data('demo') + ')'));
+    });
+  });
+</script>
 
-            // remember data
-            $.extend(data, conf);
-
-            // call the plugin
-            $clone.hcMobileNav($.extend({}, defaultData, data));
-          }
-
-          // run first demo
-          initNav({});
-
-          $('.actions').find('a').on('click', function(e) {
-            e.preventDefault();
-
-            var $this = $(this).addClass('active');
-            var $siblings = $this.parent().siblings().children('a').removeClass('active');
-
-            initNav(eval('(' + $this.data('demo') + ')'));
-          });
-        })(jQuery);
-      </script>
-<script type="text/javascript" src="js/common2.js"></script>
 </body>
 </html>
