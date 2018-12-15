@@ -1,50 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="Keywords" content="">
-<meta name="Description" content="">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
-<meta content="telephone=no" name="format-detection" />
-<meta content="email=no" name="format-detection" />
-<title>金石教育微商城_我的订单</title>
-<link href="http://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="css/reset.css?v=1.0">
-<link rel="stylesheet" type="text/css" href="css/index.css?v=1.0">
-<link rel="stylesheet" href="css/sideNav.css?v=1.0">
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4&ak=s4u13aUZAj36D4XWMm52TexzlwGGg7GG"></script>
-<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="js/common.js"></script>
-<script src="http://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
-</head>
+{include file="common/header"}
 
 <body>
+<div id="back"><div class="main"><a href="javascript:history.back(-1)"><i class="icon iconfont">&#xe63b;</i></a></div></div>
 <div class="orderBox">
+	<template v-for="(v,index) in orderList">
 	<div class="cartBox pay myOrder">
 		<ul>
-			<li>
+			<li v-for="(v,index) in orderList[index]">
 				<div class="topLi clearfix">
 					<a href="#">
 						<div class="main">
-							<div class="orderImg left"><img src="images/gw_03.jpg" alt=""><img src="images/order_03.png" class="bq"></div>
+							<div class="orderImg left"><img :src="v.status" alt=""><img :src="v.img" class="bq"></div>
 							<div class="left cartTxt">
-								<h2>[寒假课程报名] 金石教育七年级语文基金班</h2>
-								<p>海尔路校区丨许向前</p>
-								<p>课程定金 <span>×1</span><span class="price">￥299</span></p>
-							</div>
-						</div>
-					</a>
-				</div>
-			</li>
-			<li>
-				<div class="topLi clearfix">
-					<a href="#">
-						<div class="main">
-							<div class="orderImg left"><img src="images/gw_03.jpg" alt=""><img src="images/order_06.png" class="bq"></div>
-							<div class="left cartTxt">
-								<h2>[寒假课程报名] 金石教育七年级语文基金班</h2>
-								<p>海尔路校区丨许向前</p>
-								<p>课程定金 <span>×1</span><span class="price">￥1</span></p>
+								<h2>{{v.title}}</h2>
+								<p>{{v.campus}}丨{{v.teacherName}}</p>
+								<p>课程定金 <span>×1</span><span class="price">￥{{v.price}}</span></p>
 							</div>
 						</div>
 					</a>
@@ -55,72 +25,79 @@
 			<h3>合计 <span>￥300</span><a href="#">去支付</a></h3>
 		</div>
 	</div>
-	<div class="cartBox pay myOrder">
-		<ul>
-			<li>
-				<div class="topLi clearfix">
-					<a href="#">
-						<div class="main">
-							<div class="orderImg left"><img src="images/gw_03.jpg" alt=""><img src="images/order_08.png" class="bq"></div>
-							<div class="left cartTxt">
-								<h2>[寒假课程报名] 金石教育七年级语文基金班</h2>
-								<p>海尔路校区丨许向前</p>
-								<p>课程定金 <span>×1</span><span class="price">￥299</span></p>
-							</div>
-						</div>
-					</a>
-				</div>
-			</li>
-		</ul>
-		<div class="zf">
-			<h3>合计 <span>￥299</span><a href="#">已完成</a></h3>
-		</div>
-	</div>
-	<div class="cartBox pay myOrder">
-		<ul>
-			<li>
-				<div class="topLi clearfix">
-					<a href="#">
-						<div class="main">
-							<div class="orderImg left"><img src="images/gw_03.jpg" alt=""><img src="images/order_10.png" class="bq"></div>
-							<div class="left cartTxt">
-								<h2>[寒假课程报名] 金石教育七年级语文基金班</h2>
-								<p>海尔路校区丨许向前</p>
-								<p>课程定金 <span>×1</span><span class="price">￥299</span></p>
-							</div>
-						</div>
-					</a>
-				</div>
-			</li>
-		</ul>
-		<div class="zf">
-			<h3>合计 <span>￥299</span></h3>
-		</div>
-	</div>
+	</template>
+	
 </div>
 
-<div class="fixedNav">
-	<div class="main">
-		<ul>
-			<li><a href="">
-				<i class="icon iconfont">&#xe65e;</i>
-				<p>首页</p>
-			</a></li>
-			<li><a href="">
-				<i class="icon iconfont">&#xe626;</i>
-				<p>课程</p>
-			</a></li>
-			<li><a href="">
-				<i class="icon iconfont">&#xe617;</i>
-				<p>购物车</p>
-			</a></li>
-			<li><a href="" class="active">
-				<i class="icon iconfont">&#xe638;</i>
-				<p>我的</p>
-			</a></li>
-		</ul>
-	</div>
-</div>
-<script type="text/javascript" src="js/common2.js"></script>
+{include file="common/footer"}
+<script type="text/javascript">
+var vue=new Vue({
+	el:'.orderBox',
+	data:{
+		orderList:[
+			[
+				{
+					id:'',
+					img:'__PUBLIC__/index/images/order_06.png',
+					status:'__PUBLIC__/index/images/gw_03.jpg',
+					title:'[寒假课程报名] 金石教育七年级语文基金班',
+					campus:'海尔路校区',
+					teacherName:'许向前',
+					price:'299'
+				},
+				{
+					id:'',
+					img:'__PUBLIC__/index/images/order_06.png',
+					status:'__PUBLIC__/index/images/gw_03.jpg',
+					title:'[寒假课程报名] 金石教育七年级英语基金班',
+					campus:'宁夏路校区',
+					teacherName:'许向前',
+					price:'399'
+				}
+			],
+			[
+				{
+					id:'',
+					img:'__PUBLIC__/index/images/order_06.png',
+					status:'__PUBLIC__/index/images/gw_03.jpg',
+					title:'[寒假课程报名] 金石教育七年级英语基金班',
+					campus:'宁夏路校区',
+					teacherName:'许向前',
+					price:'199'
+				}
+			],
+			[
+				{
+					id:'',
+					img:'__PUBLIC__/index/images/order_06.png',
+					status:'__PUBLIC__/index/images/gw_03.jpg',
+					title:'[寒假课程报名] 金石教育七年级英语基金班',
+					campus:'宁夏路校区',
+					teacherName:'许向前',
+					price:'99'
+				}
+			]
+		],
+		index:'',//数组下标
+		userId:''
+	},
+	methods:{
+
+	},
+	created:function(){
+		var index=this.orderList.index();
+			this.$http.post(baseurl+'',{id:this.userId}).then(res=>{
+				var val=eval('('+res.bodyText+')');//订单ID,商品ID,订单状态...
+				this.orderList=val; //1、整个二维数组
+				//this.orderList[index]=val[] //2、获得二维数组下标，接收每个数组的数据
+				//3、赋值
+				this.orderList[index].id=val['ID'];
+				this.orderList[index].img=val['IMG'];
+			},res=>{
+				console.log('请求失败,请检查Network!');
+			})
+		}
+}) 
+</script>
 </body>
 </html>
