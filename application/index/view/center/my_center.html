@@ -1,57 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="Keywords" content="">
-<meta name="Description" content="">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
-<meta content="telephone=no" name="format-detection" />
-<meta content="email=no" name="format-detection" />
-<title>金石教育微商城_我的个人信息</title>
-<link href="http://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="css/reset.css?v=1.0">
-<link rel="stylesheet" type="text/css" href="css/index.css?v=1.0">
-<link rel="stylesheet" href="css/sideNav.css?v=1.0">
-<link rel="stylesheet" href="css/Mdate.css?v=1.0">
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4&ak=s4u13aUZAj36D4XWMm52TexzlwGGg7GG"></script>
-<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="js/common.js"></script>
-<script src="http://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
-<script type="text/javascript" src="js/iscroll.js"></script>
-<script type="text/javascript" src="js/mdate.js"></script>
-</head>
+{include file="common/header"}
 
 <body>
-<form action="" id="inforForm"></form>
+<div id="myCenter">
 <div class="mineBox inforMa">
-	<p class="infor"><a hre="javascript:void(0)" class="cancel">取消</a><button type="submit" class="sure" form="inforForm">确定</button></p>
+	<p class="infor"><a hre="javascript:void(0)" class="cancel">取消</a><a class="sure" @click="get()">确定</a></p>
 	<div class="main">
 		<div class="headImg">
-			<img src="images/cc_03.jpg" alt="">
+			<img src="__PUBLIC__/index/images/cc_03.jpg" alt="">
 		</div>
 		<p>人生若永如初见</p>
 	</div>
 </div>
 <div class="mationTop maInput">
 	<ul>
-		<li><input type="text" name="" value="海尔路校区" readonly="readonly" form="inforForm"></li>
-		<li><input type="number" name="" value="13906413323" form="inforForm" placeholder="手机号"></li>
-		<li><input type="text" name="" value="王大锤" form="inforForm" placeholder="家长姓名"></li>
-		<li><input type="text" name="" value="王小锤" form="inforForm" placeholder="学生姓名"></li>
-		<li><input type="text" name="" value="" form="inforForm" readonly="readonly" id="dateSelectorOne" placeholder="出生年月日"></li>
-		<li><input type="text" name="" value="" form="inforForm" id="sex" readonly="readonly" placeholder="性别"></li>
-		<li><input type="text" name="" value="" form="inforForm" placeholder="学校"></li>
-		<li><input type="text" name="" value="" form="inforForm" readonly="readonly" id="grade" placeholder="年级"></li>
+		<li><input type="text" name="" readonly="readonly" v-model="campus"></li>
+		<li><input type="number" name="" placeholder="手机号" v-model="phone"></li>
+		<li><input type="text" name="" placeholder="家长姓名" v-model="parentName"></li>
+		<li><input type="text" name="" placeholder="学生姓名" v-model="studentName"></li>
+		<li><input type="text" name="" readonly="readonly" id="dateSelectorOne" placeholder="出生年月日"></li>
+		<li><input type="text" name="" id="sex" readonly="readonly" placeholder="性别"></li>
+		<li><input type="text" name="" placeholder="学校" v-model="school"></li>
+		<li><input type="text" name="" readonly="readonly" id="grade" placeholder="年级"></li>
 	</ul> 
 </div>
 
 <div class="selectLI selectInfor sex">
    <div class="">
-       <p><span>选择性别</span><button type="submit" class="sure">确定</button></p>
+       <p><span>选择性别</span><button type="submit" class="sure ensure">确定</button></p>
        <ul>
            <li><div class="main">
                <span>男</span>
-               <input name="radio1" type="radio" form="hxForm" checked="checked">
+               <input name="radio1" type="radio" form="hxForm">
            </div></li>
            <li><div class="main">
                <span>女</span>
@@ -62,11 +41,11 @@
 </div>
 <div class="selectLI selectInfor grade">
    <div class="">
-       <p><span>选择年级</span><button type="submit" class="sure">确定</button></p>
+       <p><span>选择年级</span><button type="submit" class="sure ensure">确定</button></p>
        <ul>
            <li><div class="main">
                <span>一年级</span>
-               <input name="radio2" type="radio" form="hxForm" checked="checked">
+               <input name="radio2" type="radio" form="hxForm">
            </div></li>
            <li><div class="main">
                <span>二年级</span>
@@ -115,10 +94,57 @@
        </ul>
    </div>
 </div>
-
+</div>
+{include file="common/footer2"}
 <script type="text/javascript">
+
+var vue=new Vue({
+  el:'#myCenter',
+  data:{
+    id:'',
+    img:'',
+    name:'',
+    campus:'海尔路校区',//校区
+    phone:'13906413323',
+    parentName:'柏大林',
+    studentName:'柏小林',
+    school:'青岛二中'
+  },
+  methods:{
+    get:function(){
+      var sex=$('#sex').val();
+      var grade=$('#grade').val();
+      var birthTime=$('#dateSelectorOne').val();
+      this.$http.post(baseurl+'?s=index/center/mycenter',{'id':this.id,'phone':this.phone,'parentName':this.parentName,'studentName':this.studentName,'birthTime':birthTime,'sex':sex,'school':this.school,'grade':grade}).then(res=>{
+        var num=eval('('+res.bodyText+')');
+        if(num==1){
+          layer.msg('保存成功！',{time:1500});
+        }
+      },res=>{
+        console.log('请求失败,请检查Network!');
+      })
+    }
+  },
+  created:function(){
+    this.$http.post(baseurl+'').then(res=>{
+      var val=eval('('+res.bodyText+')');
+      this.id=val['ID'];
+      this.img=val['IMG'];
+      this.name=val['NAME'];
+      this.campus=val['CAMPUS'];
+      this.phone=val['PHONE'];
+      this.parentName=val['PARENTNAME'];
+      this.studentName=val['STUDENTNAME'];
+      this.school=val['SCHOOL'];
+      $('#sex').val(val['SEX']);
+      $('#grade').val(val['GRADE']);
+    },res=>{
+      console.log('请求失败,请检查Network!');
+    })
+  }
+})
+
 new Mdate("dateSelectorOne");
 </script>
-<script type="text/javascript" src="js/common2.js"></script>
 </body>
 </html>
