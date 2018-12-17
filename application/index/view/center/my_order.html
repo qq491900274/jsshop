@@ -3,10 +3,10 @@
 <body>
 <div id="back"><div class="main"><a href="javascript:history.back(-1)"><i class="icon iconfont">&#xe63b;</i></a></div></div>
 <div class="orderBox">
-	<template v-for="(v,index) in orderList">
+	<template v-for="(v,index) in curriculum">
 	<div class="cartBox pay myOrder">
 		<ul>
-			<li v-for="(v,index) in orderList[index]">
+			<li v-for="(v,index) in curriculum[index]">
 				<div class="topLi clearfix">
 					<a href="#">
 						<div class="main">
@@ -34,7 +34,7 @@
 var vue=new Vue({
 	el:'.orderBox',
 	data:{
-		orderList:[
+		curriculum:[
 			[
 				{
 					id:'',
@@ -53,7 +53,8 @@ var vue=new Vue({
 					campus:'宁夏路校区',
 					teacherName:'许向前',
 					price:'399'
-				}
+				},
+
 			],
 			[
 				{
@@ -79,24 +80,36 @@ var vue=new Vue({
 			]
 		],
 		index:'',//数组下标
-		userId:''
+		userId:'',
+		orderId:'',
+		orderCode:'',
+		payCode:'',
+		allPrice:'',
+		payTime:'',
+		status:''
+
 	},
 	methods:{
 
 	},
 	created:function(){
-		var index=this.orderList.index();
-			this.$http.post(baseurl+'',{id:this.userId}).then(res=>{
-				var val=eval('('+res.bodyText+')');//订单ID,商品ID,订单状态...
-				this.orderList=val; //1、整个二维数组
-				//this.orderList[index]=val[] //2、获得二维数组下标，接收每个数组的数据
-				//3、赋值
-				this.orderList[index].id=val['ID'];
-				this.orderList[index].img=val['IMG'];
-			},res=>{
-				console.log('请求失败,请检查Network!');
-			})
+		var index;
+		for(var i=0;i<this.curriculum.length;i++){
+			index=this.curriculum[i];
+			console.log(index);
 		}
+		
+		this.$http.post(baseurl+'').then(res=>{
+			var val=eval('('+res.bodyText+')');//订单ID,商品ID,订单状态...
+			this.curriculum=val; //1、整个二维数组
+			//this.curriculum[index]=val[] //2、获得二维数组下标，接收每个数组的数据
+			//3、赋值
+			this.curriculum[index].id=val['ID'];
+			this.curriculum[index].img=val['IMG'];
+		},res=>{
+			console.log('请求失败,请检查Network!');
+		})
+	}
 }) 
 </script>
 </body>
