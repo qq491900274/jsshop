@@ -218,9 +218,9 @@ $(function(){
 		}
 
 //==================================全选与取消全选===============================================
-		//找到id为qx的input,为其绑定单击事件为function：
+//找到id为qx的input,为其绑定单击事件为function：
 		
-		window.onload=function(){
+		/*window.onload=function(){
 			var chbAll=document.getElementById('qx');
 			chbAll.onclick=function(){
 				//获得cartBox下ul下所有第一个li中的input,保存在chbs
@@ -255,10 +255,11 @@ $(function(){
 					else{chbAll.checked=false;}
 				}
 			}
-		}
+		}*/
+		
 
 //**************************************** 购物车 end **********************************************************
-	 	
+ 	
 
 
 
