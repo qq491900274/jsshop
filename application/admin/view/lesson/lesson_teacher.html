@@ -159,7 +159,7 @@
             layer.alert('确定要删除吗？',function(){
                 vue.$http.post(baseurl+'?s=admin/Lesson/dele_teacher',{id:ids}).then(res=>{
                     var num=eval('('+res.bodyText+')');
-                    if(num==1){
+                    if(num==1){                
                         // console.log(vue.products);
                         // console.log(vue.products.arrid);
                         // console.log(arrid);
@@ -183,7 +183,6 @@
             },res=>{
                 console.log('请求失败处理,请检查Network!');
             })
-            
         }
     })
 

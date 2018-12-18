@@ -7,9 +7,16 @@
                 <ul class="clearfix">
                     <li>
                         <label class="seach-label">
-                            <span>*</span>年级名称：
+                            <span>*</span> 年级名称：
                         </label>
                         <input type="text" name="" v-model="name" class="form-control">
+                    </li>
+                    <li>
+                        <label class="seach-label">
+                            <span>*</span> 关联科目：
+                        </label>
+                        <span class="subjectBox" v-for="v in product"><input type="checkBox" name="test" :value="v.ID"> {{v.NAME}}</span>
+                        
                     </li>
                     <li class="seach"><input type="submit" name="" value="确认" @click="get();"><a href="javascript:history.back(-1)" id="back">返回</a></li>
                 </ul>
@@ -26,21 +33,31 @@ new Vue({
 	el:'#update',
 	data:{
 		name:'',
-		id:'<?php echo @$_GET['id']?>'
+		id:'<?php echo @$_GET['id']?>',
+		product:'',
+		checkedId:''
 	},
 	methods:{
 		get:function(){
 			if(!this.name){
 				layer.alert('参数不能为空！');
 				return;
-			}
+			};
+			var arr=$('.subjectBox input');
+			var array=new Array();
+			for(i=0;i<arr.length;i++){
+				if(arr[i].checked){
+					array.push(arr[i].value);
+				}
+			};
 			this.$http.post(baseurl+'?s=admin/Lesson/addschool_class',{
 				'name':this.name,
-				'id':this.id
+				'id':this.id,
+				'checkedId':array
 			}).then(res=>{
 				if(res.bodyText==1) {
             		layer.msg('保存成功！',function(){
-               		 window.history.go(-1);
+               		 //window.history.go(-1);
             	    });  
 			    }
 			},res=>{
@@ -57,6 +74,12 @@ new Vue({
 			$('#addClass').html('修改年级');
 			var val=eval('('+res.bodyText+')')['value'][0];
 			this.name=val['NAME'];
+		},res=>{
+			console.log('请求失败处理,请检查Network!');
+		});
+		this.$http.post(baseurl+'?s=admin/Lesson/subject_list').then(res=>{
+			this.product=eval('('+res.bodyText+')')['value'];
+			
 		},res=>{
 			console.log('请求失败处理,请检查Network!');
 		})
