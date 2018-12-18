@@ -87,7 +87,6 @@ var vue=new Vue({
 		allPrice:'',
 		payTime:'',
 		status:''
-
 	},
 	methods:{
 
@@ -106,7 +105,7 @@ var vue=new Vue({
 			//3、赋值
 			this.curriculum[index].id=val['ID'];
 			this.curriculum[index].img=val['IMG'];
-		},res=>{
+		},res=>{ 
 			console.log('请求失败,请检查Network!');
 		})
 	}
