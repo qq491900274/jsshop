@@ -449,7 +449,7 @@ class Lesson extends Controller
       $key = "ID,NAME,SUBJECTID";
       $result['value'] = $this->pmodel->select('SHOP_SUBJECT',$key,$where);
 
-      if (!empty($request['id']) {
+      if (!empty($request['id'])) {
         foreach ($result['value'] as $key => $value) {
           $where1=str_replace(',', "','", $value['SUBJECTID']);
           $where1=" ID in ('{$where1}')";
