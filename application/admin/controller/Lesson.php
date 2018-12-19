@@ -414,7 +414,9 @@ class Lesson extends Controller
 
       $request = request()->post();
      
-      $sql=['NAME'=>$request['name'],'TYPE'=>'1'];
+      $sql=['NAME'=>$request['name'],
+            'SUBJECTID'=>$request['checkedId']
+            'TYPE'=>'1'];
 
       if (!empty($request['id'])) {
         $isok=DB::table('SHOP_SUBJECT')
@@ -444,8 +446,17 @@ class Lesson extends Controller
       //获取查询条件
       $where .= "TYPE='1' LIMIT {$minpage},{$maxpage}";
 
-      $key = "ID,NAME";
+      $key = "ID,NAME,SUBJECTID";
       $result['value'] = $this->pmodel->select('SHOP_SUBJECT',$key,$where);
+
+      if (!empty($request['id']) {
+        foreach ($result['value'] as $key => $value) {
+          $where1=str_replace(',', "','", $value['SUBJECTID']);
+          $where1=" ID in ('{$where1}')";
+          $result['value'][$key]['SUBJECTID']=$this->pmodel->select('SHOP_SUBJECT','ID,NAME',$where1);
+        }
+      }
+      
       $result['allCount'] = ceil($this->pmodel->select('SHOP_SUBJECT','count(ID) num ',$where)[0]['num'] / 20);
       //返回校区数据
       return $result;
