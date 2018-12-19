@@ -415,7 +415,7 @@ class Lesson extends Controller
       $request = request()->post();
      
       $sql=['NAME'=>$request['name'],
-            'SUBJECTID'=>$request['checkedId']
+            'SUBJECTID'=>$request['checkedId'],
             'TYPE'=>'1'];
 
       if (!empty($request['id'])) {
