@@ -46,15 +46,56 @@
 </div>
 
 <script>
-	function fun(a){
+	/*function fun(a){
   var sum = 0;
   for(var i = 0; i < a.length; i++){
     sum += a[i];
   }
-  alert(sum);
+  //alert(sum);
 }
 var arr = [1,2,3,4,5];
-fun(arr);
+fun(arr);*/
+
+
+//==================================全选与取消全选===============================================
+//找到id为qx的input,为其绑定单击事件为function：
+		
+		window.onload=function(){
+			var chbAll=document.getElementById('qx');
+			chbAll.onclick=function(){
+				//获得cartBox下ul下所有第一个li中的input,保存在chbs
+				var chbs=document.querySelectorAll(".cartBox ul li input");
+				//console.log(chbs);
+				//遍历chbs中每个chb
+				for(var i=0;i<chbs.length;i++){
+				  //chbs数组中当前chb的checked等于事件中当前chb的checked
+				  chbs[i].checked=this.checked;
+				}
+				cilci_all_money();
+			}
+		
+
+			//找到cartBox下ul下所有第一个li中的input,保存在chbs
+			var chbs=document.querySelectorAll(".cartBox ul li input");
+			//遍历chbs
+			for(var i=0;i<chbs.length;i++){
+				chbs[i].onclick=check;//为当前chb绑定点击事件为check
+			}
+			//定义函数check
+			function check(){
+				//如果当前chb未选中
+				if(!this.checked){
+					chbAll.checked=false;//chbAll也改为未选中
+				}else{
+					//获得cartBox下ul下所有第一个li中的input,保存在chbs
+					var chbs=document.querySelectorAll(".cartBox ul li input:not(:checked)");
+					//如果chbs的length等于0
+					if(chbs.length==0){chbAll.checked=true;}//chbAll也改为选中
+					//否则chbAll改为未选中
+					else{chbAll.checked=false;}
+				}
+			}
+		}
 
 
 var vue=new Vue({

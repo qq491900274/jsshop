@@ -3,7 +3,7 @@
 <body>
 <div id="myCenter">
 <div class="mineBox inforMa">
-	<p class="infor"><a hre="javascript:void(0)" class="cancel">取消</a><a class="sure" @click="get()">确定</a></p>
+	<p class="infor"><a href="javascript:history.back(-1)" class="cancel">取消</a><a class="sure" @click="get()">确定</a></p>
 	<div class="main">
 		<div class="headImg">
 			<img src="__PUBLIC__/index/images/cc_03.jpg" alt="">
@@ -43,52 +43,8 @@
    <div class="">
        <p><span>选择年级</span><button type="submit" class="sure ensure">确定</button></p>
        <ul>
-           <li><div class="main">
-               <span>一年级</span>
-               <input name="radio2" type="radio" form="hxForm">
-           </div></li>
-           <li><div class="main">
-               <span>二年级</span>
-               <input name="radio2" type="radio" form="hxForm">
-           </div></li>
-           <li><div class="main">
-               <span>三年级</span>
-               <input name="radio2" type="radio" form="hxForm">
-           </div></li>
-           <li><div class="main">
-               <span>四年级</span>
-               <input name="radio2" type="radio" form="hxForm">
-           </div></li>
-           <li><div class="main">
-               <span>五年级</span>
-               <input name="radio2" type="radio" form="hxForm">
-           </div></li>
-           <li><div class="main">
-               <span>六年级</span>
-               <input name="radio2" type="radio" form="hxForm">
-           </div></li>
-            <li><div class="main">
-               <span>七年级</span>
-               <input name="radio2" type="radio" form="hxForm">
-           </div></li>
-           <li><div class="main">
-               <span>八年级</span>
-               <input name="radio2" type="radio" form="hxForm">
-           </div></li>
-           <li><div class="main">
-               <span>九年级</span>
-               <input name="radio2" type="radio" form="hxForm">
-           </div></li>
-           <li><div class="main">
-               <span>高一</span>
-               <input name="radio2" type="radio" form="hxForm">
-           </div></li>
-           <li><div class="main">
-               <span>高二</span>
-               <input name="radio2" type="radio" form="hxForm">
-           </div></li>
-           <li><div class="main">
-               <span>高三</span>
+           <li v-for="v in products"><div class="main">
+               <span>{{v.NAME}}</span>
                <input name="radio2" type="radio" form="hxForm">
            </div></li>
        </ul>
@@ -108,7 +64,8 @@ var vue=new Vue({
     phone:'13906413323',
     parentName:'柏大林',
     studentName:'柏小林',
-    school:'青岛二中'
+    school:'青岛二中',
+    products:''//年级
   },
   methods:{
     get:function(){
@@ -140,7 +97,15 @@ var vue=new Vue({
       $('#grade').val(val['GRADE']);
     },res=>{
       console.log('请求失败,请检查Network!');
+    });
+    //年级
+    this.$http.post(baseurl+'?s=admin/Lesson/school_classList').then(res=>{
+      this.products=eval('('+res.bodyText+')')['value'];
+      //console.log(this.products);
+    },res=>{
+      console.log('请求失败处理,请检查Network!');
     })
+
   }
 })
 

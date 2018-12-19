@@ -5,7 +5,6 @@
 <script type="text/javascript" src="utf8-php/ueditor.all.js"></script>
 <!-- 实例化编辑器 -->
 
-
 <div class="content" id="lessonEdit">
 	<div class="rightBox">
 		<div class="main">
@@ -168,22 +167,19 @@
 <script type="text/javascript">
 var ue = UE.getEditor('container');//加载编辑器
 function uploadpic(this0){
-        
-        $.ajaxFileUpload({
-            fileElementId: 'file',    //需要上传的文件域的ID，即<input type="file">的ID。
-            url: baseurl+'?s=admin/Uploadpic/index', //后台方法的路径
-            type: 'post',   //当要提交自定义参数时，这个参数要设置成post
-            dataType: 'json', //返回值类型 一般设置为json
-            contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            success: function(data) {   //提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
-                console.log(data.src);
-                $('#hpic').val(data.src);
-                $('#image').attr('src',data.src);
-            }
-        });
-    
+    $.ajaxFileUpload({
+        fileElementId: 'file',    //需要上传的文件域的ID，即<input type="file">的ID。
+        url: baseurl+'?s=admin/Uploadpic/index', //后台方法的路径
+        type: 'post',   //当要提交自定义参数时，这个参数要设置成post
+        dataType: 'json', //返回值类型 一般设置为json
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        success: function(data) {   //提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+            console.log(data.src);
+            $('#hpic').val(data.src);
+            $('#image').attr('src',data.src);
+        }
+    });
 }
-
 
 laydate.render({
   elem: '#test5',
@@ -193,7 +189,6 @@ laydate.render({
   elem: '#test4',
   type: 'datetime'
 });
-
 
 var vue=new Vue({
     el:'#lessonEdit',
@@ -341,7 +336,6 @@ var vue=new Vue({
                 },res=>{
                     console.log('请求失败处理,请检查Network!');
                 })
-            
         },
         
     },
