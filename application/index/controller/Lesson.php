@@ -18,27 +18,26 @@ class Lesson extends mobile_controller
     	$Request=request()->post();
 		$this->pmodel =  new \app\index\model\PublicModel(); 
 
-		if (!empty($Request['list']) && $Request['list']=='1') {
+		if (empty($Request['list']) ) {
 	        $where = "TYPE='1'";
 
 	        $key = "ID,NAME,SUBJECTID";
 	        $result['value'] = $this->pmodel->select('SHOP_SUBJECT',$key,$where);
+	       	//返回年级科目关联数组
+            foreach ($result['value'] as $key => $value) {
+                if (empty($value['SUBJECTID'])) {
+               		 continue;
+                }
 
-	        if (!empty($request['id'])) {
-	            foreach ($result['value'] as $key => $value) {
-	                if (empty($value['SUBJECTID'])) {
-	               		 continue;
-	                }
+          		$where1=str_replace(',', "','", $value['SUBJECTID']);
+          		$where1=" ID in ('{$where1}')";
+          		$result['value'][$key]['SUBJECTID']=$this->pmodel->select('SHOP_SUBJECT','ID,NAME',$where1);
 
-	          		$where1=str_replace(',', "','", $value['SUBJECTID']);
-	          		$where1=" ID in ('{$where1}')";
-	          		$result['value'][$key]['SUBJECTID']=$this->pmodel->select('SHOP_SUBJECT','ID,NAME',$where1);
-
-	          		if (empty($subjectid)) {
-	            		continue;
-	          		}
-	            }
-	        }
+          		if (empty($subjectid)) {
+            		continue;
+          		}
+            }
+	        
 			return $result;
 		}
 
