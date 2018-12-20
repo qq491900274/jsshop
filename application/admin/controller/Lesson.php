@@ -455,11 +455,13 @@ class Lesson extends Controller
           $where1=" ID in ('{$where1}')";
           $subjectid=$this->pmodel->select('SHOP_SUBJECT','ID,NAME',$where1);
 
-          foreach ($subjectid as $key => $value) {
+          foreach ($subjectid as $value) {
             $subjcetarr[]=$value['ID'];
           }
 
           $result['value'][$key]['SUBJECTID']=$subjcetarr;
+
+         
         }
       }
       
