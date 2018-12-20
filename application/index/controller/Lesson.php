@@ -18,7 +18,7 @@ class Lesson extends mobile_controller
     	$Request=request()->post();
 		$this->pmodel =  new \app\index\model\PublicModel(); 
 
-		if (empty($Request['list']) ) {
+		if (!empty($Request['list'])&& $Request['list']=='1') {
 	        $where = "TYPE='1'";
 
 	        $key = "ID,NAME,SUBJECTID";
