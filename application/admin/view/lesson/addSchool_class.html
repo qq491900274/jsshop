@@ -44,10 +44,16 @@ new Vue({
 				return;
 			};
 			var arr=$('.subjectBox input');
-			var array=new Array();
+			var array='';
 			for(i=0;i<arr.length;i++){
 				if(arr[i].checked){
-					array.push(arr[i].value);
+					if (array) {
+						array+=','+arr[i].value;
+					}else{
+						array+=arr[i].value;
+					}
+					
+
 				}
 			};
 			this.$http.post(baseurl+'?s=admin/Lesson/addschool_class',{
@@ -79,7 +85,6 @@ new Vue({
 		});
 		this.$http.post(baseurl+'?s=admin/Lesson/subject_list').then(res=>{
 			this.product=eval('('+res.bodyText+')')['value'];
-			
 		},res=>{
 			console.log('请求失败处理,请检查Network!');
 		})
