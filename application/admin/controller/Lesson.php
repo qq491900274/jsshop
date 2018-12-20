@@ -463,7 +463,7 @@ class Lesson extends Controller
             continue;
           }
 
-          foreach ($subjectid as $key => $value) {
+          foreach ($subjectid as $value) {
             $subjcetarr[]=$value['ID'];
           }
 
