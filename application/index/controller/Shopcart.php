@@ -15,7 +15,7 @@ class Shopcart extends mobile_controller
 	}
 	
     public function cart(){
-    	return $this->fetch('cart'); 
+    	return $this->fetch('cart');
     }
    
 }
