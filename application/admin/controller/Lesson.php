@@ -451,9 +451,17 @@ class Lesson extends Controller
 
       if (!empty($request['id'])) {
         foreach ($result['value'] as $key => $value) {
+          if (empty($value['SUBJECTID'])) {
+            continue;
+          }
+
           $where1=str_replace(',', "','", $value['SUBJECTID']);
           $where1=" ID in ('{$where1}')";
           $subjectid=$this->pmodel->select('SHOP_SUBJECT','ID,NAME',$where1);
+
+          if (empty($subjectid)) {
+            continue;
+          }
 
           foreach ($subjectid as $key => $value) {
             $subjcetarr[]=$value['ID'];
