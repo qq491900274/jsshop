@@ -19,7 +19,7 @@ class Lesson extends mobile_controller
 		$this->pmodel =  new \app\index\model\PublicModel(); 
 
 		if (!empty($Request['list']) && $Request['list']=='1') {
-	        $where .= "TYPE='1'";
+	        $where = "TYPE='1'";
 
 	        $key = "ID,NAME,SUBJECTID";
 	        $result['value'] = $this->pmodel->select('SHOP_SUBJECT',$key,$where);
@@ -44,5 +44,7 @@ class Lesson extends mobile_controller
 
     	return $this->fetch('lesson'); 
     }
+
+
    
 }
