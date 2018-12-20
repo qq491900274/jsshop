@@ -15,7 +15,7 @@ class Uploadpic extends Controller
       
    function index(){
 
-      if(($_FILES["pic"]["type"]=="image/png"||$_FILES["pic"]["type"]=="image/jpg")&&$_FILES["pic"]["size"]<1024000)
+      if(($_FILES["pic"]["type"]=="image/png"||$_FILES["pic"]["type"]=="image/jpg"||$_FILES["pic"]["type"]=="image/jpeg")&&$_FILES["pic"]["size"]<1024000)
       {       
         $file=time().'.jpg';
         //防止文件名重复
