@@ -15,7 +15,11 @@
                         <label class="seach-label">
                             <span>*</span> 关联科目：
                         </label>
-                        <span class="subjectBox" v-for="v in product"><input type="checkBox" name="test" :value="v.ID"> {{v.NAME}}</span>
+                        <span class="subjectBox" v-for="v in product">
+                        
+                        	<input type="checkBox" name="test" :checked="checked(v.ID)" :value="v.ID"> {{v.NAME}}
+                        	
+                        </span>
                         
                     </li>
                     <li class="seach"><input type="submit" name="" value="确认" @click="get();"><a href="javascript:history.back(-1)" id="back">返回</a></li>
@@ -34,10 +38,16 @@ new Vue({
 	data:{
 		name:'',
 		id:'<?php echo @$_GET['id']?>',
-		product:'',
-		checkedId:''
+		product:[],
+		checkedId:[]
 	},
 	methods:{
+		checked:function(id){
+			var checked=this.checkedId;
+			if (checked.indexOf(id)>='0') {
+				return 'checked';
+			}
+		},
 		get:function(){
 			if(!this.name){
 				layer.alert('参数不能为空！');
@@ -51,11 +61,10 @@ new Vue({
 						array+=','+arr[i].value;
 					}else{
 						array+=arr[i].value;
+						//console.log(array);
 					}
-					
-
 				}
-			};
+			};                                                                                                                                                                                                                                                             
 			this.$http.post(baseurl+'?s=admin/Lesson/addschool_class',{
 				'name':this.name,
 				'id':this.id,
@@ -63,7 +72,7 @@ new Vue({
 			}).then(res=>{
 				if(res.bodyText==1) {
             		layer.msg('保存成功！',function(){
-               		 //window.history.go(-1);
+               		 window.history.go(-1);
             	    });  
 			    }
 			},res=>{
@@ -76,18 +85,29 @@ new Vue({
 			$('#addClass').html('新增年级');
 			return;
 		}
+
+		this.$http.post(baseurl+'?s=admin/Lesson/subject_list').then(res=>{
+			this.product=eval('('+res.bodyText+')')['value'];
+			//console.log(this.product[2].ID);
+			
+		},res=>{
+			console.log('请求失败处理,请检查Network!');
+		})
+
 		this.$http.post(baseurl+'?s=admin/Lesson/school_classList',{'id':this.id}).then(res=>{
 			$('#addClass').html('修改年级');
 			var val=eval('('+res.bodyText+')')['value'][0];
 			this.name=val['NAME'];
+			this.checkedId=val['SUBJECTID'];
+			/*$("input[type=checkbox][name=test]").each(function(){
+				if(val['SUBJECTID'].indexOf($(this).val())>-1){
+					$(this).attr('checked','checked');
+				}
+			})*/
 		},res=>{
 			console.log('请求失败处理,请检查Network!');
 		});
-		this.$http.post(baseurl+'?s=admin/Lesson/subject_list').then(res=>{
-			this.product=eval('('+res.bodyText+')')['value'];
-		},res=>{
-			console.log('请求失败处理,请检查Network!');
-		})
+		
 	}
 })
 
