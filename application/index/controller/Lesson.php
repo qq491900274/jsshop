@@ -70,7 +70,7 @@ class Lesson extends mobile_controller
 
 		$key='ID,NAME,CODE,PRICE,DATETIME,CONTENT,SEASONTYPE,STARTTIME,ENDTIME,COURSENUM,COURSETIME,IMG,COUNT';
 		$data=$this->pmodel->select('SHOP_CURRICULUM',$key,$where);
-		var_dump($data);
+		return $data;
     }
    
 }
