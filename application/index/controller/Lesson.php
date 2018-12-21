@@ -57,17 +57,17 @@ class Lesson extends mobile_controller
 		}
 
 		if (!empty($Request['class'])) {
-			$where=" and CLASSGUID='{$Request['school']}'";
+			$where.=" and CLASSGUID='{$Request['school']}'";
 		}else{
 			return json_encode(array('msg'=>'缺少年级参数！','state'=>'2'));
 		}
 
 		if (!empty($Request['subject'])) {
-			$where=" and SUBJECTGUID='{$Request['subject']}'";
+			$where.=" and SUBJECTGUID='{$Request['subject']}'";
 		}else{
 			return json_encode(array('msg'=>'缺少科目参数！','state'=>'2'));
 		}
-
+		
 		$key='ID,NAME,CODE,PRICE,DATETIME,CONTENT,SEASONTYPE,STARTTIME,ENDTIME,COURSENUM,COURSETIME,IMG,COUNT';
 		$data=$this->pmodel->select('SHOP_CURRICULUM',$key,$where);
 		return $data;
