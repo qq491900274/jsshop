@@ -44,6 +44,33 @@ class Lesson extends mobile_controller
     	return $this->fetch('lesson'); 
     }
 
+    //返回符合条件的课程
+    function get_class(){
+    	$Request=request()->post();
+		$this->pmodel =  new \app\index\model\PublicModel(); 
+		$where='';
 
+		if (!empty($Request['school'])) {
+			$where=" SCHOOLID='{$Request['school']}'";
+		}else{
+			return json_encode(array('msg'=>'缺少校区参数！','state'=>'2'));
+		}
+
+		if (!empty($Request['class'])) {
+			$where=" and CLASSGUID='{$Request['school']}'";
+		}else{
+			return json_encode(array('msg'=>'缺少年级参数！','state'=>'2'));
+		}
+
+		if (!empty($Request['subject'])) {
+			$where=" and SUBJECTGUID='{$Request['subject']}'";
+		}else{
+			return json_encode(array('msg'=>'缺少科目参数！','state'=>'2'));
+		}
+
+		$key='ID,NAME,CODE,PRICE,DATETIME,CONTENT,SEASONTYPE,STARTTIME,ENDTIME,COURSENUM,COURSETIME,IMG,COUNT';
+		$data=$this->pmodel->select('SHOP_CURRICULUM',$key,$where);
+		var_dump($data);
+    }
    
 }
