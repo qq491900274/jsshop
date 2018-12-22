@@ -3,14 +3,14 @@
 	<div class="rightBox">
 		<div class="main">
 			<div class="seach_tigs">
-				<h3>科目列表</h3>
+				<h3>课堂类型</h3>
 				<div class="topBtns sc">
-					<a href="<?php echo BASE_URL;?>?s=admin/lesson/add_subject.html">新增科目</a>
+					<a href="<?php echo BASE_URL;?>?s=admin/lesson/add_type.html">新增课堂</a>
 				</div>
                 <table class="tableBox">
                     <thead>
                         <tr>
-                            <th width="60%">科目名称</th>
+                            <th width="60%">课堂名称</th>
                             <th width="20%">是否显示</th>
                             <th width="20%">操作</th>
                         </tr>
@@ -44,10 +44,10 @@ var vue=new Vue({
 	},
 	methods:{
 		goUpdate:function(id){
-			window.location.href=baseurl+'?s=admin/Lesson/add_subject&id='+id;
+			window.location.href=baseurl+'?s=admin/Lesson/add_type&id='+id;
 		},
 		onload:function(){
-			this.$http.post(baseurl+'?s=admin/Lesson/subject_list').then(res=>{
+			this.$http.post(baseurl+'?s=admin/Lesson/type_list').then(res=>{
 				this.products=eval('('+res.bodyText+')')['value'];
 				//console.log(this.products);
 			},res=>{
@@ -55,7 +55,6 @@ var vue=new Vue({
 			})
 		},
 		remove:function(ids,arrid){
-
 			layer.alert('确定要删除吗?',function(){
 				//console.log(i);
 				vue.$http.post(baseurl+'?s=admin/Lesson/delete_classSubject',{id:ids}).then(res=>{
@@ -70,7 +69,7 @@ var vue=new Vue({
 						location.reload();
 					}
 				},res=>{
-					console.log("请求失败处理，请检查Network！");
+					console.log("请求失败处理,请检查Network！");
 				})	
 			});
 			
