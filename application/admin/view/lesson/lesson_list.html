@@ -197,7 +197,7 @@
                 this.$http.post(baseurl+'?s=admin/Lesson/get_school',{
                 'city':this.city,
                 'area':this.area}).then(res=>{
-                    console.log(res);
+                    //console.log(res);
                     this.school_name=eval('('+res.bodyText+')');
                 },res=>{
                     console.log('请求失败处理,请检查Network!');
