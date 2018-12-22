@@ -1,0 +1,69 @@
+{include file="public/header"}	
+<div class="content" id="update">
+	<div class="rightBox">
+		<div class="main">
+			<div class="seach_tigs" id="edit">
+				<h3 id="addSubject">添加科目</h3>
+                <ul class="clearfix">
+                    <li>
+                        <label class="seach-label">
+                            <span>*</span>科目名称：
+                        </label>
+                        <input type="text" name="" v-model="name" class="form-control">
+                    </li>
+                    <li class="seach"><input type="submit" name="" value="确认" @click="get();"><a href="javascript:history.back(-1)" id="back">返回</a></li>
+                </ul>
+            </div>
+
+		</div>
+	</div>
+</div>
+
+{include file="public/footer"}
+<script type="text/javascript">
+new Vue({
+	el:'#update',
+	data:{
+		name:'',
+		id:'<?php echo @$_GET['id']?>'
+	},
+	methods:{
+		get:function(){
+			if(!this.name){
+                layer.alert('参数不能为空！');
+                return;
+            }
+
+			this.$http.post(baseurl+'?s=admin/Lesson/add_subject',{
+				'name':this.name,
+				'id':this.id
+			}).then(res=>{
+				if(res.bodyText==1) {
+            		layer.msg('保存成功！',function(){
+               		 window.history.go(-1);
+            	    });  
+			    }
+			},res=>{
+				console.log('请求失败处理,请检查Network!');
+			})
+		}
+	},
+	created:function(){
+		if(!this.id){
+			$('#addSubject').html('新增科目');
+			return;
+		}
+		this.$http.post(baseurl+'?s=admin/Lesson/subject_list',{'id':this.id}).then(res=>{
+			$('#addSubject').html('修改科目');
+			var val=eval('('+res.bodyText+')')['value'][0];
+			this.name=val['NAME'];
+		},res=>{
+			console.log('请求失败处理,请检查Network!');
+		})
+	}
+})
+
+</script>
+
+</body>
+</html>
