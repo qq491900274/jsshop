@@ -681,5 +681,35 @@ class Lesson extends Controller
       $isok=$this->pmodel->dele('SHOP_SLIDESHOWPIC',$where);
       echo '1';
     }
+    //修改添加课程
+    public  function update_curr(){
+      $request = request()->post();
+      
+      if (empty($request)) {
+        return $this->fetch('add_subject');
+      }
+
+      $sql=['NAME'=>$request['name']];
+
+      if (!empty($request['id'])) {
+        $isok=DB::table('SHOP_CURRICULUM_TYPE')
+            ->where('ID',$request['id'])
+            ->update($sql);
+      }else{
+        $sql['ID']=uniqid();
+        $isok=DB::table('SHOP_CURRICULUM_TYPE')->insert($sql);
+      }
+      return 1;
+    }
+
+    //删除课程类型
+    public function dele_currtype(){
+      $request = request()->post();
+      $this->pmodel =  new \app\admin\model\PublicModel();
+      
+      $where = "ID = '{$request['id']}'";
+      $isok=$this->pmodel->dele('SHOP_CURRICULUM_TYPE',$where);
+      echo '1';
+    }
 }
  
