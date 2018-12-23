@@ -703,7 +703,7 @@ class Lesson extends Controller
       $request = request()->post();
       
       if (empty($request)) {
-        return $this->fetch('add_subject');
+        return $this->fetch('addtype');
       }
 
       $sql=['NAME'=>$request['name']];
