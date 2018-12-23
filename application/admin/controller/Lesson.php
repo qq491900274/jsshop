@@ -401,6 +401,16 @@ class Lesson extends Controller
 
       echo '1';
     }
+    //删除课程
+    function dele_curriculum(){
+      $request = request()->post();
+      $this->pmodel =  new \app\admin\model\PublicModel();
+     
+      $where = "ID = '{$request['id']}'";
+      $isok=$this->pmodel->dele('SHOP_CURRICULUM',$where);
+
+      return 1;
+    }
     //年级
     public function school_class(){
       return $this->fetch('school_class');
@@ -468,8 +478,6 @@ class Lesson extends Controller
           }
 
           $result['value'][$key]['SUBJECTID']=$subjcetarr;
-
-         
         }
       }
       
