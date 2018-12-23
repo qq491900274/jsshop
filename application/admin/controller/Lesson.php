@@ -676,8 +676,6 @@ class Lesson extends Controller
     }
     //课堂类型
     public function type(){
-      $minpage = 0; 
-      $maxpage = 0;
       $request = request()->post();
       $this->pmodel =  new \app\admin\model\PublicModel(); 
 
@@ -685,14 +683,9 @@ class Lesson extends Controller
         //获取post当前页数。与查询条件。
         $where='';
         if(!empty($request['id'])){
-          $where=" ID='{$request['id']}' and ";
+          $where=" ID='{$request['id']}' ";
         }
 
-        $maxpage = empty($request['page'])?'19':20*$request['page']-1;
-        $minpage = $maxpage-19;
-        
-        //获取查询条件
-        $where.= " LIMIT {$minpage},{$maxpage}";
         $key = "ID,NAME";
         $result['value'] = $this->pmodel->select('SHOP_CURRICULUM_TYPE',$key,$where);
         $num=$this->pmodel->select('SHOP_CURRICULUM_TYPE','count(ID) num ',$where);
