@@ -710,6 +710,7 @@ class Lesson extends Controller
             ->update($sql);
       }else{
         $sql['ID']=uniqid();
+        $sql['DATETIME']=date('Y-m-d H:i:s')
         $isok=DB::table('SHOP_CURRICULUM_TYPE')->insert($sql);
       }
       return 1;
