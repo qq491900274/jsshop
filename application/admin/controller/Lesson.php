@@ -494,14 +494,7 @@ class Lesson extends Controller
       $isok=$this->pmodel->dele('SHOP_SUBJECT',$where);
       echo '1';
     }
-    //课堂类型
-    public function type(){
-      return $this->fetch('type');
-    }
-    //修改课堂类型
-    public function add_type(){
-      return $this->fetch('add_type');
-    }
+  
    //科目
     public function subject(){
       return $this->fetch('subject');
@@ -679,6 +672,67 @@ class Lesson extends Controller
       
       $where = "ID = '{$request['id']}'";
       $isok=$this->pmodel->dele('SHOP_SLIDESHOWPIC',$where);
+      echo '1';
+    }
+    //课堂类型
+    public function type(){
+      $minpage = 0; 
+      $maxpage = 0;
+      $request = request()->post();
+      $this->pmodel =  new \app\admin\model\PublicModel(); 
+      
+      if ($Request['list']=='1') {
+        //获取post当前页数。与查询条件。
+        $where='';
+        if(!empty($request['id'])){
+          $where=" ID='{$request['id']}' and ";
+        }
+
+        $maxpage = empty($request['page'])?'19':20*$request['page']-1;
+        $minpage = $maxpage-19;
+        
+        //获取查询条件
+        $where.= "TYPE='2' LIMIT {$minpage},{$maxpage}";
+        $key = "ID,NAME";
+        $result['value'] = $this->pmodel->select('SHOP_CURRICULUM_TYPE',$key,$where);
+        $num=$this->pmodel->select('SHOP_CURRICULUM_TYPE','count(ID) num ',$where);
+        if ($num) {
+          $result['allCount'] = ceil($num[0]['num'] / 20);
+        }
+        //返回校区数据
+        return $result;
+      }
+      return $this->fetch('type');
+    }
+   
+    //修改添加课程
+    public  function add_type(){
+      $request = request()->post();
+      
+      if (empty($request)) {
+        return $this->fetch('add_subject');
+      }
+
+      $sql=['NAME'=>$request['name']];
+
+      if (!empty($request['id'])) {
+        $isok=DB::table('SHOP_CURRICULUM_TYPE')
+            ->where('ID',$request['id'])
+            ->update($sql);
+      }else{
+        $sql['ID']=uniqid();
+        $isok=DB::table('SHOP_CURRICULUM_TYPE')->insert($sql);
+      }
+      return 1;
+    }
+
+    //删除课程类型
+    public function dele_currtype(){
+      $request = request()->post();
+      $this->pmodel =  new \app\admin\model\PublicModel();
+      
+      $where = "ID = '{$request['id']}'";
+      $isok=$this->pmodel->dele('SHOP_CURRICULUM_TYPE',$where);
       echo '1';
     }
 }
