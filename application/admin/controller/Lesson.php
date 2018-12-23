@@ -688,10 +688,6 @@ class Lesson extends Controller
 
         $key = "ID,NAME";
         $result['value'] = $this->pmodel->select('SHOP_CURRICULUM_TYPE',$key,$where);
-        $num=$this->pmodel->select('SHOP_CURRICULUM_TYPE','count(ID) num ',$where);
-        if ($num) {
-          $result['allCount'] = ceil($num[0]['num'] / 20);
-        }
         //返回校区数据
         return $result;
       }
@@ -703,7 +699,7 @@ class Lesson extends Controller
       $request = request()->post();
       
       if (empty($request)) {
-        return $this->fetch('addtype');
+        return $this->fetch('add_type');
       }
 
       $sql=['NAME'=>$request['name']];
