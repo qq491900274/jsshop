@@ -47,7 +47,7 @@ var vue=new Vue({
 			window.location.href=baseurl+'?s=admin/Lesson/add_type&id='+id;
 		},
 		onload:function(){
-			this.$http.post(baseurl+'?s=admin/Lesson/type_list').then(res=>{
+			this.$http.post(baseurl+'?s=admin/Lesson/type',{list:1}).then(res=>{
 				this.products=eval('('+res.bodyText+')')['value'];
 				//console.log(this.products);
 			},res=>{
@@ -57,7 +57,7 @@ var vue=new Vue({
 		remove:function(ids,arrid){
 			layer.alert('确定要删除吗?',function(){
 				//console.log(i);
-				vue.$http.post(baseurl+'?s=admin/Lesson/delete_classSubject',{id:ids}).then(res=>{
+				vue.$http.post(baseurl+'?s=admin/Lesson/delete_dele_currtype',{id:ids}).then(res=>{
 					//console.log(res);
 					var num=eval('('+res.bodyText+')');
 					
@@ -74,7 +74,7 @@ var vue=new Vue({
 			});
 			
 		}
-		
+		 
 	},
 	created:function(){ 
 		this.onload();
