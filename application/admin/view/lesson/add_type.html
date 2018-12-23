@@ -34,7 +34,7 @@ new Vue({
                 return;
             }
 
-			this.$http.post(baseurl+'?s=admin/Lesson/add_subject',{
+			this.$http.post(baseurl+'?s=admin/Lesson/add_type',{
 				'name':this.name,
 				'id':this.id
 			}).then(res=>{
