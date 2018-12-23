@@ -692,7 +692,7 @@ class Lesson extends Controller
         $minpage = $maxpage-19;
         
         //获取查询条件
-        $where.= "TYPE='2' LIMIT {$minpage},{$maxpage}";
+        $where.= " LIMIT {$minpage},{$maxpage}";
         $key = "ID,NAME";
         $result['value'] = $this->pmodel->select('SHOP_CURRICULUM_TYPE',$key,$where);
         $num=$this->pmodel->select('SHOP_CURRICULUM_TYPE','count(ID) num ',$where);
