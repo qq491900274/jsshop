@@ -680,8 +680,8 @@ class Lesson extends Controller
       $maxpage = 0;
       $request = request()->post();
       $this->pmodel =  new \app\admin\model\PublicModel(); 
-      
-      if ($Request['list']=='1') {
+
+      if ($request['list']=='1') {
         //获取post当前页数。与查询条件。
         $where='';
         if(!empty($request['id'])){
