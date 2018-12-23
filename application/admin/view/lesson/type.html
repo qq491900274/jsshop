@@ -1,0 +1,88 @@
+{include file="public/header"}	
+<div class="content" id="update">
+	<div class="rightBox">
+		<div class="main">
+			<div class="seach_tigs">
+				<h3>课堂类型</h3>
+				<div class="topBtns sc">
+					<a href="<?php echo BASE_URL;?>?s=admin/lesson/add_type.html">新增课堂</a>
+				</div>
+                <table class="tableBox">
+                    <thead>
+                        <tr>
+                            <th width="60%">课堂名称</th>
+                            <th width="20%">是否显示</th>
+                            <th width="20%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(slist,index) in products">
+                            <td>{{slist.NAME}}</td>
+                            <td>显示</td>
+                            <td>
+                            <a href="javascript:void(0);" style="margin-right: 20px;" @click="goUpdate(slist.ID)">编辑</a>
+                            <a href="javascript:void(0);" @click="remove(slist.ID,index)">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<script type="text/javascript">
+
+var vue=new Vue({
+	el:'#update',
+	data:{
+		products:[]
+		
+	},
+	methods:{
+		goUpdate:function(id){
+			window.location.href=baseurl+'?s=admin/Lesson/add_type&id='+id;
+		},
+		onload:function(){
+			this.$http.post(baseurl+'?s=admin/Lesson/type_list').then(res=>{
+				this.products=eval('('+res.bodyText+')')['value'];
+				//console.log(this.products);
+			},res=>{
+				console.log('请求失败处理,请检查Network!');
+			})
+		},
+		remove:function(ids,arrid){
+			layer.alert('确定要删除吗?',function(){
+				//console.log(i);
+				vue.$http.post(baseurl+'?s=admin/Lesson/delete_classSubject',{id:ids}).then(res=>{
+					//console.log(res);
+					var num=eval('('+res.bodyText+')');
+					
+					if(num==1){
+						layer.msg('删除成功！',{time:1500});
+						vue.products.splice(arrid,1);
+						
+					}else{
+						location.reload();
+					}
+				},res=>{
+					console.log("请求失败处理,请检查Network！");
+				})	
+			});
+			
+		}
+		
+	},
+	created:function(){ 
+		this.onload();
+	}
+
+})
+
+</script>
+{include file="public/footer"}
+</body>
+</html>

@@ -494,6 +494,14 @@ class Lesson extends Controller
       $isok=$this->pmodel->dele('SHOP_SUBJECT',$where);
       echo '1';
     }
+    //课堂类型
+    public function type(){
+      return $this->fetch('type');
+    }
+    //修改课堂类型
+    public function add_type(){
+      return $this->fetch('add_type');
+    }
    //科目
     public function subject(){
       return $this->fetch('subject');

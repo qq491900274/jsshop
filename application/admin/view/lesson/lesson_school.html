@@ -118,7 +118,7 @@
                         var num=eval('('+res.bodyText+')');
                         if(num==1){
                             layer.msg('删除成功！',{time:1500});
-                            vue.products.splice(arrid);
+                            vue.products.splice(arrid,1);
                         }else{
                             location.reload();
                         }
