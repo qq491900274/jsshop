@@ -47,7 +47,7 @@ var vue=new Vue({
 			window.location.href=baseurl+'?s=admin/Lesson/add_type&id='+id;
 		},
 		onload:function(){
-			this.$http.post(baseurl+'?s=admin/Lesson/type_list').then(res=>{
+			this.$http.post(baseurl+'?s=admin/Lesson/type',{list:1}).then(res=>{
 				this.products=eval('('+res.bodyText+')')['value'];
 				//console.log(this.products);
 			},res=>{
@@ -74,7 +74,7 @@ var vue=new Vue({
 			});
 			
 		}
-		
+		 
 	},
 	created:function(){ 
 		this.onload();
