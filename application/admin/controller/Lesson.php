@@ -290,7 +290,7 @@ class Lesson extends Controller
       $where .= " LIMIT {$minpage},{$maxpage}";
 
       $key = "C.ID,C.COUNT, C.NAME, C.CODE, C.PRICE, C.CLASSGUID GRADE, SUBJECTGUID SUBJECT, ".
-              "SC.NAME LESSON_TYPE,T.NAME TEACHER, DATETIME, ORDERINDEX, ".
+              "SC.NAME LESSON_TYPE,T.NAME TEACHER, C.DATETIME, ORDERINDEX, ".
               "CONTENT, C.PROVINCE, C.CITY, C.AREA,S.SCHOOL_NAME,T.PIC TEACHERIMG";
       $table='SHOP_CURRICULUM C '.
               ' LEFT JOIN SHOP_SCHOOL S ON S.ID=C.SCHOOLID'.
