@@ -290,11 +290,12 @@ class Lesson extends Controller
       $where .= " LIMIT {$minpage},{$maxpage}";
 
       $key = "C.ID,C.COUNT, C.NAME, C.CODE, C.PRICE, C.CLASSGUID GRADE, SUBJECTGUID SUBJECT, ".
-              "C.CLASSTYPEGUID LESSON_TYPE,T.NAME TEACHER, DATETIME, ORDERINDEX, ".
+              "SC.NAME LESSON_TYPE,T.NAME TEACHER, DATETIME, ORDERINDEX, ".
               "CONTENT, C.PROVINCE, C.CITY, C.AREA,S.SCHOOL_NAME,T.PIC TEACHERIMG";
       $table='SHOP_CURRICULUM C '.
               ' LEFT JOIN SHOP_SCHOOL S ON S.ID=C.SCHOOLID'.
-              ' LEFT JOIN SHOP_TEACHER T ON T.ID=C.TEACHERGUID';
+              ' LEFT JOIN SHOP_TEACHER T ON T.ID=C.TEACHERGUID'.
+              ' LEFT JOIN SHOP_CURRICULUM_TYPE SC on SC.ID=C.CLASSTYPEGUID';
 
       $value= $this->pmodel->select($table,$key,$where);
       //获取年级科目
