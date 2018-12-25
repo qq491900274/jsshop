@@ -14,7 +14,7 @@ class Coupon extends Controller
 	}
 
   public function index(){
-    $this->fetch('coupon');
+    return $this->fetch('coupon');
   }
   
 }
