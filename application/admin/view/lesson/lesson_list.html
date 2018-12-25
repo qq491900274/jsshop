@@ -55,7 +55,7 @@
                             </label>
                             <select class="form-control" name="type" v-model="lessonType2">
                                 <option value="">请选择课堂</option>
-                                <option :value="t.value" v-for="t in lessonType">{{t.label}}</option>
+                                <option :value="t.ID" v-for="t in lessonType">{{t.NAME}}</option>
                             </select>
                         </li>
                         <li style="width:51%;">
@@ -155,9 +155,7 @@
             school_name:[],
             lessonType2:'',
             lessonType:[
-                {value:'金石V课',label:'金石V课'},
-                {value:'金石拼课',label:'金石拼课'},
-                {value:'金石一对一',label:'金石一对一'}
+                
             ],
             grade2:'',
             grade:[
@@ -240,6 +238,13 @@
             this.$http.post(baseurl+'?s=admin/Lesson/subject_list').then(res=>{
                 var subject=eval('('+res.bodyText+')');
                 this.subjects=subject['value'];
+            },res=>{
+                console.log('请求失败处理,请检查Network!');
+            });
+            //课堂类型
+            this.$http.post(baseurl+'?s=admin/Lesson/type',{list:1}).then(res=>{
+                this.lessonType=eval('('+res.bodyText+')')['value'];
+                //console.log(this.lessonType);
             },res=>{
                 console.log('请求失败处理,请检查Network!');
             })

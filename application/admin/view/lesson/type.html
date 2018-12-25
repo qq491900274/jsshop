@@ -20,7 +20,7 @@
                             <td>{{slist.NAME}}</td>
                             <td>显示</td>
                             <td>
-                            <a href="javascript:void(0);" style="margin-right: 20px;" @click="goUpdate(slist.ID)">编辑</a>
+                            <a href="javascript:void(0);" style="margin-right: 20px;"  @click="goUpdate(slist.ID)">编辑</a>
                             <a href="javascript:void(0);" @click="remove(slist.ID,index)">删除</a>
                             </td>
                         </tr>
@@ -39,25 +39,16 @@
 var vue=new Vue({
 	el:'#update',
 	data:{
-		products:[]
-		
+		products:[]	
 	},
 	methods:{
 		goUpdate:function(id){
 			window.location.href=baseurl+'?s=admin/Lesson/add_type&id='+id;
 		},
-		onload:function(){
-			this.$http.post(baseurl+'?s=admin/Lesson/type',{list:1}).then(res=>{
-				this.products=eval('('+res.bodyText+')')['value'];
-				//console.log(this.products);
-			},res=>{
-				console.log('请求失败处理,请检查Network!');
-			})
-		},
 		remove:function(ids,arrid){
 			layer.alert('确定要删除吗?',function(){
 				//console.log(i);
-				vue.$http.post(baseurl+'?s=admin/Lesson/delete_dele_currtype',{id:ids}).then(res=>{
+				vue.$http.post(baseurl+'?s=admin/Lesson/dele_currtype',{id:ids}).then(res=>{
 					//console.log(res);
 					var num=eval('('+res.bodyText+')');
 					
@@ -77,7 +68,12 @@ var vue=new Vue({
 		 
 	},
 	created:function(){ 
-		this.onload();
+		this.$http.post(baseurl+'?s=admin/Lesson/type',{list:1}).then(res=>{
+				this.products=eval('('+res.bodyText+')')['value'];
+				//console.log(this.products);
+			},res=>{
+				console.log('请求失败处理,请检查Network!');
+			})
 	}
 
 })
