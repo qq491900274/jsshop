@@ -17,7 +17,7 @@ class Coupon extends Controller
     $Request=request()->post();
     $this->pmodel =  new \app\index\model\PublicModel(); 
 
-    if (empty($Request['list'])) {
+    if (!empty($Request['list'])) {
 
 
       return 1;
@@ -29,7 +29,7 @@ class Coupon extends Controller
     $Request=request()->post();
     $this->pmodel =  new \app\index\model\PublicModel(); 
 
-    if (empty($Request['list'])) {
+    if (!empty($Request['list'])) {
 
 
       return 1;
