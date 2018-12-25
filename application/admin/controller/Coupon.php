@@ -14,7 +14,26 @@ class Coupon extends Controller
 	}
 
   public function index(){
+    $Request=request()->post();
+    $this->pmodel =  new \app\index\model\PublicModel(); 
+
+    if (empty($Request['list'])) {
+
+
+      return 1;
+    }
     return $this->fetch('coupon');
   }
   
+  public function update_coupon(){
+    $Request=request()->post();
+    $this->pmodel =  new \app\index\model\PublicModel(); 
+
+    if (empty($Request['list'])) {
+
+
+      return 1;
+    }
+    return $this->fetch('update_coupon');
+  }
 }
