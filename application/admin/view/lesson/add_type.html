@@ -3,7 +3,7 @@
 	<div class="rightBox">
 		<div class="main">
 			<div class="seach_tigs" id="edit">
-				<h3 id="addSubject">添加课堂</h3>
+				<h3 id="addSubject">修改课堂</h3>
                 <ul class="clearfix">
                     <li>
                         <label class="seach-label">
@@ -50,11 +50,11 @@ new Vue({
 	},
 	created:function(){
 		if(!this.id){
-			$('#addSubject').html('新增科目');
+			$('#addSubject').html('新增课堂');
 			return;
 		}
-		this.$http.post(baseurl+'?s=admin/Lesson/subject_list',{'id':this.id}).then(res=>{
-			$('#addSubject').html('修改科目');
+		this.$http.post(baseurl+'?s=admin/Lesson/type',{'list':1,'id':this.id}).then(res=>{
+			$('#addSubject').html('修改课堂');
 			var val=eval('('+res.bodyText+')')['value'][0];
 			this.name=val['NAME'];
 		},res=>{

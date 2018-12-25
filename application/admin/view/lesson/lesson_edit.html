@@ -73,7 +73,7 @@
                             </label>
                             <select class="form-control" name="type" v-model="lessonTypeid">
                                 <option value="">请选择课堂</option>
-                                <option v-for="t in lessonType" name="selectId">{{t.label}}</option>
+                                <option :value="t.ID" v-for="t in lessonType" name="selectId">{{t.NAME}}</option>
                             </select>
                         </li>
                         <li>
@@ -208,9 +208,7 @@ var vue=new Vue({
         school_name:[],//校区名
         lessonTypeid:' ',
         lessonType:[
-            {value:'金石V课',label:'金石V课'},
-            {value:'金石拼课',label:'金石拼课'},
-            {value:'金石1对1',label:'金石1对1'}
+            
         ],//课堂类型
         classType:'',//班型
         semester:'',//学期
@@ -319,7 +317,7 @@ var vue=new Vue({
             }).then(res=>{
                 if(res.bodyText==1){
                     layer.msg('保存成功！',function(){
-                        //window.history.go(-1);
+                        window.history.go(-1);
                     })
                 }
             },res=>{
@@ -362,6 +360,13 @@ var vue=new Vue({
         },res=>{
             console.log('请求失败处理,请检查Network!');
         });
+        //课堂类型
+        this.$http.post(baseurl+'?s=admin/Lesson/type',{list:1}).then(res=>{
+            this.lessonType=eval('('+res.bodyText+')')['value'];
+            //console.log(this.lessonType);
+        },res=>{
+            console.log('请求失败处理,请检查Network!');
+        })
 
         if(!this.id){
             $('#addLesson').html('新增课程');
