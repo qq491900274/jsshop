@@ -280,7 +280,12 @@
 	margin-left: 135px;
 }
 
-
+#edit ul li span.subjectBox input{
+	-webkit-appearance:checkbox;
+}
+#edit ul li span.subjectBox{
+	margin-right: 10px;
+}
 /******************************** 商城首页后台 ***************************************************/
 .content{
 	margin-top: 20px;
