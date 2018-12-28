@@ -62,13 +62,13 @@ class Coupon extends Controller
             ];
 
       if (!empty($request['id'])) {
-        $isok=DB::table('SHOP_COUPON')
+        DB::table('SHOP_COUPON')
             ->where('ID',$request['id'])
             ->update($data);
       }else{
         $data['ID']=uniqid();
-        $data['DATETIME']=date('Y-m-d H:i:s')
-        $isok=DB::table('SHOP_COUPON')
+        $data['DATETIME']=date('Y-m-d H:i:s');
+        DB::table('SHOP_COUPON')
             ->insert($data);
       }
 
