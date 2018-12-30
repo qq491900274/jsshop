@@ -3,28 +3,49 @@
 	<div class="rightBox">
 		<div class="main">
 			<div class="seach_tigs">
-				<h3>优惠券列表</h3>
+				<h3>交易流水</h3>
 				<div class="topBtns sc">
-					<a href="<?php echo BASE_URL;?>?s=admin/Coupon/update_coupon.html" style="width: 100px;">新增优惠券</a>
+					
 				</div>
+				<div class="seach_tigs">
+	            
+	                <ul class="clearfix">
+	                    <li>
+	                        <label class="seach-label">
+	                            订单编号：
+	                        </label>
+	                        <input type="text" name="" placeholder="请输入订单编号" class="form-control">
+	                    </li>
+	                    <li>
+	                        <label class="seach-label">
+	                            订单时间：
+	                        </label>
+	                        <input type="text" name="" value="" placeholder="请输入订单时间" class="form-control">
+	                    </li>
+	                </ul>
+	                <div class="topBtns seach">
+	                    <input type="button" name="" value="搜索" @click="get()">
+	                </div>
+	        </div>
                 <table class="tableBox">
                     <thead>
                         <tr>
-                            <th>优惠券名称</th>
-                            <th>优惠券面值</th>
-                            <th>优惠券发放总量</th>
-                            <th>使用时间</th>
+                            <th>订单号</th>
+                            <th>交易状态</th>
+                            <th>创建/支付时间</th>
+                            <th>交易金额</th>
+                            <th>支付通道</th>
                             <th width="10%">操作</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="(v,index) in products">
-                            <td>{{v.NAME}}/td>
-                            <td>{{v.PRICE}}</td>
-                            <td>{{v.COUNT}}</td>
-                            <td>{{v.STARTTIME}}-{{v.ENDTIME}}</td>
+                            <td>{{v.orderId}}</td>
+                            <td>{{v.status}}</td>
+                            <td>{{v.payTime}}</td>
+                            <td>{{v.price}}</td>
+                            <td>{{v.way}}</td>
                             <td>
-                            <a href="javascript:void(0);" style="margin-right: 20px;" @click="goUpdate(v.ID)">编辑</a>
                             <a href="javascript:void(0);" @click="remove(v.ID,index)">删除</a>
                             </td>
                         </tr>
@@ -38,22 +59,21 @@
 <script src="__PUBLIC__/admin/js/laydate.js"></script>
 <script type="text/javascript" src="__PUBLIC__/admin/js/page.js"></script>
 <script type="text/javascript">
-
 var vue=new Vue({
 	el:'#update',
 	data:{
-		products:[]	
+		products:[
+			{'orderId':102345486432,'status':'已支付','payTime':'2018-12-31','price':'600','way':'微信'},
+			{'orderId':102345486698,'status':'已支付','payTime':'2019-12-31','price':'800','way':'支付宝'}
+		]	
 	},
 	methods:{
-		goUpdate:function(id){
-			window.location.href=baseurl+'?s=admin/Coupon/update_coupon&id='+id;
-		},
-		remove:function(ids,arrid){
+		/*remove:function(ids,arrid){
 			layer.alert('确定要删除吗?',function(){
 				//console.log(i);
 				vue.$http.post(baseurl+'?s=admin/Coupon/delete_coupon',{id:ids}).then(res=>{
 					//console.log(res);
-					var num=eval('('+res.bodyText+')');
+					var num=eval('('+res.bodyText+') ');
 					if(num==1){
 						layer.msg('删除成功！',{time:1500});
 						vue.products.splice(arrid,1);
@@ -65,12 +85,12 @@ var vue=new Vue({
 				})	
 			});
 			
-		}
+		}*/
 		 
 	},
 	created:function(){
-		page.url='admin/Coupon/index';
-        page.onload(); 
+		/*page.url='admin/Account/index';
+        page.onload(); */
 		/*this.$http.post(baseurl+'?s=admin/Coupon/index',{list:1}).then(res=>{
 				this.products=eval('('+res.bodyText+')')['value'];
 				//console.log(this.products);
