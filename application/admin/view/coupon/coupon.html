@@ -1,107 +1,64 @@
 {include file="public/header"}	
-<div class="content" id="lessonEdit">
+<div class="content" id="update">
 	<div class="rightBox">
 		<div class="main">
-			
-			<div class="seach_tigs" id="edit">
-				<h3 id="addLesson">优惠券基础信息</h3>
-	            
-	                <ul class="clearfix">
-                        <li>
-                            <label class="seach-label">
-                                <span>*</span>优惠券名称：
-                            </label>
-                            <input type="text" name="" value="" class="form-control" v-model="name">
-                        </li>
-                        <li>
-                            <label class="seach-label">
-                                <span>*</span>优惠券链接：
-                            </label>
-                            <input type="text" name="" value="" class="form-control" v-model="href">
-                        </li>
-                        <li>
-                            <label class="seach-label">
-                                <span>*</span>面值：
-                            </label>
-                            <input type="text" name="" value="" class="form-control" v-model="price">
-                        </li>
-                        <li>
-                            <label class="seach-label">
-                                
-                            </label>
-                            <input type="checkbox" name="" style="-webkit-appearance:checkbox"> 满 <input type="text" name="" value="" class="form-control"> 可使用
-                        </li>
-                        <li>
-                            <label class="seach-label">
-                                <span>*</span>每人限领：
-                            </label>
-                            <input type="text" name="" value="" class="form-control" v-model="">
-                        </li>
-                        <li>
-                            <label class="seach-label">
-                                <span>*</span>发放总量：
-                            </label>
-                            <input type="text" name="" value="" class="form-control" v-model="semester" style="width: 300px"> 张
-                        </li>
-                        <li>
-                        	<label class="seach-label">
-                                <span>*</span>生效时间：
-                            </label>
-                        	<input class="form-control input-xlarge" id="test5" type="text">
-                        </li>
-                        <li>
-                        	<label class="seach-label">
-                                <span>*</span>过期时间：
-                            </label>
-                        	<input class="form-control input-xlarge" id="test4" type="text">
-                        </li>
-                        <li>
-                        	<label class="seach-label">
-                                <span>*</span>使用说明：
-                            </label>
-                            <textarea style="width: 300px;height: 150px;"></textarea>
-                        </li>
-                        <li class="seach"><input type="submit" name="" value="确认" @click="get()"><a href="javascript:history.back(-1)" id="back">返回</a></li>
-                    </ul>
-                
+			<div class="seach_tigs">
+				<h3>优惠券列表</h3>
+				<div class="topBtns sc">
+					<a href="<?php echo BASE_URL;?>?s=admin/Coupon/update_coupon.html" style="width: 100px;">新增优惠券</a>
+				</div>
+                <table class="tableBox">
+                    <thead>
+                        <tr>
+                            <th>优惠券名称</th>
+                            <th>优惠券面值</th>
+                            <th>优惠券发放总量</th>
+                            <th>使用时间</th>
+                            <th width="10%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(v,index) in products">
+                            <td>{{v.NAME}}/td>
+                            <td>{{v.PRICE}}</td>
+                            <td>{{v.COUNT}}</td>
+                            <td>{{v.STARTTIME}}-{{v.ENDTIME}}</td>
+                            <td>
+                            <a href="javascript:void(0);" style="margin-right: 20px;" @click="goUpdate(v.ID)">编辑</a>
+                            <a href="javascript:void(0);" @click="remove(v.ID,index)">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-
 		</div>
 	</div>
 </div>
 {include file="public/footer"}
 <script src="__PUBLIC__/admin/js/laydate.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/page.js"></script>
 <script type="text/javascript">
-laydate.render({
-  elem: '#test5',
-  type: 'datetime'
-});
-laydate.render({
-  elem: '#test4',
-  type: 'datetime'
-});
-/*var vue=new Vue({
+
+var vue=new Vue({
 	el:'#update',
 	data:{
 		products:[]	
 	},
 	methods:{
 		goUpdate:function(id){
-			window.location.href=baseurl+'?s=admin/Lesson/add_type&id='+id;
+			window.location.href=baseurl+'?s=admin/Coupon/update_coupon&id='+id;
 		},
 		remove:function(ids,arrid){
 			layer.alert('确定要删除吗?',function(){
 				//console.log(i);
-				vue.$http.post(baseurl+'?s=admin/Lesson/dele_currtype',{id:ids}).then(res=>{
+				vue.$http.post(baseurl+'?s=admin/Coupon/delete_coupon',{id:ids}).then(res=>{
 					//console.log(res);
 					var num=eval('('+res.bodyText+')');
-					
 					if(num==1){
 						layer.msg('删除成功！',{time:1500});
 						vue.products.splice(arrid,1);
-						
 					}else{
-						location.reload();
+						location.reload(); 
 					}
 				},res=>{
 					console.log("请求失败处理,请检查Network！");
@@ -111,17 +68,19 @@ laydate.render({
 		}
 		 
 	},
-	created:function(){ 
-		this.$http.post(baseurl+'?s=admin/Lesson/type',{list:1}).then(res=>{
+	created:function(){
+		page.url='admin/Coupon/index';
+        page.onload(); 
+		/*this.$http.post(baseurl+'?s=admin/Coupon/index',{list:1}).then(res=>{
 				this.products=eval('('+res.bodyText+')')['value'];
 				//console.log(this.products);
 			},res=>{
 				console.log('请求失败处理,请检查Network!');
-			})
+			})*/
 	}
 
 })
-*/
+
 </script>
 </body>
 </html>
