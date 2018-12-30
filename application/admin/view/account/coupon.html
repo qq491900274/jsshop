@@ -1,0 +1,86 @@
+{include file="public/header"}	
+<div class="content" id="update">
+	<div class="rightBox">
+		<div class="main">
+			<div class="seach_tigs">
+				<h3>优惠券列表</h3>
+				<div class="topBtns sc">
+					<a href="<?php echo BASE_URL;?>?s=admin/Coupon/update_coupon.html" style="width: 100px;">新增优惠券</a>
+				</div>
+                <table class="tableBox">
+                    <thead>
+                        <tr>
+                            <th>优惠券名称</th>
+                            <th>优惠券面值</th>
+                            <th>优惠券发放总量</th>
+                            <th>使用时间</th>
+                            <th width="10%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(v,index) in products">
+                            <td>{{v.NAME}}/td>
+                            <td>{{v.PRICE}}</td>
+                            <td>{{v.COUNT}}</td>
+                            <td>{{v.STARTTIME}}-{{v.ENDTIME}}</td>
+                            <td>
+                            <a href="javascript:void(0);" style="margin-right: 20px;" @click="goUpdate(v.ID)">编辑</a>
+                            <a href="javascript:void(0);" @click="remove(v.ID,index)">删除</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+		</div>
+	</div>
+</div>
+{include file="public/footer"}
+<script src="__PUBLIC__/admin/js/laydate.js"></script>
+<script type="text/javascript" src="__PUBLIC__/admin/js/page.js"></script>
+<script type="text/javascript">
+
+var vue=new Vue({
+	el:'#update',
+	data:{
+		products:[]	
+	},
+	methods:{
+		goUpdate:function(id){
+			window.location.href=baseurl+'?s=admin/Coupon/update_coupon&id='+id;
+		},
+		remove:function(ids,arrid){
+			layer.alert('确定要删除吗?',function(){
+				//console.log(i);
+				vue.$http.post(baseurl+'?s=admin/Coupon/delete_coupon',{id:ids}).then(res=>{
+					//console.log(res);
+					var num=eval('('+res.bodyText+')');
+					if(num==1){
+						layer.msg('删除成功！',{time:1500});
+						vue.products.splice(arrid,1);
+					}else{
+						location.reload(); 
+					}
+				},res=>{
+					console.log("请求失败处理,请检查Network！");
+				})	
+			});
+			
+		}
+		 
+	},
+	created:function(){
+		page.url='admin/Coupon/index';
+        page.onload(); 
+		/*this.$http.post(baseurl+'?s=admin/Coupon/index',{list:1}).then(res=>{
+				this.products=eval('('+res.bodyText+')')['value'];
+				//console.log(this.products);
+			},res=>{
+				console.log('请求失败处理,请检查Network!');
+			})*/
+	}
+
+})
+
+</script>
+</body>
+</html>
