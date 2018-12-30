@@ -7,7 +7,7 @@ use think\Session;
 
 use \think\Db;
 
-class Coupon extends Controller
+class Account extends Controller
 {	
 	public function __construct(){
 		parent::__construct();
