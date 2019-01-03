@@ -17,6 +17,7 @@ class Account extends Controller
     {
     	$request=request()->post();
     	if (!empty($request['list']) && $request['list']=='1') {
+    	  $this->pmodel =  new \app\index\model\PublicModel();
 	      $where='1=1';
 
 	      if (!empty($request['code'])) {
