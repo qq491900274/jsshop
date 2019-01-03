@@ -14,13 +14,25 @@
 	                        <label class="seach-label">
 	                            订单编号：
 	                        </label>
-	                        <input type="text" name="" placeholder="请输入订单编号" class="form-control">
+	                        <input type="text" name="" placeholder="请输入订单编号" class="form-control" v-model="orderId">
 	                    </li>
 	                    <li>
 	                        <label class="seach-label">
+	                            交易流水号：
+	                        </label>
+	                        <input type="text" name="" placeholder="请输入交易流水号" class="form-control" v-model="accountId">
+	                    </li>
+	                    <li>
+	                        <label class="seach-label">
+	                            用户名：
+	                        </label>
+	                        <input type="text" name="" placeholder="请输入用户名" class="form-control" v-model="name">
+	                    </li>
+	                    <li style="width: 33%">
+	                        <label class="seach-label">
 	                            订单时间：
 	                        </label>
-	                        <input type="text" name="" value="" placeholder="请输入订单时间" class="form-control">
+	                        <input type="text" name="" value="" placeholder="请输入订单时间" class="form-control"  id="test5">
 	                    </li>
 	                </ul>
 	                <div class="topBtns seach">
@@ -30,7 +42,9 @@
                 <table class="tableBox">
                     <thead>
                         <tr>
-                            <th>订单号</th>
+                            <th>订单编号</th>
+                            <th>交易流水号</th>
+                            <th>用户名</th>
                             <th>交易状态</th>
                             <th>创建/支付时间</th>
                             <th>交易金额</th>
@@ -41,6 +55,8 @@
                     <tbody>
                         <tr v-for="(v,index) in products">
                             <td>{{v.orderId}}</td>
+                            <td>{{v.accountId}}</td>
+                            <td>{{v.name}}</td>
                             <td>{{v.status}}</td>
                             <td>{{v.payTime}}</td>
                             <td>{{v.price}}</td>
@@ -59,33 +75,52 @@
 <script src="__PUBLIC__/admin/js/laydate.js"></script>
 <script type="text/javascript" src="__PUBLIC__/admin/js/page.js"></script>
 <script type="text/javascript">
+laydate.render({
+  elem: '#test5',
+  type: 'datetime'
+});
+
 var vue=new Vue({
 	el:'#update',
 	data:{
 		products:[
-			{'orderId':102345486432,'status':'已支付','payTime':'2018-12-31','price':'600','way':'微信'},
-			{'orderId':102345486698,'status':'已支付','payTime':'2019-12-31','price':'800','way':'支付宝'}
-		]	
+			{'orderId':102345486432,'accountId':568745486432,'name':'柏林','status':'已支付','payTime':'2018-12-31','price':'600','way':'微信'},
+			{'orderId':102345486698,'accountId':568745486489,'name':'柏林','status':'已支付','payTime':'2019-12-31','price':'800','way':'微信'}
+		],
+		orderId:'',
+		accountId:'',
+		name:''
 	},
 	methods:{
-		/*remove:function(ids,arrid){
+		get:function(){
+			var time=$('#test5').val();
+			this.$http.post(baseurl+'?s=admin/Accout/index',{where:{'orderId':this.orderId,'accountId':this.accountId,'name':this.name,'time':time}}).then(res=>{
+				page.where={'orderId':this.orderId,'accountId':this.accountId,'name':this.name,'time':time};
+				var val=eval('('+res.bodyText+')');
+				this.products=val['value'];
+				page.htmlPage(val['allCount']);
+			},res=>{
+				console.log('请求失败,请检查Network!');
+			})
+		},
+		remove:function(ids,arrid){
 			layer.alert('确定要删除吗?',function(){
 				//console.log(i);
-				vue.$http.post(baseurl+'?s=admin/Coupon/delete_coupon',{id:ids}).then(res=>{
+				vue.$http.post(baseurl+'?s=admin/Accout/delete_accout',{id:ids}).then(res=>{
 					//console.log(res);
-					var num=eval('('+res.bodyText+') ');
+					var num=eval('('+res.bodyText+')');
 					if(num==1){
 						layer.msg('删除成功！',{time:1500});
 						vue.products.splice(arrid,1);
 					}else{
-						location.reload(); 
+						location.reload();
 					}
 				},res=>{
 					console.log("请求失败处理,请检查Network！");
 				})	
 			});
 			
-		}*/
+		}
 		 
 	},
 	created:function(){
