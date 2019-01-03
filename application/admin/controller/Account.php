@@ -16,14 +16,14 @@ class Account extends Controller
  	public function index()
     {
     	$request=request()->post();
-    	if (!empty($Request['list']) && $Request['list']=='1') {
+    	if (!empty($request['list']) && $request['list']=='1') {
 	      $where='1=1';
 
-	      if (!empty($Request['code'])) {
-	        $where.=" AND ORDERCODE='{$Request['code']}'";
+	      if (!empty($request['code'])) {
+	        $where.=" AND ORDERCODE='{$request['code']}'";
 	      }
-	   	  if (!empty($Request['paycode'])) {
-	        $where.=" AND PAYCODE='{$Request['paycode']}'";
+	   	  if (!empty($request['paycode'])) {
+	        $where.=" AND PAYCODE='{$request['paycode']}'";
 	      }   
 	      //获取post当前页数。与查询条件。
 	      $maxpage = empty($request['page'])?'19':20*$request['page']-1;
