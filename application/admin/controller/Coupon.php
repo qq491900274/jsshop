@@ -44,7 +44,7 @@ class Coupon extends Controller
   }
   
   public function update_coupon(){
-    $Request=request()->post();
+    $request=request()->post();
 
     if (!empty($request)) {
       $time=date('Y-m-d H:i:s');
