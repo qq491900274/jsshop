@@ -46,7 +46,7 @@ class Account extends Controller
     	$Request=request()->post();
 
     	if (empty($where['id'])) {
-    		echo '未获取到id'；
+    		echo '未获取到id';
     	}
 
     	$where['ID']=$Request['id'];
