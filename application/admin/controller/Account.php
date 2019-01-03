@@ -49,8 +49,8 @@ class Account extends Controller
     public function delaccount(){
     	$Request=request()->post();
 
-    	if (empty($where['id'])) {
-    		echo '未获取到id';
+    	if (empty($Request['id'])) {
+    		echo '未获取到id';exit;
     	}
 
     	$where['ID']=$Request['id'];
