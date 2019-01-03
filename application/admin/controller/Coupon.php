@@ -32,7 +32,7 @@ class Coupon extends Controller
       //获取查询条件
       $where .= " LIMIT {$minpage},{$maxpage}";
       
-      $key = "ID,NAME,COUPONURL,PRICE,ISWHERE,WHEREPRICE,MAXNUM,COUNT,STARTTIME,ENDTIME,CONTENT,DATETIME,PIC";
+      $key = "ID,ORDERCODE,STATE,CREATETIME,PAYTIME,MONEY,PAYCODE";
       $result['value'] = $this->pmodel->select('SHOP_COUPON',$key,$where);
       $result['page'] = empty($request['page']) ? '1' : $request['page'];
       
