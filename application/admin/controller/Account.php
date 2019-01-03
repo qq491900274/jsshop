@@ -20,11 +20,11 @@ class Account extends Controller
     	  $this->pmodel =  new \app\index\model\PublicModel();
 	      $where='1=1';
 
-	      if (!empty($request['code'])) {
-	        $where.=" AND ORDERCODE='{$request['code']}'";
+	      if (!empty($request['where']['code'])) {
+	        $where.=" AND ORDERCODE='{$request['where']['code']}'";
 	      }
-	   	  if (!empty($request['paycode'])) {
-	        $where.=" AND PAYCODE='{$request['paycode']}'";
+	   	  if (!empty($request['where']['paycode'])) {
+	        $where.=" AND PAYCODE='{$request['where']['paycode']}'";
 	      }   
 	      //获取post当前页数。与查询条件。
 	      $maxpage = empty($request['page'])?'19':20*$request['page']-1;
