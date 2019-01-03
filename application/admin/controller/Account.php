@@ -19,10 +19,12 @@ class Account extends Controller
     	if (!empty($Request['list']) && $Request['list']=='1') {
 	      $where='1=1';
 
-	      if (!empty($Request['id']) && $Request=='1 ') {
-	        $where.=" AND ID='{$Request['id']}'";
+	      if (!empty($Request['code'])) {
+	        $where.=" AND ORDERCODE='{$Request['code']}'";
 	      }
-	      
+	   	  if (!empty($Request['paycode'])) {
+	        $where.=" AND PAYCODE='{$Request['paycode']}'";
+	      }   
 	      //获取post当前页数。与查询条件。
 	      $maxpage = empty($request['page'])?'19':20*$request['page']-1;
 	      $minpage = $maxpage-19;
@@ -31,7 +33,8 @@ class Account extends Controller
 	      //获取查询条件
 	      $where .= " LIMIT {$minpage},{$maxpage}";
 	      
-	      $key = "ID,NAME,COUPONURL,PRICE,ISWHERE,WHEREPRICE,MAXNUM,COUNT,STARTTIME,ENDTIME,CONTENT,DATETIME,PIC";
+	      
+	      $key = "ID,ORDERCODE,STATE,CREATETIME,PAYTIME,MONEY,PAYCODE";
 	      $result['value'] = $this->pmodel->select('SHOP_ACCOUNT',$key,$where);
 	      $result['page'] = empty($request['page']) ? '1' : $request['page'];
 	      
