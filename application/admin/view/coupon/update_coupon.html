@@ -120,6 +120,7 @@ var vue=new Vue({
         count:'',
         content:'',
         img:'',
+        id:'<?php echo @$_GET['id']?>'
 
 	},
 	methods:{
@@ -127,7 +128,40 @@ var vue=new Vue({
         var startTime=$('#test5').val();
         var endTime=$('#test4').val();
         var img=$('#hpic').val();
+        if(!this.name){
+            layer.alert('优惠券名称不能为空！');
+            return;
+        }
+        if(!this.couponurl){
+            layer.alert('优惠券链接不能为空！');
+            return;
+        }
+        if(!this.price){
+            layer.alert('面值不能为空！');
+            return;
+        }
+        if(!this.whereprice){
+            layer.alert('满额使用不能为空！');
+            return;
+        }
+        if(!this.maxnum){
+            layer.alert('每人限领值不能为空！');
+            return;
+        }
+        if(!this.count){
+            layer.alert('发放总量不能为空！');
+            return;
+        }
+        if(!startTime || !endTime){
+            layer.alert('起始时间不能为空！');
+            return;
+        }
+        if(!this.content){
+            layer.alert('使用说明不能为空！');
+            return;
+        }
         this.$http.post(baseurl+'?s=admin/Coupon/update_coupon',{
+            'id':this.id,
             'name':this.name,
             'couponurl':this.couponurl, 
             'price':this.price,
@@ -141,11 +175,10 @@ var vue=new Vue({
             'pic':img
             }).then(res=>{
                 if(res.bodyText==1){
-                    layer.msg('保存成功',function(){
-                        window.history.go(-1);
-                    });
+                    layer.msg('保存成功！',function(){
+                        //window.history.go(-1);
+                    })
                 }
-                
         },res=>{
             console.log('请求失败处理,请检查Network!');
         })
@@ -156,9 +189,9 @@ var vue=new Vue({
             $('#addLesson').html('新增优惠券');
             return;
         }
-		this.$http.post(baseurl+'?s=admin/Coupon/update_coupon',{list:1}).then(res=>{
-             $('#addLesson').html('优惠券基础信息');
-				var val=eval('('+res.bodyText+')')['value'];
+		this.$http.post(baseurl+'?s=admin/Coupon/index',{'id':this.id,list:1}).then(res=>{
+                $('#addLesson').html('优惠券基础信息');
+				var val=eval('('+res.bodyText+')')['value'][0];
                 this.name=val['NAME'];
                 this.couponurl=val['COUPONURL'];
                 this.price=val['PRICE'];
