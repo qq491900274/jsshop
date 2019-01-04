@@ -20,7 +20,7 @@ class Coupon extends Controller
     if (!empty($Request['list']) && $Request['list']=='1') {
       $where='1=1';
 
-      if (!empty($Request['id']) && $Request=='1 ') {
+      if (!empty($Request['id'])) {
         $where.=" AND ID='{$Request['id']}'";
       }
       
