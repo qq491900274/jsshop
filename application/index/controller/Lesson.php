@@ -48,30 +48,22 @@ class Lesson extends mobile_controller
     function get_class(){
     	$Request=request()->post();
 		$this->pmodel =  new \app\index\model\PublicModel(); 
-		$where='';
+		$where='1=1 ';
 
 		if (!empty($Request['school'])) {
-			$where=" SCHOOLID='{$Request['school']}'";
-		}else{
-			return json_encode(array('msg'=>'缺少校区参数！','state'=>'2'));
+			$where.=" and SCHOOLID='{$Request['school']}'";
 		}
 
 		if (!empty($Request['class'])) {
 			$where.=" and CLASSGUID='{$Request['school']}'";
-		}else{
-			return json_encode(array('msg'=>'缺少年级参数！','state'=>'2'));
 		}
 
 		if (!empty($Request['subject'])) {
 			$where.=" and SUBJECTGUID='{$Request['subject']}'";
-		}else{
-			return json_encode(array('msg'=>'缺少科目参数！','state'=>'2'));
 		}
 
 		if (!empty($Request['classtypeguid'])) {
 			$where.=" and CLASSTYPEGUID='{$Request['classtypeguid']}'";
-		}else{
-			return json_encode(array('msg'=>'缺少科目参数！','state'=>'2'));
 		}
 		
 		$key='ID,NAME,CODE,PRICE,DATETIME,CONTENT,SEASONTYPE,STARTTIME,ENDTIME,COURSENUM,COURSETIME,IMG,COUNT';
@@ -84,6 +76,23 @@ class Lesson extends mobile_controller
     	$key='ID,NAME';
 		$data=$this->pmodel->select('SHOP_CURRICULUM_TYPE',$key,$where);
 		return $data;
+    }
+    
+    //获取课程详情
+    function get_lesson(){
+    	$Request=request()->post();
+		$this->pmodel =  new \app\index\model\PublicModel(); 
+
+    	if ($Request['id']) {
+    		$key='C.ID,C.NAME,C.CODE,C.PRICE,C.DATETIME,C.CONTENT,C.SEASONTYPE,'.
+    			'C.STARTTIME,C.ENDTIME,C.COURSENUM,C.COURSETIME,C.IMG,C.COUNT,'.
+    			'T.NAME,T.CODE,T.SUBJECT,T.SCHOOLID,T.INTRO,T.PIC,T.DATE'.
+    			'S.PROVINCE,S.CITY,S.AREA,S.SCHOOL_NAME,S.ADDREDD,S.PHONE';
+    		$table='SHOP_CURRICULUM as C '.
+    			'left join SHOP_TEACHER as T on T.ID=C.TEACHERGUID '.
+    			'left join SHOP_SCHOOL as S on S.ID=C.SCHOOLID ';
+			return $data=$this->pmodel->select(,$key,$where);
+    	}
     }
    
 }
