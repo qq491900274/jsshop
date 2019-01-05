@@ -94,5 +94,28 @@ class Lesson extends mobile_controller
 			return $data=$this->pmodel->select($table,$key,$where);
     	}
     }
+
+    //添加购物车功能
+    function add_cart(){
+    	$Request=request()->post();
+
+    	foreach ($Request['date'] as $key => $value) {
+    		$data['CURRICULUMID']=$value['id'];
+	    	$data['USERID']=$value['userid'];
+	    	$data['DATETIME']=date('Y-m-d H:i:s');
+	    	$data['ID']=uniqid();
+	    	$data['NUM']=$value['num'];
+	    	$data['COUNPONID']=$value['couponid'];
+	    	Db::table('SHOP_CART')->insert($data);
+    	}
+
+    	return 1;
+    }
+    //删除购物车
+    function del_cart(){
+    	$Request=request()->post();
+    	Db::table('SHOP_CART')->where('ID',$Request['id'])->delete();
+    	return 1;
+    }
    
 }
