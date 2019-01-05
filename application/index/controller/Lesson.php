@@ -67,9 +67,22 @@ class Lesson extends mobile_controller
 		}else{
 			return json_encode(array('msg'=>'缺少科目参数！','state'=>'2'));
 		}
+
+		if (!empty($Request['classtypeguid'])) {
+			$where.=" and CLASSTYPEGUID='{$Request['classtypeguid']}'";
+		}else{
+			return json_encode(array('msg'=>'缺少科目参数！','state'=>'2'));
+		}
 		
 		$key='ID,NAME,CODE,PRICE,DATETIME,CONTENT,SEASONTYPE,STARTTIME,ENDTIME,COURSENUM,COURSETIME,IMG,COUNT';
 		$data=$this->pmodel->select('SHOP_CURRICULUM',$key,$where);
+		return $data;
+    }
+
+    //返回课堂类型
+    function get_classtype(){
+    	$key='ID,NAME';
+		$data=$this->pmodel->select('SHOP_CURRICULUM_TYPE',$key,$where);
 		return $data;
     }
    
