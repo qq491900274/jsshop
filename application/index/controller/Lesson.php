@@ -55,7 +55,7 @@ class Lesson extends mobile_controller
 		}
 
 		if (!empty($Request['class'])) {
-			$where.=" and CLASSGUID='{$Request['school']}'";
+			$where.=" and CLASSGUID='{$Request['class']}'";
 		}
 
 		if (!empty($Request['subject'])) {
