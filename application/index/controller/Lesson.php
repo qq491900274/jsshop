@@ -83,14 +83,16 @@ class Lesson extends mobile_controller
     	$Request=request()->post();
 		$this->pmodel =  new \app\index\model\PublicModel(); 
 
-    	if ($Request['id']) {
+    	if (!empty($Request['id'])) {
+    		$where="ID='{$Request['id']}'";
     		$key='C.ID,C.NAME,C.CODE,C.PRICE,C.DATETIME,C.CONTENT,C.SEASONTYPE,'.
     			'C.STARTTIME,C.ENDTIME,C.COURSENUM,C.COURSETIME,C.IMG,C.COUNT,'.
-    			'T.NAME,T.CODE,T.SUBJECT,T.SCHOOLID,T.INTRO,T.PIC,T.DATE'.
-    			'S.PROVINCE,S.CITY,S.AREA,S.SCHOOL_NAME,S.ADDREDD,S.PHONE';
+    			'T.NAME,T.CODE,T.SUBJECT,T.INTRO,T.PIC,T.DATE,'.
+    			'S.PROVINCE,S.CITY,S.AREA,S.SCHOOL_NAME,S.ADDRESS,S.PHONE';
     		$table='SHOP_CURRICULUM as C '.
     			'left join SHOP_TEACHER as T on T.ID=C.TEACHERGUID '.
     			'left join SHOP_SCHOOL as S on S.ID=C.SCHOOLID ';
+    		
 			return $data=$this->pmodel->select($table,$key,$where);
     	}
     }
