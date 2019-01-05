@@ -142,7 +142,7 @@
 			</ul>
 		</div>
 	</div>
-	<div class="posBox">
+	<div class="posBox school_last">
 		<div class="main2">
 			<p>选择校区</p>
 			<ul class="clearfix">
@@ -164,7 +164,6 @@
 {include file="common/footer"}
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=s4u13aUZAj36D4XWMm52TexzlwGGg7GG"></script>
 <script type="text/javascript">
-
 var vue= new Vue({
 	el:'#index',
 	data:{
@@ -348,6 +347,12 @@ $(function(){
 	$('.shade').click(function(){
 		$('.posAll').animate({left:'-80%'},400);
 		$(this).css({'display':'none'});
+	});
+	$('.school_last ul li').each(function(){
+		$(this).find('a').click(function(){
+			alert(111);
+			$('.posAll').animate({left:0'-80%'},400);
+		})
 	})
 })
 
