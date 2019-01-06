@@ -1,39 +1,30 @@
 {include file="common/header"}
 
-<body id="lessonList">
+<body>
+<div id="lessonList">
 <div class="tab">
 	<div class="main2">
 		<ul>
-			<li><a href="#">金石V课<span class="block"><i class="icon iconfont">&#xe65b;</i></span></a></li>
-			<li><a href="#">金石拼课</a></li>
-			<li><a href="#">金石1对1</a></li>
+			<li v-for="v in type" @click="typeLe(v.ID)"><a href="#">{{v.NAME}}<span class="block"><i class="icon iconfont">&#xe65b;</i></span></a></li>
+		
 		</ul>
 	</div>
 </div>
 <div class="lessonLi">
+  <div class="main4">
 	<ul>
-		<li><a href="#">
-			<h1>基金班</h1>
-			<span>Fund class</span>
-			<h3>七年级语文</h3>
+		<li v-for="v in listBox"><a :href="<?php echo BASE_URL;?>?s=index/Lesson/order_list.html"+{{v.ID}}>
+			<h3>{{v.NAME}}({{v.SEASONTYPE}})</h3>
 			<p>以教学大纲为主线</p>
 			<p>综合梳理重要知识，构建系统学科框架</p>
-		</a></li>
-		<li><a href="#">
-			<h1>培优班</h1>
-			<span>Training class</span>
-			<h3>七年级语文</h3>
-			<p>以教学大纲为主线</p>
-			<p>综合梳理重要知识，构建系统学科框架</p>
-		</a></li>
-		<li><a href="#">
-			<h1>精英班</h1>
-			<span>Elite class</span>
-			<h3>七年级语文</h3>
-			<p>以教学大纲为主线</p>
-			<p>综合梳理重要知识，构建系统学科框架</p>
+      <p class="time">{{v.STARTTIME}} 至 {{v.ENDTIME}}</p>
+      <div class="bot clearfix">
+        <div><img src="__PUBLIC__/index/images/sp_05.png"><span>许向前</span></div>
+        <h1><span>￥</span>{{v.PRICE}}</h1>
+      </div>  
 		</a></li>
 	</ul>
+  </div>
 </div>
 
 <!-- <div class="search"><i class="icon iconfont">&#xe614;</i></div> -->
@@ -42,192 +33,120 @@
       <div class="wrapper clearfix">
         <nav id="main-nav">
           <ul class="second-nav">
-            <li>
-              <a href="#">四年级</a>
+            <li v-for="(v,index) in products">
+              <a href="#">{{v.NAME}}</a>
+
               <ul>
-              	<li><a href="#">语文</a></li>
-                <li><a href="#">数学</a></li>
-                <li><a href="#">英语</a></li>
-                <li><a href="#">政治</a></li>
-                <li><a href="#">历史</a></li>
-                <li><a href="#">地理</a></li>
-                <li><a href="#">生物</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">五年级</a>
-              <ul>
-              	<li><a href="#">语文</a></li>
-                <li><a href="#">数学</a></li>
-                <li><a href="#">英语</a></li>
-                <li><a href="#">政治</a></li>
-                <li><a href="#">历史</a></li>
-                <li><a href="#">地理</a></li>
-                <li><a href="#">生物</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">六年级</a>
-              <ul>
-              	<li><a href="#">语文</a></li>
-                <li><a href="#">数学</a></li>
-                <li><a href="#">英语</a></li>
-                <li><a href="#">政治</a></li>
-                <li><a href="#">历史</a></li>
-                <li><a href="#">地理</a></li>
-                <li><a href="#">生物</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">七年级</a>
-              <ul>
-              	<li><a href="#">语文</a></li>
-                <li><a href="#">数学</a></li>
-                <li><a href="#">英语</a></li>
-                <li><a href="#">政治</a></li>
-                <li><a href="#">历史</a></li>
-                <li><a href="#">地理</a></li>
-                <li><a href="#">生物</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">八年级</a>
-              <ul>
-              	<li><a href="#">语文</a></li>
-                <li><a href="#">数学</a></li>
-                <li><a href="#">英语</a></li>
-                <li><a href="#">政治</a></li>
-                <li><a href="#">历史</a></li>
-                <li><a href="#">地理</a></li>
-                <li><a href="#">生物</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">九年级</a>
-              <ul>
-              	<li><a href="#">语文</a></li>
-                <li><a href="#">数学</a></li>
-                <li><a href="#">英语</a></li>
-                <li><a href="#">政治</a></li>
-                <li><a href="#">历史</a></li>
-                <li><a href="#">地理</a></li>
-                <li><a href="#">生物</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">高一</a>
-              <ul>
-              	<li><a href="#">语文</a></li>
-                <li><a href="#">数学</a></li>
-                <li><a href="#">英语</a></li>
-                <li><a href="#">政治</a></li>
-                <li><a href="#">历史</a></li>
-                <li><a href="#">地理</a></li>
-                <li><a href="#">生物</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">高二</a>
-              <ul>
-              	<li><a href="#">语文</a></li>
-                <li><a href="#">数学</a></li>
-                <li><a href="#">英语</a></li>
-                <li><a href="#">政治</a></li>
-                <li><a href="#">历史</a></li>
-                <li><a href="#">地理</a></li>
-                <li><a href="#">生物</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">高三</a>
-              <ul>
-              	<li><a href="#">语文</a></li>
-                <li><a href="#">数学</a></li>
-                <li><a href="#">英语</a></li>
-                <li><a href="#">政治</a></li>
-                <li><a href="#">历史</a></li>
-                <li><a href="#">地理</a></li>
-                <li><a href="#">生物</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">艺考</a>
-              <ul>
-              	<li><a href="#">语文</a></li>
-                <li><a href="#">数学</a></li>
-                <li><a href="#">英语</a></li>
-                <li><a href="#">政治</a></li>
-                <li><a href="#">历史</a></li>
-                <li><a href="#">地理</a></li>
-                <li><a href="#">生物</a></li>
+              	<li v-for="t in products[index].SUBJECTID" onclick="grade(this)">
+                  <a href="#">{{t.NAME}}</a>
+                  <input type="hidden" name="" :value="v.ID" class="vid">
+                  <input type="hidden" name="" :value="t.ID" class="tid">
+                </li>
               </ul>
             </li>
           </ul>
         </nav>
-        <a class="toggle"><img src="__PUBLIC__/index/images/less_02.png"></a>
+        <a class="toggle"><img src="__PUBLIC__/index/images/less_02.png" @click="get()"></a>
       </div>
 </div>
-<div class="lessSearch"><i class="icon iconfont">&#xe614;</i></div>
-{include file="common/footer2"}
-<script type="text/javascript" src="__PUBLIC__/index/js/hc-mobile-nav.js"></script>
+<!--< div class="lessSearch"><i class="icon iconfont">&#xe614;</i></div> -->
+</div>
+
+
 <script>
+  var school=getcookie('school');
+  var gradeId;
+  var subjectId;
+  var typeId;
+
+function grade(list){
+  vid=$(list).find('.vid').val();
+  tid=$(list).find('.tid').val();
+  gradeId=vid;
+  subjectId=tid;
+  vue.grade();
+}
+ 
 var vue=new Vue({
   el:'#lessonList',
   data:{
-
+    products:[],
+    type:[],
+    listBox:[]
   },
   methods:{
-
+    grade:function(){
+      this.$http.post(baseurl+'?s=index/Lesson/get_class',{'class':gradeId,'subject':subjectId,'school':school,'classtypeguid':typeId}).then(res=>{
+        this.listBox=eval('('+res.bodyText+')');
+      },res=>{
+        console.log('请求失败,请检查Network!');
+      })
+    },
+    typeLe:function(vid){
+      typeId=vid;
+      this.$http.post(baseurl+'?s=index/Lesson/get_class',{'classtypeguid':typeId,'school':school,'class':gradeId,'subject':subjectId}).then(res=>{
+        this.listBox=eval('('+res.bodyText+')');
+      },res=>{
+        console.log('请求失败,请检查Network!');
+      })
+    },
+    get:function(){
+        $(function(){
+          var $nav = $('#main-nav');
+          var $toggle = $('.toggle');
+          var defaultData = {
+            maxWidth: false,
+            customToggle: $toggle,
+            navTitle: '金石教育',
+            levelTitles: true
+          };
+          // we'll store our temp stuff here
+          var $clone = null;
+          var data = {};
+          // calling like this only for demo purposes
+          const initNav = function(conf) {
+            if ($clone) {
+              // clear previous instance
+              $clone.remove();
+            }
+            // remove old toggle click event
+            $toggle.off('click');
+            // make new copy
+            $clone = $nav.clone();
+            // remember data
+            $.extend(data, conf);
+            // call the plugin
+            $clone.hcMobileNav($.extend({}, defaultData, data));
+          }
+          // run first demo
+          initNav({});
+          $('.actions').find('a').on('click', function(e) {
+            e.preventDefault();
+            var $this = $(this).addClass('active');
+            var $siblings = $this.parent().siblings().children('a').removeClass('active');
+            initNav(eval('(' + $this.data('demo') + ')'));
+          });
+        });
+    }
   },
   created:function(){
-    this.$http.post().then(res=>{
-
+    this.$http.post(baseurl+'?s=index/Lesson/index',{list:1}).then(res=>{
+      this.products=eval('('+res.bodyText+')')['value'];
     },res=>{
+       console.log('请求失败,请检查Network!');
+    });
+    this.$http.post(baseurl+'?s=admin/Lesson/type',{list:1}).then(res=>{
+      this.type=eval('('+res.bodyText+')')['value'];
+    },res=>{
+      console.log('请求失败,请检查Network!');
+    });
 
-    })
   }
 })
-// $(function(){
-
-// })
-
-  $(function(){
-    var $nav = $('#main-nav');
-    var $toggle = $('.toggle');
-    var defaultData = {
-      maxWidth: false,
-      customToggle: $toggle,
-      navTitle: '金石教育',
-      levelTitles: true
-    };
-    // we'll store our temp stuff here
-    var $clone = null;
-    var data = {};
-    // calling like this only for demo purposes
-    const initNav = function(conf) {
-      if ($clone) {
-        // clear previous instance
-        $clone.remove();
-      }
-      // remove old toggle click event
-      $toggle.off('click');
-      // make new copy
-      $clone = $nav.clone();
-      // remember data
-      $.extend(data, conf);
-      // call the plugin
-      $clone.hcMobileNav($.extend({}, defaultData, data));
-    }
-    // run first demo
-    initNav({});
-    $('.actions').find('a').on('click', function(e) {
-      e.preventDefault();
-      var $this = $(this).addClass('active');
-      var $siblings = $this.parent().siblings().children('a').removeClass('active');
-      initNav(eval('(' + $this.data('demo') + ')'));
-    });
-  });
 </script>
+
+{include file="common/footer"}
+<script type="text/javascript" src="__PUBLIC__/index/js/hc-mobile-nav.js"></script>
 
 </body>
 </html>
