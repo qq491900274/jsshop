@@ -45,9 +45,9 @@ class Lesson extends mobile_controller
     }
 
 
-     public function get_lesson()
+     public function lesson_show()
     {
-      return $this->fetch('get_lesson');
+      return $this->fetch('lesson_show');
     }
 
 
