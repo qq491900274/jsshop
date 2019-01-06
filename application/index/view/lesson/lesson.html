@@ -13,7 +13,7 @@
 <div class="lessonLi">
   <div class="main4">
 	<ul>
-		<li v-for="v in listBox"><a :href="<?php echo BASE_URL;?>?s=index/Lesson/order_list.html"+{{v.ID}}>
+		<li v-for="v in listBox"><a href="javascript:void(0)" @click="show(v.ID)">
 			<h3>{{v.NAME}}({{v.SEASONTYPE}})</h3>
 			<p>以教学大纲为主线</p>
 			<p>综合梳理重要知识，构建系统学科框架</p>
@@ -75,6 +75,9 @@ var vue=new Vue({
     listBox:[]
   },
   methods:{
+    goupdate:function(id){
+      window.location.href=baseurl+'?s=admin/Lesson/get_lesson&id='+id;
+    },
     grade:function(){
       this.$http.post(baseurl+'?s=index/Lesson/get_class',{'class':gradeId,'subject':subjectId,'school':school,'classtypeguid':typeId}).then(res=>{
         this.listBox=eval('('+res.bodyText+')');
