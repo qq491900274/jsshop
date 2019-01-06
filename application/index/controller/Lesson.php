@@ -44,6 +44,13 @@ class Lesson extends mobile_controller
     	return $this->fetch('lesson'); 
     }
 
+
+     public function lesson_show()
+    {
+      return $this->fetch('lesson_show');
+    }
+
+
     //返回符合条件的课程
     function get_class(){
     	$Request=request()->post();
