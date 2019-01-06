@@ -70,13 +70,7 @@ var vue=new Vue({
 	},
 	created:function(){
 		page.url='admin/Coupon/index';
-        page.onload(); 
-		/*this.$http.post(baseurl+'?s=admin/Coupon/index',{list:1}).then(res=>{
-				this.products=eval('('+res.bodyText+')')['value'];
-				//console.log(this.products);
-			},res=>{
-				console.log('请求失败处理,请检查Network!');
-			})*/
+        page.onload();
 	}
 
 })

@@ -1,4 +1,5 @@
-{include file="public/header"}	
+{include file="public/header"}
+
 <div class="content" id="lessonEdit">
 	<div class="rightBox">
 		<div class="main">
@@ -84,6 +85,7 @@
 {include file="public/footer"}
 <script src="__PUBLIC__/admin/js/laydate.js"></script>
 <script type="text/javascript">
+
 function uploadpic(this0){
     $.ajaxFileUpload({
         fileElementId: 'file',    //需要上传的文件域的ID，即<input type="file">的ID。
@@ -100,14 +102,6 @@ function uploadpic(this0){
 }
 
 
-laydate.render({
-  elem: '#test5',
-  type: 'datetime'
-});
-laydate.render({
-  elem: '#test4',
-  type: 'datetime'
-});
 var vue=new Vue({
 	el:'#lessonEdit',
 	data:{
@@ -123,6 +117,12 @@ var vue=new Vue({
         id:'<?php echo @$_GET['id']?>'
 
 	},
+    mounted: function(){
+         laydate.render({
+            elem: '#test5,#test4',//指定元素
+            type: 'datetime'
+        });
+    },
 	methods:{
 	   get:function(){
         var startTime=$('#test5').val();
@@ -176,7 +176,7 @@ var vue=new Vue({
             }).then(res=>{
                 if(res.bodyText==1){
                     layer.msg('保存成功！',function(){
-                        //window.history.go(-1);
+                        window.history.go(-1);
                     })
                 }
         },res=>{
@@ -211,5 +211,6 @@ var vue=new Vue({
 })
 
 </script>
+
 </body>
 </html>
