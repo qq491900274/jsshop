@@ -109,7 +109,14 @@ window.onload = function(){
                     }
 	            });
             }
-        } 
+        },
+        created:function(){
+        	if($.cookie('username',this.user) && $.cookie('pd',this.pwd)){
+        		//alert(111);
+        		$('#remember').is(':checked');
+        	}
+        	
+        }
     });
     vm.user=$.cookie('username');
     vm.pwd=$.cookie('pd');
