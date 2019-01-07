@@ -99,7 +99,7 @@ class Lesson extends mobile_controller
     		$where="ID='{$Request['id']}'";
     		$key='C.ID,C.NAME,C.CODE,C.PRICE,C.DATETIME,C.CONTENT,C.SEASONTYPE,'.
     			'C.STARTTIME,C.ENDTIME,C.COURSENUM,C.COURSETIME,C.IMG,C.COUNT,'.
-    			'T.NAME,T.CODE,T.SUBJECT,T.INTRO,T.PIC,T.DATE,'.
+    			'T.NAME TEACHERNAME,T.CODE,T.SUBJECT,T.INTRO,T.PIC,T.DATE,'.
     			'S.PROVINCE,S.CITY,S.AREA,S.SCHOOL_NAME,S.ADDRESS,S.PHONE';
     		$table='SHOP_CURRICULUM as C '.
     			'left join SHOP_TEACHER as T on T.ID=C.TEACHERGUID '.
