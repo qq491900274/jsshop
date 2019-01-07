@@ -104,7 +104,7 @@ class Lesson extends mobile_controller
     		$table='SHOP_CURRICULUM as C '.
     			'left join SHOP_TEACHER as T on T.ID=C.TEACHERGUID '.
     			'left join SHOP_SCHOOL as S on S.ID=C.SCHOOLID '.
-                'left join SHOP_SUBJECT AS ST ON ST.ID=C.CLASSGUID'.
+                'left join SHOP_SUBJECT AS ST ON ST.ID=C.CLASSGUID '.
                 'left join SHOP_SUBJECT AS TS ON TS.ID=C.SUBJECT';
     		
 			return $data=$this->pmodel->select($table,$key,$where);
