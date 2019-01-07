@@ -98,7 +98,7 @@ class Lesson extends mobile_controller
     	if (!empty($Request['id'])) {
     		$where="C.ID='{$Request['id']}'";
     		$key='C.ID,C.NAME,C.CODE,C.PRICE,C.DATETIME,C.CONTENT,C.SEASONTYPE,'.
-    			'C.STARTTIME,C.ENDTIME,C.COURSENUM,C.COURSETIME,C.IMG,C.COUNT,'.
+    			'C.STARTTIME,C.ENDTIME,C.COURSENUM,C.COURSETIME,C.IMG,C.COUNT,C.TEACHERGUID'.
     			'T.NAME TEACHERNAME,T.CODE,T.SUBJECT,T.INTRO,T.PIC,T.DATE,'.
     			'S.PROVINCE,S.CITY,S.AREA,S.SCHOOL_NAME,S.ADDRESS,S.PHONE,ST.NAME CLASSNAME,TS.NAME SUBJECTNAME';
     		$table='SHOP_CURRICULUM as C '.
@@ -111,6 +111,19 @@ class Lesson extends mobile_controller
     	}
     }
 
+    //获取老师所属课程
+    function get_teacher(){
+        $Request=request()->post();
+        $this->pmodel =  new \app\index\model\PublicModel(); 
+
+        if (!empty($Request['id'])) {
+            $where="TEACHERGUID='{$Request['id']}'";
+            $key='*';
+            $table='SHOP_CURRICULUM';
+            
+            return $data=$this->pmodel->select($table,$key,$where);
+        }
+    }
     //添加购物车功能
     function add_cart(){
     	$Request=request()->post();
