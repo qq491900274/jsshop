@@ -73,8 +73,11 @@ class Lesson extends mobile_controller
 			$where.=" and CLASSTYPEGUID='{$Request['classtypeguid']}'";
 		}
 		
-		$key='ID,NAME,CODE,PRICE,DATETIME,CONTENT,SEASONTYPE,STARTTIME,ENDTIME,COURSENUM,COURSETIME,IMG,COUNT';
-		$data=$this->pmodel->select('SHOP_CURRICULUM',$key,$where);
+		$key='C.ID,C.NAME,C.CODE,C.PRICE,C.DATETIME,C.CONTENT,C.SEASONTYPE,'.
+			'C.STARTTIME,C.ENDTIME,C.COURSENUM,C.COURSETIME,C.IMG,C.COUNT'.
+			'T.NAME TEACHERNAME,T.PIC';
+		$table='SHOP_CURRICULUM as C LEFT  JOIN SHOP_TEACHER T ON T.ID=C.TEACHERGUID';
+		$data=$this->pmodel->select($table,$key,$where);
 		return $data;
     }
 
