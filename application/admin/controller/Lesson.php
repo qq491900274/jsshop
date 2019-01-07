@@ -289,7 +289,7 @@ class Lesson extends Controller
       //获取查询条件
       $where .= " LIMIT {$minpage},{$maxpage}";
 
-      $key = "C.ID,C.COUNT, C.NAME, C.CODE, C.PRICE, C.CLASSGUID GRADE, SUBJECTGUID SUBJECT, ".
+      $key = "C.ID,C.COUNT,C.CLASSINFOR, C.NAME, C.CODE, C.PRICE, C.CLASSGUID GRADE, SUBJECTGUID SUBJECT, ".
               "SC.NAME LESSON_TYPE,T.NAME TEACHER, C.DATETIME, ORDERINDEX, ".
               "CONTENT, C.PROVINCE, C.CITY, C.AREA,S.SCHOOL_NAME,T.PIC TEACHERIMG";
       $table='SHOP_CURRICULUM C '.
@@ -332,7 +332,7 @@ class Lesson extends Controller
       $where="ID='{$request['id']}'";
       $key = "ID, NAME, CODE,COUNT, PRICE, CLASSGUID, SUBJECTGUID,SEASONTYPE,".
               "CLASSTYPEGUID,NAME, DATETIME, ORDERINDEX, SEMESTER,STARTTIME,ENDTIME,".
-              "CONTENT, PROVINCE, CITY, AREA,SCHOOLID,COURSENUM,COURSETIME,TEACHERGUID,IMG";
+              "CONTENT, PROVINCE, CITY,CLASSINFOR, AREA,SCHOOLID,COURSENUM,COURSETIME,TEACHERGUID,IMG";
       $table='SHOP_CURRICULUM ';
 
       return $value['value']= $this->pmodel->select($table,$key,$where);
@@ -388,7 +388,8 @@ class Lesson extends Controller
         'COURSENUM'=>$request['lessonNum'],
         'COURSETIME'=>$request['lessonTime'],
         'IMG'=>$request['img'],
-        'COUNT'=>$request['count']
+        'COUNT'=>$request['count'],
+        'CLASSINFOR'=>@$request['classInfor']
       ];
 
       if (!empty($request['id'])) {
