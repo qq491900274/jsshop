@@ -86,7 +86,7 @@ class Lesson extends mobile_controller
     	$Request=request()->post();
 		$this->pmodel =  new \app\index\model\PublicModel(); 
     	$key='ID,NAME';
-		$data=$this->pmodel->select('SHOP_CURRICULUM_TYPE',$key,$where);
+		$data=$this->pmodel->select('SHOP_CURRICULUM_TYPE',$key);
 		return $data;
     }
     
