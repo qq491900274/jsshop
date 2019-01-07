@@ -96,7 +96,7 @@ class Lesson extends mobile_controller
 		$this->pmodel =  new \app\index\model\PublicModel(); 
 
     	if (!empty($Request['id'])) {
-    		$where="ID='{$Request['id']}'";
+    		$where="C.ID='{$Request['id']}'";
     		$key='C.ID,C.NAME,C.CODE,C.PRICE,C.DATETIME,C.CONTENT,C.SEASONTYPE,'.
     			'C.STARTTIME,C.ENDTIME,C.COURSENUM,C.COURSETIME,C.IMG,C.COUNT,'.
     			'T.NAME,T.CODE,T.SUBJECT,T.INTRO,T.PIC,T.DATE,'.
