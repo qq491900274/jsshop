@@ -124,6 +124,20 @@ class Lesson extends mobile_controller
             return $data=$this->pmodel->select($table,$key,$where);
         }
     }
+
+    //获取课程报名人数
+    function get_num(){
+        $Request=request()->post();
+        $this->pmodel =  new \app\index\model\PublicModel(); 
+
+        if (!empty($Request['id'])) {
+            $where="CURRICULUMID='{$Request['id']}'";
+            $key='count(ID) AS NUM ';
+            $table='SHOP_ORDER';
+            
+            return $data=$this->pmodel->select($table,$key,$where)[0]['NUM'];
+        }
+    }
     //添加购物车功能
     function add_cart(){
     	$Request=request()->post();
