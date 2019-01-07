@@ -83,6 +83,8 @@ class Lesson extends mobile_controller
 
     //返回课堂类型
     function get_classtype(){
+    	$Request=request()->post();
+		$this->pmodel =  new \app\index\model\PublicModel(); 
     	$key='ID,NAME';
 		$data=$this->pmodel->select('SHOP_CURRICULUM_TYPE',$key,$where);
 		return $data;
