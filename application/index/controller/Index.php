@@ -52,10 +52,4 @@ class Index extends mobile_controller
       $where=" AREA='{$Request['area']}'";
       return $value = $this->pmodel->select('SHOP_SCHOOL',$key,$where);
     }
-    
-    //购物车
-    public function shopping(){
-
-    	return $this->fetch('shopping');
-    }
 }
