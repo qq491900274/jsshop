@@ -100,10 +100,11 @@ class Lesson extends mobile_controller
     		$key='C.ID,C.NAME,C.CODE,C.PRICE,C.DATETIME,C.CONTENT,C.SEASONTYPE,'.
     			'C.STARTTIME,C.ENDTIME,C.COURSENUM,C.COURSETIME,C.IMG,C.COUNT,'.
     			'T.NAME TEACHERNAME,T.CODE,T.SUBJECT,T.INTRO,T.PIC,T.DATE,'.
-    			'S.PROVINCE,S.CITY,S.AREA,S.SCHOOL_NAME,S.ADDRESS,S.PHONE';
+    			'S.PROVINCE,S.CITY,S.AREA,S.SCHOOL_NAME,S.ADDRESS,S.PHONE,ST.NAME CLASSNAME';
     		$table='SHOP_CURRICULUM as C '.
     			'left join SHOP_TEACHER as T on T.ID=C.TEACHERGUID '.
-    			'left join SHOP_SCHOOL as S on S.ID=C.SCHOOLID ';
+    			'left join SHOP_SCHOOL as S on S.ID=C.SCHOOLID '.
+                'left join SHOP_SUBJECT AS ST ON ST.ID=C.CLASSGUID';
     		
 			return $data=$this->pmodel->select($table,$key,$where);
     	}
