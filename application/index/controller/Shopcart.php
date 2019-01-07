@@ -26,16 +26,11 @@ class Shopcart extends mobile_controller
     		return json_encode(array('msg'=>'未获取到用户名id'));
     	}
 
-		$key = "PRICE,COUNPONID,CURRICULUMID";
+		$key = "PRICE,COUNPONID,CURRICULUMID,ID,NUM";
 		$where=" AREA='{$Request['area']}'";
 		$table=" SHOP_CART C LEFT JOIN ";
 		return $value = $this->pmodel->select(,$key,$where);
 
     }
-
-    public function dele_cart(){
-    	return '1';
-    }
-    
 
 }
