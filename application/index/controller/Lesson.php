@@ -75,7 +75,7 @@ class Lesson extends mobile_controller
 		
 		$key='C.ID,C.NAME,C.CODE,C.PRICE,C.DATETIME,C.CONTENT,C.SEASONTYPE,'.
 			'C.STARTTIME,C.ENDTIME,C.COURSENUM,C.COURSETIME,C.IMG,C.COUNT,'.
-			'T.NAME TEACHERNAME,T.PIC';
+			'T.NAME TEACHERNAME,T.PIC,C.CLASSINFOR';
 		$table='SHOP_CURRICULUM as C LEFT  JOIN SHOP_TEACHER T ON T.ID=C.TEACHERGUID';
 		$data=$this->pmodel->select($table,$key,$where);
 		return $data;
