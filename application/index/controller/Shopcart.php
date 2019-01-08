@@ -22,10 +22,6 @@ class Shopcart extends mobile_controller
 			return $this->fetch('cart'); exit();	
 		}
     	
-    	if (empty($_SESSION['USERID'])){
-    		return json_encode(array('msg'=>'未获取到用户名id'));
-    	}
-
 		$key = "PRICE,COUNPONID,CURRICULUMID,ID,NUM";
 		$where=" AREA='{$Request['area']}'";
 		$table=" SHOP_CART C LEFT JOIN ";
