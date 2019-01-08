@@ -294,6 +294,10 @@
 	width:80%;
 	margin:0 auto;
 }
+.main4{
+	width:96%;
+	margin:0 auto;
+}
 .test_lay{
 	background: rgba(0,0,0,.4);
 	width:100%;
@@ -664,40 +668,55 @@
 	padding-bottom: 10/@r;
 }
 .lessonLi ul li{
-	margin-bottom: 10/@r;
+	margin-bottom: 15/@r;
+	background:#FFF;
+	border-radius:10/@r;
 }
 .lessonLi ul li a{
 	color:#444;
-	margin-left:60/@r;
 	display: block;
-	padding: 70/@r 0;
-}
-.lessonLi ul li h1{
-	font-size:50/@r;
+	padding: 20/@r 20/@r;
 }
 .lessonLi ul li h3{
 	font-size:30/@r;
-	margin-top: 40/@r;
 	line-height: 2;
 }
 .lessonLi ul li p{
-	font-size:20/@r;
+	font-size:22/@r;
+	line-height: 1.8;
 }
-.lessonLi ul li span{
-	font-size:20/@r;
+.lessonLi ul li p.time{
+	font-size: 18/@r;
+	color:#ccc;
 }
-.lessonLi ul li:first-child{
-	background: url(../images/lesson_02.png) no-repeat;
-	background-size: 100% 100%;
+.lessonLi ul li div.bot{
+	border-top:1px solid #eee;
+	margin-top: 8/@r;
+	padding-top:16/@r;
 }
-.lessonLi ul li:first-child+li{
-	background: url(../images/lesson_03.png) no-repeat;
-	background-size: 100% 100%;
+.lessonLi ul li div.bot img{
+	width: 100/@r;
 }
-.lessonLi ul li:first-child+li+li{
-	background: url(../images/lesson_04.png) no-repeat;
-	background-size: 100% 100%;
+.lessonLi ul li div.bot div{
+	line-height: 100/@r;
+	float: left;
 }
+.lessonLi ul li div.bot div span{
+	margin-left: 5/@r;
+	font-size:22/@r;
+}
+.lessonLi ul li div.bot h1{
+	font-size: 30/@r;
+	color:#F00;
+	float: right;
+}
+.lessonLi ul li div.bot h1 span{
+	font-size: 12/@r;
+	display: inline-block;
+	line-height: 100/@r;
+}
+
+
 .sideNav{
 	position: relative;
 }
@@ -1034,7 +1053,7 @@
 	line-height: 1.8;
 	margin-bottom: 30/@r;
 }
-.introduce a{
+.tabTea a{
 	font-size: 30/@r;
 	height: 88/@r;
 	display: inline-block;
@@ -1043,13 +1062,29 @@
 	text-align: center;
 	color:#222;
 	margin-bottom: 1%;
-}
-.introduce a:first-child{
+} 
+.tabTea a{
 	background: #fafafa;
+}
+.tabTea a.on{
+	background:#FFF;
+}
+.tabTea a:first-child{
 	margin-right: 1%;
 }
-.introduce a:first-child+a{
-	background: #FFF;
+.introMain ul li{
+	border-bottom:1px solid #CCC;
+	margin:20/@r 0;
+}
+.introMain ul li a{
+	display: block;
+}
+.introMain ul li h3{
+	font-size: 30/@r;
+	color:#333;
+}
+.introMain ul li p{
+	font-size: 26/@r!important;
 }
 .introduce .introMain{
 	background: #FFF;
