@@ -37,12 +37,11 @@ class User extends Controller
     
     $where1 =$where. " LIMIT {$page['min']},{$page['max']}";
 
-    $key = "ID,NAME,PHONE,DATETIME,WXNO,PASSWORD,USER";
-    $table="SHOP_USER";
+    $key = "ID,NAME,PHONE,JNAME,WXNO,SCHOOL,SEX,GRADE";
     $result['value'] = $this->pmodel->select($table,$key,$where1);
     
     //返回总页数
-    $count=$this->pmodel->select('SHOP_USER','count(ID) num ',$where);
+    $count=$this->pmodel->select('SHOP_USERS','count(ID) num ',$where);
     if(!empty($count)){
        $result['allCount'] = ceil( $count[0]['num']/ 20);
     }
@@ -57,8 +56,8 @@ class User extends Controller
     }
 
     $this->pmodel =  new \app\admin\model\PublicModel();
-    $key = "ID,NAME,PHONE,DATETIME,WXNO,PASSWORD,USER";
-    $table="SHOP_USER";
+    $key = "ID,NAME,PHONE,JNAME,WXNO,SCHOOL,SEX,GRADE";
+    $table="SHOP_USERS";
     $where=" ID='{$request['id']}'";
     return $result['value'] = $this->pmodel->select($table,$key,$where);
   }
@@ -68,19 +67,20 @@ class User extends Controller
         $time=date('Y-m-d H:i:s');
         $data=['NAME'=>$request['name'],
               'PHONE'=>$request['phone'],
-              'PASSWORD'=>$request['pwd'],
-              'USER'=>$request['user'],
-              'DATETIME'=>$time,
-              'STATE'=>'0'
+              'SCHOOL'=>$request['school'],
+              'GRADE'=>$request['grade'],
+              'SEX'=>$request['sex'],
+              'JNAME'=>$request['JNAME']
               ];
 
         if (!empty($request['id'])) {
-          $isok=DB::table('SHOP_USER')
+          $isok=DB::table('SHOP_USERS')
               ->where('ID',$request['id'])
               ->update($data);
         }else{
           $data['ID']=uniqid();
-          $isok=DB::table('SHOP_USER')
+          $data['DATETIME']=date('Y-m-d H:i:s');
+          $isok=DB::table('SHOP_USERS')
               ->insert($data);
         }
 
@@ -96,7 +96,7 @@ class User extends Controller
       //判断是否
       if(!empty($request['id'])){
         $data=['STATE'=>'1'];
-        $isok=DB::table('SHOP_USER')
+        $isok=DB::table('SHOP_USERS')
           ->where('ID',$request['id'])
           ->update($data);
         return 1;
