@@ -142,16 +142,15 @@ class Lesson extends mobile_controller
     function add_cart(){
     	$Request=request()->post();
 
-    	foreach ($Request['date'] as $key => $value) {
-    		$data['CURRICULUMID']=$value['id'];
-	    	$data['USERID']=$value['userid'];
-	    	$data['DATETIME']=date('Y-m-d H:i:s');
-	    	$data['ID']=uniqid();
-	    	$data['NUM']=$value['num'];
-	    	$data['COUNPONID']=$value['couponid'];
-	    	Db::table('SHOP_CART')->insert($data);
-    	}
-
+		$data['CURRICULUMID']=$Request['id'];
+    	$data['USERID']=$Request['userid'];
+    	$data['DATETIME']=date('Y-m-d H:i:s');
+    	$data['ID']=uniqid();
+    	$data['NUM']=$Request['num'];
+    	$data['COUNPONID']=$Request['couponid'];
+        $data['PRICE']='0';
+    	Db::table('SHOP_CART')->insert($data);
+    	
     	return 1;
     }
     //删除购物车
