@@ -18,8 +18,8 @@ class Shopcart extends mobile_controller
     	$Request=request()->post();
 		$this->pmodel =  new \app\index\model\PublicModel(); 
 
-		if (!empty($Request['list']) && $Request['list']=='1') {
-			return $this->fetch('cart'); 	
+		if (empty($Request['list'])) {
+			return $this->fetch('cart'); exit();	
 		}
     	
     	if (empty($_SESSION['USERID'])){
@@ -29,7 +29,7 @@ class Shopcart extends mobile_controller
 		$key = "PRICE,COUNPONID,CURRICULUMID,ID,NUM";
 		$where=" AREA='{$Request['area']}'";
 		$table=" SHOP_CART C LEFT JOIN ";
-		return $value = $this->pmodel->select(,$key,$where);
+		return $value = $this->pmodel->select($table,$key,$where);
 
     }
 
