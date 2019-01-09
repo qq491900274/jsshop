@@ -86,7 +86,7 @@ $(function(){
 		});
 		$('.flaseShop a').click(function(){
 			$('.bg').show();
-			$('.flaseShop').hide();
+
 		});
 		/*商品券弹出框*/
 		$('.quan').click(function(){

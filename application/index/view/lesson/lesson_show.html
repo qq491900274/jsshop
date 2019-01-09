@@ -1,15 +1,18 @@
 {include file="common/header"}
-
+<style type="text/css">
+	html,body{height: 100%;}
+</style>
 <body>
+<div id="lessonShow">
 <div class="spTop">
 	<div class="main">
-		<div class="spTitle"><span>七年级</span> <i class="icon iconfont">&#xe615;</i> <span>语文</span> <i class="icon iconfont">&#xe615;</i> <span>基金班</span> <i class="icon iconfont">&#xe615;</i> <span>许向前</span><a href="#"><i class="icon iconfont">&#xe65e;</i></a></div>
+		<div class="spTitle"><span>{{grade}}</span> <i class="icon iconfont">&#xe615;</i> <span>{{subject}}</span> <i class="icon iconfont">&#xe615;</i> <span>{{typeLe}}</span> <i class="icon iconfont">&#xe615;</i> <span>{{teacherName}}</span><a href="#"><i class="icon iconfont">&#xe65e;</i></a></div>
 	</div>
-	<div class="banner sp_banner"><img src="images/sp_02.jpg" alt="" width="100%"></div>
+	<div class="banner"><img :src=lessonImg alt="" width="100%"></div>
 	<div class="main">
-		<h2>[寒假课程报名] 金石教育七年级语文基金班</h2>
-		<h3>￥299</h3>
-		<p>1123人已报名</p>
+		<h2>{{nameLe}}</h2>
+		<h3>￥{{price}}</h3>
+		<p>{{num}}人已报名</p>
 	</div>
 </div>
 
@@ -19,33 +22,42 @@
 	</div>
 </div>
 <div class="guige">
-	<p><a href="javascript:void(0)" class="main">选择产品规格<i class="icon iconfont">&#xe615;</i></a></p>
+	<!-- <p><a href="javascript:void(0)" class="main">选择产品规格<i class="icon iconfont">&#xe615;</i></a></p> -->
 </div>
 <div class="teacher">
 	<div class="main">
-		<div class="teacImg"><img src="images/sp_05.png"></div>
-		<h2 class="teacName">陈浩</h2>
-		<p class="school">海尔路校区</p>
+		<div class="teacImg"><img :src="teacherImg"></div>
+		<h2 class="teacName">{{teacherName}}</h2>
+		<p class="school">{{school}}</p>
 		<h3>教师介绍</h3>
-		<p class="tea_tt">以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介。</p>
-		<h3>育人事迹</h3>
-		<p class="tea_tt">以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介。</p>
+		<p class="tea_tt" v-html="teacherInfor">{{teacherInfor}}</p>
+		<!-- <h3>育人事迹</h3>
+		<p class="tea_tt">以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介。</p> -->
 	</div>
 </div>
 <div class="introduce">
-	<a href="#">查看该老师所有课程</a><a href="#">查看该老师所有评价</a>
+	<div class="tabTea"><a href="javascript:void(0)">查看该老师所有课程</a><a href="javascript:void(0)" class="on">查看该课程介绍</a></div>
 	<div class="introMain">
+		<div class="main" style="display: none">
+			<ul>
+				<li v-for="v in teaLesson"><a href="javascript:void(0)" @click="goupdate(v.ID)">
+					<h3>{{v.NAME}}({{v.SEASONTYPE}})</h3>
+					<p>{{v.CLASSINFOR}}</p>
+			      	<p class="time">{{v.STARTTIME}} 至 {{v.ENDTIME}}</p>
+				</a></li>
+			</ul>
+		</div>
 		<div class="main">
 			<h2>课程介绍</h2>
-			<p>开课时间：2017.12.25</p>
-			<p>开课节数：共15节</p>
-			<p>开课时长：120分钟/节</p>
+			<p>开课时间：{{startTime}}</p>
+			<p>开课节数：共{{courseNum}}节</p>
+			<p>开课时长：{{courseTime}}分钟/节</p>
 			<span>以下是课程大纲及详情</span>
 		</div>
 	</div>
 </div>
-<div class="intr">此商品已售罄</div>
-<div class="shopping">
+<div class="intr"></div>
+<div class="shopping flaseShop">
 	<div class="main">
 		<a href="javascript:void(0)">加入购物车</a><a href="javascript:void(0)">立即购买</a>
 	</div>
@@ -59,29 +71,34 @@
 	<div class="choice">
 		<div class="choTop clearfix">
 			<div class="main">
-				<img src="images/sp_03.jpg" class="left">
+				<img :src=lessonImg class="left">
 				<div class="center left">
-					<h3>[寒假课程报名]金石教育七年...</h3>
-					<p>￥23~￥100</p>
+					<h3>{{nameLe}}</h3>
+					<p>￥{{price}}</p>
 				</div>
 				<div class="right"><i class="icon iconfont">&#xe662;</i></div>
 			</div>
 		</div>
-		<div class="choCenter">
+		<!-- <div class="choCenter">
 			<div class="main">
 				<h3>选择规格</h3>
 				<a href="#" class="on">体验课1节</a><a href="#">课程定金</a>
 			</div>
-		</div>
+		</div> -->
 		<div class="choBottom">
 			<div class="main clearfix">
 				<div class="left">
 					<h3>购买数量：</h3>
-					<p>剩余<span>20</span>件(每人限购<span>1</span>件)</p>
+					<p>剩余<span>{{count}}</span>件(每人限购<span>1</span>件)</p>
 				</div>
 				<div class="right">
-					<a href="javascript:void(0)" val='1'  class="reduce num">-</a><span>1</span><a href="javascript:void(0)" class="plus num">+</a>
+					<a href="javascript:void(0)" val='1' class="reduce num">-</a><span>1</span><a href="javascript:void(0)" class="plus num">+</a>
 				</div>
+			</div>
+		</div>
+		<div class="shopping">
+			<div class="main">
+				<a href="javascript:void(0)" @click="addCart()">加入购物车</a><a href="javascript:void(0)" @click="gopay()">立即购买</a>
 			</div>
 		</div>
 	</div>
@@ -117,9 +134,108 @@
 		</div>
 	</div>
 </div>
+</div>
+<script type="text/javascript">
+$(function(){
+    $(".tabTea a").click(function(){
+       	$(this).addClass("on").siblings().removeClass("on");
+        var index=$(".tabTea a").index(this);
+        $(".introMain .main").eq(index).css("display", "block").siblings().css("display", "none"); 
+   });
+}) 
 
+
+	var num;
+	var vue=new Vue({
+		el:'#lessonShow',
+		data:{
+			id:'<?php echo @$_GET['id']?>',
+			grade:'',
+			subject:'',
+			typeLe:'',
+			teacherName:'',
+			lessonImg:'',
+			nameLe:'',
+			price:'',
+			num:'',//报名人数
+			teacherImg:'',
+			teacherName:'',
+			school:'',
+			teacherInfor:'',
+			courseNum:'',
+			courseTime:'',
+			startTime:'',
+			endTime:'',
+			count:'',
+			teacherId:'',
+			teaLesson:[]
+		},
+		methods:{
+			goupdate:function(id){
+		      window.location.href=baseurl+'?s=index/Lesson/lesson_show&id='+id;
+		    },
+			addCart:function(id){
+				num=$('.choBottom .right span').html();
+				this.$http.post(baseurl+'?s=index/Lesson/add_cart',{'id':this.id,'num':num,'userid':'','couponid':'','price':this.price}).then(res=>{
+					var num=eval('('+res.bodyText+')');
+					if(num==1){
+						$('.bg').hide();
+						layer.msg('已成功添加到购物车',{time:1500});
+					}
+				},res=>{
+					console.log('请求失败,请检查Network!');
+				});
+			},
+			gopay:function(){
+				num=$('.choBottom .right span').html();
+				this.$http.post(baseurl+'?s=index/Order/pay',{'id':this.id,'num':num,'userid':'','couponid':'','price':this.price}).then(res=>{
+
+				},res=>{
+					console.log('请求失败,请检查Network!');
+				})
+			}
+		},
+		created:function(){
+			this.$http.post(baseurl+'?s=index/Lesson/get_lesson',{'id':this.id}).then(res=>{
+				var val=eval('('+res.bodyText+')')[0];
+				this.grade=val['CLASSNAME'];
+				this.subject=val['SUBJECTNAME'];
+				this.typeLe=val['SEASONTYPE'];
+				this.lessonImg=val['IMG'];
+				this.nameLe=val['NAME'];
+				this.price=val['PRICE'];
+				this.teacherImg=val['PIC'];
+				this.teacherName=val['TEACHERNAME'];
+				this.school=val['SCHOOL_NAME'];
+				this.teacherInfor=val['INTRO'];
+				this.courseNum=val['COURSENUM'];
+				this.courseTime=val['COURSETIME'];
+				this.startTime=val['STARTTIME'];
+				this.endTime=val['ENDTIME'];
+				this.count=val['COUNT'];
+				this.teacherId=val['TEACHERGUID']
+				//获取教师所有课程
+				this.$http.post(baseurl+'?s=index/Lesson/get_teacher',{'id':this.teacherId}).then(res=>{
+					this.teaLesson=eval('('+res.bodyText+')');
+				},res=>{
+					console.log('请求失败,请检查Network!');
+				});
+				if(this.count==0){
+					$('.intr').html('此商品已售罄');
+				}
+			},res=>{
+				console.log('请求失败,请检查Network!');
+			});
+			//获取已报名人数
+			this.$http.post(baseurl+'?s=index/Lesson/get_num',{'id':this.id}).then(res=>{
+				this.num=eval('('+res.bodyText+')');
+			},res=>{
+				console.log('请求失败,请检查Network!');
+			});
+		}
+	})
+</script>
 {include file="common/footer"}
 <script type="text/javascript" src="__PUBLIC__/index/js/hc-mobile-nav.js"></script>
-
 </body>
 </html>
