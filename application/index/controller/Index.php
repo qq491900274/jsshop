@@ -52,4 +52,20 @@ class Index extends mobile_controller
       $where=" AREA='{$Request['area']}'";
       return $value = $this->pmodel->select('SHOP_SCHOOL',$key,$where);
     }
+
+    public function get_coupon(){
+      $Request=request()->post();
+      $this->pmodel =  new \app\index\model\PublicModel(); 
+
+      $where='1=1';
+      if (!empty($Request['id'])) {
+        $where.=" AND ID='{$Request['id']}'";
+      }
+
+      $where.=" ORDER BY STARTTIME DESC";
+      $key = "TOP 5 ID,NAME,COUPONURL,PRICE,ISWHERE,WHEREPRICE,MAXNUM,COUNT,STARTTIME,ENDTIME,CONTENT,DATETIME,PIC";
+      $result['value'] = $this->pmodel->select('SHOP_COUPON',$key,$where);
+      //返回校区数据
+      return $result;
+    }
 }
