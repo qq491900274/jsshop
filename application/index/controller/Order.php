@@ -14,15 +14,8 @@ class Login extends Controller
 		parent::__construct();
 	}
 	
-    public function index(){
-    	$this->assign('name','123');
-    	return $this->fetch('index'); 
+    public function pay(){
+    	return $this->fetch('payment'); 
     }
-    public function Login_in()
-    {
-      $this->LoginModel =  new \app\index\model\LoginModel();
-      $result = $this->LoginModel->hello('helloword');
-      var_dump($result['12']);
-
-    }
+     
 }
