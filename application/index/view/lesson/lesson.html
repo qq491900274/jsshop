@@ -13,13 +13,12 @@
 <div class="lessonLi">
   <div class="main4">
 	<ul>
-		<li v-for="v in listBox"><a href="javascript:void(0)" @click="show(v.ID)">
+		<li v-for="v in listBox"><a href="javascript:void(0)" @click="goupdate(v.ID)">
 			<h3>{{v.NAME}}({{v.SEASONTYPE}})</h3>
-			<p>以教学大纲为主线</p>
-			<p>综合梳理重要知识，构建系统学科框架</p>
+			<p>{{v.CLASSINFOR}}</p>
       <p class="time">{{v.STARTTIME}} 至 {{v.ENDTIME}}</p>
       <div class="bot clearfix">
-        <div><img src="__PUBLIC__/index/images/sp_05.png"><span>许向前</span></div>
+        <div><img :src="v.PIC"><span>{{v.TEACHERNAME}}</span></div>
         <h1><span>￥</span>{{v.PRICE}}</h1>
       </div>  
 		</a></li>
@@ -34,8 +33,7 @@
         <nav id="main-nav">
           <ul class="second-nav">
             <li v-for="(v,index) in products">
-              <a href="#">{{v.NAME}}</a>
-
+              <a href="#" class="vname">{{v.NAME}}</a>
               <ul>
               	<li v-for="t in products[index].SUBJECTID" onclick="grade(this)">
                   <a href="#">{{t.NAME}}</a>
@@ -55,15 +53,24 @@
 
 <script>
   var school=getcookie('school');
+
   var gradeId;
   var subjectId;
   var typeId;
+  // var vname;
+  // var tname;
 
 function grade(list){
   vid=$(list).find('.vid').val();
   tid=$(list).find('.tid').val();
   gradeId=vid;
   subjectId=tid;
+  //记录cookie
+  /*vname=$(list).parent('ul').siblings('a').html();
+  tname=$(list).children('a').html();
+  console.log(vname);
+  setcookie('gradeId',vname);
+  setcookie('subjectId',tname);*/
   vue.grade();
 }
  
@@ -76,7 +83,7 @@ var vue=new Vue({
   },
   methods:{
     goupdate:function(id){
-      window.location.href=baseurl+'?s=admin/Lesson/get_lesson&id='+id;
+      window.location.href=baseurl+'?s=index/Lesson/lesson_show&id='+id;
     },
     grade:function(){
       this.$http.post(baseurl+'?s=index/Lesson/get_class',{'class':gradeId,'subject':subjectId,'school':school,'classtypeguid':typeId}).then(res=>{
@@ -138,8 +145,8 @@ var vue=new Vue({
     },res=>{
        console.log('请求失败,请检查Network!');
     });
-    this.$http.post(baseurl+'?s=admin/Lesson/type',{list:1}).then(res=>{
-      this.type=eval('('+res.bodyText+')')['value'];
+    this.$http.post(baseurl+'?s=index/Lesson/get_classtype').then(res=>{
+      this.type=eval('('+res.bodyText+')');
     },res=>{
       console.log('请求失败,请检查Network!');
     });
