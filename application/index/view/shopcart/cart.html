@@ -125,14 +125,14 @@ var vue=new Vue({
   		window.location.href=baseurl+'?s=index/Shopcart/pay&id='+arrid;
   	}
   },
-  /*created:function(){
-  	this.$http.post(baseurl+'?s=index/Shopcart/cart').then(res=>{
+  created:function(){
+  	this.$http.post(baseurl+'?s=index/Shopcart/cart',{list:1}).then(res=>{
   			var val=eval('('+res.bodyText+')');
-  			//this.carts=val['carts'];
+  			this.carts=val['carts'];
   	},res=>{
   		console.log('请求失败,请检查Network!');
   	})
-  }*/
+  }
 })
 </script>
 {include file="common/footer"}
