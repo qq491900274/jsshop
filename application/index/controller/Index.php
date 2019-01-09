@@ -62,8 +62,8 @@ class Index extends mobile_controller
         $where.=" AND ID='{$Request['id']}'";
       }
 
-      $where.=" ORDER BY STARTTIME DESC";
-      $key = "TOP 5 ID,NAME,COUPONURL,PRICE,ISWHERE,WHEREPRICE,MAXNUM,COUNT,STARTTIME,ENDTIME,CONTENT,DATETIME,PIC";
+      $where.=" ORDER BY STARTTIME DESC LIMIT 5";
+      $key = "ID,NAME,COUPONURL,PRICE,ISWHERE,WHEREPRICE,MAXNUM,COUNT,STARTTIME,ENDTIME,CONTENT,DATETIME,PIC";
       $result['value'] = $this->pmodel->select('SHOP_COUPON',$key,$where);
       //返回校区数据
       return $result;
