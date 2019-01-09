@@ -8,7 +8,7 @@ use think\Session;
 use \think\Db;
 
 
-class Login extends Controller
+class Order extends Controller
 {	
 	public function __construct(){
 		parent::__construct();
