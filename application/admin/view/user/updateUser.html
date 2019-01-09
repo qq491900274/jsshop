@@ -5,15 +5,9 @@
         <div class="main">
             
             <div class="seach_tigs" id="edit">
-                <h3>新增用户</h3>
+                <h3></h3>
                 
                     <ul class="clearfix">
-                        <li>
-                            <label class="seach-label">
-                                <span>*</span>账号：
-                            </label>
-                            <input type="text" name="" value="" class="form-control" v-model="user">
-                        </li>
                         <li>
                             <label class="seach-label">
                                 <span>*</span>用户名：
@@ -28,9 +22,27 @@
                         </li>
                         <li>
                             <label class="seach-label">
-                                <span>*</span>密码：
+                                <span>*</span>校区：
                             </label>
-                            <input type="text" name="" value="" class="form-control" v-model="pwd" style="width: 300px;">
+                            <input type="text" name="" value="" class="form-control" v-model="school" style="width: 300px;">
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>年级：
+                            </label>
+                            <input type="text" name="" value="" class="form-control" v-model="grade" style="width: 300px;">
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>性别：
+                            </label>
+                            <input type="text" name="" value="" class="form-control" v-model="sex">
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>家长姓名：
+                            </label>
+                            <input type="text" name="" value="" class="form-control" v-model="jname" style="width: 300px;">
                         </li>
                         <li class="seach"><input type="submit" name="" value="确认" @click="get()"><a href="javascript:history.back(-1)" id="back">返回</a></li>
                     </ul>
@@ -48,18 +60,16 @@
 var vue=new Vue({
     el:'#lessonEdit',
     data:{
-        user:'',
         name:'',
         phone:'',
-        pwd:'',
+        school:'',
+        grade:'',
+        sex:'',
+        jname:'',
         id:'<?php echo @$_GET['id']?>'
     },
     methods:{
         get:function(){
-            if(!this.user){
-                layer.alert('账号不能为空！');
-                return;
-            }
             if(!this.name){
                 layer.alert('用户名不能为空！');
                 return;
@@ -68,16 +78,31 @@ var vue=new Vue({
                 layer.alert('手机号不能为空！');
                 return;
             }
-            if(!this.pwd){
-                layer.alert('密码不能为空！');
+            if(!this.school){
+                layer.alert('校区不能为空！');
                 return;
             }
+            if(!this.grade){
+                layer.alert('年级不能为空！');
+                return;
+            }
+            if(!this.sex){
+                layer.alert('性别不能为空！');
+                return;
+            }
+            if(!this.jname){
+                layer.alert('家长姓名不能为空！');
+                return;
+            }
+
             this.$http.post(baseurl+'?s=admin/User/updateUser',{
                 'id':this.id,
-                'user':this.user,
                 'name':this.name,
                 'phone':this.phone,
-                'pwd':this.pwd
+                'school':this.school,
+                'grade':this.grade,
+                'sex':this.sex,
+                'jname':this.jname
             }).then(res=>{
                 if(res.bodyText==1){
                     layer.msg('保存成功！',function(){
@@ -92,15 +117,18 @@ var vue=new Vue({
     },
     created:function(){
         if(!this.id){
+            $('.seach_tigs h3').html('新增用户');
             return;
         }
         this.$http.post(baseurl+'?s=admin/User/get_onevalue',{'id':this.id}).then(res=>{
+            $('.seach_tigs h3').html('编辑用户');
             var val=eval('('+res.bodyText+')')[0];
             this.name=val['NAME'];
-            this.user=val['USER'];
             this.phone=val['PHONE'];
-            this.wx=val['WXNO'];
-            this.pwd=val['PASSWORD'];
+            this.school=val['SCHOOL'];
+            this.grade=val['GRADE'];
+            this.sex=val['SEX'];
+            this.jname=val['JNAME'];
         },res=>{
              console.log('请求失败处理,请检查Network!');
         });
