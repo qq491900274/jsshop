@@ -25,21 +25,25 @@
             <table class="tableBox">
                     <thead>
                         <tr>
-                        	<th>账号</th>
                             <th>用户名</th>
                             <th>手机号</th>
+                            <th>校区</th>
+                            <th>年级</th>
+                            <th>性别</th>
+                            <th>家长姓名</th>
                             <th>注册时间</th>
-                            <th>密码</th>
                             <th width="10%">操作</th>
                         </tr>
                     </thead>
                     <tbody id="storeList">
                         <tr v-for="(t,index) in products">
-                        		<td>{{t.USER}}</td>
                                 <td>{{t.NAME}}</td>
                                 <td>{{t.PHONE}}</td>
+                                <td>{{t.SCHOOL}}</td>
+                                <td>{{t.GRADE}}</td>
+                                <td>{{t.SEX}}</td>
+                                <td>{{t.JNAME}}</td>
                                 <td>{{t.DATETIME}}</td>
-                                <td>{{t.PASSWORD}}</td>
                                 <td>
                                 <a href="javascript:void(0)" @click="goUpdate(t.ID)">编辑</a>
                                 <a href="javascript:void(0)" @click="remove(t.ID,index)">删除</a>
