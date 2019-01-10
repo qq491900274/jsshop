@@ -39,7 +39,7 @@ class Center extends mobile_controller
     public function get_class(){
         $Request=request()->post();
         $where['TYPE']='1';
-        Db::table('SHOP_SUBJECT')
+        return Db::table('SHOP_SUBJECT')
                 ->where($where)
                 ->select();
     }
