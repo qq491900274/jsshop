@@ -189,10 +189,11 @@ $(function(){
 			gopay:function(){
 				num=$('.choBottom .right span').html();
 				this.$http.post(baseurl+'?s=index/Order/pay',{'id':this.id,'num':num,'userid':'','couponid':'','price':this.price}).then(res=>{
-
+					
 				},res=>{
 					console.log('请求失败,请检查Network!');
 				})
+				window.location.href=baseurl+'?s=index/Order/pay&id='+this.id;
 			}
 		},
 		created:function(){
@@ -236,6 +237,5 @@ $(function(){
 	})
 </script>
 {include file="common/footer"}
-<script type="text/javascript" src="__PUBLIC__/index/js/hc-mobile-nav.js"></script>
 </body>
 </html>
