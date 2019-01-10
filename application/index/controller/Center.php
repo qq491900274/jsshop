@@ -24,18 +24,24 @@ class Center extends mobile_controller
         
     	return $this->fetch('center');
     }
+    //修改用户信息
     public  function update_user(){
         $Request=request()->post();
         if (!empty($Request)) {
-            $where['TYPE']=$Request['1'];
-            Db::table('SHOP_SUBJECT')
-                    ->where($where)
-                    ->select();
+            $where['ID']=$Request['ID'];
+            Db::table('SHOP_USERS')
+                    ->update($Request)
+                    ->where($where);
             echo '1';
         }
     }
+    //返回课程
     public function get_class(){
-
+        $Request=request()->post();
+        $where['TYPE']='1';
+        Db::table('SHOP_SUBJECT')
+                ->where($where)
+                ->select();
     }
     public function my_order(){
         $Request=request()->post();
