@@ -27,12 +27,15 @@ class Center extends mobile_controller
     public  function update_user(){
         $Request=request()->post();
         if (!empty($Request)) {
-            $where['ID']=$Request['ID'];
-            Db::table('SHOP_USERS')
-                    ->update($Request)
-                    ->where($where);
+            $where['TYPE']=$Request['1'];
+            Db::table('SHOP_SUBJECT')
+                    ->where($where)
+                    ->select();
             echo '1';
         }
+    }
+    public function get_class(){
+
     }
     public function my_order(){
         $Request=request()->post();
