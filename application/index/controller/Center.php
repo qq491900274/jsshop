@@ -24,7 +24,16 @@ class Center extends mobile_controller
         
     	return $this->fetch('center');
     }
-    
+    public  function update_user(){
+        $Request=request()->post();
+        if (!empty($Request)) {
+            $where['ID']=$Request['ID'];
+            Db::table('SHOP_USERS')
+                    ->update($Request)
+                    ->where($where);
+            echo '1';
+        }
+    }
     public function my_order(){
         $Request=request()->post();
         if (!empty($Request['list']) && $Request['list']=='1') {
@@ -36,6 +45,7 @@ class Center extends mobile_controller
     }
 
     public function my_center(){
+
     	return $this->fetch('my_center');
     }
 }
