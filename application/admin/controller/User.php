@@ -56,7 +56,7 @@ class User extends Controller
     }
 
     $this->pmodel =  new \app\admin\model\PublicModel();
-    $key = "ID,NAME,PHONE,JNAME,WXNO,SCHOOL,SEX,GRADE";
+    $key = "ID,NAME,PHONE,JNAME,WXNO,SCHOOL,SEX,GRADE,PIC,BIRTHDAY";
     $table="SHOP_USERS";
     $where=" ID='{$request['id']}'";
     return $result['value'] = $this->pmodel->select($table,$key,$where);
@@ -70,7 +70,9 @@ class User extends Controller
               'SCHOOL'=>$request['school'],
               'GRADE'=>$request['grade'],
               'SEX'=>$request['sex'],
-              'JNAME'=>$request['JNAME']
+              'JNAME'=>$request['JNAME'],
+              'PIC'=>$request['img'],
+              'BIRTHDAY'=>$request['birthday']
               ];
 
         if (!empty($request['id'])) {
