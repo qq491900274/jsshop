@@ -22,6 +22,11 @@ $(function(){
 			})
 		});
 		//==================================首页 index ===================================================
+		$('.ticket ul li.on').each(function(){
+			$(this).click(function(){
+				$(this).addClass('on').slibings().removeClass('on');
+			})
+		})
 		$('.ticket ul li.on').find('p').html('已领取票券');
 		$('.ticket ul li.on').find('i').hide();
 
@@ -52,6 +57,7 @@ $(function(){
 		$('.sex ul li').each(function(){
 			var val=$(this).find('span').html();
 			$(this).find('input').change(function(){
+				
 				$('#sex').val(val);
 			})
 		});
@@ -59,6 +65,8 @@ $(function(){
 		$('.grade ul li').each(function(){
 			var val=$(this).find('span').html();
 			$(this).find('input').change(function(){
+				alert(11);
+				console.log(val);
 				$('#grade').val(val);
 			})
 		})
