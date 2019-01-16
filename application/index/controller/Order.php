@@ -17,5 +17,33 @@ class Order extends Controller
     public function pay(){
     	return $this->fetch('payment'); 
     }
+    //返回购物车商品
+    public function get_orderinfo(){
+    	$request=request()->post();
+    	$this->pmodel =  new \app\index\model\PublicModel(); 
+
+    	if (empty($request['userid'])) {
+    		return '未接受id！';
+    	}
+
+    	$where['USERID']=$request['userid'];
+    	$table='SHOP_CART C LEFT JOIN SHOP_CURRICULUM CU ON CU.ID=C.CURRICULUMID';
+    	$key='C.PRICE,C.ID CARTID,C.NUM,CU.NAME,CU.IMG';
+    	$where=" USERID='{$request['userid']}'";
+    	$data['shop']=$this->pmodel->select($table,$key,$where);
+
+    	//返回用户信息
+        $data['userinfo']= Db::table('SHOP_USERS')
+                ->where('ID',$request['userid'])
+                ->select();
+
+        return $data;
+    }
+    //提交订单
+    public function suborder(){
+    	$request=request()->post();
+    	 
+    }
      
+
 }
