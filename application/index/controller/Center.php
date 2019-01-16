@@ -30,8 +30,8 @@ class Center extends mobile_controller
         if (!empty($Request)) {
             $where['ID']=$Request['ID'];
             Db::table('SHOP_USERS')
-                    ->update($Request)
-                    ->where($where);
+                    ->where($where)
+                    ->update($Request);
             echo '1';
         }
     }
