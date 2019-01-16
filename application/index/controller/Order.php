@@ -15,7 +15,7 @@ class Order extends Controller
 	}
 	
     public function pay(){
-    	return $this->fetch('payment'); 
+    	return $this->fetch('payment');
     }
      
 }
