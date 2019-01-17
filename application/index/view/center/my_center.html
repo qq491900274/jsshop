@@ -6,21 +6,20 @@
 	<p class="infor"><a href="javascript:history.back(-1)" class="cancel">取消</a><a class="sure" @click="get()">确定</a></p>
 	<div class="main">
 		<div class="headImg">
-			<img src="__PUBLIC__/index/images/cc_03.jpg" alt="">
+			<img :src=img alt="">
 		</div>
-		<p>人生若永如初见</p>
+	  <input type="text" form="hxForm" v-model="Name">
 	</div>
 </div>
 <div class="mationTop maInput">
 	<ul>
-		<li><input type="text" name="" readonly="readonly" v-model="campus"></li>
 		<li><input type="number" name="" placeholder="手机号" v-model="phone"></li>
 		<li><input type="text" name="" placeholder="家长姓名" v-model="parentName"></li>
-		<li><input type="text" name="" placeholder="学生姓名" v-model="studentName"></li>
+		<li><input type="text" name="" placeholder="学生姓名" v-model="Name"></li>
 		<li><input type="text" name="" readonly="readonly" id="dateSelectorOne" placeholder="出生年月日"></li>
 		<li><input type="text" name="" id="sex" readonly="readonly" placeholder="性别"></li>
-		<li><input type="text" name="" placeholder="学校" v-model="school"></li>
-		<li><input type="text" name="" readonly="readonly" id="grade" placeholder="年级"></li>
+		<li><input type="text" name="" placeholder="校区" v-model="school"></li>
+		<li><input type="text" name="" readonly="readonly" id="grade" placeholder="年级" @click="grade()"></li>
 	</ul> 
 </div>
 
@@ -28,13 +27,13 @@
    <div class="">
        <p><span>选择性别</span><button type="submit" class="sure ensure">确定</button></p>
        <ul>
-           <li><div class="main">
+           <li class="man"><div class="main">
                <span>男</span>
-               <input name="radio1" type="radio" form="hxForm">
+               <input name="radio1" type="radio" form="hxForm" checked="">
            </div></li>
-           <li><div class="main">
+           <li class="woman"><div class="main">
                <span>女</span>
-               <input name="radio1" type="radio" form="hxForm">
+               <input name="radio1" type="radio" form="hxForm" checked="">
            </div></li>
        </ul>
    </div>
@@ -45,7 +44,8 @@
        <ul>
            <li v-for="v in products"><div class="main">
                <span>{{v.NAME}}</span>
-               <input name="radio2" type="radio" form="hxForm">
+               <!-- <input type="hidden" name="" v-model="v.ID"> -->
+               <input name="radio2" type="radio" form="hxForm" :value="v.ID" :checked="checked(v.NAME)">
            </div></li>
        </ul>
    </div>
@@ -53,26 +53,33 @@
 </div>
 {include file="common/footer2"}
 <script type="text/javascript">
-
+var sex;
+var grade;
+var birthTime;
 var vue=new Vue({
   el:'#myCenter',
   data:{
-    id:'',
+    id:'1',
     img:'',
-    name:'',
-    campus:'海尔路校区',//校区
-    phone:'13906413323',
-    parentName:'柏大林',
-    studentName:'柏小林',
-    school:'青岛二中',
-    products:''//年级
+    phone:'',
+    parentName:'',
+    Name:'',
+    school:'',
+    products:[],//年级
+    checkedName:''
   },
   methods:{
+    checked:function(name){
+      var checked=this.checkedName;
+      if (checked==name) {
+        return 'checked';
+      }
+    },
     get:function(){
-      var sex=$('#sex').val();
-      var grade=$('#grade').val();
-      var birthTime=$('#dateSelectorOne').val();
-      this.$http.post(baseurl+'?s=index/center/mycenter',{'id':this.id,'phone':this.phone,'parentName':this.parentName,'studentName':this.studentName,'birthTime':birthTime,'sex':sex,'school':this.school,'grade':grade}).then(res=>{
+      sex=$('#sex').val();
+      grade=$('#grade').val();
+      birthTime=$('#dateSelectorOne').val();
+      this.$http.post(baseurl+'?s=index/center/update_user',{'ID':this.id,'PHONE':this.phone,'JNAME':this.parentName,'NAME':this.Name,'BIRTHDAY':birthTime,'SEX':sex,'SCHOOL':this.school,'GRADE':grade}).then(res=>{
         var num=eval('('+res.bodyText+')');
         if(num==1){
           layer.msg('保存成功！',{time:1500});
@@ -80,28 +87,44 @@ var vue=new Vue({
       },res=>{
         console.log('请求失败,请检查Network!');
       })
+    },
+    grade:function(){
+      $('.grade ul li').each(function(){
+        var val=$(this).find('span').html();
+        $(this).find('input').change(function(){
+          $('#grade').val(val);
+        })
+      })
     }
   },
   created:function(){
-    this.$http.post(baseurl+'').then(res=>{
-      var val=eval('('+res.bodyText+')');
+    this.$http.post(baseurl+'?s=index/center/index',{list:1,'id':this.id}).then(res=>{
+      var val=eval('('+res.bodyText+')')[0];
       this.id=val['ID'];
-      this.img=val['IMG'];
-      this.name=val['NAME'];
-      this.campus=val['CAMPUS'];
+      this.img=val['PIC'];
+      // this.campus=val['CAMPUS'];
       this.phone=val['PHONE'];
-      this.parentName=val['PARENTNAME'];
-      this.studentName=val['STUDENTNAME'];
+      this.parentName=val['JNAME'];
+      this.Name=val['NAME'];
       this.school=val['SCHOOL'];
       $('#sex').val(val['SEX']);
       $('#grade').val(val['GRADE']);
+       var time=val['BIRTHDAY'];
+       var t = time.substr(0,10);
+      $('#dateSelectorOne').val(t);
+      this.checkedName=val['GRADE'];
+      //console.log(this.checkedName);
+      if(val['SEX']=="男"){
+        $('.sex ul li.man input[type="radio"]').attr('checked','checked');
+      }else if(val['SEX']=="女"){
+        $('.sex ul li.woman input[type="radio"]').attr('checked','checked');
+      }
     },res=>{
       console.log('请求失败,请检查Network!');
     });
     //年级
-    this.$http.post(baseurl+'?s=admin/Lesson/school_classList').then(res=>{
-      this.products=eval('('+res.bodyText+')')['value'];
-      //console.log(this.products);
+    this.$http.post(baseurl+'?s=index/Center/get_class').then(res=>{
+      this.products=eval('('+res.bodyText+')');
     },res=>{
       console.log('请求失败处理,请检查Network!');
     })
