@@ -148,7 +148,7 @@ class Lesson extends mobile_controller
     	$data['ID']=uniqid();
     	$data['NUM']=$Request['num'];
     	$data['COUNPONID']=$Request['couponid'];
-        $data['PRICE']='0';
+        $data['PRICE']=$Request['price'];
     	Db::table('SHOP_CART')->insert($data);
     	
     	return 1;
