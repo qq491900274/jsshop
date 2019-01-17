@@ -15,7 +15,7 @@ class Order extends Controller
 	}
 	
     public function pay(){
-    	return $this->fetch('payment'); 
+    	return $this->fetch('payment');
     }
     //返回购物车商品
     public function get_orderinfo(){
