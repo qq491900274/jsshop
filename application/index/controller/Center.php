@@ -60,6 +60,13 @@ class Center extends mobile_controller
 
     //优惠券
     public function my_coupon(){
-        return $this->fetch('my_coupon');
+        $Request=request()->post();
+        if (empty($Request['list'])) {
+            return $this->fetch('my_coupon');
+        }
+
+        return Db::table('SHOP_USERCOUPON')
+                ->where('USERID',$Request['userid'])
+                ->select();
     }
 }
