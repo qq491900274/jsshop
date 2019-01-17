@@ -60,6 +60,6 @@ class Center extends mobile_controller
 
     //优惠券
     public function my_coupon(){
-        return this->fetch('my_coupon');
+        return $this->fetch('my_coupon');
     }
 }
