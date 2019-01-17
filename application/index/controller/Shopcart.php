@@ -23,8 +23,8 @@ class Shopcart extends mobile_controller
 		}
     	
 		$key = "PRICE,COUNPONID,CURRICULUMID,ID,NUM";
-		$where=" AREA='{$Request['area']}'";
-		$table=" SHOP_CART C LEFT JOIN ";
+		$where=" USERID='{$Request['id']}'";
+		$table=" SHOP_CART";
 		return $value = $this->pmodel->select($table,$key,$where);
 
     }
