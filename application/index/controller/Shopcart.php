@@ -25,7 +25,7 @@ class Shopcart extends mobile_controller
     			' LEFT JOIN SHOP_TEACHER T ON T.GUID=CU.TEACHERGUID '.
     			' LECT JOIN SHOP_SCHOOL S ON S.GUID=CU.SCHOOLID';
     	$key='C.PRICE,C.ID CARTID,C.NUM,CU.NAME,CU.IMG,T.NAME TEACHERNAME,S.SCHOOL_NAME';
-    	$where=" USERID='{$Request['id']}'";
+    	$where=" C.USERID='{$Request['id']}'";
     	return $this->pmodel->select($table,$key,$where);
 	
     }
