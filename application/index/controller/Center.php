@@ -67,10 +67,8 @@ class Center extends mobile_controller
         }
 
         $table='SHOP_USERCOUPON U LEFT JOIN SHOP_COUPON C ON C.ID=U.COUPONID';
-        $key='U.STATE,U.ID,U.DATETIME,C.ENDTIME,C.NAME,C.PRICE,C.PIC,U.COUPONID';
+        $key='U.STATE,U.ID,U.DATETIME,C.STARTTIME,C.ENDTIME,C.NAME,C.PRICE,C.PIC,U.COUPONID';
         $where=" USERID='{$Request['userid']}'"; 
         return $this->pmodel->select($table,$key,$where);
-
-       
     }
 }
