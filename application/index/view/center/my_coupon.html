@@ -40,7 +40,7 @@
       </li> -->
       <li v-if="v.STATE === 2">
         <div class="main2">
-          <p class="sp_time">有效期：{{v.STARTTIME}} 至 {{v.ENDTIME}}<span>满1000减200</span></p>
+          <p class="sp_time">有效期：{{v.STARTTIME}} 至 {{v.ENDTIME}}<span>满1000减{{v.PRICE}}</span></p>
           <div class="clear on"><a href="#">
             <div class="left">
               <h1>{{v.PRICE}}</h1>
@@ -53,7 +53,7 @@
       </li>
       <li v-else-if="v.STATE===1">
         <div class="main2">
-          <p class="sp_time">有效期：{{v.STARTTIME}} 至 {{v.ENDTIME}} <span>满1000减200</span></p>
+          <p class="sp_time">有效期：{{v.STARTTIME}} 至 {{v.ENDTIME}} <span>满1000减{{v.PRICE}}</span></p>
           <div class="clear on2"><a href="#">
             <div class="left">
               <h1>{{v.PRICE}}</h1>
