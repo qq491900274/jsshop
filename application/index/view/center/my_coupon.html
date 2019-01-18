@@ -1,138 +1,116 @@
 {include file="common/header"}
 
-<body>
-<div id="myCenter">
-<div class="mineBox inforMa">
-	<p class="infor"><a href="javascript:history.back(-1)" class="cancel">取消</a><a class="sure" @click="get()">确定</a></p>
-	<div class="main">
-		<div class="headImg">
-			<img :src=img alt="">
-		</div>
-	  <input type="text" form="hxForm" v-model="Name">
-	</div>
+<body  style="background:#FFF;">
+
+<div class="yhq2Box">
+<!-- <div class="yhq_box yhq2">
+  <h3>校区票券</h3>
+  <ul>
+    <li>
+      <div class="main2">
+        <p class="sp_time">有效期至2017.06.15<span>满1000减200</span></p>
+        <div class="clear on"><a href="#">
+          <div class="left">
+            <h1>200</h1>
+            <p>RMB</p>
+          </div>
+          <div class="right"><span>使用票券</span><i class="icon iconfont">&#xe615;</i></div>
+        </a></div>
+        <p class="sp_time">每人仅限使用一张</p>
+      </div>
+    </li>
+  </ul>
+</div> -->
+<div class="yhq_box yhq2">
+  <h3>商城票券</h3>
+    <ul>
+      <template v-for="v in products">
+      <!-- <li v-if="v.STATE === 1">
+        <div class="main2">
+          <p class="sp_time">有效期:{{v.STARTTIME}} 至 {{v.ENDTIME}}<span>满1000减200</span></p>
+          <div class="clear on"><a href="#">
+            <div class="left">
+              <h1>{{v.PRICE}}</h1>
+              <p>RMB</p>
+            </div>
+            <div class="right"><span>使用票券</span><i class="icon iconfont">&#xe615;</i></div>
+          </a></div>
+          <p class="sp_time">每人仅限使用一张</p>
+        </div>
+      </li> -->
+      <li v-if="v.STATE === 2">
+        <div class="main2">
+          <p class="sp_time">有效期：{{v.STARTTIME}} 至 {{v.ENDTIME}}<span>满1000减200</span></p>
+          <div class="clear on"><a href="#">
+            <div class="left">
+              <h1>{{v.PRICE}}</h1>
+              <p>RMB</p>
+            </div>
+            <div class="right"><span>已拥有票券</span></div>
+          </a></div>
+          <p class="sp_time">每人仅限使用一张</p>
+        </div>
+      </li>
+      <li v-else-if="v.STATE===1">
+        <div class="main2">
+          <p class="sp_time">有效期：{{v.STARTTIME}} 至 {{v.ENDTIME}} <span>满1000减200</span></p>
+          <div class="clear on2"><a href="#">
+            <div class="left">
+              <h1>{{v.PRICE}}</h1>
+              <p>RMB</p>
+            </div>
+            <div class="right"><span>已使用票券</span></div>
+          </a></div>
+          <p class="sp_time">每人仅限使用一张</p>
+        </div>
+      </li>
+      <li v-else-if="v.STATE===3">
+        <div class="main2">
+          
+          <div class="clear on2"><a href="#" class="active">
+            <div class="left">
+              <h1>{{v.PRICE}}</h1>
+              <p>RMB</p>
+            </div>
+            <div class="right"><span>票券已过期</span></div>
+          </a></div>
+          
+        </div>
+      </li>
+      
+      </template>
+    </ul>
 </div>
-<div class="mationTop maInput">
-	<ul>
-		<li><input type="number" name="" placeholder="手机号" v-model="phone"></li>
-		<li><input type="text" name="" placeholder="家长姓名" v-model="parentName"></li>
-		<li><input type="text" name="" placeholder="学生姓名" v-model="Name"></li>
-		<li><input type="text" name="" readonly="readonly" id="dateSelectorOne" placeholder="出生年月日"></li>
-		<li><input type="text" name="" id="sex" readonly="readonly" placeholder="性别"></li>
-		<li><input type="text" name="" placeholder="校区" v-model="school"></li>
-		<li><input type="text" name="" readonly="readonly" id="grade" placeholder="年级" @click="grade()"></li>
-	</ul> 
 </div>
 
-<div class="selectLI selectInfor sex">
-   <div class="">
-       <p><span>选择性别</span><button type="submit" class="sure ensure">确定</button></p>
-       <ul>
-           <li class="man"><div class="main">
-               <span>男</span>
-               <input name="radio1" type="radio" form="hxForm" checked="">
-           </div></li>
-           <li class="woman"><div class="main">
-               <span>女</span>
-               <input name="radio1" type="radio" form="hxForm" checked="">
-           </div></li>
-       </ul>
-   </div>
-</div>
-<div class="selectLI selectInfor grade">
-   <div class="">
-       <p><span>选择年级</span><button type="submit" class="sure ensure">确定</button></p>
-       <ul>
-           <li v-for="v in products"><div class="main">
-               <span>{{v.NAME}}</span>
-               <!-- <input type="hidden" name="" v-model="v.ID"> -->
-               <input name="radio2" type="radio" form="hxForm" :value="v.ID" :checked="checked(v.NAME)">
-           </div></li>
-       </ul>
-   </div>
-</div>
-</div>
-{include file="common/footer2"}
+
+<!-- <div class="test_lay sp_quan ewm">
+  <div class="quan_box">
+    <div class="main2">
+      <img src="images/ewm_03.jpg">
+      <p>请将二维码出示给老师<br>进行核对</p>
+    </div>
+  </div>
+</div> -->
+{include file="common/footer"}
 <script type="text/javascript">
-var sex;
-var grade;
-var birthTime;
 var vue=new Vue({
-  el:'#myCenter',
+  el:'.yhq2Box',
   data:{
-    id:'1',
-    img:'',
-    phone:'',
-    parentName:'',
-    Name:'',
-    school:'',
-    products:[],//年级
-    checkedName:''
+    userid:'1',
+    products:[]
   },
   methods:{
-    checked:function(name){
-      var checked=this.checkedName;
-      if (checked==name) {
-        return 'checked';
-      }
-    },
-    get:function(){
-      sex=$('#sex').val();
-      grade=$('#grade').val();
-      birthTime=$('#dateSelectorOne').val();
-      this.$http.post(baseurl+'?s=index/center/update_user',{'ID':this.id,'PHONE':this.phone,'JNAME':this.parentName,'NAME':this.Name,'BIRTHDAY':birthTime,'SEX':sex,'SCHOOL':this.school,'GRADE':grade}).then(res=>{
-        var num=eval('('+res.bodyText+')');
-        if(num==1){
-          layer.msg('保存成功！',{time:1500});
-        }
-      },res=>{
-        console.log('请求失败,请检查Network!');
-      })
-    },
-    grade:function(){
-      $('.grade ul li').each(function(){
-        var val=$(this).find('span').html();
-        $(this).find('input').change(function(){
-          $('#grade').val(val);
-        })
-      })
-    }
+   
   },
   created:function(){
-    this.$http.post(baseurl+'?s=index/center/index',{list:1,'id':this.id}).then(res=>{
-      var val=eval('('+res.bodyText+')')[0];
-      this.id=val['ID'];
-      this.img=val['PIC'];
-      // this.campus=val['CAMPUS'];
-      this.phone=val['PHONE'];
-      this.parentName=val['JNAME'];
-      this.Name=val['NAME'];
-      this.school=val['SCHOOL'];
-      $('#sex').val(val['SEX']);
-      $('#grade').val(val['GRADE']);
-       var time=val['BIRTHDAY'];
-       var t = time.substr(0,10);
-      $('#dateSelectorOne').val(t);
-      this.checkedName=val['GRADE'];
-      //console.log(this.checkedName);
-      if(val['SEX']=="男"){
-        $('.sex ul li.man input[type="radio"]').attr('checked','checked');
-      }else if(val['SEX']=="女"){
-        $('.sex ul li.woman input[type="radio"]').attr('checked','checked');
-      }
+    this.$http.post(baseurl+'?s=index/Center/my_coupon',{list:1,'userid':this.userid}).then(res=>{
+       this.products=eval('('+res.bodyText+')');
     },res=>{
       console.log('请求失败,请检查Network!');
-    });
-    //年级
-    this.$http.post(baseurl+'?s=index/Center/get_class').then(res=>{
-      this.products=eval('('+res.bodyText+')');
-    },res=>{
-      console.log('请求失败处理,请检查Network!');
     })
-
   }
 })
-
-new Mdate("dateSelectorOne");
 </script>
 </body>
 </html>

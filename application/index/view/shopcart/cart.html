@@ -17,20 +17,20 @@
 				<div class="topLi clearfix">
 					<a href="javascript:;">
 						<div class="main">
-							<input type="checkbox" name="" class="left son_check" form="cartForm" :value="t.id">
-							<img :src="t.url" alt="" class="left">
+							<input type="checkbox" name="" class="left son_check" form="cartForm" :value="t.ID">
+							<img :src="t.IMG" alt="" class="left">
 							<div class="left cartTxt">
-								<h2>{{t.title}}</h2>
-								<p>{{t.xiaoqu}}丨{{t.name}}</p>
+								<h2>{{t.NAME}}</h2>
+								<p>{{t.SCHOOL_NAME}}丨{{t.TEACHERNAME}}</p>
 								<p>课程定金</p>
 							</div>
 						</div>
 					</a>
 				</div>
 				<div class="botLi main">
-					<h3>￥<span class="price1">{{t.price}}</span></h3>
+					<h3>￥<span class="price1">{{t.PRICE}}</span></h3>
 					<div class="right">
-						<a href="javascript:void(0)" val='1' class="reduce num">-</a><span>1</span><a href="javascript:void(0)" class="plus num">+</a>
+						<a href="javascript:void(0)" val='1' class="reduce num">-</a><span>{{t.NUM}}</span><a href="javascript:void(0)" class="plus num">+</a>
 					</div>
 				</div>
 			</li>
@@ -101,23 +101,9 @@ fun(arr);*/
 var vue=new Vue({
   el: '#cart',
   data: {
+  	id:'1',
     carts:[
-	    {
-	    	id:'1',
-	    	title:'[寒假课程报名] 金石教育七年级语文基金班',
-		    xiaoqu:'海尔路校区',
-		    price:'15.6',
-		    url:'__PUBLIC__/index/images/gw_03.jpg',
-		    name:'许向前'
-		},
-	    {
-	    	id:'2',
-	    	title:'[寒假课程报名] 金石教育七年级语文基金班',
-	    	xiaoqu:'海尔路校区',
-	    	price:'10.6',
-	    	url:'__PUBLIC__/index/images/gw_03.jpg',
-	    	name:'许向前'
-	    }
+	    
     ]
   },
   methods:{
@@ -126,9 +112,9 @@ var vue=new Vue({
   	}
   },
   created:function(){
-  	this.$http.post(baseurl+'?s=index/Shopcart/cart',{list:1}).then(res=>{
-  			var val=eval('('+res.bodyText+')');
-  			this.carts=val['carts'];
+  	this.$http.post(baseurl+'?s=index/Shopcart/cart',{list:1,'id':this.id}).then(res=>{
+  			this.carts=eval('('+res.bodyText+')');
+  			
   	},res=>{
   		console.log('请求失败,请检查Network!');
   	})

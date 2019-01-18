@@ -31,8 +31,6 @@
 		<p class="school">{{school}}</p>
 		<h3>教师介绍</h3>
 		<p class="tea_tt" v-html="teacherInfor">{{teacherInfor}}</p>
-		<!-- <h3>育人事迹</h3>
-		<p class="tea_tt">以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介以下全部都是教师简介。</p> -->
 	</div>
 </div>
 <div class="introduce">
@@ -176,7 +174,7 @@ $(function(){
 		    },
 			addCart:function(id){
 				num=$('.choBottom .right span').html();
-				this.$http.post(baseurl+'?s=index/Lesson/add_cart',{'id':this.id,'num':num,'userid':'','couponid':'','price':this.price}).then(res=>{
+				this.$http.post(baseurl+'?s=index/Lesson/add_cart',{'id':this.id,'num':num,'userid':'1','couponid':'','price':this.price}).then(res=>{
 					var num=eval('('+res.bodyText+')');
 					if(num==1){
 						$('.bg').hide();
