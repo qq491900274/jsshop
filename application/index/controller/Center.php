@@ -61,6 +61,7 @@ class Center extends mobile_controller
     //优惠券
     public function my_coupon(){
         $Request=request()->post();
+        $this->pmodel =  new \app\index\model\PublicModel(); 
         if (empty($Request['list'])) {
             return $this->fetch('my_coupon');
         }
