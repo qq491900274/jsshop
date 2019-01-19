@@ -58,7 +58,7 @@ class Center extends mobile_controller
 
             $return_v=array();
             foreach ($arr as $key => $value) {
-                $return_v[$value['ID']]['GOODS']=$value;
+                $return_v[$value['ID']]['GOODS'][]=$value;
                 $return_v[$value['ID']]['ORDERID']=$value['ID'];
                 $return_v[$value['ID']]['ALLPRICE']=$value['ALLPRICE'];
             }
