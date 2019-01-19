@@ -51,9 +51,14 @@ class Center extends mobile_controller
                     .'left join SHOP_CURRICULUM C ON C.ID=OG.CURRICULUMID '
                     .'LEFT JOIN SHOP_TEACHER T ON T.ID=C.TEACHERGUID '
                     .'LEFT JOIN SHOP_SCHOOL S ON S.ID=C.SCHOOLID';
-            $key='O.STATE,O.ID,O.DATETIME,C.PRICE,O.PRICE ALLPRICE,'.
+            $key='O.STATE,O.ID,O.DATETIME,O.CODE,C.PRICE,O.PRICE ALLPRICE,'.
                 'S.SCHOOL_NAME SCHOOLNAME,T.NAME TEACHERNAME,C.NAME GOODSNAME,C.IMG,OG.NUM';
             $where=" O.USERID='{$Request['id']}'"; 
+
+            if(empty($Request['orderid'])){
+                $where.=" and O.ID='{$Request['orderid']}'";
+            }
+
             $arr=$this->pmodel->select($table,$key,$where);
 
             $return_v=array();
