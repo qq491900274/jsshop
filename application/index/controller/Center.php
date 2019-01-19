@@ -63,7 +63,12 @@ class Center extends mobile_controller
                 $return_v[$value['ID']]['ALLPRICE']=$value['ALLPRICE'];
             }
 
-            return $return_v;
+            $return_v1=array();
+            foreach($return_v as $k => $v){
+                $return_v1[]=$v;
+            }
+
+            return $return_v1;
 
         }
     	return $this->fetch('my_order');
