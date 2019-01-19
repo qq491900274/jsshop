@@ -50,9 +50,9 @@ class Center extends mobile_controller
             $table='SHOP_ORDER O LEFT JOIN SHOP_CURRICULUM C ON C.ID=O.CURRICULUMID '
                     .'LEFT JOIN SHOP_TEACHER T ON T.ID=C.TEACHERGUID '
                     .'LEFT JOIN SHOP_SCHOOL S ON S.ID=C.SCHOOLID';
-            $key='U.STATE,U.ID,U.DATETIME,C.STARTTIME,C.ENDTIME,C.NAME,C.PRICE,C.PIC,U.COUPONID,'.
+            $key='O.STATE,O.ID,O.DATETIME,C.STARTTIME,C.ENDTIME,C.NAME,C.PRICE,C.PIC,U.COUPONID,'.
                 'S.NAME SCHOOLNAME,T.NAME TEACHERNAME,C.NAME GOODSNAME,C.PIC';
-            $where=" USERID='{$Request['id']}'"; 
+            $where=" O.USERID='{$Request['id']}'"; 
             return $this->pmodel->select($table,$key,$where);
         }
     	return $this->fetch('my_order');
