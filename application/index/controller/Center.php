@@ -61,6 +61,7 @@ class Center extends mobile_controller
                 $return_v[$value['ID']]['GOODS'][]=$value;
                 $return_v[$value['ID']]['ORDERID']=$value['ID'];
                 $return_v[$value['ID']]['ALLPRICE']=$value['ALLPRICE'];
+                $return_v[$value['ID']]['STATE']=$value['STATE'];
             }
 
             $return_v1=array();
