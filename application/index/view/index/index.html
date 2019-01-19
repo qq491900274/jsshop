@@ -46,7 +46,13 @@
 	<div class="main">
 		<h3 class="title">票券领取</h3>
 		<ul class="clearfix">
-			<li class="on"><a href="" class="color">
+			<li class="default" v-for="v in coupon"><a href="javascript:void(0)" class="color">
+				<h2>{{v.PRICE}}</h2>
+				<span>RMB</span>
+				<p>领取票券</p>
+				<i class="icon iconfont">&#xe629;</i>
+			</a></li>
+			<!-- <li class="default"><a href="" class="color">
 				<h2>200</h2>
 				<span>RMB</span>
 				<p>领取票券</p>
@@ -57,13 +63,7 @@
 				<span>RMB</span>
 				<p>领取票券</p>
 				<i class="icon iconfont">&#xe629;</i>
-			</a></li>
-			<li class="default"><a href="" class="color">
-				<h2>200</h2>
-				<span>RMB</span>
-				<p>领取票券</p>
-				<i class="icon iconfont">&#xe629;</i>
-			</a></li>
+			</a></li> -->
 		</ul>
 	</div>
 </div>
@@ -180,7 +180,8 @@ var vue= new Vue({
 		provinceid:'',
 		provincename:'',
 		school:[],
-		schoolid:''
+		schoolid:'',
+		coupon:[]
 	},
 	methods:{
 		getcity:function(id,e){
@@ -261,7 +262,6 @@ var vue= new Vue({
 	        el: '.test .swiper-pagination',
 	      },
 	    });
-
 	},
 	created:function(){
 		// 百度地图API功能
@@ -284,8 +284,6 @@ var vue= new Vue({
 				    type: 'GET', 
 				    dataType: 'JSONP', 
 				    success: function(res){
-				      //console.log(res);
-				    
 				      posi.innerHTML=res.result.addressComponent.city;
 				      posi2.innerHTML=res.result.addressComponent.city;
 				      
@@ -335,26 +333,42 @@ var vue= new Vue({
 		},res=>{
 			console.log('请求失败,请检查Network!');
 		});
-
+		this.$http.post(baseurl+'?s=index/Index/get_coupon').then(res=>{
+			var val=eval('('+res.bodyText+')')['value'];
+			// for(var i=0;i<val.length;i++){
+			// 	console.log(Math.round(val[i].PRICE));
+			// }
+			// console.log(val[0].PRICE);
+			this.coupon=val.slice(0,3);
+			//console.log(this.coupon);
+		},res=>{
+			console.log('请求失败,请检查Network!');
+		});
+		
 	}
 });
 
 $(function(){
 	$('.position').click(function(){
 		$('.posAll').animate({left:0},400);
-		$('.shade').css({'display':'block','background':'rgba(0,0,0,.5)'})
+		$('.shade').css({'display':'block','background':'rgba(0,0,0,.5)'});
 	});
+	
 	$('.shade').click(function(){
 		$('.posAll').animate({left:'-80%'},400);
 		$(this).css({'display':'none'});
 	});
 	$('.school_last ul li').each(function(){
-		$(this).find('a').click(function(){
-			alert(111);
-			$('.posAll').animate({left:'-80%'},400);
+		$(this).find('a').click(function()  {
+			//alert(111);
+			$('.posAll').animate({left:'-80%'},400); 
 		})
-	})
-})
+	});
+	/*var num=$('.ticket ul li h2').html();
+			console.log(1);
+			console.log(num);
+			num=parseInt(num);*/  
+});
 
 </script>
 </body>

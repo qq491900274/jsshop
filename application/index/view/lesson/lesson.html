@@ -150,7 +150,11 @@ var vue=new Vue({
     },res=>{
       console.log('请求失败,请检查Network!');
     });
-
+    this.$http.post(baseurl+'?s=index/Lesson/get_class').then(res=>{
+      this.listBox=eval('('+res.bodyText+')');
+    },res=>{
+      console.log('请求失败,请检查Network!');
+    });
   }
 })
 </script>

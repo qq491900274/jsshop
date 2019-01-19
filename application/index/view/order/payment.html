@@ -1,49 +1,32 @@
 {include file="common/header"}
 
 <body>
+<div id="pay">
 <form action="" id="payForm"></form>
 	<div class="payForm">
-		<input type="text" name="" placeholder="姓名" form="payForm">
-		<input type="number" name="" placeholder="电话" form="payForm">
-		<input type="text" name="" placeholder="地址[选填]" form="payForm">
+		<input type="text" name="" placeholder="姓名" form="payForm" v-model="name">
+		<input type="number" name="" placeholder="电话" form="payForm" v-model="phone">
+		<input type="text" name="" placeholder="地址[选填]" form="payForm" v-model="address">
 	</div>
 <div class="cart" id="payBox">
 	<div class="cartBox pay">
 		<ul>
-			<li>
+			<li v-for="v in products">
 				<div class="topLi clearfix">
 					<a href="#">
 						<div class="main">
-							<img src="images/gw_03.jpg" alt="" class="left">
+							<img :src="v.IMG" alt="" class="left">
 							<div class="left cartTxt">
-								<h2>[寒假课程报名] 金石教育七年级语文基金班</h2>
-								<p>海尔路校区丨许向前</p>
+								<h2>{{v.NAME}}</h2>
+								<p>{{v.SCHOOL_NAME}}丨{{v.TEACHERNAME}}</p>
 								<p>课程定金</p>
 							</div>
 						</div>
 					</a>
 				</div>
 				<div class="botLi main">
-					<h3>￥299</h3>
-					<div class="right">×<span>1</span></div>
-				</div>
-			</li>
-			<li>
-				<div class="topLi clearfix">
-					<a href="#">
-						<div class="main">
-							<img src="images/gw_03.jpg" alt="" class="left">
-							<div class="left cartTxt">
-								<h2>[寒假课程报名] 金石教育七年级语文基金班</h2>
-								<p>海尔路校区丨许向前</p>
-								<p>课程定金</p>
-							</div>
-						</div>
-					</a>
-				</div>
-				<div class="botLi main">
-					<h3>￥299</h3>
-					<div class="right">×<span>1</span></div>
+					<h3>￥{{v.PRICE}}</h3>
+					<div class="right">×<span>{{v.NUM}}</span></div>
 				</div>
 			</li>
 		</ul>
@@ -74,11 +57,43 @@
 			</div>
 		</li>
 	</ul>
-	<button type="submit" form="payForm">微信支付</button>
+	<button type="submit" form="payForm" @click="get()">微信支付</button>
 </div>
-
+</div> 
 {include file="common/footer"}
+<script type="text/javascript">
+//setcookie('userid',this.userid);
+	var vue=new Vue({
+		el:'#pay',
+		data:{
+			userid:'1',
+			name:'',
+			phone:'',
+			address:'',
+			products:[]
+		},
+		methods:{
+			get:function(){
 
+				this.$http.post(baseurl+'?s=index/Order/get_orderinfo',{'name':this.name,'phone':this.phone,'address':this.address}).then(res=>{
+
+				},res=>{
+					console.log('请求失败,请检查Network!');
+				})
+			},
+
+		},
+		created:function(){
+			this.$http.post(baseurl+'?s=index/Order/get_orderinfo',{list:1,'userid':this.userid}).then(res=>{
+				this.products=eval('('+res.bodyText+')')['shop'];
+				this.name=eval('('+res.bodyText+')')['userinfo'][0].NAME;
+				this.phone=eval('('+res.bodyText+')')['userinfo'][0].PHONE;
+			},res=>{
+				console.log('请求失败,请检查Network!');
+			})
+		}
+	})
+</script>
 
 </body>
 </html>
