@@ -202,7 +202,7 @@
                 })
             },
             remove:function(ids,arrid){
-                layer.alert('确定是删除吗？',function(){
+                layer.alert('确定要删除吗？',function(){
                     vue.$http.post(baseurl+'?s=admin/Lesson/dele_curriculum',{id:ids}).then(res=>{
                         var num=eval('('+res.bodyText+')');
                         if(num==1){
