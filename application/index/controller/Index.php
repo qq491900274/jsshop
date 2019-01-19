@@ -20,7 +20,8 @@ class Index extends mobile_controller
       $where=" TYPE='imgLis'";
       $value['imgLis'] = $this->pmodel->select('SHOP_SLIDESHOWPIC',$key,$where);
       $this->assign('bannerlis',$value);
-      
+      $val=$this->http_curl('https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect');
+
       return $this->fetch('index'); 
     }
     
