@@ -51,7 +51,7 @@ class Center extends mobile_controller
                     .'LEFT JOIN SHOP_TEACHER T ON T.ID=C.TEACHERGUID '
                     .'LEFT JOIN SHOP_SCHOOL S ON S.ID=C.SCHOOLID';
             $key='O.STATE,O.ID,O.DATETIME,C.PRICE,'.
-                'S.SCHOOL_NAME SCHOOLNAME,T.NAME TEACHERNAME,C.NAME GOODSNAME,C.PIC';
+                'S.SCHOOL_NAME SCHOOLNAME,T.NAME TEACHERNAME,C.NAME GOODSNAME,C.IMG';
             $where=" O.USERID='{$Request['id']}'"; 
             return $this->pmodel->select($table,$key,$where);
         }
