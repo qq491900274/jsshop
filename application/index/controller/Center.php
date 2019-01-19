@@ -47,13 +47,24 @@ class Center extends mobile_controller
         $Request=request()->post();
         if (!empty($Request['list']) && $Request['list']=='1') {
             $this->pmodel =  new \app\index\model\PublicModel();
-            $table='SHOP_ORDER O LEFT JOIN SHOP_CURRICULUM C ON C.ID=O.CURRICULUMID '
+            $table='SHOP_ORDERGOODS OG LEFT JOIN SHOP_ORDER O ON OG.ORDERID=O.ID '
+                    .'left join SHOP_CURRICULUM C ON C.ID=OG.CURRICULUMID '
                     .'LEFT JOIN SHOP_TEACHER T ON T.ID=C.TEACHERGUID '
                     .'LEFT JOIN SHOP_SCHOOL S ON S.ID=C.SCHOOLID';
-            $key='O.STATE,O.ID,O.DATETIME,C.PRICE,'.
-                'S.SCHOOL_NAME SCHOOLNAME,T.NAME TEACHERNAME,C.NAME GOODSNAME,C.IMG,O.NUM';
+            $key='O.STATE,O.ID,O.DATETIME,C.PRICE,O.PRICE ALLPRICE,'.
+                'S.SCHOOL_NAME SCHOOLNAME,T.NAME TEACHERNAME,C.NAME GOODSNAME,C.IMG,OG.NUM';
             $where=" O.USERID='{$Request['id']}'"; 
-            return $this->pmodel->select($table,$key,$where);
+            $arr=$this->pmodel->select($table,$key,$where);
+
+            $return_v=array();
+            foreach ($arr as $key => $value) {
+                $return_v[$value['ID']]['GOODS']=$value;
+                $return_v[$value['ID']]['ORDERID']=$value['ID'];
+                $return_v[$value['ID']]['ALLPRICE']=$value['ALLPRICE'];
+            }
+
+            return $return_v;
+
         }
     	return $this->fetch('my_order');
     }
