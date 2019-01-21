@@ -98,4 +98,10 @@ class Center extends mobile_controller
         $where=" USERID='{$Request['userid']}'"; 
         return $this->pmodel->select($table,$key,$where);
     }
+    // 意见反馈
+    public function idea(){
+
+        return $this->fetch('idea');
+    }
+
 }
