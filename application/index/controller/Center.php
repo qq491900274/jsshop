@@ -55,7 +55,7 @@ class Center extends mobile_controller
                 'S.SCHOOL_NAME SCHOOLNAME,T.NAME TEACHERNAME,C.NAME GOODSNAME,C.IMG,OG.NUM';
             $where=" O.USERID='{$Request['id']}'"; 
 
-            if(empty($Request['orderid'])){
+            if(!empty($Request['orderid'])){
                 $where.=" and O.ID='{$Request['orderid']}'";
             }
 
