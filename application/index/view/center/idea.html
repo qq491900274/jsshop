@@ -1,23 +1,24 @@
 {include file="common/header"}
 
 <body>
-<div class="pj" id="pj">
+<div id="back"><div class="main"><a href="javascript:history.back(-1)"><i class="icon iconfont">&#xe63b;</i></a></div></div>
+<div class="pj" id="idea">
 	<form action="">
 		<textarea placeholder="写下您对老师的感受，对其他小伙伴帮助很大呦~" v-model="content"></textarea>
-		<button type="submit" @click="get()">提交评价</button>
+		<a href="javascript:void(0)" @click="get()">提交评价</a>
 	</form>
 </div>
 {include file="common/footer"}
 <script type="text/javascript">
 var vue=new Vue({
-	el:'#pj',
+	el:'#idea',
 	data:{
-		id:'1',
+		userid:'1',
 		content:''
 	},
 	methods:{
 		get:function(){
-			this.$http.post(baseurl+'?s=index/Center/eval',{'id':this.id}).then(res=>{
+			this.$http.post(baseurl+'?s=index/Center/eval',{'id':this.userid}).then(res=>{
 				var num=eval('('+res.bodyText+')');
 				if(num==1){
 					layer.msg('提交成功!',{time:1300});
