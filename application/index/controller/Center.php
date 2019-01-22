@@ -104,4 +104,7 @@ class Center extends mobile_controller
         return $this->fetch('idea');
     }
 
+    public function about(){
+        return $this->fetch('about');   
+    }
 }
