@@ -30,4 +30,8 @@ class Shopcart extends mobile_controller
 	
     }
 
+    public function pay(){
+    	return $this->fetch('pay');
+    }
+
 }
