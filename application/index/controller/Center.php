@@ -107,4 +107,8 @@ class Center extends mobile_controller
     public function about(){
         return $this->fetch('about');   
     }
+
+    public function order_details(){
+        return $this->fetch('order_details');   
+    }
 }
