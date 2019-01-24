@@ -24,12 +24,11 @@ class Order extends Controller
     		return '未接受id！';
     	}
 
-    	$where['USERID']=$request['userid'];
     	$table='SHOP_CART C LEFT JOIN SHOP_CURRICULUM CU ON CU.ID=C.CURRICULUMID'.
     			' LEFT JOIN SHOP_TEACHER T ON T.ID=CU.TEACHERGUID '.
     			' LEFT JOIN SHOP_SCHOOL S ON S.ID=CU.SCHOOLID';
     	$key='C.PRICE,C.ID CARTID,C.NUM,CU.NAME,CU.IMG,T.NAME TEACHERNAME,S.SCHOOL_NAME';
-    	$where=" C.USERID='{$request['userid']}' AND O.STATE!='4'";
+    	$where=" C.USERID='{$request['userid']}'";
     	$data['shop']=$this->pmodel->select($table,$key,$where);
 
     	//返回用户信息
