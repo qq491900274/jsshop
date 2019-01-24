@@ -30,4 +30,30 @@ class Shopcart extends mobile_controller
 	
     }
 
+    //修改购物车数量
+    function update_cart(){
+        $request=request()->post();
+        if (empty($request['cartid'])) {
+            return json_encode(array('msg'=>'缺少购物车id'));
+        }
+
+        //判断库存是否足够
+        $shopnum=Db::table('SHOP_CURRICULUM')
+                    ->where('ID',$request['curriculumid'])
+                    ->select();
+        //获取已使用库存
+        $ordernum=Db::table('SHOP_ORDERGOODS')
+                    ->where('CURRICULUMID',$request['curriculumid'])
+                    ->sum('NUM');
+
+       	if($shopnum[0]['COUNT']<($ordernum+$request['num'])){
+       		return json_encode(array('msg'=>'课程库存不足'));
+       	}
+        //获取所有
+
+        Db::table('SHOP_CART')
+            ->where('ID',$request['cartid'])
+            ->update('NUM',$request['num']);
+        return 1;
+    }
 }
