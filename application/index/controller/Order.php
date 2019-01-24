@@ -14,9 +14,7 @@ class Order extends Controller
 		parent::__construct();
 	}
 	
-    public function pay(){
-    	return $this->fetch('payment');
-    }
+   
     //返回购物车商品
     public function get_orderinfo(){
     	$request=request()->post();
@@ -44,7 +42,12 @@ class Order extends Controller
     //提交订单
     public function suborder(){
     	$request=request()->post();
-    	 
+        
+        if (empty($request['list'])) {
+            return $this->fetch('payment');
+        }	
+        
+    
     }
     
     //取消订单
