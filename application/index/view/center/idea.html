@@ -18,7 +18,7 @@ var vue=new Vue({
 	},
 	methods:{
 		get:function(){
-			this.$http.post(baseurl+'?s=index/Center/eval',{'id':this.userid}).then(res=>{
+			this.$http.post(baseurl+'?s=index/Center/eval',{'id':this.userid,'content':this.content}).then(res=>{
 				var num=eval('('+res.bodyText+')');
 				if(num==1){
 					layer.msg('提交成功!',{time:1300});
