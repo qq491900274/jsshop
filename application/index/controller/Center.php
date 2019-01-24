@@ -53,7 +53,7 @@ class Center extends mobile_controller
                     .'LEFT JOIN SHOP_SCHOOL S ON S.ID=C.SCHOOLID';
             $key='O.STATE,O.ID,O.DATETIME,O.CODE,C.PRICE,O.PRICE ALLPRICE,'.
                 'S.SCHOOL_NAME SCHOOLNAME,T.NAME TEACHERNAME,C.NAME GOODSNAME,C.IMG,OG.NUM';
-            $where=" O.USERID='{$Request['id']}'"; 
+            $where=" O.USERID='{$Request['userid']}'"; 
 
             if(!empty($Request['orderid'])){
                 $where.=" and O.ID='{$Request['orderid']}'";
