@@ -9,7 +9,7 @@
 		<ul>
 			<li v-for="(v,index) in curriculum[index]['GOODS']">
 				<div class="topLi clearfix">
-					<a href="#">
+					<a href="javascript:void(0)">
 						<div class="main">
 							<div class="orderImg left"><img src="__PUBLIC__/index/images/order_03.png" alt="" class="bq"><img :src="v.IMG"></div>
 							<div class="left cartTxt">
@@ -23,7 +23,10 @@
 			</li>
 		</ul>
 		<div class="zf">
-			<h3>合计 <span>￥{{v.ALLPRICE}}</span><a href="#" @click="cancel(v.ORDERID)">取消订单</a><a href="#" style="color:#f00">付款</a></h3>
+			<h3>合计 <span>￥{{v.ALLPRICE}}</span>
+				<a href="javascript:void(0)" @click="cancel(v.ORDERID)">取消订单</a>
+				<a href="javascript:void(0)" style="color:#f00">付款</a>
+			</h3>
 		</div>
 	</div>
 	<!-- 已付款 -->
@@ -31,7 +34,7 @@
 		<ul>
 			<li v-for="(v,index) in curriculum[index]['GOODS']">
 				<div class="topLi clearfix">
-					<a href="#">
+					<a href="javascript:void(0)">
 						<div class="main">
 							<div class="orderImg left"><img src="__PUBLIC__/index/images/order_11.png" alt="" class="bq"><img :src="v.IMG"></div>
 							<div class="left cartTxt">
@@ -45,7 +48,10 @@
 			</li>
 		</ul>
 		<div class="zf">
-			<h3>合计 <span>￥{{v.ALLPRICE}}</span><a href="#" style="color:#f00">评价</a><a href="#">查看订单</a></h3>
+			<h3>合计 <span>￥{{v.ALLPRICE}}</span>
+				<a href="javascript:void(0)" style="color:#f00">评价</a>
+				<a href="javascript:void(0)" @click="examine(v.ORDERID)">查看订单</a>
+			</h3>
 		</div>
 	</div>
 	<!-- 待评价 -->
@@ -53,7 +59,7 @@
 		<ul>
 			<li v-for="(v,index) in curriculum[index]['GOODS']">
 				<div class="topLi clearfix">
-					<a href="#">
+					<a href="javascript:void(0)">
 						<div class="main">
 							<div class="orderImg left"><img src="__PUBLIC__/index/images/order_06.png" alt="" class="bq"><img :src="v.IMG"></div>
 							<div class="left cartTxt">
@@ -67,7 +73,10 @@
 			</li>
 		</ul>
 		<div class="zf">
-			<h3>合计 <span>￥{{v.ALLPRICE}}</span><a href="#" style="color:#f00">评价</a><a href="#">查看订单</a></h3>
+			<h3>合计 <span>￥{{v.ALLPRICE}}</span>
+				<a href="javascript:void(0)" style="color:#f00">评价</a>
+				<a href="javascript:void(0)" @click="examine(v.ORDERID)">查看订单</a>
+			</h3>
 		</div>
 	</div>
 	<!-- 已取消 -->
@@ -75,7 +84,7 @@
 		<ul>
 			<li v-for="(v,index) in curriculum[index]['GOODS']">
 				<div class="topLi clearfix">
-					<a href="#">
+					<a href="javascript:void(0)">
 						<div class="main">
 							<div class="orderImg left"><img src="__PUBLIC__/index/images/order_10.png" alt="" class="bq"><img :src="v.IMG"></div>
 							<div class="left cartTxt">
@@ -89,7 +98,10 @@
 			</li>
 		</ul>
 		<div class="zf">
-			<h3>合计 <span>￥{{v.ALLPRICE}}</span><a href="#" style="color:#f00" @click="remove(v.ORDERID,index)">删除</a></h3>
+			<h3>合计 <span>￥{{v.ALLPRICE}}</span>
+				<a href="javascript:void(0)" style="color:#f00" @click="remove(v.ORDERID,index)">删除</a>
+				<a href="javascript:void(0)" @click="examine(v.ORDERID)">查看订单</a>
+			</h3>
 		</div>
 	</div>
 	<!-- 已删除 -->
@@ -97,7 +109,7 @@
 		<ul>
 			<li v-for="(v,index) in curriculum[index]['GOODS']">
 				<div class="topLi clearfix">
-					<a href="#">
+					<a href="javascript:void(0)">
 						<div class="main">
 							<div class="orderImg left"><img src="__PUBLIC__/index/images/order_12.png" alt="" class="bq"><img :src="v.IMG"></div>
 							<div class="left cartTxt">
@@ -117,9 +129,9 @@
 	<!-- 已完成 -->
 	<div class="cartBox pay myOrder" v-else-if="v.STATE === 6">
 		<ul>
-			<li v-for="(v,index) in curriculum[index]['GOODS']">
+			<li v-for="(v,index) in curriculum['GOODS']">
 				<div class="topLi clearfix">
-					<a href="#">
+					<a href="javascript:void(0)">
 						<div class="main">
 							<div class="orderImg left"><img src="__PUBLIC__/index/images/order_08.png" alt="" class="bq"><img :src="v.IMG"></div>
 							<div class="left cartTxt">
@@ -171,21 +183,8 @@ var vue=new Vue({
 					layer.close(index);
 			    }
 			  });
-
-			/*layer.alert('确定要取消订单吗？',function(){
-                vue.$http.post(baseurl+'?s=index/Order/cancel_order',{'id':id}).then(res=>{
-                    var num=eval('('+res.bodyText+')');
-                    if(num==1){
-                        layer.msg('订单已取消！',{time:1500});
-                        vue.curriculum.splice(arrid,1);
-                    }else{
-                        location.reload();
-                    }
-                },res=>{
-                    console.log('请求失败处理,请检查Network!');
-                })
-            })*/
 		},
+		//删除订单
 		remove:function(id,arrid){
 			layer.open({
 			    content: '确定要删除吗？',
@@ -205,10 +204,14 @@ var vue=new Vue({
 					layer.close(index);
 			    }
 			});
+		},
+		//查看订单详情
+		examine:function(id){
+			window.location.href=baseurl+'?s=index/Center/order_details&id='+id;	
 		}
 	},
 	created:function(){
-		this.$http.post(baseurl+'?s=index/Center/my_order',{list:1,'id':this.userid}).then(res=>{
+		this.$http.post(baseurl+'?s=index/Center/my_order',{list:1,'userid':this.userid}).then(res=>{
 			this.curriculum=eval('('+res.bodyText+')');
 		},res=>{ 
 			console.log('请求失败,请检查Network!');
