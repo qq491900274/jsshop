@@ -43,6 +43,7 @@ class Center extends mobile_controller
                 ->where($where)
                 ->select();
     }
+    //我的订单
     public function my_order(){
         $Request=request()->post();
         if (!empty($Request['list']) && $Request['list']=='1') {
@@ -79,7 +80,15 @@ class Center extends mobile_controller
         }
     	return $this->fetch('my_order');
     }
-
+    //删除订单
+    public function dele_myorder(){
+        $request=request()->post();
+        if (!empty($request['id'])) {
+            Db::table('SHOP_ORDER')
+                ->where('ID',$request['id'])
+                ->delete();
+        }
+    }
     public function my_center(){
 
     	return $this->fetch('my_center');
