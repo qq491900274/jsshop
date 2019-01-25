@@ -87,6 +87,7 @@ class Center extends mobile_controller
             Db::table('SHOP_ORDER')
                 ->where('ID',$request['id'])
                 ->delete();
+            return 1;
         }
     }
     public function my_center(){
