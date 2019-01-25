@@ -41,7 +41,7 @@ class Shopcart extends mobile_controller
 		$request=request()->post();
     	return Db::table('SHOP_USERS')
     			->where('ID',$request['userid'])
-    			->select;
+    			->select();
     }
 
     //修改购物车数量
