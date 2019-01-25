@@ -31,7 +31,7 @@ class Shopcart extends mobile_controller
     	$where=" C.USERID='{$request['userid']}'"; 
     	if (!empty($request['curriculumid'])) {
     		$shopid=str_replace(',',"','",$request['curriculumid']);
-    		$where.=" AND  C.ID IN ('{$shopid}')";
+    		$where.=" AND  C.CURRICULUMID IN ('{$shopid}')";
     	}
     	return $this->pmodel->select($table,$key,$where);
 	
