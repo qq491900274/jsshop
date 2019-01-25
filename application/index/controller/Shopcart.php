@@ -18,18 +18,50 @@ class Shopcart extends mobile_controller
     	$Request=request()->post();
 		$this->pmodel =  new \app\index\model\PublicModel(); 
 
-		if (empty($Request['list'])) {
+		if (empty($request['list'])) {
 			return $this->fetch('cart'); exit();	
 		}
+
+		$shopid=str_replace(',',"','",$request['curriculumid']);
     	$table='SHOP_CART C LEFT JOIN SHOP_CURRICULUM CU ON CU.ID=C.CURRICULUMID'.
     			' LEFT JOIN SHOP_TEACHER T ON T.ID=CU.TEACHERGUID '.
     			' LEFT JOIN SHOP_SCHOOL S ON S.ID=CU.SCHOOLID';
-    	$key='C.PRICE,C.ID CARTID,C.NUM,CU.NAME,CU.IMG,T.NAME TEACHERNAME,S.SCHOOL_NAME';
-    	$where=" C.USERID='{$Request['id']}'"; 
+    	$key='C.PRICE,C.ID CARTID,C.NUM,CU.NAME,CU.IMG,CU.ID CURRICULUMID,T.NAME TEACHERNAME,S.SCHOOL_NAME';
+    	$where=" C.USERID='{$Request['userid']}' AND  C.ID IN ('{$shopid}')"; 
     	return $this->pmodel->select($table,$key,$where);
 	
     }
+    public function get_user(){
+		$request=request()->post();
+    	return Db::table('SHOP_USERS')
+    			->where('ID',$request['userid'])
+    			->select;
+    }
 
-    
+    //修改购物车数量
+    function update_cart(){
+        $request=request()->post();
+        if (empty($request['cartid'])) {
+            return json_encode(array('msg'=>'缺少购物车id'));
+        }
 
+        //判断库存是否足够
+        $shopnum=Db::table('SHOP_CURRICULUM')
+                    ->where('ID',$request['curriculumid'])
+                    ->select();
+        //获取已使用库存
+        $ordernum=Db::table('SHOP_ORDERGOODS')
+                    ->where('CURRICULUMID',$request['curriculumid'])
+                    ->sum('NUM');
+
+       	if($shopnum[0]['COUNT']<($ordernum+$request['num'])){
+       		return json_encode(array('msg'=>'课程库存不足'));
+       	}
+        //获取所有
+
+        Db::table('SHOP_CART')
+            ->where('ID',$request['cartid'])
+            ->update('NUM',$request['num']);
+        return 1;
+    }
 }
