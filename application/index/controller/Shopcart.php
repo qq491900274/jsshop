@@ -15,7 +15,7 @@ class Shopcart extends mobile_controller
 	}
 	//查看购物车，与提交订单返回选中的商品方法
     public function cart(){
-    	$Request=request()->post();
+    	$request=request()->post();
 		$this->pmodel =  new \app\index\model\PublicModel(); 
 
 		if (empty($request['list'])) {
