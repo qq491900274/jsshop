@@ -48,7 +48,7 @@ class Shopcart extends mobile_controller
     function update_cart(){
         $request=request()->post();
         if (empty($request['cartid'])) {
-            return json_encode(array('msg'=>'缺少购物车id','state'=>'2'));
+            return array('msg'=>'缺少购物车id','state'=>'2');
         }
 
         //判断库存是否足够
@@ -61,7 +61,7 @@ class Shopcart extends mobile_controller
                     ->sum('NUM');
 
        	if($shopnum[0]['COUNT']<($ordernum+$request['num'])){
-       		return json_encode(array('msg'=>'课程库存不足','state'=>'2'));
+       		return array('msg'=>'课程库存不足','state'=>'2');
        	}
         //修改
         Db::table('SHOP_CART')
