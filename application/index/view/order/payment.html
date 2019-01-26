@@ -57,12 +57,13 @@
 			</div>
 		</li>
 	</ul>
-	<button type="submit" form="payForm" @click="get()">微信支付</button>
+	<a href="javascript:void(0)" class="sub" form="payForm" @click="get()">微信支付</a>
 </div>
 </div> 
 {include file="common/footer"}
 <script type="text/javascript">
 //setcookie('userid',this.userid);
+var id="<?php echo @$_GET['id']?>";
 	var vue=new Vue({
 		el:'#pay',
 		data:{
@@ -70,12 +71,20 @@
 			name:'',
 			phone:'',
 			address:'',
-			products:[]
+			products:[],
+			currid:'',
+			num:''
+			
 		},
 		methods:{
 			get:function(){
-
-				this.$http.post(baseurl+'?s=index/Order/get_orderinfo',{'name':this.name,'phone':this.phone,'address':this.address}).then(res=>{
+				var userinfo=[this.name,this.phone,this.address];
+				var goodsid=[];
+				for(var i=0;i<this.products.length;i++){
+					goodsid[i]={'id':this.products[i]['CURRICULUMID'],'num':this.products[i]['NUM']};
+				}
+				
+				this.$http.post(baseurl+'?s=index/Order/suborder',{'goodsid':goodsid,'userinfo':userinfo}).then(res=>{
 
 				},res=>{
 					console.log('请求失败,请检查Network!');
@@ -84,13 +93,18 @@
 
 		},
 		created:function(){
-			this.$http.post(baseurl+'?s=index/Order/get_orderinfo',{list:1,'userid':this.userid}).then(res=>{
-				this.products=eval('('+res.bodyText+')')['shop'];
-				this.name=eval('('+res.bodyText+')')['userinfo'][0].NAME;
-				this.phone=eval('('+res.bodyText+')')['userinfo'][0].PHONE;
+			this.$http.post(baseurl+'?s=index/Shopcart/get_user',{list:1,'userid':this.userid}).then(res=>{
+				this.name=eval('('+res.bodyText+')')[0]['NAME'];
+				this.phone=eval('('+res.bodyText+')')[0]['PHONE'];
 			},res=>{
 				console.log('请求失败,请检查Network!');
-			})
+			});
+			this.$http.post(baseurl+'?s=index/Shopcart/cart',{list:1,'userid':this.userid,'curriculumid':id}).then(res=>{
+				this.products=eval('('+res.bodyText+')');
+				//this.currid=eval('('+res.bodyText+')')
+			},res=>{
+				console.log('请求失败,请检查Network!');
+			});
 		}
 	})
 </script>

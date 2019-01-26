@@ -221,7 +221,8 @@
 						layer.close(index);
 				    }
 				  });
-			},  
+			},
+			
 		},
 		created:function(){
 			this.$http.post(baseurl+'?s=index/Center/my_order',{list:1,'orderid':this.orderid,'userid':this.userid}).then(res=>{

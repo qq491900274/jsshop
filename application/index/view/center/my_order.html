@@ -190,7 +190,7 @@ var vue=new Vue({
 			    content: '确定要删除吗？',
 			    btn: ['确认', '取消'],
 			    yes: function(index){
-					vue.$http.post(baseurl+'?s=index/Order/cancel_order',{'orderid':id}).then(res=>{
+					vue.$http.post(baseurl+'?s=index/Center/dele_myorder',{'id':id}).then(res=>{
 	                    var num=eval('('+res.bodyText+')');
 	                    if(num==1){
 	                        layer.msg('订单已删除！',{time:1500});
