@@ -143,8 +143,8 @@ class Lesson extends mobile_controller
     	$Request=request()->post();
 
         //判断购物车是否已有商品
-        $where['CURRICULUMID']=$Request['id']
-        $where['USERID']=$Request['userid']
+        $where['CURRICULUMID']=$Request['id'];
+        $where['USERID']=$Request['userid'];
         $ishave=Db::table('SHOP_CART')
                 ->where($where)
                 ->select();
