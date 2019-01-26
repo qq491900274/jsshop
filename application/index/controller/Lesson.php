@@ -149,7 +149,7 @@ class Lesson extends mobile_controller
                 ->where($where)
                 ->select();
         if (!empty($ishave)) {
-            $update['NUM']=' +1 ';
+            $update['NUM']=' NUM+1 ';
             Db::table('SHOP_CART')
             ->where($where)
             ->update($update);
