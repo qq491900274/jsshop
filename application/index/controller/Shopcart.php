@@ -64,9 +64,10 @@ class Shopcart extends mobile_controller
        		return array('msg'=>'课程库存不足','state'=>'2');
        	}
         //修改
+        $data['NUM']=$request['num'];
         Db::table('SHOP_CART')
             ->where('ID',$request['cartid'])
-            ->update('NUM',$request['num']);
+            ->update($data);
         return 1;
     }
 }
