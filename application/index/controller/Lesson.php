@@ -142,6 +142,20 @@ class Lesson extends mobile_controller
     function add_cart(){
     	$Request=request()->post();
 
+        //判断购物车是否已有商品
+        $where['CURRICULUMID']=$Request['id']
+        $where['USERID']=$Request['userid']
+        $ishave=Db::table('SHOP_CART')
+                ->where($where)
+                ->select();
+        if (!empty($ishave)) {
+            $update['NUM']=' +1 ';
+            Db::table('SHOP_CART')
+            ->where($where)
+            ->update($update);
+            return 1;exit();
+        }
+
 		$data['CURRICULUMID']=$Request['id'];
     	$data['USERID']=$Request['userid'];
     	$data['DATETIME']=date('Y-m-d H:i:s');
