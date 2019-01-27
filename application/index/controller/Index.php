@@ -105,6 +105,25 @@ class Index extends mobile_controller
         return $this->fetch('activity');
       }
 
-      //提交活动信息
+      $where['PHONE']=$request['phone'];
+      $ishave=Db::table('SHOP_ACTIVITY')->where($where)->select();
+      if(!empty($ishave)){
+        //提交活动信息
+        $insert['ID']=uniqid();
+        $insert['NAME']=$request['name'];
+        $insert['PHONE']=$request['phone'];
+        $insert['SCHOOL']=$request['school'];
+        $insert['SUBJECT']=$request['subject'];
+        $insert['utm_source']=$request['utm_source']);
+        $insert['utm_medium']=$request['utm_medium'];
+        $insert['utm_term']=$request['utm_term'];
+        $insert['utm_content']=$request['utm_content'];
+        $insert['utm_campaign']=$request['utm_campaign'];
+        Db::table('SHOP_ACTIVITY')->insert($insert); 
+        return 1;
+      }else{
+        return 2;
+      }
+      
     }
 }
