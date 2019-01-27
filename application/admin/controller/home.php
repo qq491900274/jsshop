@@ -9,14 +9,14 @@ use app\index\lib\Home;//deng xia
 
 class Index extends Home
 {	
-    public function index(){
-      //$this->assign('name','ThinkPHP');
-       return $this->fetch('index'); 
-    }
-    public function test()
-    {
-      $this->HelloWordModel =  new \app\index\model\HelloWord();
-      $result = $this->HelloWordModel->hello('helloword');
-     
+
+    public function activity(){
+    	$request=request()->post();
+    	if (empty($request)) {
+    		return $this->fetch('activity');
+    	}
+    	
+    	//返回信息
+    	return Db::table('SHOP_ACTIVITY')->select();
     }
 }
