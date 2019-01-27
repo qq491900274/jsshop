@@ -133,7 +133,7 @@ class Lesson extends mobile_controller
         if (!empty($Request['id'])) {
             $where="CURRICULUMID='{$Request['id']}'";
             $key='count(ID) AS NUM ';
-            $table='SHOP_ORDER';
+            $table='SHOP_ORDERGOODS';
             
             return $data=$this->pmodel->select($table,$key,$where)[0]['NUM'];
         }
@@ -149,7 +149,7 @@ class Lesson extends mobile_controller
                 ->where($where)
                 ->select();
         if (!empty($ishave)) {
-            $update['NUM']=' NUM+1 ';
+            $update['NUM']=$Request['num']+$ishave[0]['NUM'];
             Db::table('SHOP_CART')
             ->where($where)
             ->update($update);
