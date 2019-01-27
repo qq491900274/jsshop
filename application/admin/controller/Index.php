@@ -5,7 +5,7 @@ use think\View;
 use think\Request;
 use think\Session;
 use app\index\lib\Home;
-
+use \think\Db;
 
 class Index extends Controller
 {	
@@ -38,6 +38,7 @@ class Index extends Controller
       if (empty($request)) {
         return $this->fetch('activity');
       }
+      
 
       //返回信息
       return Db::table('SHOP_ACTIVITY')->select();
