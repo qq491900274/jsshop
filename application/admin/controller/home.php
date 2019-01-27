@@ -15,7 +15,7 @@ class Index extends Home
     	if (empty($request)) {
     		return $this->fetch('activity');
     	}
-
+    	
     	//返回信息
     	return Db::table('SHOP_ACTIVITY')->select();
     }
