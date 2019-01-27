@@ -15,12 +15,40 @@ class Index extends mobile_controller
 		
     public function index(){
       $this->pmodel =  new \app\index\model\PublicModel(); 
-
+      $request=request()->get();
       $key=" ID,PICURL imgUrl,URL imgHref,ORDERINDEX num";
       $where=" TYPE='imgLis'";
       $value['imgLis'] = $this->pmodel->select('SHOP_SLIDESHOWPIC',$key,$where);
       $this->assign('bannerlis',$value);
-      $val=$this->http_curl('https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect');
+
+      if (!empty($request['code'])) {
+        //获取openid
+        $val=$this->http_curl("https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx21f0eee318ecc6b2&secret=SECRET&code={$request['code']}&grant_type=authorization_code");
+
+        $openid=$this->http_curl("https://api.weixin.qq.com/sns/userinfo?access_token={$val['access_token']}&openid=wx21f0eee318ecc6b2&lang=zh_CN");
+        var_dump($openid);
+
+        if (!empty($openid)) {
+          //判断用户是否存在
+          $isuser=Db::table('SHOP_USERS')
+                  ->where('WXNO',$openid['openid'])
+                  ->select();
+          if(empty($isuser)){
+            //用户不存在
+            $data['WXNO']=$openid['openid'];
+            $data['NAME']=$openid['nickname'];
+            $data['SEX']=$openid['sex'];
+            $data['PIC']=$openid['headimgurl'];
+            $data['ID']=uniqid();
+
+            Db::table('SHOP_USERS')
+            ->insert($data);
+          }
+
+          Session::set('userid',$isuser['ID']);
+        }  
+      }
+      
 
       return $this->fetch('index'); 
     }
@@ -68,5 +96,15 @@ class Index extends mobile_controller
       $result['value'] = $this->pmodel->select('SHOP_COUPON',$key,$where);
       //返回校区数据
       return $result;
+    }
+
+    //活动页面
+    public function activity(){
+      $request=request()->post();
+      if (empty($request)) {
+        return $this->fetch('activity');
+      }
+
+      //提交活动信息
     }
 }
