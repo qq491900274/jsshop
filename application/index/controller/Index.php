@@ -5,7 +5,7 @@ use think\View;
 use think\Request;
 use think\Session;
 use app\index\lib\Home;
-
+use \think\Db;
 
 class Index extends mobile_controller
 {	
