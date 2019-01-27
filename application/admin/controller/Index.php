@@ -33,9 +33,24 @@ class Index extends Controller
       if (empty($request)) {
         return $this->fetch('activity');
       }
-      
 
-      //返回信息
-      return Db::table('SHOP_ACTIVITY')->select();
+      $this->pmodel =  new \app\index\model\PublicModel();
+      $where='1=1';
+      //获取post当前页数。与查询条件。
+      $maxpage = empty($request['page'])?'19':20*$request['page']-1;
+      $minpage = $maxpage-19;
+      
+      $count=$this->pmodel->select('SHOP_ACTIVITY ','count(ID) num',$where)[0]['num'];
+      //获取查询条件
+      $where .= " LIMIT {$minpage},{$maxpage}";
+      
+      
+      $key = "ID,NAME,PHONE,SCHOOL,SUBJECT,utm_source,utm_medium,utm_term,utm_content,utm_campaign";
+      $result['value'] = $this->pmodel->select('SHOP_ACTIVITY',$key,$where);
+      $result['page'] = empty($request['page']) ? '1' : $request['page'];
+      
+      $result['allCount'] = ceil($count/20);
+      //返回
+      return $result;
     }
 }
