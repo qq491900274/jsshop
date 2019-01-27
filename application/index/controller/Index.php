@@ -114,7 +114,7 @@ class Index extends mobile_controller
         $insert['PHONE']=$request['phone'];
         $insert['SCHOOL']=$request['school'];
         $insert['SUBJECT']=$request['subject'];
-        $insert['utm_source']=$request['utm_source']);
+        $insert['utm_source']=$request['utm_source'];
         $insert['utm_medium']=$request['utm_medium'];
         $insert['utm_term']=$request['utm_term'];
         $insert['utm_content']=$request['utm_content'];
