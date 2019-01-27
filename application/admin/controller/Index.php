@@ -32,4 +32,14 @@ class Index extends Controller
       $result = $this->HelloWordModel->hello('helloword');
       var_dump($result);
     }
+
+     public function activity(){
+      $request=request()->post();
+      if (empty($request)) {
+        return $this->fetch('activity');
+      }
+
+      //返回信息
+      return Db::table('SHOP_ACTIVITY')->select();
+    }
 }
