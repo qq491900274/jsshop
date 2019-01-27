@@ -107,7 +107,8 @@ class Index extends mobile_controller
 
       $where['PHONE']=$request['phone'];
       $ishave=Db::table('SHOP_ACTIVITY')->where($where)->select();
-      if(!empty($ishave)){
+      
+      if(count($ishave)<='0'){
         //提交活动信息
         $insert['ID']=uniqid();
         $insert['NAME']=$request['name'];

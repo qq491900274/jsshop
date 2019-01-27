@@ -212,6 +212,7 @@
                 $.post(baseurl+'?s=admin/Lesson/dele_teacher',{'id':ids},function(data){
                     if(data == 1){
                         layer.msg('删除成功！',{time:1500});
+                        
                     }else{
                         location.reload();
                     }
