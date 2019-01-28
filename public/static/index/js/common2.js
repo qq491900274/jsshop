@@ -40,13 +40,29 @@ $(function(){
 			});
 		});
 		// 性别
-		$('#sex').click(function(){
+		$('#sex').click(function(event){
+			var e=window.event || event;
+	        if(e.stopPropagation){
+	            e.stopPropagation();
+	        }else{
+	            e.cancelBubble = true;
+	        }
 			$('.sex').animate({'height':'10.88rem'},200);
 		});
-		$('#grade').click(function(){
+		$('#grade').click(function(event){
+			var e=window.event || event;
+	        if(e.stopPropagation){
+	            e.stopPropagation();
+	        }else{
+	            e.cancelBubble = true;
+	        } 
 			$('.grade').animate({'height':'26.453333rem'},200);
 		});
 		
+		document.onclick = function(){
+        	$(".selectInfor").animate({height:'0px'},200);
+    	};
+
 		$('.selectInfor input').change(function(){
 			$('.selectInfor').animate({height:'0px'},200);
 		});
@@ -57,23 +73,15 @@ $(function(){
 		$('.sex ul li').each(function(){
 			var val=$(this).find('span').html();
 			$(this).find('input').change(function(){
-				
+				//alert(111);
 				$('#sex').val(val);
 			})
 		});
-		//选择年级
-		$('.grade ul li').each(function(){
-			var val=$(this).find('span').html();
-			$(this).find('input').change(function(){
-				alert(11);
-				console.log(val);
-				$('#grade').val(val);
-			})
-		})
+		
 
 		//==================================支付 payment ===================================================
 		$(".payForm input").each(function(){
-			$(this).focus(function(){
+			$(this).focus(function(){ 
 				$(this).css('background-color','#fafafa');
 			});
 			$(".payForm input").blur(function(){
@@ -177,15 +185,16 @@ $(function(){
 		})
 
 		//==================================优惠券 youhuiquan ===================================================
-		$('.yhq_box ul li .on').find('.right').children('span').hide()
-		$('.yhq_box ul li .on').find('.right').children('i').css('display','block');
+		//$('.yhq_box ul li .on').find('.right').children('span').hide()
+		//$('.yhq_box ul li .on').find('.right').children('i').css('display','block');
 
 })
 
 
 			//===============================加减的实现===================================//
-			$('.num').click(function(){
+			/*$('.num').click(function(){
 				//a.preventDefault();
+				//alert(11);
 				var num=$(this).siblings('span').html();
 				if($(this).attr('val')=='1'){
 					num--;
@@ -203,7 +212,7 @@ $(function(){
 				var count=$(this).siblings('span').html(num);
 				//重新计算价格
 				cilci_all_money();
-			});
+			});*/
 
 		
 	//===============================勾选时========================================//
@@ -213,7 +222,7 @@ $(function(){
 		});
 		//计算所选课时价格
 		function cilci_all_money(){
-			var money=0;//总价
+			var money=0.00;//总价
 			 $('.son_check').each(function(){
 				if($(this).is(':checked')){
 					var price=$(this).parents('li').find('.price1').html();
