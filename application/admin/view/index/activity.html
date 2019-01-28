@@ -3,63 +3,33 @@
 <div class="content" id="school">
 	<div class="rightBox">
 		<div class="main">
-			<h3>校区列表</h3>
-			<div class="topBtns sc">
-				<a href="<?php echo BASE_URL;?>?s=admin/lesson/add_school.html">新增校区</a>
-			</div>
-
-			<div class="seach_tigs">
-	            
-	                <ul class="clearfix">
-	                    <li>
-	                        <label class="seach-label">
-	                            校区名称：
-	                        </label>
-	                        <input type="text" name="" placeholder="请输入校区名称" class="form-control" v-model="name">
-	                    </li>
-	                    <li>
-	                        <label class="seach-label">
-	                            校区电话：
-	                        </label>
-	                        <input type="number" maxlength="15" name="" value="" placeholder="请输入校区电话" class="form-control" v-model="phone">
-	                    </li>
-	                    
-	                    <li style="width: 33%">
-	                        <label class="seach-label">
-	                            校区地址：
-	                        </label>
-	                        <select class="form-control input-median" text="true" name="province_id" id="province_id" selectedindex="0" v-model="province"></select>
-	                        <select class="form-control input-median" text="true" name="" id="city_id" v-model="city">
-	                        	<option value="">地级市</option>
-	                        </select>
-	                        <select class="form-control input-median" text="true" name="" id="district_id" v-model="area">
-	                        	<option value="">市、县、区</option>
-	                        </select>
-	                    </li>
-	                </ul>
-	                <div class="topBtns seach">
-	                    <input type="button" name="" value="搜索" @click="get()">
-	                </div>
-	        </div>
+			<h3 style="margin-bottom: 30px;">活动列表</h3>
 
 	        <table class="tableBox">
                     <thead>
                         <tr>
-                            <th>校区名称</th>
-                            <th>校区电话</th>
-                            <th>校区地址</th>
-                            <th width="10%">操作</th>
+                            <th>姓名</th>
+                            <th>电话</th>
+                            <th>校区</th>
+                            <th>科目</th>
+                            <th>渠道</th>
+                            <th>媒介</th>
+                            <th>关键词</th>
+                            <th>单元</th>
+                            <th>计划</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(slist,index) in products">
-                                <td>{{slist.SCHOOL_NAME}}</td>
-                                <td>{{slist.PHONE}}</td>
-                                <td>{{slist.ADDRESS}}</td>
-                                <td>
-                                <a href="javascript:void(0)" @click="goupdate(slist.ID)" >编辑</a>&nbsp;
-                                <a href="javascript:void(0)" @click="remove(slist.ID,index)" >删除</a>
-                                </td>
+                        <tr v-for="(v,index) in products">
+                                <td>{{v.NAME}}</td>
+                                <td>{{v.PHONE}}</td>
+                                <td>{{v.SCHOOL}}</td>
+                                <td>{{v.SUBJECT}}</td>
+                                <td>{{v.utm_campaign}}</td>
+                                <td>{{v.utm_content}}</td>
+                                <td>{{v.utm_medium}}</td>
+                                <td>{{v.utm_source}}</td>
+                                <td>{{v.utm_term}}</td>
                             </tr>                   
                         </tbody>
                 </table>
@@ -80,19 +50,10 @@
         el:'#school',
         data:{
             products:[],
-            name:'',
-            phone:'',
-            province:'',
-            city:'',
-            area:'',
-            address:''
         },
         methods:{
-            goupdate:function(id){
-                window.location.href=baseurl+'?s=admin/Lesson/add_school&id='+id;
-            },
-            get:function(){
-                this.$http.post(baseurl+'?s=admin/Lesson/get_schoollist',{where:{
+            /*get:function(){
+                this.$http.post(baseurl+'?s=admin/index/activity',{where:{
                 	'PROVINCE':this.province,
                 	'CITY':this.city,
                 	'AREA':this.area,
@@ -109,25 +70,10 @@
                 },function(res){
                 	console.log('请求失败处理，请检查Network!');
                 })
-            },
-            remove:function(ids,arrid){
-                layer.alert('确定要删除吗？',function(){
-                    vue.$http.post(baseurl+'?s=admin/Lesson/delete_school',{id:ids}).then(res=>{
-                        var num=eval('('+res.bodyText+')');
-                        if(num==1){
-                            layer.msg('删除成功！',{time:1500});
-                            vue.products.splice(arrid,1);
-                        }else{
-                            location.reload();
-                        }
-                    },res=>{
-                        console.log('请求失败处理，请检查Network!');
-                    })
-                })
-            }
+            },*/
         },
         created:function(){
-        	 page.url='admin/Lesson/get_schoollist';
+        	 page.url='admin/index/activity';
              page.onload();
         }
         

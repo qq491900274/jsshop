@@ -8,26 +8,36 @@
 <meta content="telephone=no" name="format-detection" />
 <meta content="email=no" name="format-detection" />
 <title>金石教育推广</title>
-<link rel="stylesheet" type="text/css" href="css/reset.css?v=1.0">
-<link rel="stylesheet" type="text/css" href="css/style.css?v=1.0">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/reset.css?v=1.0">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/style.css?v=1.0">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/layer.css?v=1.0">
+<script type="text/javascript" src="__PUBLIC__/index/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/index/js/vue.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/index/js/vue-resource.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/index/js/layer.js"></script>
 <script type="text/javascript">
-	var h tml=document.documentElement;
+	var html=document.documentElement;
 	var hwidth=html.getBoundingClientRect().width;	/*获取屏幕的宽度*/
 	//console.log(hwidth);
 	html.style.fontSize=hwidth/30+"px";  /*根据屏幕大小的不同设置根节点的字体大小*/
+	var baseurl="<?php echo BASE_URL;?>";
 </script>
+<style type="text/css">
+	html,body{height: 100%;}
+</style>
 </head>
 
 <body>
-<div class="banner"><img src="images/xiao_01.jpg" width="100%"></div>
+<div id="form">
+<div class="banner"><img src="__PUBLIC__/index/images/xiao_01.jpg" width="100%"></div>
 <div class="from" id="form">
 	<div class="main">
-		<form action="" method="">
-			<div><span>姓名 | </span><input type="text" name=""></div>
-			<div><span>电话 | </span><input type="text" name=""></div>
-			<div><span>校区 | </span><input type="text" name=""></div>
-			<div><span>学科 | </span><input type="text" name=""></div>
-			<button type="submit">1元领取价值199元体验课</button>
+		<form>
+			<div><span>姓名 | </span><input type="text" name="" v-model="name"></div>
+			<div><span>电话 | </span><input type="text" name="" v-model="phone"></div>
+			<div><span>校区 | </span><input type="text" name="" v-model="school"></div>
+			<div><span>学科 | </span><input type="text" name="" v-model="subject"></div>
+			<a href="javascript:void(0)" @click="get()">1元领取价值199元体验课</a>
 		</form>
 		<h1>寒假来临，此刻的你是不是心慌了呢</h1>
 		<h2>因为，寒假....<br>这是孩子最开心，也是家长们最忧愁的阶段</h2>
@@ -37,22 +47,22 @@
 	</div>
 </div>
 <div class="exper">
-	<img src="images/xiao_03.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/xiao_03.jpg" width="100%">
 	<div class="main">
 		<h4>问题一箩筐，不怕，金石教育统统帮你解决！</h4>
 		<p>金石教育帮助孩子规划寒假学习时间，培养自律习惯、掌握时间管理的能力；更有免费暖冬自习室，专业学科老师陪读，随时进行答疑解惑，并实时向家长反馈学员在校学习情况。</p>
 		<a href="#" class="same" name="#form">1元抢报限量体验课</a>
 	</div>
-	<img src="images/xiao_05.jpg" width="100%">
-	<img src="images/xiao_06.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/xiao_05.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/xiao_06.jpg" width="100%">
 	<div class="main"><a href="#" class="same sameTwo" name="#form">1元抢报限量体验课</a></div>
 </div>
 <div class="teacher">
 	<div class="main">
-		<img src="images/xiao_09.jpg" width="100%">
-		<img src="images/xiao_12.jpg" width="100%">
-		<img src="images/xiao_14.jpg" width="100%">
-		<img src="images/xiao_16.jpg" width="100%">
+		<img src="__PUBLIC__/index/images/xiao_09.jpg" width="100%">
+		<img src="__PUBLIC__/index/images/xiao_12.jpg" width="100%">
+		<img src="__PUBLIC__/index/images/xiao_14.jpg" width="100%">
+		<img src="__PUBLIC__/index/images/xiao_16.jpg" width="100%">
 	</div>
 </div>
 <div class="main"><a href="#" class="same sameTwo" name="#form">约名师！预约1元体验课</a></div>
@@ -63,5 +73,53 @@
 		<h4>鲁ICP备12014631号-2</h4>
 	</div>
 </div>
+</div>
+<script type="text/javascript">
+	var utm_source="<?php echo @$_GET['utm_source'];?>";
+	var utm_medium="<?php echo @$_GET['utm_medium'];?>";
+	var utm_term="<?php echo @$_GET['utm_term'];?>";
+	var utm_content="<?php echo @$_GET['utm_content'];?>";
+	var utm_campaign="<?php echo @$_GET['utm_campaign'];?>";
+	var vue=new Vue({
+		el:'#form',
+		data:{
+			name:'',
+			phone:'',
+			school:'',
+			subject:''
+		},
+		methods:{
+			get:function(){
+				if(!this.name){
+					layer.msg('姓名不能为空',{time:1500});
+					return;
+				}
+				if(!this.phone){
+					layer.msg('电话不能为空',{time:1500});
+					return;
+				}
+				this.$http.post(baseurl+'?s=index/index/activity',{
+					'name':this.name,
+					'phone':this.phone,
+					'school':this.school,
+					'subject':this.subject,
+					'utm_source':utm_source,
+					'utm_medium':utm_medium,
+					'utm_term':utm_term,
+					'utm_content':utm_content,
+					'utm_campaign':utm_campaign}).then(res=>{
+						var num=eval('('+res.bodyText+')');
+						if(num==1){
+							layer.msg('报名成功',{time:1500});
+						}else if(num==2){
+							layer.msg('已报名',{time:1500});
+						}
+				},res=>{
+					console.log('请求失败,请检查Network!');
+				})
+			}
+		}
+	})
+</script>
 </body>
 </html>

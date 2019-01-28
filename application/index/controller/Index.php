@@ -104,7 +104,7 @@ class Index extends mobile_controller
       if (empty($request)) {
         return $this->fetch('activity');
       }
-
+      
       $where['PHONE']=$request['phone'];
       $ishave=Db::table('SHOP_ACTIVITY')->where($where)->select();
       

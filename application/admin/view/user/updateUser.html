@@ -90,10 +90,7 @@ function uploadpic(this0){
         }
     });
 }
-laydate.render({
-  elem: '#test5',
-  type: 'datetime'
-});
+
 
 var vue=new Vue({
     el:'#lessonEdit',
@@ -107,6 +104,7 @@ var vue=new Vue({
         JNAME:'',
         id:'<?php echo @$_GET['id']?>'
     },
+
     methods:{
         get:function(){
             var birthday=$('#test5').val();
@@ -131,10 +129,10 @@ var vue=new Vue({
                 layer.alert('性别不能为空！');
                 return;
             }
-            // if(!this.birthday){
-            //     layer.alert('出生年月不能为空！');
-            //     return;
-            // }
+            if(!birthday){
+                layer.alert('出生年月不能为空！');
+                return;
+            }
             if(!this.JNAME){
                 layer.alert('家长姓名不能为空！');
                 return;
@@ -162,6 +160,12 @@ var vue=new Vue({
         }
 
     },
+    mounted: function(){
+        laydate.render({
+            elem: '#test5',//指定元素
+            type: 'datetime'
+        });
+    },
     created:function(){
         if(!this.id){
             $('.seach_tigs h3').html('新增用户');
@@ -176,7 +180,7 @@ var vue=new Vue({
             this.school=val['SCHOOL'];
             this.grade=val['GRADE'];
             this.sex=val['SEX'];
-             $('#test5').val(val['BIRTHDAY']);
+            $('#test5').val(val['BIRTHDAY']);
             this.JNAME=val['JNAME'];
         },res=>{
              console.log('请求失败处理,请检查Network!');

@@ -2,6 +2,7 @@
 
 <body>
 <div id="cart">
+
 <div class="cart">
 	<form action="" id="cartForm"></form>
 	<div class="cartTop">
@@ -13,11 +14,11 @@
 	</div>
 	<div class="cartBox">
 		<ul>
-			<li v-for="t in carts">
+			<li v-for="(t,index) in cart">
 				<div class="topLi clearfix">
-					<a href="javascript:;">
+					<a href="javascript:void(0)">
 						<div class="main">
-							<input type="checkbox" name="" class="left son_check" form="cartForm" :value="t.ID">
+							<input type="checkbox" name="" class="left son_check" form="cartForm" :value="t.CURRICULUMID" checked="">
 							<img :src="t.IMG" alt="" class="left">
 							<div class="left cartTxt">
 								<h2>{{t.NAME}}</h2>
@@ -30,7 +31,7 @@
 				<div class="botLi main">
 					<h3>￥<span class="price1">{{t.PRICE}}</span></h3>
 					<div class="right">
-						<a href="javascript:void(0)" val='1' class="reduce num">-</a><span>{{t.NUM}}</span><a href="javascript:void(0)" class="plus num">+</a>
+						<a href="javascript:void(0)" val='1' class="reduce num" @click="add('-',index)">-</a><span>{{t.NUM}}</span><a href="javascript:void(0)" class="plus num" @click="add('+',index)">+</a>
 					</div>
 				</div>
 			</li>
@@ -43,6 +44,7 @@
 		<a href="javascript:void(0)" @click="gopay()">立即购买</a>
 	</div>
 </div>
+
 </div>
 
 <script>
@@ -71,7 +73,8 @@ fun(arr);*/
 				  //chbs数组中当前chb的checked等于事件中当前chb的checked
 				  chbs[i].checked=this.checked;
 				}
-				cilci_all_money();
+				//cilci_all_money();
+				vue.allMoney();
 			}
 		
 
@@ -96,30 +99,85 @@ fun(arr);*/
 				}
 			}
 		}
+  
+
+
+
 
 
 var vue=new Vue({
   el: '#cart',
   data: {
   	id:'1',
-    carts:[
+    cart:[
 	    
     ]
   },
   methods:{
-  	gopay:function(arrid){
-  		window.location.href=baseurl+'?s=index/Shopcart/pay&id='+arrid;
+  	gopay:function(){
+  		var  arrid=[];
+  		$('.cartBox ul li input[type=checkbox]:checked').each(function(){
+  			arrid.push(this.value);
+  		});
+  		//console.log(arrid);
+  		if(arrid==''){
+  			layer.msg('还没有选择商品',{time:1500});
+  			return;
+  		}
+  		window.location.href=baseurl+'?s=index/Order/suborder&id='+arrid;
+  	},
+  	add:function(symbol,elem){
+  		
+  		if(symbol=="-"){
+  			this.cart[elem]['NUM']--;
+  			if(this.cart[elem]['NUM']<=1){
+				this.cart[elem]['NUM']=1;
+			}
+		}else{
+			this.cart[elem]['NUM']++;
+		}
+		
+		this.$http.post(baseurl+'?s=index/Shopcart/update_cart',{'num':this.cart[elem]['NUM'],'curriculumid':this.cart[elem]['CURRICULUMID'],'cartid':this.cart[elem]['CARTID']}).then(res=>{
+			var count=eval('('+res.bodyText+')');
+			if(count=='1'){
+
+			}else{
+				this.cart[elem]['NUM']--;
+				layer.msg(count['msg'],{time:1500});
+			}
+  		},res=>{
+  			console.log('请求失败,请检查Network！');
+  		})
+  		this.$options.methods.allMoney();
+  	},
+  	allMoney:function(){
+  		//alert(11);
+  		var money=0;//总价
+  		$('#qx').attr('checked',true);
+
+  		$('.son_check').each(function(){
+				if($(this).is(':checked')){
+					var price=$(this).parents('li').find('.price1').html();
+					var num=$(this).parents('li').find('.right').children('span').html();
+					//console.log(num);
+					money+=parseFloat(price*num);
+				}
+				console.log(price);
+		});
+
+		$('#allmoney').html(money.toFixed(2));
   	}
   },
   created:function(){
-  	this.$http.post(baseurl+'?s=index/Shopcart/cart',{list:1,'id':this.id}).then(res=>{
-  			this.carts=eval('('+res.bodyText+')');
-  			
+  	this.$http.post(baseurl+'?s=index/Shopcart/cart',{list:1,'userid':this.id}).then(res=>{
+  			this.cart=eval('('+res.bodyText+')');
   	},res=>{
   		console.log('请求失败,请检查Network!');
-  	})
+  	});
+  	this.$options.methods.allMoney();
   }
 })
+
 </script>
 {include file="common/footer"}
 </body>
