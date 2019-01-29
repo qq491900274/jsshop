@@ -34,7 +34,7 @@
 	<div class="main">
 		<form>
 			<div><span>姓名 | </span><input type="text" name="" v-model="name"></div>
-			<div><span>电话 | </span><input type="number" name="" v-model="phone"></div>
+			<div><span>电话 | </span><input type="number" name="" v-model="phone" oninput="if(value.length>11)value=value.slice(0,11)"></div>
 			<div><span>校区 | </span><input type="text" name="" v-model="school"></div>
 			<div><span>学科 | </span><input type="text" name="" v-model="subject"></div>
 			<a href="javascript:void(0)" @click="get()">1元领取价值199元体验课</a>
@@ -90,8 +90,13 @@
 		},
 		methods:{
 			get:function(){
+				var pattern=/^([\u4e00-\u9fa5]{2,4}|[a-zA-Z]{2,16})$/g;
 				if(!this.name){
 					layer.msg('姓名不能为空',{time:1500});
+					return;
+				}
+				if(!pattern.test(this.name)){
+					layer.alert('姓名只能是2-4个汉字或26个英文字母');
 					return;
 				}
 				if(!this.phone){
