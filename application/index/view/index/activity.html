@@ -34,7 +34,7 @@
 	<div class="main">
 		<form>
 			<div><span>姓名 | </span><input type="text" name="" v-model="name"></div>
-			<div><span>电话 | </span><input type="text" name="" v-model="phone"></div>
+			<div><span>电话 | </span><input type="number" name="" v-model="phone"></div>
 			<div><span>校区 | </span><input type="text" name="" v-model="school"></div>
 			<div><span>学科 | </span><input type="text" name="" v-model="subject"></div>
 			<a href="javascript:void(0)" @click="get()">1元领取价值199元体验课</a>
@@ -97,6 +97,13 @@
 				if(!this.phone){
 					layer.msg('电话不能为空',{time:1500});
 					return;
+				}if(!this.school){
+					layer.msg('校区不能为空',{time:1500});
+					return;
+				}
+				if(!this.subject){
+					layer.msg('科目不能为空',{time:1500});
+					return;
 				}
 				this.$http.post(baseurl+'?s=index/index/activity',{
 					'name':this.name,
@@ -110,9 +117,9 @@
 					'utm_campaign':utm_campaign}).then(res=>{
 						var num=eval('('+res.bodyText+')');
 						if(num==1){
-							layer.msg('报名成功',{time:1500});
+							layer.alert('恭喜您报名成功，我们会在第一时间联系您');
 						}else if(num==2){
-							layer.msg('已报名',{time:1500});
+							layer.alert('已报名');
 						}
 				},res=>{
 					console.log('请求失败,请检查Network!');
