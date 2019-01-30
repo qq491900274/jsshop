@@ -45,12 +45,35 @@ class Index extends Controller
       $where .= " LIMIT {$minpage},{$maxpage}";
       
       
-      $key = "ID,NAME,PHONE,SCHOOL,SUBJECT,utm_source,utm_medium,utm_term,utm_content,utm_campaign";
+      $key = "ID,NAME,PHONE,SCHOOL,STATE,SUBJECT,utm_source,utm_medium,utm_term,utm_content,utm_campaign";
       $result['value'] = $this->pmodel->select('SHOP_ACTIVITY',$key,$where);
       $result['page'] = empty($request['page']) ? '1' : $request['page'];
       
       $result['allCount'] = ceil($count/20);
       //返回
       return $result;
+    }
+
+    function delete_avtivity(){
+      $request=request()->post();
+      if (!empty($request)) {
+        Db::table('SHOP_ACTIVITY')
+            ->where('ID',$request['id'])
+            ->delete();
+
+        return 1;
+      }
+    }
+
+    function update_activity(){
+      $request=request()->post();
+      if (!empty($request)) {
+        $data['STATE']='1';
+        Db::table('SHOP_ACTIVITY')
+            ->where('ID',$request['id'])
+            ->update($data);
+
+        return 1;
+      }
     }
 }
