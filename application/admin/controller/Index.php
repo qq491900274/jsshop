@@ -54,7 +54,7 @@ class Index extends Controller
       return $result;
     }
 
-    function delete_avtivity(){
+    function delete_activity(){
       $request=request()->post();
       if (!empty($request)) {
         Db::table('SHOP_ACTIVITY')
