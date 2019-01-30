@@ -1,19 +1,23 @@
 <div class="fixedNav">
 	<div class="main">
 		<ul>
-			<li><a href="<?php echo BASE_URL;?>?s=index/index/index" class="active">
+			<li <?php if(request()->controller()=='index') echo 'class="active"'?>>
+				<a href="<?php echo BASE_URL;?>?s=index/index/index">
 				<i class="icon iconfont">&#xe65e;</i>
 				<p>首页</p>
 			</a></li>
-			<li><a href="<?php echo BASE_URL;?>?s=index/lesson/index">
+			<li <?php if(request()->controller()=='lesson') echo 'class="active"'?>>
+				<a href="<?php echo BASE_URL;?>?s=index/lesson/index">
 				<i class="icon iconfont">&#xe626;</i>
 				<p>课程</p>
 			</a></li>
-			<li><a href="<?php echo BASE_URL;?>?s=index/shopcart/cart">
+			<li <?php if(request()->controller()=='shopcart') echo 'class="active"'?>>
+				<a href="<?php echo BASE_URL;?>?s=index/shopcart/cart">
 				<i class="icon iconfont">&#xe617;</i>
 				<p>购物车</p>
 			</a></li>
-			<li><a href="<?php echo BASE_URL;?>?s=index/center/index">
+			<li <?php if(request()->controller()=='center') echo 'class="active"'?>>
+				<a href="<?php echo BASE_URL;?>?s=index/center/index">
 				<i class="icon iconfont">&#xe638;</i>
 				<p>我的</p>
 			</a></li>
