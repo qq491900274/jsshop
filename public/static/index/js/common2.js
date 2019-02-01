@@ -113,7 +113,7 @@ $(function(){
 		})
 
 //**************************************** 购物车 shopping shopping_xiajia **********************************************************
-		$('#sc').on('click',function(){
+		/*$('#sc').on('click',function(){
 			var arr = new Array();
 			//询问框
 			 layer.open({
@@ -139,7 +139,7 @@ $(function(){
 					layer.close(index);
 			    }
 			  });
-		});
+		});*/
 
 
 
@@ -216,7 +216,7 @@ $(function(){
 
 		
 	//===============================勾选时========================================//
-		$('.son_check').click(function (){
+		/*$('.son_check').click(function (){
 			//选中课时计算价格
 			cilci_all_money();
 		});
@@ -233,7 +233,7 @@ $(function(){
 			});
 			$('.result').find('#allmoney').html(money.toFixed(2));
 			$('.result').find('#allmoney2').html(money.toFixed(2));
-		}
+		}*/
 
 //==================================全选与取消全选===============================================
 //找到id为qx的input,为其绑定单击事件为function：
