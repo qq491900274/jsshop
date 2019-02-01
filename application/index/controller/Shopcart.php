@@ -70,4 +70,15 @@ class Shopcart extends mobile_controller
             ->update($data);
         return 1;
     }
-}
+
+    function delete_cart(){
+        $request=request()->post();
+        if (empty($request['cartid'])) {
+            return array('msg'=>'缺少购物车id','state'=>'2');
+        }
+
+        Db::table('SHOP_CART')
+            ->where('ID',$request['cartid'])
+            ->delete();
+        return 1;
+    }
