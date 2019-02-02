@@ -76,10 +76,12 @@ class Shopcart extends mobile_controller
         if (empty($request['cartid'])) {
             return array('msg'=>'缺少购物车id','state'=>'2');
         }
-$where['ID']=$request['cartid'];
+		$where['ID']=$request['cartid'];
         Db::table('SHOP_CART')
             ->where($where)
             ->delete();
+        $_SESSION['cartnum']--;
+       	
         return 1;
     }
 

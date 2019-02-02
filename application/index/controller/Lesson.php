@@ -164,7 +164,7 @@ class Lesson extends mobile_controller
     	$data['COUNPONID']=$Request['couponid'];
         $data['PRICE']=$Request['price'];
     	Db::table('SHOP_CART')->insert($data);
-    	
+    	$_SESSION['cartnum']++;
     	return 1;
     }
     //删除购物车

@@ -49,7 +49,6 @@ class Index extends mobile_controller
         }  
       }
       
-
       return $this->fetch('index'); 
     }
     
