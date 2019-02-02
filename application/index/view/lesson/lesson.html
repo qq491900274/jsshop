@@ -5,8 +5,11 @@
 <div class="tab">
 	<div class="main2">
 		<ul>
-			<li v-for="v in type" @click="typeLe(v.ID)"><a href="#">{{v.NAME}}<span class="block"><i class="icon iconfont">&#xe65b;</i></span></a></li>
-		
+			<li v-for="v in type" @click="typeLe(v.ID)">
+          <a href="javascript:;" onclick="clickheader(this)">{{v.NAME}}
+            <span ><i class="icon iconfont">&#xe65b;</i></span>
+          </a>
+      </li>
 		</ul>
 	</div>
 </div>
@@ -52,8 +55,12 @@
 
 
 <script>
+function clickheader(this0){
+  $('.block').attr('class','');
+  $(this0).find('span').addClass('block');
+}
+  
   var school=getcookie('school');
-
   var gradeId;
   var subjectId;
   var typeId;
@@ -73,6 +80,7 @@ function grade(list){
   setcookie('subjectId',tname);*/
   vue.grade();
 }
+
  
 var vue=new Vue({
   el:'#lessonList',
@@ -147,6 +155,9 @@ var vue=new Vue({
     });
     this.$http.post(baseurl+'?s=index/Lesson/get_classtype').then(res=>{
       this.type=eval('('+res.bodyText+')');
+      console.log($('.tab ul li'));
+
+
     },res=>{
       console.log('请求失败,请检查Network!');
     });
