@@ -67,14 +67,13 @@ class mobile_Controller
                 $this->beforeAction($method, $options);
             }
         }
-
+        SESSION::start();
         //获取购物车数量
-        if(SESSION::GET('cartnum')){
-            $where['USERID']=SESSION::GET('userid');
+        if(empty(SESSION::GET('cartnum')) || SESSION::GET('cartnum')<='0'){
+            $where['USERID']=SESSION::GET('cartnum');
             $cartnum=Db::table('SHOP_CART')->where($where)->count();
             SESSION::SET('cartnum',$cartnum);
         }
-        
     }
 
     /**
