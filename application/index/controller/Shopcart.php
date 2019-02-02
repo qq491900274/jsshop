@@ -13,7 +13,7 @@ class Shopcart extends mobile_controller
 	public function __construct(){
 		parent::__construct();
 	}
-	//查看购物车，与提交订单返回选中的商品方法
+	//查看购物车，与提交订单返回选  中的商品方法
     public function cart(){
     	$request=request()->post();
 		$this->pmodel =  new \app\index\model\PublicModel(); 
@@ -76,13 +76,15 @@ class Shopcart extends mobile_controller
         if (empty($request['cartid'])) {
             return array('msg'=>'缺少购物车id','state'=>'2');
         }
-		$where['ID']=$request['cartid'];
-        Db::table('SHOP_CART')
+
+       
+        foreach ($request['cartid'] as $key => $value) {
+            $where['ID']=$value;
+            Db::table('SHOP_CART')
             ->where($where)
             ->delete();
-        $_SESSION['cartnum']--;
-       	
-        return 1;
+        }
+
     }
 
 }

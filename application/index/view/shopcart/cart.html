@@ -9,7 +9,7 @@
 		<div class="main">
 			<input type="checkbox" name="" form="cartForm" class="shopChoice" id="qx">
 			<span>全部选择</span>
-			<a href="javascript:;" id="sc"><i class="icon iconfont">&#xe732;</i></a>
+			<a href="javascript:;" id="sc" @click="remove()"><i class="icon iconfont">&#xe732;</i></a>
 		</div>
 	</div>
 	<div class="cartBox">
@@ -18,7 +18,7 @@
 				<div class="topLi clearfix">
 					<a href="javascript:void(0)">
 						<div class="main">
-							<input type="checkbox" name="" class="left son_check" form="cartForm" :value="t.CURRICULUMID" checked="">
+							<input type="checkbox" name="" class="left son_check" form="cartForm" :val="t.CARTID" :value="t.CURRICULUMID" onclick="cmoney()" checked="checked">
 							<img :src="t.IMG" alt="" class="left">
 							<div class="left cartTxt">
 								<h2>{{t.NAME}}</h2>
@@ -40,7 +40,7 @@
 </div>
 <div class="result">
 	<div class="main">
-		<h1>合计：￥<span id="allmoney">0</span></h1>
+		<h1>合计：￥<span id="allmoney">{{allMoney}}</span></h1>
 		<a href="javascript:void(0)" @click="gopay()">立即购买</a>
 	</div>
 </div>
@@ -61,49 +61,10 @@ fun(arr);*/
 
 //==================================全选与取消全选===============================================
 //找到id为qx的input,为其绑定单击事件为function：
-		
-		window.onload=function(){
-			var chbAll=document.getElementById('qx');
-			chbAll.onclick=function(){
-				//获得cartBox下ul下所有第一个li中的input,保存在chbs
-				var chbs=document.querySelectorAll(".cartBox ul li input");
-				//console.log(chbs);
-				//遍历chbs中每个chb
-				for(var i=0;i<chbs.length;i++){
-				  //chbs数组中当前chb的checked等于事件中当前chb的checked
-				  chbs[i].checked=this.checked;
-				}
-				//cilci_all_money();
-				vue.allMoney();
-			}
-		
 
-			//找到cartBox下ul下所有第一个li中的input,保存在chbs
-			var chbs=document.querySelectorAll(".cartBox ul li input");
-			//遍历chbs
-			for(var i=0;i<chbs.length;i++){
-				chbs[i].onclick=check;//为当前chb绑定点击事件为check
-			}
-			//定义函数check
-			function check(){
-				//如果当前chb未选中
-				if(!this.checked){
-					chbAll.checked=false;//chbAll也改为未选中
-				}else{
-					//获得cartBox下ul下所有第一个li中的input,保存在chbs
-					var chbs=document.querySelectorAll(".cartBox ul li input:not(:checked)");
-					//如果chbs的length等于0
-					if(chbs.length==0){chbAll.checked=true;}//chbAll也改为选中
-					//否则chbAll改为未选中
-					else{chbAll.checked=false;}
-				}
-			}
-		}
-  
-
-
-
-
+	function cmoney(){
+		vue.$options.methods.allMoney();
+	};
 
 var vue=new Vue({
   el: '#cart',
@@ -111,7 +72,8 @@ var vue=new Vue({
   	id:'1',
     cart:[
 	    
-    ]
+    ],
+    allMoney:'0'
   },
   methods:{
   	gopay:function(){
@@ -127,7 +89,6 @@ var vue=new Vue({
   		window.location.href=baseurl+'?s=index/Order/suborder&id='+arrid;
   	},
   	add:function(symbol,elem){
-  		
   		if(symbol=="-"){
   			this.cart[elem]['NUM']--;
   			if(this.cart[elem]['NUM']<=1){
@@ -144,41 +105,126 @@ var vue=new Vue({
 			}else{
 				this.cart[elem]['NUM']--;
 				layer.msg(count['msg'],{time:1500});
+				this.$options.methods.allMoney();
 			}
   		},res=>{
   			console.log('请求失败,请检查Network！');
   		})
   		this.$options.methods.allMoney();
   	},
-  	allMoney:function(){
-  		//alert(11);
-  		var money=0;//总价
-  		$('#qx').attr('checked',true);
-
-  		$('.son_check').each(function(){
-				if($(this).is(':checked')){
-					var price=$(this).parents('li').find('.price1').html();
-					var num=$(this).parents('li').find('.right').children('span').html();
-					//console.log(num);
-					money+=parseFloat(price*num);
+  	allMoney:function(isload){
+  		var chbAll=document.getElementById('qx');
+  		chbAll.onclick=function(){
+				//获得cartBox下ul下所有第一个li中的input,保存在chbs
+				var chbs=document.querySelectorAll(".cartBox ul li input");
+				//console.log(chbs);
+				//遍历chbs中每个chb
+				for(var i=0;i<chbs.length;i++){
+				  //chbs数组中当前chb的checked等于事件中当前chb的checked
+				  chbs[i].checked=this.checked;
 				}
-				console.log(price);
-		});
+				//cilci_all_money();
+				vue.$options.methods.allMoney();
+			}
+		var chbs=document.querySelectorAll(".cartBox ul li input:not(:checked)");
+		//var check=document.querySelectorAll(".cartBox ul li input:checked");
+			//如果chbs的length等于0
+			if(chbs.length==0){
+				chbAll.checked=true;//chbAll也改为选中
+			}else{
+				chbAll.checked=false;//否则chbAll改为未选中
+			}
+			
+  		var money=0;//总价
+  		for(var i=0;i<vue.cart.length;i++){
+  			$isok=$('li').eq(i).find('.son_check').is(':checked');
+  			if($isok || isload=='1'){
+  				money+=parseFloat(vue.cart[i]['PRICE'])*vue.cart[i]['NUM'];	
+  			}
+  		}
+  		vue.allMoney=money;
+  	},
+  	remove:function(){
 
-		$('#allmoney').html(money.toFixed(2));
+  		var  arrid=[];
+  		$('.cartBox ul li input[type=checkbox]:checked').each(function(){
+  			arrid.push(this.getAttribute("val"));
+  		});
+		layer.open({
+		    content: '确定要删除吗？',
+		    btn: ['确认', '取消'],
+		    yes: function(index){
+				vue.$http.post(baseurl+'?s=index/Shopcart/delete_cart',{'cartid':arrid}).then(res=>{
+	                var num=eval('('+res.bodyText+')');
+	                if(num==1){
+	                    layer.msg('商品已删除！',{time:1500});
+	                    $('.cartBox ul li input[type=checkbox]:checked').parents('li').remove();
+	                    /*if($('.cartBox ul li input[type=checkbox]:checked').length==0){
+	                    	$('#qx').attr('checked',false);
+	                    }*/
+	                }else{
+	                    location.reload();
+	                }  
+	            },res=>{
+	                console.log('请求失败处理,请检查Network!');
+	            })
+				layer.close(index);
+		    }
+	  	});
+
   	}
   },
   created:function(){
   	this.$http.post(baseurl+'?s=index/Shopcart/cart',{list:1,'userid':this.id}).then(res=>{
   			this.cart=eval('('+res.bodyText+')');
+  			this.$options.methods.allMoney('1');
+  			/*//全选
+  			var chbAll=document.getElementById('qx');
+			chbAll.onclick=function(){
+				//获得cartBox下ul下所有第一个li中的input,保存在chbs
+				var chbs=document.querySelectorAll(".cartBox ul li input");
+				//console.log(chbs);
+				//遍历chbs中每个chb
+				for(var i=0;i<chbs.length;i++){
+				  //chbs数组中当前chb的checked等于事件中当前chb的checked
+				  chbs[i].checked=this.checked;
+				}
+				//cilci_all_money();
+				vue.$options.methods.allMoney();
+			}
+			//找到cartBox下ul下所有第一个li中的input,保存在chbs
+			var chbs=document.querySelectorAll(".cartBox ul li input");
+			//遍历chbs
+			for(var i=0;i<chbs.length;i++){
+				chbs[i].onclick=check;//为当前chb绑定点击事件为check
+			}
+			//定义函数check
+			function check(){
+				//如果当前chb未选中,只要有一个未选中
+				if(!this.checked){
+					chbAll.checked=false;//chbAll也改为未选中
+					vue.$options.methods.allMoney();
+				}else{
+					//如果选中了,获取没有选中的input,如果没有选中的input长度为0,那说明为全选中状态
+					//获得cartBox下ul下所有第一个li中的input,保存在chbs
+					var chbs=document.querySelectorAll(".cartBox ul li input:not(:checked)");
+					//如果chbs的length等于0
+					if(chbs.length==0){
+						alert(11);
+						chbAll.checked=true;//chbAll也改为选中
+					}else{
+						chbAll.checked=false;//否则chbAll改为未选中
+					}
+					vue.$options.methods.allMoney();
+				}
+			};*/
   	},res=>{
   		console.log('请求失败,请检查Network!');
   	});
-  	this.$options.methods.allMoney();
+  	
   }
 })
-
-</script>
+	</script>
 {include file="common/footer"}
 </body>
 </html>
