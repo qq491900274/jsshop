@@ -11,6 +11,7 @@
 
 namespace think;
 
+use \think\Db;
 use think\exception\ValidateException;
 use traits\controller\Jump;
 use \think\Session;
@@ -66,7 +67,13 @@ class mobile_Controller
                 $this->beforeAction($method, $options);
             }
         }
-     
+
+        //获取购物车数量
+        if（$_SESSION['cartnum']){
+            $where['USERID']=$_SESSION['userid'];
+            $_SESSION['cartnum']=Db::table('SHOP_CART')->where($where)->count();
+        }
+        
     }
 
     /**
