@@ -108,7 +108,7 @@ var allPrice;
 				for(var i=0;i<this.products.length;i++){
 				     priceArr[i]={'price':this.products[i]['PRICE'],'num':this.products[i]['NUM']};
 				}
-				console.log(parseInt(priceArr['price']*priceArr['num']));
+				console.log(priceArr['price']);
 			},res=>{
 				console.log('请求失败,请检查Network!');
 			});
