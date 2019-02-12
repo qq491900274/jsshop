@@ -18,7 +18,7 @@ class Center extends mobile_controller
         $Request=request()->post();
         if (!empty($Request['list']) && $Request['list']=='1') {
             return Db::table('SHOP_USERS')
-                    ->where('ID',$Request['id'])
+                    ->where('ID',$_SESSION['userid'])
                     ->select();
         }
         
@@ -28,7 +28,7 @@ class Center extends mobile_controller
     public  function update_user(){
         $Request=request()->post();
         if (!empty($Request)) {
-            $where['ID']=$Request['ID'];
+            $where['ID']=$_SESSION['userid'];
             Db::table('SHOP_USERS')
                     ->where($where)
                     ->update($Request);
@@ -54,7 +54,7 @@ class Center extends mobile_controller
                     .'LEFT JOIN SHOP_SCHOOL S ON S.ID=C.SCHOOLID';
             $key='O.STATE,O.ID,O.DATETIME,O.CODE,C.PRICE,O.PRICE ALLPRICE,'.
                 'S.SCHOOL_NAME SCHOOLNAME,T.NAME TEACHERNAME,C.NAME GOODSNAME,C.IMG,OG.NUM';
-            $where=" O.USERID='{$Request['userid']}'"; 
+            $where=" O.USERID='{$_SESSION['userid']}'"; 
 
             if(!empty($Request['orderid'])){
                 $where.=" and O.ID='{$Request['orderid']}'";
@@ -105,7 +105,7 @@ class Center extends mobile_controller
 
         $table='SHOP_USERCOUPON U LEFT JOIN SHOP_COUPON C ON C.ID=U.COUPONID';
         $key='U.STATE,U.ID,U.DATETIME,C.STARTTIME,C.ENDTIME,C.NAME,C.PRICE,C.PIC,U.COUPONID';
-        $where=" USERID='{$Request['userid']}'"; 
+        $where=" USERID='{$_SESSION['userid']}'"; 
         return $this->pmodel->select($table,$key,$where);
     }
     // 意见反馈
