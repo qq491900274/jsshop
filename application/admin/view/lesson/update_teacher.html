@@ -176,19 +176,20 @@ var vue=new Vue({
           },
 	},
     created:function(){
-        if(!this.id){
-            $('#addTeacher').html('新增教师');
-            return;
-        }
-         this.$http.post(baseurl+'?s=admin/Lesson/get_schoolval').then(res=>{
-                $('#addTeacher').html('教师编辑');
+        this.$http.post(baseurl+'?s=admin/Lesson/get_schoolval').then(res=>{
                 this.school_name=eval('('+res.bodyText+')');
             },res=>{
                 console.log('请求失败处理,请检查Network!');
         });
+        if(!this.id){
+            $('#addTeacher').html('新增教师');
+            return;
+        }
+         
         this.$http.post(baseurl+'?s=admin/Lesson/get_teacherval',{
         'id':this.id
         }).then(res=>{
+            $('#addTeacher').html('教师编辑');
             var val=eval('('+res.bodyText+')')['value'][0];
             this.name=val['NAME'];
             this.code=val['CODE'];
