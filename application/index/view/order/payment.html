@@ -43,7 +43,7 @@
 		</li>
 		<li>
 			<div class="main">
-				<h2>课程金额<span>￥1299</span></h2>
+				<h2>课程金额<span>￥{{allPrice}}</span></h2>
 			</div>
 		</li>
 		<li>
@@ -64,6 +64,7 @@
 <script type="text/javascript">
 //setcookie('userid',this.userid);
 var id="<?php echo @$_GET['id']?>";
+var allPrice;
 	var vue=new Vue({
 		el:'#pay',
 		data:{
@@ -73,7 +74,8 @@ var id="<?php echo @$_GET['id']?>";
 			address:'',
 			products:[],
 			currid:'',
-			num:''
+			num:'',
+			allPrice:'1200'
 			
 		},
 		methods:{
@@ -102,6 +104,11 @@ var id="<?php echo @$_GET['id']?>";
 			this.$http.post(baseurl+'?s=index/Shopcart/cart',{list:1,'userid':this.userid,'curriculumid':id}).then(res=>{
 				this.products=eval('('+res.bodyText+')');
 				//this.currid=eval('('+res.bodyText+')')
+				var priceArr=[];
+				for(var i=0;i<this.products.length;i++){
+				     priceArr[i]={'price':this.products[i]['PRICE'],'num':this.products[i]['NUM']};
+				}
+				console.log(parseInt(priceArr['price']*priceArr['num']));
 			},res=>{
 				console.log('请求失败,请检查Network!');
 			});
