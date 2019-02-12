@@ -8,11 +8,11 @@ use app\index\lib\Home;
 use \think\Db;
 
 class Index extends mobile_controller
-{	
-	public function __construct(){
-		parent::__construct();
-	}
-		
+{ 
+  public function __construct(){
+    parent::__construct();
+  }
+    
     public function index(){
       $this->pmodel =  new \app\index\model\PublicModel(); 
       $request=request()->get();
@@ -20,20 +20,23 @@ class Index extends mobile_controller
       $where=" TYPE='imgLis'";
       $value['imgLis'] = $this->pmodel->select('SHOP_SLIDESHOWPIC',$key,$where);
       $this->assign('bannerlis',$value);
-return $this->fetch('index'); 
+  
       if (!empty($request['code'])) {
         //获取openid
-        $val=$this->http_curl("https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx21f0eee318ecc6b2&secret=fbf1dfd0be23abf1e5e2d85325db9958&code={$request['code']}&grant_type=authorization_code");
-        var_dump($val);
-        $openid=$this->http_curl("https://api.weixin.qq.com/sns/userinfo?access_token={$val['access_token']}&openid=wx21f0eee318ecc6b2&lang=zh_CN");
-        var_dump($openid);
-
-        if (!empty($openid)) {
+        $APPID=APPID;
+        $APP_SECRET=APP_SECRET;
+        $val=$this->http_curl("https://api.weixin.qq.com/sns/oauth2/access_token?appid={$APPID}&secret={$APP_SECRET}&code={$request['code']}&grant_type=authorization_code");
+   $val=json_decode($val,true);
+       
+        if (!empty($val['openid'])) {
           //判断用户是否存在
           $isuser=Db::table('SHOP_USERS')
-                  ->where('WXNO',$openid['openid'])
+                  ->where('WXNO',$val['openid'])
                   ->select();
+     
           if(empty($isuser)){
+            $openid=$this->http_curl("https://api.weixin.qq.com/sns/userinfo?access_token={$val['access_token']}&openid={$val['openid']}&lang=zh_CN");
+          $openid=json_decode($openid,true);
             //用户不存在
             $data['WXNO']=$openid['openid'];
             $data['NAME']=$openid['nickname'];
@@ -44,12 +47,14 @@ return $this->fetch('index');
             Db::table('SHOP_USERS')
             ->insert($data);
           }
-
-          Session::set('userid',$isuser['ID']);
+          
+          $isuser[0]['ID']=empty($isuser[0]['ID']) ? $data['ID'] :$isuser[0]['ID'];
+          Session::set('userid',$isuser[0]['ID']);
         }  
       }
       
-      
+  return $this->fetch('index'); 
+    
     }
     
     public function get_index()
