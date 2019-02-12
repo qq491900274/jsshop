@@ -82,7 +82,10 @@ var vue=new Vue({
       this.$http.post(baseurl+'?s=index/center/update_user',{'ID':this.id,'PHONE':this.phone,'JNAME':this.parentName,'NAME':this.Name,'BIRTHDAY':birthTime,'SEX':sex,'SCHOOL':this.school,'GRADE':grade}).then(res=>{
         var num=eval('('+res.bodyText+')');
         if(num==1){
-          layer.msg('保存成功！',{time:1500});
+          layer.msg('保存成功！',{time:1500},function(){
+            window.history.go(-1);
+          });
+          
         }
       },res=>{
         console.log('请求失败,请检查Network!');

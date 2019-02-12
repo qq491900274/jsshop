@@ -1,12 +1,13 @@
 {include file="common/header"}
 
 <body>
+<div id="myCenter">
 <div class="mineBox">
 	<div class="main">
 		<div class="headImg">
-			<img src="__PUBLIC__/index/images/cc_03.jpg" alt="">
+			<img :src=img alt="">
 		</div>
-		<p>人生若永如初见</p>
+		<p>{{name}}</p>
 	</div>
 </div>
 <ul class="mineLi">
@@ -29,8 +30,28 @@
 		关于金石教育<i class="icon iconfont">&#xe615;</i>
 	</a></li>
 </ul>
-
+</div>
 
 {include file="common/footer"}
+<script type="text/javascript">
+var vue=new Vue({
+	el:'#myCenter',
+	data:{
+		id:'1',
+		name:'',
+		img:''
+	},
+	created:function(){
+		this.$http.post(baseurl+'?s=index/center/index',{list:1,'id':this.id}).then(res=>{
+			var val=eval('('+res.bodyText+')')[0];
+	        this.name=val['NAME'];
+	        this.img=val['PIC'];
+		},res=>{
+			console.log('请求失败,请检查Network!');
+		})
+	}
+})
+</script>
+
 </body>
 </html>
