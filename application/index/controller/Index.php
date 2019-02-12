@@ -21,9 +21,8 @@ class Index extends mobile_controller
       $value['imgLis'] = $this->pmodel->select('SHOP_SLIDESHOWPIC',$key,$where);
       $this->assign('bannerlis',$value);
 
-      if (!empty($request['code'])) {
         //获取openid
-        $val=$this->http_curl("https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx21f0eee318ecc6b2&secret=SECRET&code={$request['code']}&grant_type=authorization_code");
+        $val=$this->http_curl("https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx21f0eee318ecc6b2&secret=fbf1dfd0be23abf1e5e2d85325db9958&code={$request['code']}&grant_type=authorization_code");
 
         $openid=$this->http_curl("https://api.weixin.qq.com/sns/userinfo?access_token={$val['access_token']}&openid=wx21f0eee318ecc6b2&lang=zh_CN");
         var_dump($openid);
@@ -47,7 +46,7 @@ class Index extends mobile_controller
 
           Session::set('userid',$isuser['ID']);
         }  
-      }
+      
       
       return $this->fetch('index'); 
     }
