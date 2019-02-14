@@ -35,7 +35,7 @@
 <div class="discount">
 	<ul>
 		<li>
-			<div class="main">
+			<div class="main quan">
 				<a href="#">
 					<h2>可用优惠券<i class="icon iconfont">&#xe615;</i><span>-￥200</span></h2>
 				</a>
@@ -48,23 +48,54 @@
 		</li>
 		<li>
 			<div class="main">
-				<h2>优惠金额<span>-￥200</span></h2>
+				<h2>优惠金额<span>-￥{{discountsPrice}}</span></h2>
 			</div>
 		</li>
 		<li>
 			<div class="main">
-				<h2>总价<span>￥1099</span></h2>
+				<h2>总价<span>￥{{allMoney}}</span></h2>
 			</div>
 		</li>
 	</ul>
 	<a href="javascript:void(0)" class="sub" form="payForm" @click="get()">微信支付</a>
+</div>
+
+<!-- 领取商品券 -->
+<div class="test_lay sp_quan">
+	<div class="quan_box">
+		<div class="main2">
+			<h3>快来领取呦</h3>
+			<ul>
+				<li>
+					<p class="sp_time">有效期至2017.06.15<span>满1000减200</span></p>
+					<div class="clear on"><a href="#">
+						<div class="left">
+							<h1>200</h1>
+							<p>RMB</p>
+						</div>
+						<div class="right">领取票券<i class="icon iconfont">&#xe615;</i></div>
+					</a></div>
+				</li>
+				<li>
+					<p class="sp_time">有效期至2017.06.15<span>满1000减200</span></p>
+					<div class="clear"><a href="#">
+						<div class="left">
+							<h1>200</h1>
+							<p>RMB</p>
+						</div>
+						<div class="right">领取票券<i class="icon iconfont">&#xe615;</i></div>
+					</a></div>
+				</li>
+			</ul>
+			<a href="javascript:void(0)" class="back">返回</a>
+		</div>
+	</div>
 </div>
 </div> 
 {include file="common/footer"}
 <script type="text/javascript">
 //setcookie('userid',this.userid);
 var id="<?php echo @$_GET['id']?>";
-var allPrice;
 	var vue=new Vue({
 		el:'#pay',
 		data:{
@@ -75,7 +106,9 @@ var allPrice;
 			products:[],
 			currid:'',
 			num:'',
-			allPrice:'1200'
+			allPrice:'',
+			discountsPrice:'200',
+			allMoney:''
 			
 		},
 		methods:{
@@ -107,8 +140,12 @@ var allPrice;
 				var priceArr=[];
 				for(var i=0;i<this.products.length;i++){
 				     priceArr[i]={'price':this.products[i]['PRICE'],'num':this.products[i]['NUM']};
+				     //priceArr.join('+');
+				     priceArr[i]=priceArr[i]['price']*priceArr[i]['num'];
 				}
-				console.log(priceArr['price']);
+				this.allPrice=eval(priceArr.join('+'));
+				this.allMoney=this.allPrice-this.discountsPrice;
+				//console.log(priceArr);
 			},res=>{
 				console.log('请求失败,请检查Network!');
 			});
