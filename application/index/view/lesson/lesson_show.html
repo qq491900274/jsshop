@@ -189,7 +189,7 @@ $(function(){
 
 				this.$http.post(baseurl+'?s=index/Lesson/add_cart',{'id':this.id,'num':num,'userid':'1','couponid':'','price':this.price}).then(res=>{
 					
-					this.$http.post(baseurl+'?s=index/Order/pay',{'id':this.id,'num':num,'userid':'','couponid':'','price':this.price}).then(res=>{
+					this.$http.post(baseurl+'?s=index/Order/pay',{'id':this.id,'num':num,'userid':'','couponid':'','price':this.price}).then(res=>{ 
 					
 					},res=>{
 						console.log('请求失败,请检查Network!');
