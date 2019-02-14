@@ -41,7 +41,7 @@
 	                        <div class="file_top">
 	                            <span>点击选择图片</span>
 	                            <input type="file" name="pic" id="file" class="upload" onchange="uploadpic(this)">
-	                            <input type="hidden" name="" class="" id="hpic" v-model="pic">
+	                            <input type="hidden" name="" class="" id="hpic">
                             </div>
                             <div class="fileBox"><p>建议上传图片的尺寸比例为1:1，大小不超过1M</p>
                             <img :src="pic" height="100" id="image"></div>
@@ -114,7 +114,7 @@ var vue=new Vue({
 		name:'',
 		code:'',
 		pic:'',
-		school:'',
+		//school:'',
 		school_address:'',
 		intro:'',
         province:'',
@@ -129,7 +129,7 @@ var vue=new Vue({
 		get:function(){
 			var intro=ue.getContent();
             var img=$('#hpic').val();
-            //console.log(img);
+            console.log(img);
 			//console.log(a);
             if(!this.name){
                 layer.alert('姓名不能为空！');
@@ -148,17 +148,16 @@ var vue=new Vue({
 				'name':this.name,
 				'code':this.code,
 				'pic':img,
-				'school':this.school,
+				// 'school':this.school,
 				'school_address':this.school_address,
 				'intro':intro,
                 'school_id':this.school_id,
                 'id':this.id
 			}).then(res=>{
-                
 				if(res.bodyText==1) {
             		layer.msg('保存成功！',function(){
-               		 window.history.go(-1);
-            	    });  
+               		 //window.history.go(-1);
+            	    });
 			    }
             });
 		},
@@ -168,7 +167,6 @@ var vue=new Vue({
                 'area':this.area}).then(res=>{
                    // console.log(res);
                     this.school_name=eval('('+res.bodyText+')');
-
                 },res=>{
                     console.log('请求失败处理,请检查Network!');
                 })
