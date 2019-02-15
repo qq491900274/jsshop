@@ -128,10 +128,10 @@ var id="<?php echo @$_GET['id']?>";
 
 		},
 		discounts:function(){
-			this.$http.post(baseurl+'?s=index/Shopcart/get_user').then(res=>{
+			this.$http.post(baseurl+'?s=index/Shopcart/get_user',).then(res=>{
 				
 			},res=>{
-				
+
 			})
 		},
 		created:function(){
