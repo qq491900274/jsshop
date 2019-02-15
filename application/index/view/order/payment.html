@@ -36,7 +36,7 @@
 	<ul>
 		<li>
 			<div class="main quan">
-				<a href="#">
+				<a href="javascript:void(0)" @click="discounts">
 					<h2>可用优惠券<i class="icon iconfont">&#xe615;</i><span>-￥200</span></h2>
 				</a>
 			</div>
@@ -126,6 +126,13 @@ var id="<?php echo @$_GET['id']?>";
 				})
 			},
 
+		},
+		discounts:function(){
+			this.$http.post(baseurl+'?s=index/Shopcart/get_user').then(res=>{
+				
+			},res=>{
+				
+			})
 		},
 		created:function(){
 			this.$http.post(baseurl+'?s=index/Shopcart/get_user',{list:1,'userid':this.userid}).then(res=>{
