@@ -1,4 +1,4 @@
-{include file="common/header"}
+﻿{include file="common/header"}
 
 <body>
 <div id="pay">
@@ -34,23 +34,23 @@
 </div>
 <div class="discount">
 	<ul>
-		<li>
+		<!-- <li>
 			<div class="main quan">
-				<a href="javascript:void(0)" @click="discounts">
+				<a href="javascript:void(0)" @click="choose()">
 					<h2>可用优惠券<i class="icon iconfont">&#xe615;</i><span>-￥200</span></h2>
 				</a>
 			</div>
-		</li>
+		</li> -->
 		<li>
 			<div class="main">
 				<h2>课程金额<span>￥{{allPrice}}</span></h2>
 			</div>
 		</li>
-		<li>
+		<!-- <li>
 			<div class="main">
 				<h2>优惠金额<span>-￥{{discountsPrice}}</span></h2>
 			</div>
-		</li>
+		</li> -->
 		<li>
 			<div class="main">
 				<h2>总价<span>￥{{allMoney}}</span></h2>
@@ -64,28 +64,28 @@
 <div class="test_lay sp_quan">
 	<div class="quan_box">
 		<div class="main2">
-			<h3>快来领取呦</h3>
+			<h3>选择票券</h3>
 			<ul>
-				<li>
+				<li v-for="v in disList">
+					<p class="sp_time">{{v.DATETIME}}至{{v.ENDTIME}}<span>满1000减{{v.PRICE}}</span></p>
+					<div class="clear on"><a href="javascript:void(0)">
+						<div class="left">
+							<h1>{{v.PRICE}}</h1>
+							<p>RMB</p>
+						</div>
+						<!-- <div class="right">领取票券<i class="icon iconfont">&#xe615;</i></div> -->
+					</a></div>
+				</li>
+				<!-- <li>
 					<p class="sp_time">有效期至2017.06.15<span>满1000减200</span></p>
-					<div class="clear on"><a href="#">
+					<div class="clear"><a href="javascript:void(0)">
 						<div class="left">
 							<h1>200</h1>
 							<p>RMB</p>
 						</div>
-						<div class="right">领取票券<i class="icon iconfont">&#xe615;</i></div>
+						
 					</a></div>
-				</li>
-				<li>
-					<p class="sp_time">有效期至2017.06.15<span>满1000减200</span></p>
-					<div class="clear"><a href="#">
-						<div class="left">
-							<h1>200</h1>
-							<p>RMB</p>
-						</div>
-						<div class="right">领取票券<i class="icon iconfont">&#xe615;</i></div>
-					</a></div>
-				</li>
+				</li> -->
 			</ul>
 			<a href="javascript:void(0)" class="back">返回</a>
 		</div>
@@ -107,8 +107,9 @@ var id="<?php echo @$_GET['id']?>";
 			currid:'',
 			num:'',
 			allPrice:'',
-			discountsPrice:'200',
-			allMoney:''
+			discountsPrice:'',
+			allMoney:'',
+			disList:[]
 			
 		},
 		methods:{
@@ -119,6 +120,19 @@ var id="<?php echo @$_GET['id']?>";
 					goodsid[i]={'id':this.products[i]['CURRICULUMID'],'num':this.products[i]['NUM']};
 				}
 				
+				if(!this.name){
+	                layer.alert('姓名不能为空！');
+	                return;
+            	}
+            	if(!this.phone){
+	                layer.alert('电话号码不能为空！');
+	                return;
+            	}
+            	if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.phone))){ 
+				    layer.alert("手机号码有误，请重填");  
+				    return false;
+				}
+
 				this.$http.post(baseurl+'?s=index/Order/suborder',{'goodsid':goodsid,'userinfo':userinfo}).then(res=>{
 					var data=eval('('+res.bodyText+')');
 					if(data['STATE']=='1'){
@@ -131,15 +145,16 @@ var id="<?php echo @$_GET['id']?>";
 					console.log('请求失败,请检查Network!');
 				})
 			},
-
+			choose:function(){
+				this.$http.post(baseurl+'?s=index/Center/my_coupon',{list:1,'userid':this.userid}).then(res=>{
+					 this.disList=eval('('+res.bodyText+')');
+					 //console.log(this.disList);
+				},res=>{
+					console.log('请求失败,请检查Network!');
+				})
+			}
 		},
-		discounts:function(){
-			this.$http.post(baseurl+'?s=index/Shopcart/get_user',).then(res=>{
-				
-			},res=>{
-
-			})
-		},
+		
 		created:function(){
 			this.$http.post(baseurl+'?s=index/Shopcart/get_user',{list:1,'userid':this.userid}).then(res=>{
 				this.name=eval('('+res.bodyText+')')[0]['NAME'];
@@ -165,6 +180,7 @@ var id="<?php echo @$_GET['id']?>";
 		}
 	});
 		//调用微信JS api 支付
+
 	function jsApiCall(jsApiParameters)
 	{
 		WeixinJSBridge.invoke(
@@ -173,6 +189,7 @@ var id="<?php echo @$_GET['id']?>";
 			function(res){
 				WeixinJSBridge.log(res.err_msg);
 				window.location.href=baseurl+"?s=index/order/pay_success";
+
 			}
 		);
 	}
