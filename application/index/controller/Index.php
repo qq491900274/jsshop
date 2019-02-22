@@ -4,59 +4,51 @@ use think\mobile_controller;
 use think\View;
 use think\Request;
 use think\Session;
-use app\index\lib\Home;
 use \think\Db;
+use app\index\lib\CLogFileHandler;
+use app\index\lib\Log;
 
 class Index extends mobile_controller
-{ 
-  public function __construct(){
-    parent::__construct();
-  }
-    
+{	
+	public function __construct(){
+		parent::__construct();
+	}
+	
     public function index(){
-      $this->pmodel =  new \app\index\model\PublicModel(); 
+    	$this->pmodel =  new \app\index\model\PublicModel(); 
+    	
+      //因url路由模式。此方法同时也作为微信支付回调
+      $xml = file_get_contents('php://input');
+      
+      if(!empty($xml)){
+      	  $arr=$this->xmlToArray($xml);
+      	  if($arr['result_code']=='SUCCESS'  && $arr['return_code']=='SUCCESS' && !empty($arr['transaction_id'])){
+      	  	  $thistime=date('Y-m-d H:i:s');
+      	  	  $set=" STATE='6',PAYCODE='{$arr['transaction_id']}',PAYTIME='{$thistime}' ";
+      	  	  $where="ID='{$arr['attach']}'";
+      	  	  $this->pmodel->update_all('SHOP_ORDER',$set,$where);
+      	  	  return '<xml> <return_code><![CDATA[SUCCESS]]></return_code> <return_msg><![CDATA[OK]]></return_msg> </xml>';
+			  exit;
+      	  }
+      }
+      
+      
       $request=request()->get();
       $key=" ID,PICURL imgUrl,URL imgHref,ORDERINDEX num";
       $where=" TYPE='imgLis'";
       $value['imgLis'] = $this->pmodel->select('SHOP_SLIDESHOWPIC',$key,$where);
       $this->assign('bannerlis',$value);
-  
-      if (!empty($request['code'])) {
-        //获取openid
-        $APPID=APPID;
-        $APP_SECRET=APP_SECRET;
-        $val=$this->http_curl("https://api.weixin.qq.com/sns/oauth2/access_token?appid={$APPID}&secret={$APP_SECRET}&code={$request['code']}&grant_type=authorization_code");
-   $val=json_decode($val,true);
-       
-        if (!empty($val['openid'])) {
-          //判断用户是否存在
-          $isuser=Db::table('SHOP_USERS')
-                  ->where('WXNO',$val['openid'])
-                  ->select();
-     
-          if(empty($isuser)){
-            $openid=$this->http_curl("https://api.weixin.qq.com/sns/userinfo?access_token={$val['access_token']}&openid={$val['openid']}&lang=zh_CN");
-          $openid=json_decode($openid,true);
-            //用户不存在
-            $data['WXNO']=$openid['openid'];
-            $data['NAME']=$openid['nickname'];
-            $data['SEX']=$openid['sex'];
-            $data['PIC']=$openid['headimgurl'];
-            $data['ID']=uniqid();
-
-            Db::table('SHOP_USERS')
-            ->insert($data);
-          }
-          
-          $isuser[0]['ID']=empty($isuser[0]['ID']) ? $data['ID'] :$isuser[0]['ID'];
-          Session::set('userid',$isuser[0]['ID']);
-        }  
-      }
-      
-  return $this->fetch('index'); 
-    
+      $request1=request()->post();
+	return $this->fetch('index'); 
     }
-    
+    //微信支付回调使用
+    function xmlToArray($xml)
+    {
+        //禁止引用外部xml实体
+        libxml_disable_entity_loader(true);
+        $values = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
+        return $values;
+    }
     public function get_index()
     {
         $this->pmodel =  new \app\index\model\PublicModel(); 

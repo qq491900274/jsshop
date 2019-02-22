@@ -1,0 +1,69 @@
+{include file="common/header"}
+
+<body style="background: #FFF">
+<div class="couponList">
+	<h3>优惠券领取</h3>
+	<template v-for="(v,index) in products">
+	<div class="couBox">
+		<div class="main">
+			<div class="couLi clearfix">
+				<div class="left">
+					<h1>{{v.PRICE}}<span>RMB</span></h1>
+					<p>满{{v.WHEREPRICE}}减{{v.PRICE}}</p>
+				</div>
+				<div class="right">
+					<p>有效期至<br>{{v.ENDTIME}}</p>
+					<a href="javascript:void(0)" @click="get(v.ID,index)">立即领取</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- <div class="couBox">
+		<div class="main">
+			<div class="couLi clearfix on">
+				<div class="left">
+					<h1>200<span>RMB</span></h1>
+					<p>满1000减200</p>
+				</div>
+				<div class="right">
+					<p>有效期至<br>2017.06.15</p>
+					<a href="javascript:void(0)">已领取</a>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	</template>
+</div>
+
+{include file="common/footer"}
+<script type="text/javascript">
+	var vue=new Vue({
+        el:'.couponList',
+        data:{
+        	products:[]
+        },
+        methods:{
+        	get:function(id,arrid){
+        		this.$http.post(baseurl+'?s=index/Coupon/pull_coupon',{'id':id}).then(res=>{
+        			var val=eval('('+res.bodyText+')');
+        			if(val.state==1){
+        				layer.msg('领取成功!',function(){
+        				console.log(arrid);
+        				});
+        			}
+	        	},res=>{
+	        		console.log('请求失败,请检查Network!');
+	        	})
+        	}
+        },
+        created:function(){
+        	this.$http.post(baseurl+'?s=index/Coupon/index',{list:1}).then(res=>{
+        		this.products=eval('('+res.bodyText+')');
+        	},res=>{
+        		console.log('请求失败,请检查Network!');
+        	})
+        }
+    })
+</script>
+</body>
+</html>

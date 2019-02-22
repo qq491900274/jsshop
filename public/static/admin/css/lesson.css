@@ -139,6 +139,16 @@
 .tableBox tr td:last-child a:hover{
 	text-decoration:underline;
 }
+.tableBox tr td a.zero{
+	display: inline-block;
+	padding:4px 8px;
+	background: #F00;
+	color:#FFF;
+	border-radius: 50px;
+}
+.tableBox tr td a.waszero{
+	background: #00F!important;
+}
 .page ul li{
 	border-radius: 2px;
 	margin: 3px;

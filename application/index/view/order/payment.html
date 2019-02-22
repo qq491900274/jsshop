@@ -1,4 +1,4 @@
-{include file="common/header"}
+﻿{include file="common/header"}
 
 <body>
 <div id="pay">
@@ -120,8 +120,28 @@ var id="<?php echo @$_GET['id']?>";
 					goodsid[i]={'id':this.products[i]['CURRICULUMID'],'num':this.products[i]['NUM']};
 				}
 				
+				if(!this.name){
+	                layer.alert('姓名不能为空！');
+	                return;
+            	}
+            	if(!this.phone){
+	                layer.alert('电话号码不能为空！');
+	                return;
+            	}
+            	if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.phone))){ 
+				    layer.alert("手机号码有误，请重填");  
+				    return false;
+				}
+
 				this.$http.post(baseurl+'?s=index/Order/suborder',{'goodsid':goodsid,'userinfo':userinfo}).then(res=>{
-					
+					var data=eval('('+res.bodyText+')');
+					if(data['STATE']=='1'){
+						var val=JSON.parse(data['jsApiParameters']);
+						jsApiCall(val);
+						window.location.href=baseurl+"?s=index/order/pay_success&id="+data['id'];
+					}else{
+						layer.msg(data['msg']);
+					}
 				},res=>{
 					console.log('请求失败,请检查Network!');
 				})
@@ -159,7 +179,33 @@ var id="<?php echo @$_GET['id']?>";
 				console.log('请求失败,请检查Network!');
 			});
 		}
-	})
+	});
+			//调用微信JS api 支付
+	function jsApiCall(jsApiParameters)
+	{
+		WeixinJSBridge.invoke(
+			'getBrandWCPayRequest',
+			jsApiParameters,
+			function(res){
+				WeixinJSBridge.log(res.err_msg);
+				
+			}
+		);
+	}
+
+	function callpay()
+	{
+		if (typeof WeixinJSBridge == "undefined"){
+		    if( document.addEventListener ){
+		        document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+		    }else if (document.attachEvent){
+		        document.attachEvent('WeixinJSBridgeReady', jsApiCall); 
+		        document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+		    }
+		}else{
+		    jsApiCall();
+		}
+	}
 </script>
 
 </body>

@@ -1,0 +1,300 @@
+{include file="common/header"}
+<body>
+<div id="index">
+	<div id="allmap"></div>
+<div class="top">
+	<div class="main clearfix">
+		<div class="position left"><i class="icon iconfont">&#xe6c1;</i><span id="posi"></span></div>
+		<div class="seach right"><input type="text" name="" placeholder="~{GkTZKQKw?rDZJdHkKQKwDZH]~}"><button type="submit"><i class="icon iconfont">&#xe614;</i></button></div>
+	</div>
+</div>
+
+<!--banner-->
+<div class="banner">
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+	    <div class="swiper-slide" v-for="(t,index) in bannerLis">
+	    	<img :src="t.imgUrl" alt="">
+	    </div>
+    </div>
+    <!-- ~{Hg9{PhR*7VR3Fw~}-->
+    <div class="swiper-pagination">
+    	<span v-for="(t,index) in bannerLis"></span>
+    </div>
+  </div>
+</div>
+
+<div class="test">
+	<h3 class="title">~{Q'O0PT8q2bJT~}</h3>
+	<div class="swiper-container">
+    <div class="swiper-wrapper">
+           <?php foreach($bannerlis['imgLis'] as $v):?>
+           	<div  class="swiper-slide" style="backgroundImage:url(<?php echo $v['imgUrl']?>)">
+           		<a href="<?php echo $v['imgHref']?>" style="width: 100%;height: 100%;display: flex;"></a>
+           	</div>
+           <?php endforeach;?>
+          
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+  </div>
+
+</div>
+
+<div class="ticket">
+	<div class="main">
+		<h3 class="title">~{F1H/AlH!~}</h3>
+		<ul class="clearfix">
+			<li class="on"><a href="" class="color">
+				<h2>200</h2>
+				<span>RMB</span>
+				<p>~{AlH!F1H/~}</p>
+				<i class="icon iconfont">&#xe629;</i>
+			</a></li>
+			<li class="default"><a href="" class="color">
+				<h2>200</h2>
+				<span>RMB</span>
+				<p>~{AlH!F1H/~}</p>
+				<i class="icon iconfont">&#xe629;</i>
+			</a></li>
+			<li class="default"><a href="" class="color">
+				<h2>200</h2>
+				<span>RMB</span>
+				<p>~{AlH!F1H/~}</p>
+				<i class="icon iconfont">&#xe629;</i>
+			</a></li>
+		</ul>
+	</div>
+</div>
+
+<div class="hot">
+	<div class="main">
+		<h3 class="title">~{HHCE;n6/~}</h3>
+		<a :href="v.imgHref" v-for="v in hotLis"><img :src="v.imgUrl"></a>
+		<!-- <a href=""><img src="__PUBLIC__/index/images/index_09.jpg"></a> -->
+	</div>
+</div>
+<div class="phone addr">
+	<div class="main">
+		<a href=""><i class="icon iconfont">&#xe6c1;</i> &nbsp;~{2i?48wP#Gx5XV7~}<span><i class="icon iconfont">&#xe615;</i></span></a>
+	</div>
+</div>
+<div class="phone">
+	<div class="main">
+		<a :href="'tel:'+phone"><i class="icon iconfont">&#xe688;</i> &nbsp;~{=pJ/=LS}HHO_#:~}{{phone}}<span><i class="icon iconfont">&#xe615;</i></span></a>
+	</div>
+</div>
+<div class="phone">
+	<div class="main">
+		<a :href="'tel:'+phoneKe"><i class="icon iconfont">&#xe688;</i> &nbsp;~{P!Q'F4?NW(O_#:~}{{phoneKe}}<span><i class="icon iconfont">&#xe615;</i></span></a>
+	</div>
+</div>
+
+<div class="name">
+	<h4>~{G`5:=pJ/=LS}?F<<9I7]SPO^9+K>~}</h4>
+	<p>www.jinshiedu.com</p>
+</div>
+
+
+<div class="posAll">
+	<div class="posBox">
+		<div class="main">
+			<i class="icon iconfont">&#xe6c1;</i><span id="posi2" style="font-size:1.024rem;"></span><span style="font-size:1.024rem;">(GPS~{6(N;~})</span>
+		</div>
+	</div>
+	<div class="posBox">
+		<div class="main2">
+			<p>~{@zJ77CNJ~}</p>
+			<ul class="clearfix">
+				<li><a href="">~{N+7;~}</a></li>
+				<li><a href="">~{N+7;~}</a></li>
+				<li><a href="">~{N+7;~}</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="posBox">
+		<div class="main2">
+			<p>~{Q!TqFdK{3GJP~}</p>
+			<ul class="clearfix">
+				<li v-for="(key,index) in city"><a href="javascript:void(0)" @click="">{{key}}</a></li>
+				<!-- <li><a href="">~{<CDO~}</a></li>
+				<li><a href="">~{N+7;~}</a></li>
+				<li><a href="">~{1u:#~}</a></li>
+				<li><a href="">~{AYRJ~}</a></li>
+				<li><a href="">~{HUUU~}</a></li>
+				<li><a href="">~{M~:#~}</a></li>
+				<li><a href="">~{QLL(~}</a></li>
+				<li><a href="">~{WM2)~}</a></li> -->
+			</ul>
+		</div>
+	</div>
+	<div class="posBox">
+		<div class="main2">
+			<p>~{Q!Tq5XGx~}</p>
+			<ul class="clearfix">
+				<li v-for="(key,index) in area"><a href="javascript:void(0)" @click="">{{key}}</a></li>
+				<!-- <li><a href="">~{JP11~}</a></li>
+				<li><a href="">~{a@I=~}</a></li>
+				<li><a href="">~{@n2W~}</a></li>
+				<li><a href="">~{3GQt~}</a></li>
+				<li><a href="">~{;F5:~}</a></li>
+				<li><a href="">~{<4D+~}</a></li>
+				<li><a href="">~{=:V]~}</a></li>
+				<li><a href="">~{@3Nw~}</a></li> -->
+			</ul>
+		</div>
+	</div>
+	<div class="posBox">
+		<div class="main2">
+			<p>~{Q!TqP#Gx~}</p>
+			<ul class="clearfix">
+				<li><a href="" class="on">~{Oc8[VPB7P#Gx~}</a></li>
+				<li><a href="">~{QS02H}B7P#Gx~}</a></li>
+				<li><a href="">~{VPI=B7P#Gx~}</a></li>
+				<li><a href="">~{Rx4(NwB7P#Gx~}</a></li>
+				<li><a href="">~{D~ODB7P#Gx~}</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="shade"></div>
+</div>
+{include file="common/footer"}
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=s4u13aUZAj36D4XWMm52TexzlwGGg7GG"></script>
+<script type="text/javascript">
+
+var vue= new Vue({
+	el:'#index',
+	data:{
+		bannerLis:[],
+		hotLis:[],
+		imgLis:[],
+		phone:'',
+		phoneKe:'',
+		city:[],
+		area:[],
+		active:''
+	},
+	methods:{
+		
+	},
+	mounted:function(){
+		//var that = this;
+		this.mySwiper = new Swiper('.banner .swiper-container',{
+			
+		    loop: true,
+			autoplay:5000,
+		    autoplayDisableOnInteraction: false,
+			speed:500,
+			// ~{Hg9{PhR*7VR3Fw~}
+		    pagination: '.banner .swiper-pagination',
+			paginationClickable: true,
+			grabCursor : true,
+			nextButton: '.arrow-right',
+		    prevButton: '.arrow-left',
+			parallax:true,
+			observer:true,
+    		observeParents:true,
+    		/*onSlideChangeEnd: function(swiper){ 
+		~{!!!!!!~}swiper.update();  
+		~{!!!!!!~}mySwiper.startAutoplay();
+		~{!!!!~}  mySwiper.reLoop();  
+			}*/
+		  });  
+
+		this.$nextTick(function() {							
+			this.mySwiper.startAutoplay()//~{VXPB?*J<BV2%~}
+			this.mySwiper.reLoop()//~{VXPB<FKc~}slides~{8vJ}~}
+		})
+
+		this.swiper = new Swiper('.test .swiper-container', {
+			
+	      	effect: 'coverflow',
+		    loop : true,
+			//slidesPerView : 'auto',
+			//loopedSlides :8,
+		    grabCursor: true,
+		    centeredSlides: true,
+		    slidesPerView: 'auto',
+		    coverflowEffect: {
+	        rotate: 50,
+	        stretch: 0,
+	        depth: 100,
+	        modifier: 1,
+	        slideShadows : true,
+	        observer:true,//~{P^8D~}swiper~{WT<:;rWST*KXJ1#,WT6/3uJ<;/~}swiper
+    		observeParents:true,//~{P^8D~}swiper~{5D88T*KXJ1#,WT6/3uJ<;/~}swiper
+	      },
+	      pagination: {
+	        el: '.test .swiper-pagination',
+	      },
+	    });
+
+	},
+	created:function(){
+		// ~{0Y6H5XM<~}API~{9&D\~}
+		var map = new BMap.Map("allmap");
+		var point = new BMap.Point(116.331398,39.897445);
+		map.centerAndZoom(point,12);
+		var lat , lng;
+		var geolocation = new BMap.Geolocation();
+		geolocation.getCurrentPosition(function(r){
+		    if(this.getStatus() == BMAP_STATUS_SUCCESS){
+		        var mk = new BMap.Marker(r.point);
+		        map.addOverlay(mk);
+		        map.panTo(r.point);
+		        lng=r.point.lng;
+		        lat=r.point.lat;
+		     
+		        //~{;qH!J!JPGx~}
+		        $.ajax({ 
+				    url: 'http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location='+lat+','+lng+'&output=json&pois=1&ak=s4u13aUZAj36D4XWMm52TexzlwGGg7GG', 
+				    type: 'GET', 
+				    dataType: 'JSONP', 
+				    success: function(res){
+				    //console.log(res);
+				    
+				      posi.innerHTML=res.result.addressComponent.city;
+				      posi2.innerHTML=res.result.addressComponent.city;
+				      
+				      var a=getadd(res.result.addressComponent.province,res.result.addressComponent.city,res.result.addressComponent.district);
+				     console.log(a);
+				      vue.city=a.city;
+				      vue.area=a.area;
+				    } 
+				});
+		    }
+		    else {
+		        layer.msg('~{;qH!5X@mN;VCJ'0\#!~}');
+		    }       
+
+		},{enableHighAccuracy: true});
+		
+		
+		this.$http.post(baseurl+'?s=index/index/get_index').then(res=>{
+			var val=eval('('+res.bodyText+')');
+			this.bannerLis=val['bannerLis'];
+			this.hotLis=val['hotLis'];
+			this.imgLis=val['imgLis'];
+			this.phone=val['PHONE'];
+			this.phoneKe=val['PHONE1'];
+		},res=>{
+			console.log('~{GkGsJ'0\~},~{Gk<l2i~}Network!');
+		});
+	}
+});
+
+$(function(){
+	$('.position').click(function(){
+		$('.posAll').animate({left:0},400);
+		$('.shade').css({'display':'block','background':'rgba(0,0,0,.5)'})
+	});
+	$('.shade').click(function(){
+		$('.posAll').animate({left:'-80%'},400);
+		$(this).css({'display':'none'});
+	})
+})
+
+</script>
+</body>
+</html>

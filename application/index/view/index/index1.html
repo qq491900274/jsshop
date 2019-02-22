@@ -1,4 +1,4 @@
-﻿{include file="common/header"}
+{include file="common/header"}
 
 <body>
 <div id="index">
@@ -30,11 +30,11 @@
 	<div class="swiper-container">
     <div class="swiper-wrapper">
            
-            <?php foreach($bannerlis['imgLis'] as $v):?>
-           	<div  class="swiper-slide" style="backgroundImage:url(<?php echo $v['imgUrl']?>)">
-           		<a href="<?php echo $v['imgHref']?>" style="width: 100%;height: 100%;display: flex;"></a>
-           	</div>
-           <?php endforeach;?>
+            <div class="swiper-slide" v-for="v in imgLis" :style="{backgroundImage:'url('+v.imgUrl+')'}"></div>
+           <!--  <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div>
+            <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div>
+            <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div>
+            <div class="swiper-slide" style="background-image:url(__PUBLIC__/index/images/index_05.jpg)"></div> -->
     </div>
     <!-- Add Pagination -->
     <div class="swiper-pagination"></div>
@@ -46,8 +46,20 @@
 	<div class="main">
 		<h3 class="title">票券领取</h3>
 		<ul class="clearfix">
-			<li class="default" v-for="v in coupon"><a href="javascript:void(0)" class="color">
-				<h2>{{v.PRICE}}</h2>
+			<li class="on"><a href="" class="color">
+				<h2>200</h2>
+				<span>RMB</span>
+				<p>领取票券</p>
+				<i class="icon iconfont">&#xe629;</i>
+			</a></li>
+			<li class="default"><a href="" class="color">
+				<h2>200</h2>
+				<span>RMB</span>
+				<p>领取票券</p>
+				<i class="icon iconfont">&#xe629;</i>
+			</a></li>
+			<li class="default"><a href="" class="color">
+				<h2>200</h2>
 				<span>RMB</span>
 				<p>领取票券</p>
 				<i class="icon iconfont">&#xe629;</i>
@@ -63,11 +75,11 @@
 		<!-- <a href=""><img src="__PUBLIC__/index/images/index_09.jpg"></a> -->
 	</div>
 </div>
-<!--<div class="phone addr">
+<div class="phone addr">
 	<div class="main">
 		<a href=""><i class="icon iconfont">&#xe6c1;</i> &nbsp;查看各校区地址<span><i class="icon iconfont">&#xe615;</i></span></a>
 	</div>
-</div>-->
+</div>
 <div class="phone">
 	<div class="main">
 		<a :href="'tel:'+phone"><i class="icon iconfont">&#xe688;</i> &nbsp;金石教育热线：{{phone}}<span><i class="icon iconfont">&#xe615;</i></span></a>
@@ -85,6 +97,30 @@
 </div>
 
 
+<div class="fixedNav">
+	<div class="main">
+		<ul>
+			<li><a href="" class="active">
+				<i class="icon iconfont">&#xe65e;</i>
+				<p>首页</p>
+			</a></li>
+			<li><a href="">
+				<i class="icon iconfont">&#xe626;</i>
+				<p>课程</p>
+			</a></li>
+			<li><a href="">
+				<i class="icon iconfont">&#xe617;</i>
+				<p>购物车</p>
+			</a></li>
+			<li><a href="">
+				<i class="icon iconfont">&#xe638;</i>
+				<p>我的</p>
+			</a></li>
+		</ul>
+	</div>
+</div>
+
+
 <div class="posAll">
 	<div class="posBox">
 		<div class="main">
@@ -93,9 +129,11 @@
 	</div>
 	<div class="posBox">
 		<div class="main2">
-			<p>当前省</p>
+			<p>历史访问</p>
 			<ul class="clearfix">
-				<li ><a href="javascript:void(0);" class='on'>{{provincename}}</a></li>
+				<li><a href="">潍坊</a></li>
+				<li><a href="">潍坊</a></li>
+				<li><a href="">潍坊</a></li>
 			</ul>
 		</div>
 	</div>
@@ -103,15 +141,15 @@
 		<div class="main2">
 			<p>选择其他城市</p>
 			<ul class="clearfix">
-				<li v-for="(key,index) in city">
-					<div v-if="index === cityid">
-						<a href="javascript:void(0)" @click="getcity(index,event)" class='on'>{{key}}</a>	
-					</div>
-					<div v-else>
-						<a href="javascript:void(0)" @click="getcity(index,event)">{{key}}</a>	
-					</div>
-				</li>
-
+				<li v-for="(key,index) in city"><a href="javascript:void(0)" @click="">{{key}}</a></li>
+				<!-- <li><a href="">济南</a></li>
+				<li><a href="">潍坊</a></li>
+				<li><a href="">滨海</a></li>
+				<li><a href="">临沂</a></li>
+				<li><a href="">日照</a></li>
+				<li><a href="">威海</a></li>
+				<li><a href="">烟台</a></li>
+				<li><a href="">淄博</a></li> -->
 			</ul>
 		</div>
 	</div>
@@ -119,40 +157,37 @@
 		<div class="main2">
 			<p>选择地区</p>
 			<ul class="clearfix">
-				<li v-for="(key,index) in area">
-					<div v-if="index === areaid">
-						<a href="javascript:void(0)" @click="getschool(index,event)" class='on1'>{{key}}</a>
-					</div>
-					<div v-else>
-						<a href="javascript:void(0)" @click="getschool(index,event)">{{key}}</a>
-					</div>
-				</li>
+				<li v-for="(key,index) in area"><a href="javascript:void(0)" @click="">{{key}}</a></li>
+				<!-- <li><a href="">市北</a></li>
+				<li><a href="">崂山</a></li>
+				<li><a href="">李沧</a></li>
+				<li><a href="">城阳</a></li>
+				<li><a href="">黄岛</a></li>
+				<li><a href="">即墨</a></li>
+				<li><a href="">胶州</a></li>
+				<li><a href="">莱西</a></li> -->
 			</ul>
 		</div>
 	</div>
-	<div class="posBox school_last">
+	<div class="posBox">
 		<div class="main2">
 			<p>选择校区</p>
 			<ul class="clearfix">
-				<li v-for="(key,index) in school">
-					<div v-if="key.ID === schoolid">
-						<a href="javascript:void(0)" @click="addschool(key.ID,event)" class='on'>{{key.SCHOOL_NAME}}</a>
-					</div>
-					<div v-else>
-						<a href="javascript:void(0)" @click="addschool(key.ID,event)">{{key.SCHOOL_NAME}}</a>
-					</div>
-					
-				</li>
+				<li><a href="" class="on">香港中路校区</a></li>
+				<li><a href="">延安三路校区</a></li>
+				<li><a href="">中山路校区</a></li>
+				<li><a href="">银川西路校区</a></li>
+				<li><a href="">宁夏路校区</a></li>
 			</ul>
 		</div>
 	</div>
 </div>
-
 <div class="shade"></div>
 </div>
 {include file="common/footer"}
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=s4u13aUZAj36D4XWMm52TexzlwGGg7GG"></script>
 <script type="text/javascript">
+
 var vue= new Vue({
 	el:'#index',
 	data:{
@@ -162,43 +197,11 @@ var vue= new Vue({
 		phone:'',
 		phoneKe:'',
 		city:[],
-		cityid:'',
 		area:[],
-		areaid:'',
-		active:'',
-		provinceid:'',
-		provincename:'',
-		school:[],
-		schoolid:'',
-		coupon:[]
+		active:''
 	},
 	methods:{
-		getcity:function(id,e){
-			this.area=getaddress(this.provinceid,id).val;
-			$('.on').attr('class','');
-			$(e.srcElement).attr('class','on');
-		},
-		getschool:function(area,e){
-			this.areaid=area;
-			this.$http.post(baseurl+'?s=index/index/get_school',{'area':area}).then(res=>{
-				var val=eval('('+res.bodyText+')');
-				this.school=val;
-				
-				$('.on1').attr('class','');
-				$(e.srcElement).attr('class','on1');
-			},res=>{
-				console.log('请求失败,请检查Network!');
-			});
-			
-		},
-		addschool:function(index,e){
-			//记录值
-			setcookie('city',this.cityid);
-			setcookie('area',this.areaid);
-			setcookie('school',index);//记录校区
-			$('.on2').attr('class','');
-			$(e.srcElement).attr('class','on2');
-		}
+		
 	},
 	mounted:function(){
 		//var that = this;
@@ -251,6 +254,7 @@ var vue= new Vue({
 	        el: '.test .swiper-pagination',
 	      },
 	    });
+
 	},
 	created:function(){
 		// 百度地图API功能
@@ -273,36 +277,15 @@ var vue= new Vue({
 				    type: 'GET', 
 				    dataType: 'JSONP', 
 				    success: function(res){
+				    //console.log(res);
+				    
 				      posi.innerHTML=res.result.addressComponent.city;
 				      posi2.innerHTML=res.result.addressComponent.city;
 				      
 				      var a=getadd(res.result.addressComponent.province,res.result.addressComponent.city,res.result.addressComponent.district);
-				      //记录省市区
-				      
-				      vue.provincename=res.result.addressComponent.province;
+				     console.log(a);
 				      vue.city=a.city;
 				      vue.area=a.area;
-				      
-				      //查看cookie是否有记录值
-					  vue.cityid=getcookie('city');
-					  vue.areaid=getcookie('area');
-					  vue.schoolid=getcookie('school');
-					  vue.provinceid=a.provinceid;
-
-					  if (!vue.cityid && !vue.areaid && !vue.schoolid) {
-					  	  vue.areaid=a.areaid;
-					      vue.cityid=a.cityid;
-					  }
-					  
-					 if (vue.schoolid) {
-						vue.$http.post(baseurl+'?s=index/index/get_school',{'area':vue.areaid}).then(res=>{
-							var val=eval('('+res.bodyText+')');
-							vue.school=val;
-							
-						},res=>{
-							console.log('请求失败,请检查Network!');
-						});
-					  }
 				    } 
 				});
 		    }
@@ -311,6 +294,7 @@ var vue= new Vue({
 		    }       
 
 		},{enableHighAccuracy: true});
+		
 		
 		this.$http.post(baseurl+'?s=index/index/get_index').then(res=>{
 			var val=eval('('+res.bodyText+')');
@@ -322,43 +306,19 @@ var vue= new Vue({
 		},res=>{
 			console.log('请求失败,请检查Network!');
 		});
-		this.$http.post(baseurl+'?s=index/Index/get_coupon').then(res=>{
-			var val=eval('('+res.bodyText+')')['value'];
-			// for(var i=0;i<val.length;i++){
-			// 	console.log(Math.round(val[i].PRICE));
-			// }
-			// console.log(val[0].PRICE);
-			this.coupon=val.slice(0,3);
-			//console.log(this.coupon);
-		},res=>{
-			console.log('请求失败,请检查Network!');
-		});
-		
 	}
 });
 
 $(function(){
 	$('.position').click(function(){
 		$('.posAll').animate({left:0},400);
-		$('.shade').css({'display':'block','background':'rgba(0,0,0,.5)'});
+		$('.shade').css({'display':'block','background':'rgba(0,0,0,.5)'})
 	});
-	
 	$('.shade').click(function(){
 		$('.posAll').animate({left:'-80%'},400);
 		$(this).css({'display':'none'});
-	});
-	$('.school_last ul li').each(function(){
-		$(this).find('a').click(function()  {
-			//alert(111);
-			$('.posAll').animate({left:'-80%'},400); 
-		})
-	});
-	/*var num=$('.ticket ul li h2').html();
-			console.log(1);
-			console.log(num);
-			num=parseInt(num);*/  
-});
-
+	})
+})
 
 </script>
 </body>

@@ -88,7 +88,7 @@ var vue=new Vue({
   		}
   		window.location.href=baseurl+'?s=index/Order/suborder&id='+arrid;
   	},
-  	add:function(symbol,elem){
+  	/*add:function(symbol,elem){
   		if(symbol=="-"){
   			this.cart[elem]['NUM']--;
   			if(this.cart[elem]['NUM']<=1){
@@ -107,11 +107,11 @@ var vue=new Vue({
 				layer.msg(count['msg'],{time:1500});
 				this.$options.methods.allMoney();
 			}
-  		},res=>{
+  		},res=>{ 
   			console.log('请求失败,请检查Network！');
   		})
   		this.$options.methods.allMoney();
-  	},
+  	},*/
   	allMoney:function(isload){
   		var chbAll=document.getElementById('qx');
   		chbAll.onclick=function(){

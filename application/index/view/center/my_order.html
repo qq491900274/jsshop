@@ -1,5 +1,4 @@
 {include file="common/header"}
-
 <body>
 <div id="back"><div class="main"><a href="javascript:history.back(-1)"><i class="icon iconfont">&#xe63b;</i></a></div></div>
 <div class="orderBox">
@@ -25,7 +24,7 @@
 		<div class="zf">
 			<h3>合计 <span>￥{{v.ALLPRICE}}</span>
 				<a href="javascript:void(0)" @click="cancel(v.ORDERID)">取消订单</a>
-				<a href="javascript:void(0)" style="color:#f00">付款</a>
+				<a href="javascript:void(0)" style="color:#f00" @click="gopay(v.ORDERID)">付款</a>
 			</h3>
 		</div>
 	</div>
@@ -129,7 +128,13 @@
 	<!-- 已完成 -->
 	<div class="cartBox pay myOrder" v-else-if="v.STATE === 6">
 		<ul>
-			<li v-for="(v,index) in curriculum['GOODS']">
+			<li v-for="(v,index) in curriculum[index]['GOODS']">
+				<!-- <div class="topCode">
+					<div class="main">
+						<p>订单编号:{{v.CODE}}</p>
+						<p>下单时间:{{v.DATETIME}}</p>
+					</div>
+				</div> -->
 				<div class="topLi clearfix">
 					<a href="javascript:void(0)">
 						<div class="main">
@@ -145,7 +150,8 @@
 			</li>
 		</ul>
 		<div class="zf">
-			<h3>合计 <span>￥{{v.ALLPRICE}}</span></h3>
+			<h3>合计 <span>￥{{v.ALLPRICE}}</span><a href="javascript:void(0)" @click="examine(v.ORDERID)">查看订单</a></h3>
+
 		</div>
 	</div>
 	</template>
@@ -167,13 +173,14 @@ var vue=new Vue({
 		//取消订单
 		cancel:function(id){
 			layer.open({
-			    content: '确定要删除吗？',
+			    content: '确定要取消吗？',
 			    btn: ['确认', '取消'],
 			    yes: function(index){
 					vue.$http.post(baseurl+'?s=index/Order/cancel_order',{'orderid':id}).then(res=>{
 	                    var num=eval('('+res.bodyText+')');
 	                    if(num==1){
 	                        layer.msg('订单已取消！',{time:1500});
+	                        location.reload();
 	                    }else{
 	                        location.reload();
 	                    }  
@@ -205,6 +212,22 @@ var vue=new Vue({
 			    }
 			});
 		},
+		//去支付
+		gopay:function(id){
+			this.$http.post(baseurl+'?s=index/order/pay_order',{'id':id}).then(res=>{
+				var data=eval('('+res.bodyText+')');
+					if(data['state']=='1'){
+						var val=JSON.parse(data['jsApiParameters']);
+						jsApiCall(val);
+						location.reload();
+						//window.location.href=baseurl+"?s=index/order/pay_success&id="+data['id'];
+					}else{
+						layer.msg(data['msg']);
+					}
+			},res=>{
+				console.log('请求失败,请检查Network!');
+			})
+		},
 		//查看订单详情
 		examine:function(id){
 			window.location.href=baseurl+'?s=index/Center/order_details&id='+id;	
@@ -213,11 +236,39 @@ var vue=new Vue({
 	created:function(){
 		this.$http.post(baseurl+'?s=index/Center/my_order',{list:1,'userid':this.userid}).then(res=>{
 			this.curriculum=eval('('+res.bodyText+')');
+			console.log(this.curriculum);
 		},res=>{ 
 			console.log('请求失败,请检查Network!');
 		})
 	}
 }) 
+
+			//调用微信JS api 支付
+	function jsApiCall(jsApiParameters)
+	{
+		WeixinJSBridge.invoke(
+			'getBrandWCPayRequest',
+			jsApiParameters,
+			function(res){
+				WeixinJSBridge.log(res.err_msg);
+				
+			}
+		);
+	}
+
+	function callpay()
+	{
+		if (typeof WeixinJSBridge == "undefined"){
+		    if( document.addEventListener ){
+		        document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+		    }else if (document.attachEvent){
+		        document.attachEvent('WeixinJSBridgeReady', jsApiCall); 
+		        document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+		    }
+		}else{
+		    jsApiCall();
+		}
+	}
 </script>
 </body>
 </html>
