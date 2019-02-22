@@ -4,7 +4,7 @@
 <div class="couponList">
 	<h3>优惠券领取</h3>
 	<template v-for="(v,index) in products">
-	<div class="couBox">
+	<div class="couBox" v-if="v.PUllNUM<v.MAXNUM">
 		<div class="main">
 			<div class="couLi clearfix">
 				<div class="left">
@@ -14,24 +14,26 @@
 				<div class="right">
 					<p>有效期至<br>{{v.ENDTIME}}</p>
 					<a href="javascript:void(0)" @click="get(v.ID,index)">立即领取</a>
+					<p>已领取{{v.PUllNUM}}/{{v.MAXNUM}}</p>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- <div class="couBox">
+	<div class="couBox" v-if="v.PUllNUM>=v.MAXNUM">
 		<div class="main">
 			<div class="couLi clearfix on">
 				<div class="left">
-					<h1>200<span>RMB</span></h1>
-					<p>满1000减200</p>
+					<h1>{{v.PRICE}}<span>RMB</span></h1>
+					<p>满{{v.WHEREPRICE}}减{{v.PRICE}}</p>
 				</div>
 				<div class="right">
-					<p>有效期至<br>2017.06.15</p>
+					<p>有效期至<br>{{v.ENDTIME}}</p>
 					<a href="javascript:void(0)">已领取</a>
+					<p>已领取{{v.PUllNUM}}/{{v.MAXNUM}}</p>
 				</div>
 			</div>
 		</div>
-	</div> -->
+	</div> 
 	</template>
 </div>
 
@@ -46,10 +48,12 @@
         	get:function(id,arrid){
         		this.$http.post(baseurl+'?s=index/Coupon/pull_coupon',{'id':id}).then(res=>{
         			var val=eval('('+res.bodyText+')');
+        			console.log(val);
         			if(val.state==1){
-        				layer.msg('领取成功!',function(){
-        				console.log(arrid);
-        				});
+        				this.products[arrid]['PUllNUM']++;
+        				layer.msg('领取成功!');
+        			}else{
+        				layer.msg(val.msg);
         			}
 	        	},res=>{
 	        		console.log('请求失败,请检查Network!');
