@@ -1,15 +1,16 @@
-{include file="common/header"}
+﻿{include file="common/header"}
 
 <body>
-<form action="" id="payForm"></form>
-<div class="payForm">
+<!--<form action="" id="payForm"></form>
+ <div class="payForm">
 	<input type="text" name="" placeholder="姓名" form="payForm">
 	<input type="number" name="" placeholder="电话" form="payForm">
 	<input type="text" name="" placeholder="地址[选填]" form="payForm">
-</div>
+</div> -->
+<div id="orderBox">
 <div class="success">
 	<h1>提交订单完成<i class="icon iconfont">&#xe663;</i></h1>
-	<a href="#">订单详情</a><a href="index.html">首页</a>
+	<a href="<?php echo BASE_URL;?>?s=index/index/index">返回首页</a><a href="<?php echo BASE_URL;?>?s=index/Center/order_details?id=<?php echo $_GET['id'];?>">订单详情</a>
 </div>
 <div class="cart" id="payBox">
 	<div class="main xjTitle">
@@ -18,68 +19,50 @@
 	</div>
 	<div class="cartBox pay succ">
 		<ul>
-			<li>
+			<li v-for="(v,index) in listBox">
 				<div class="topLi clearfix">
-					<a href="#">
+					<a href="javascript:void(0)" @click="goupdate(v.ID)">
 						<div class="main">
-							<img src="images/gw_03.jpg" alt="" class="left">
+							<img :src="v.PIC" alt="" class="left">
 							<div class="left cartTxt">
-								<h2>[寒假课程报名] 金石教育七年级语文基金班</h2>
-								<p>海尔路校区丨许向前</p>
+								<h2>{{v.NAME}}</h2>
+								<p>{{v.TEACHERNAME}}</p>
 								<p>体验课1节</p>
 							</div>
 						</div>
 					</a>
 				</div>
 				<div class="botLi main">
-					<h3>￥299</h3>
-				</div>
-			</li>
-			<li>
-				<div class="topLi clearfix">
-					<a href="#">
-						<div class="main">
-							<img src="images/gw_03.jpg" alt="" class="left">
-							<div class="left cartTxt">
-								<h2>[寒假课程报名] 金石教育七年级语文基金班</h2>
-								<p>海尔路校区丨许向前</p>
-								<p>体验课1节</p>
-							</div>
-						</div>
-					</a>
-				</div>
-				<div class="botLi main">
-					<h3>￥299</h3>
+					<h3>￥{{v.PRICE}}</h3>
 				</div>
 			</li>
 		</ul>
 	</div>
 </div>
-
-
-<div class="fixedNav">
-	<div class="main">
-		<ul>
-			<li><a href="" class="active">
-				<i class="icon iconfont">&#xe65e;</i>
-				<p>首页</p>
-			</a></li>
-			<li><a href="">
-				<i class="icon iconfont">&#xe626;</i>
-				<p>课程</p>
-			</a></li>
-			<li><a href="">
-				<i class="icon iconfont">&#xe617;</i>
-				<p>购物车</p>
-			</a></li>
-			<li><a href="">
-				<i class="icon iconfont">&#xe638;</i>
-				<p>我的</p>
-			</a></li>
-		</ul>
-	</div>
 </div>
-
 {include file="common/footer"}
+<script type="text/javascript">
+var vue=new Vue({
+	el:'#orderBox',
+	data:{
+		// userid:'1',
+		// orderid:'1',
+		listBox:[]
+	},
+	methods:{
+		goupdate:function(id){
+     	 	window.location.href=baseurl+'?s=index/Lesson/lesson_show&id='+id;
+    	},
+	},
+	created:function(){
+		this.$http.post(baseurl+'?s=index/Lesson/get_class',{list:1}).then(res=>{
+			this.listBox=eval('('+res.bodyText+')');
+			console.log(this.listBox);
+		},res=>{
+			console.log('请求失败,请检查Network!');
+		})
+	}
+})
+</script>
 </body>
 </html>

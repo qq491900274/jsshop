@@ -138,6 +138,7 @@ var id="<?php echo @$_GET['id']?>";
 					if(data['STATE']=='1'){
 						var val=JSON.parse(data['jsApiParameters']);
 						jsApiCall(val);
+						window.location.href=baseurl+"?s=index/order/pay_success&id="+data['id'];
 					}else{
 						layer.msg(data['msg']);
 					}
@@ -179,8 +180,7 @@ var id="<?php echo @$_GET['id']?>";
 			});
 		}
 	});
-		//调用微信JS api 支付
-
+			//调用微信JS api 支付
 	function jsApiCall(jsApiParameters)
 	{
 		WeixinJSBridge.invoke(
@@ -188,8 +188,7 @@ var id="<?php echo @$_GET['id']?>";
 			jsApiParameters,
 			function(res){
 				WeixinJSBridge.log(res.err_msg);
-				window.location.href=baseurl+"?s=index/order/pay_success";
-
+				
 			}
 		);
 	}

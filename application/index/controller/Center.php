@@ -17,6 +17,7 @@ class Center extends mobile_controller
     public function index(){
         $Request=request()->post();
         if (!empty($Request['list']) && $Request['list']=='1') {
+        	
             return Db::table('SHOP_USERS')
                     ->where('ID',$_SESSION['userid'])
                     ->select();
@@ -54,14 +55,14 @@ class Center extends mobile_controller
                     .'LEFT JOIN SHOP_SCHOOL S ON S.ID=C.SCHOOLID';
             $key='O.STATE,O.ID,O.DATETIME,O.CODE,C.PRICE,O.PRICE ALLPRICE,'.
                 'S.SCHOOL_NAME SCHOOLNAME,T.NAME TEACHERNAME,C.NAME GOODSNAME,C.IMG,OG.NUM';
-            $where=" O.USERID='{$_SESSION['userid']}'"; 
-
+            $where=" O.USERID='{$_SESSION['userid']}' and O.STATE!='4'"; 
+		
             if(!empty($Request['orderid'])){
                 $where.=" and O.ID='{$Request['orderid']}'";
             }
-
+		$where .=" order by O.DATETIME DESC";
             $arr=$this->pmodel->select($table,$key,$where);
-
+	
             $return_v=array();
             foreach ($arr as $key => $value) {
                 $return_v[$value['ID']]['GOODS'][]=$value;
@@ -84,9 +85,10 @@ class Center extends mobile_controller
     public function dele_myorder(){
         $request=request()->post();
         if (!empty($request['id'])) {
+            $data['STATE']='4';
             Db::table('SHOP_ORDER')
                 ->where('ID',$request['id'])
-                ->delete();
+                ->update($data);
             return 1;
         }
     }
@@ -95,17 +97,26 @@ class Center extends mobile_controller
     	return $this->fetch('my_center');
     }
 
+    public function coupon_list(){
+
+        return $this->fetch('coupon_list');
+    }
     //优惠券
     public function my_coupon(){
-        $Request=request()->post();
+        $request=request()->post();
         $this->pmodel =  new \app\index\model\PublicModel(); 
-        if (empty($Request['list'])) {
+        if (empty($request['list'])) {
             return $this->fetch('my_coupon');
         }
-
+        
+        $where=" USERID='{$_SESSION['userid']}'"; 
+	 if(!empty($request['state'])){
+	 	 $where .=" and U.STATE='{$request['state']}'";
+	 }
+	 
         $table='SHOP_USERCOUPON U LEFT JOIN SHOP_COUPON C ON C.ID=U.COUPONID';
         $key='U.STATE,U.ID,U.DATETIME,C.STARTTIME,C.ENDTIME,C.NAME,C.PRICE,C.PIC,U.COUPONID';
-        $where=" USERID='{$_SESSION['userid']}'"; 
+        
         return $this->pmodel->select($table,$key,$where);
     }
     // 意见反馈

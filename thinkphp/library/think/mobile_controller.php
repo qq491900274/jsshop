@@ -74,6 +74,7 @@ class mobile_Controller
             $cartnum=Db::table('SHOP_CART')->where($where)->count();
             SESSION::SET('cartnum',$cartnum);
         }
+        $_SESSION['userid']='1';
     }
 
     /**

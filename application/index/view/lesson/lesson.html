@@ -81,6 +81,8 @@ function grade(list){
   vue.grade();
 }
 
+
+
  
 var vue=new Vue({
   el:'#lessonList',
@@ -144,6 +146,11 @@ var vue=new Vue({
             var $siblings = $this.parent().siblings().children('a').removeClass('active');
             initNav(eval('(' + $this.data('demo') + ')'));
           });
+          
+          $('.second-nav .nav-close').click(function(){
+              alert(111);
+          })
+
         });
     }
   },
@@ -155,8 +162,6 @@ var vue=new Vue({
     });
     this.$http.post(baseurl+'?s=index/Lesson/get_classtype').then(res=>{
       this.type=eval('('+res.bodyText+')');
-      console.log($('.tab ul li'));
-
 
     },res=>{
       console.log('请求失败,请检查Network!');

@@ -50,7 +50,7 @@
 			<p>开课时间：{{startTime}}</p>
 			<p>开课节数：共{{courseNum}}节</p>
 			<p>开课时长：{{courseTime}}分钟/节</p>
-			<span>以下是课程大纲及详情</span>
+			<span v-html="content">{{content}}</span>
 		</div>
 	</div>
 </div>
@@ -61,8 +61,8 @@
 	</div>
 </div>
 <div class="fixed">
-	<a href="#" class="fix_phone"><i class="icon iconfont">&#xe6bf;</i></a>
-	<a href="#" class="fix_gwc"><i class="icon iconfont">&#xe617;</i><span><?php echo @(int)$_SESSION['cartnum'];?></span></a>
+	<a href="javascript:void(0)" class="fix_phone"><i class="icon iconfont">&#xe6bf;</i></a>
+	<a href="<?php echo BASE_URL;?>?s=index/shopcart/cart" class="fix_gwc"><i class="icon iconfont">&#xe617;</i><span><?php echo @(int)$_SESSION['cartnum'];?></span></a>
 </div>
 <!-- 购物车弹窗 -->
 <div class="bg">
@@ -166,7 +166,8 @@ $(function(){
 			endTime:'',
 			count:'',
 			teacherId:'',
-			teaLesson:[]
+			teaLesson:[],
+			content:''
 		},
 		methods:{
 			goupdate:function(id){
@@ -189,11 +190,11 @@ $(function(){
 
 				this.$http.post(baseurl+'?s=index/Lesson/add_cart',{'id':this.id,'num':num,'userid':'1','couponid':'','price':this.price}).then(res=>{
 					
-					this.$http.post(baseurl+'?s=index/Order/pay',{'id':this.id,'num':num,'userid':'','couponid':'','price':this.price}).then(res=>{ 
+					/*this.$http.post(baseurl+'?s=index/Order/pay',{'id':this.id,'num':num,'userid':'','couponid':'','price':this.price}).then(res=>{
 					
 					},res=>{
 						console.log('请求失败,请检查Network!');
-					})
+					})*/
 					window.location.href=baseurl+'?s=index/Order/suborder&id='+this.id;
 
 				},res=>{
@@ -222,10 +223,13 @@ $(function(){
 				this.startTime=val['STARTTIME'];
 				this.endTime=val['ENDTIME'];
 				this.count=val['COUNT'];
-				this.teacherId=val['TEACHERGUID']
+				this.teacherId=val['TEACHERGUID'];
+				this.content=val['CONTENT'];
 				//获取教师所有课程
 				this.$http.post(baseurl+'?s=index/Lesson/get_teacher',{'id':this.teacherId}).then(res=>{
-					this.teaLesson=eval('('+res.bodyText+')');
+					var val=eval('('+res.bodyText+')');
+					this.teaLesson=val;
+					
 				},res=>{
 					console.log('请求失败,请检查Network!');
 				});

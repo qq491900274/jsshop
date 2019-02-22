@@ -28,7 +28,7 @@ class Shopcart extends mobile_controller
     			' LEFT JOIN SHOP_SCHOOL S ON S.ID=CU.SCHOOLID';
     	$key='C.PRICE,C.ID CARTID,C.NUM,CU.NAME,CU.IMG,CU.ID CURRICULUMID,T.NAME TEACHERNAME,S.SCHOOL_NAME';
 
-    	$where=" C.USERID='{$request['userid']}'"; 
+    	$where=" C.USERID='{$_SESSION['userid']}'"; 
     	if (!empty($request['curriculumid'])) {
     		$shopid=str_replace(',',"','",$request['curriculumid']);
     		$where.=" AND  C.CURRICULUMID IN ('{$shopid}')";
@@ -40,7 +40,7 @@ class Shopcart extends mobile_controller
     public function get_user(){
 		$request=request()->post();
     	return Db::table('SHOP_USERS')
-    			->where('ID',$request['userid'])
+    			->where('ID',$_SESSION['userid'])
     			->select();
     }
 
@@ -84,6 +84,8 @@ class Shopcart extends mobile_controller
             ->where($where)
             ->delete();
         }
+
+        return 1;
 
     }
 

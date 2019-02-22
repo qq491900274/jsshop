@@ -73,6 +73,10 @@ class Lesson extends mobile_controller
 			$where.=" and CLASSTYPEGUID='{$Request['classtypeguid']}'";
 		}
 		
+		if(!empty($Request['name'])){
+			$where.="and (C.NAME LIKE '%{$Request['name']}%' or T.NAME LIKE '%{$Request['name']}%')";
+		}
+		
 		$key='C.ID,C.NAME,C.CODE,C.PRICE,C.DATETIME,C.CONTENT,C.SEASONTYPE,'.
 			'C.STARTTIME,C.ENDTIME,C.COURSENUM,C.COURSETIME,C.IMG,C.COUNT,'.
 			'T.NAME TEACHERNAME,T.PIC,C.CLASSINFOR';
@@ -144,27 +148,27 @@ class Lesson extends mobile_controller
 
         //判断购物车是否已有商品
         $where['CURRICULUMID']=$Request['id'];
-        $where['USERID']=$Request['userid'];
+        $where['USERID']=$_SESSION['userid'];
         $ishave=Db::table('SHOP_CART')
                 ->where($where)
                 ->select();
         if (!empty($ishave)) {
-            $update['NUM']=$Request['num']+$ishave[0]['NUM'];
-            Db::table('SHOP_CART')
-            ->where($where)
-            ->update($update);
+            // $update['NUM']=$Request['num']+$ishave[0]['NUM'];
+            // Db::table('SHOP_CART')
+            // ->where($where)
+            // ->update($update);
             return 1;exit();
         }
 
-		$data['CURRICULUMID']=$Request['id'];
-    	$data['USERID']=$Request['userid'];
+	$data['CURRICULUMID']=$Request['id'];
+    	$data['USERID']=$_SESSION['userid'];
     	$data['DATETIME']=date('Y-m-d H:i:s');
     	$data['ID']=uniqid();
     	$data['NUM']=$Request['num'];
     	$data['COUNPONID']=$Request['couponid'];
         $data['PRICE']=$Request['price'];
     	Db::table('SHOP_CART')->insert($data);
-    	$_SESSION['cartnum']++;
+    	@$_SESSION['cartnum']++;
     	return 1;
     }
     //删除购物车
