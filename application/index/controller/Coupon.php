@@ -59,11 +59,11 @@ class Coupon extends mobile_controller
 			}
 			
 			//查询优惠券领取条件
-			$where['COUPONID']=$request['id'];
-			$where['USERID']=$_SESSION['userid'];
-			$countcoupon=Db::table('SHOP_USERCOUPON')->where($where)->count();
-			
-			if(!empty($coupon) && $countcoupon>$coupon[0]['MAXNUM']){
+			$where1['COUPONID']=$request['id'];
+			$where1['USERID']=$_SESSION['userid'];
+			$countcoupon=Db::table('SHOP_USERCOUPON')->where($where1)->count();
+	
+			if(!empty($coupon) && $countcoupon>=$coupon[0]['MAXNUM']){
 				return array('msg'=>'已经达到领取上限！','state'=>'5');
 			}
 			
