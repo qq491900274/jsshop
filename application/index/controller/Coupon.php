@@ -26,6 +26,12 @@ class Coupon extends mobile_controller
       	  $val=Db::table('SHOP_COUPON')
       	  		->where($where)
       	  		->select();
+
+      	  foreach($val as $k=>$v){
+      	  	$num=Db::table('SHOP_USERCOUPON')->where('COUPONID',$v['ID'])->coupon();
+      	  	$val[$k]['PUllNUM']=$num;
+      	  }
+      	  
       	  return $val;
       }
       
