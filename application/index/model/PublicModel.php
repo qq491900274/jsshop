@@ -1,6 +1,7 @@
 <?php 
 namespace app\index\model;
-
+use app\index\lib\CLogFileHandler;
+use app\index\lib\Log;
 use think\Model;
 use \think\Db;
 class PublicModel extends Model
@@ -29,5 +30,13 @@ class PublicModel extends Model
         
      return Db::query($sql);
     }
-
+    
+    public function update_all($table,$set,$where){
+    	if (!empty($where)) {
+            $where=" where ".$where;
+        }
+        $sql="update {$table} set {$set} {$where}";
+    
+     	 return Db::query($sql);
+    }
 }
