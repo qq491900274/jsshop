@@ -8,21 +8,13 @@ use think\Session;
 use \think\Db;
 
 
-class Login extends Controller
+class Text extends Controller
 {	
 	public function __construct(){
 		parent::__construct();
 	}
 	
-    public function index(){
-    	$this->assign('name','123');
-    	return $this->fetch('index'); 
-    }
-    public function Login_in()
-    {
-      $this->LoginModel =  new \app\index\model\LoginModel();
-      $result = $this->LoginModel->hello('helloword');
-      var_dump($result['12']);
-
+    public function text(){
+    	return $this->fetch('text'); 
     }
 }
