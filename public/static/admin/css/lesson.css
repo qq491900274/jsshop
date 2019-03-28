@@ -1,4 +1,4 @@
-
+﻿
 /**
 ******************************************校区列表************************************
 ***/
@@ -138,16 +138,6 @@
 }
 .tableBox tr td:last-child a:hover{
 	text-decoration:underline;
-}
-.tableBox tr td a.zero{
-	display: inline-block;
-	padding:4px 8px;
-	background: #F00;
-	color:#FFF;
-	border-radius: 50px;
-}
-.tableBox tr td a.waszero{
-	background: #00F!important;
 }
 .page ul li{
 	border-radius: 2px;
@@ -417,9 +407,7 @@
 	margin-left: 10px;
 	line-height: 2;
 }
-#orderList tr:nth-child(odd){
-	background: #f5f5f5;
-}
+
 #orderList tr{
 	border-bottom: 1px solid #DDD;
 }
