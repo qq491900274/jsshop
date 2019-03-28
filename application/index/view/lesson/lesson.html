@@ -55,6 +55,19 @@
 
 
 <script>
+$(window).scroll(function(){
+
+　　var scrollTop = $(this).scrollTop();
+　　var scrollHeight = $(document).height();
+　　var windowHeight = $(this).height();
+　　if(scrollTop + windowHeight == scrollHeight){
+　　 //nearbyData();//加载数据的函数
+    //layer.open({type: 2});
+    vue.$options.methods.nearbyData();
+　　}
+});
+
+
 function clickheader(this0){
   $('.block').attr('class','');
   $(this0).find('span').addClass('block');
@@ -89,7 +102,10 @@ var vue=new Vue({
   data:{
     products:[],
     type:[],
-    listBox:[]
+    listBox:[],
+    name:'<?php echo @$_GET['name']?>',
+    page:'1',
+    status:''
   },
   methods:{
     goupdate:function(id){
@@ -97,7 +113,8 @@ var vue=new Vue({
     },
     grade:function(){
       this.$http.post(baseurl+'?s=index/Lesson/get_class',{'class':gradeId,'subject':subjectId,'school':school,'classtypeguid':typeId}).then(res=>{
-        this.listBox=eval('('+res.bodyText+')');
+        var val=eval('('+res.bodyText+')');
+        this.listBox=val.slice(0,3);
       },res=>{
         console.log('请求失败,请检查Network!');
       })
@@ -109,6 +126,28 @@ var vue=new Vue({
       },res=>{
         console.log('请求失败,请检查Network!');
       })
+    },
+    nearbyData:function(){
+      layer.msg('加载中...',{time:1500},function(){
+        if(this.status==2){
+          layer.msg('没有更多数据了',{time:1500});
+          return;
+        }
+        vue.page++;
+        vue.$http.post(baseurl+'?s=index/Lesson/get_class',{'name':vue.name,'page':vue.page}).then(res=>{
+          
+          var val=eval('('+res.bodyText+')');
+          vue.listBox=vue.listBox.concat(val);
+          //console.log(vue.listBox);
+          if(val==''){
+            this.status=2;
+            layer.msg('没有更多数据了',{time:1500});
+            return;
+          }
+        },res=>{
+          console.log('请求失败,请检查Network!');
+        });
+      });
     },
     get:function(){
         $(function(){
@@ -147,9 +186,9 @@ var vue=new Vue({
             initNav(eval('(' + $this.data('demo') + ')'));
           });
           
-          $('.second-nav .nav-close').click(function(){
+          /*$('.second-nav .nav-close').click(function(){
               alert(111);
-          })
+          })*/
 
         });
     }
@@ -166,8 +205,9 @@ var vue=new Vue({
     },res=>{
       console.log('请求失败,请检查Network!');
     });
-    this.$http.post(baseurl+'?s=index/Lesson/get_class').then(res=>{
-      this.listBox=eval('('+res.bodyText+')');
+    this.$http.post(baseurl+'?s=index/Lesson/get_class',{'name':this.name,'page':this.page}).then(res=>{
+        var val=eval('('+res.bodyText+')');
+        this.listBox=val;
     },res=>{
       console.log('请求失败,请检查Network!');
     });
@@ -177,6 +217,7 @@ var vue=new Vue({
 
 {include file="common/footer"}
 <script type="text/javascript" src="__PUBLIC__/index/js/hc-mobile-nav.js"></script>
+
 
 </body>
 </html>
