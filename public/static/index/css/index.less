@@ -39,9 +39,9 @@
 	height: 100/@r;
 	position: fixed;
 	bottom:0;
-	left:0;
 	border-top:1/@r solid #eee;
 	z-index: 80;
+	max-width: 640px;
 }
 .fixedNav ul li{
 	text-align:center;
@@ -131,15 +131,16 @@
 	font-size:24/@r;
 	color:#333;
 }
-.top .seach button{
+.top .seach a{
 	width:16%;
 	vertical-align: middle;
 	outline: none;
 	position: absolute;
 	top:10%;
 	right:0;
+	display: inline-block;
 }
-.top .seach button i{
+.top .seach a i{
 	font-size:38/@r;
 	color:#999;
 }
@@ -442,7 +443,7 @@
 }
 .testMain ul li span{
 	display: inline-block;
-	width: 5%;
+	width: 10%;
 }
 .testMain ul li ul{
 	background: #fafafa;
@@ -450,7 +451,7 @@
 }
 .testMain ul li .main{
 	padding:40/@r 0;
-	font-size:30/@r;
+	font-size:26/@r;
 	color:@c;
 }
 .testMain>ul>li>ul>li{
@@ -540,14 +541,32 @@
 	padding-left: 40/@r;
 	background-size:28/@r;
 }
+.echartLi h5{
+	padding-left:40/@r;
+	margin:12/@r 0 5/@r 0;
+	font-size: 28/@r;
+}
 .echartLi h4 span{
 	margin-left: 20/@r;
+	color:#F00;
 }
 .echartLi p{
 	font-size: 28/@r;
 	color:#999;
 	margin-left: 40/@r;
 	line-height: 1.7;
+}
+.echartLi a.more{
+	display: block;
+    color: #333;
+    border: 1px solid #333;
+    width: 200/@r;//8.53333333rem
+    height: 60/@r;
+    text-align: center;
+    line-height: 60/@r;//2.56rem
+    border-radius: 0px;
+    margin: 30/@r auto;//1.28rem
+    font-size: 28/@r;
 }
 .echartLi h4 img{
 	width: 24/@r;
@@ -1220,12 +1239,14 @@
 	border-radius:15/@r;
 	padding:1/@r 0;
 	width:70%;
+	height:700/@r;
 	position: absolute;
 	left:50%;
 	margin-left: -35%;
 	top:50%;
 	margin-top:-740/@r/2;
 	box-shadow:#222 0 0 35/@r;
+	overflow-y: scroll;
 }
 .sp_quan .quan_box ul li{
 	margin-bottom: 20/@r;
@@ -1487,7 +1508,6 @@
 }
 .result{
 	position: fixed;
-	left: 0;
 	bottom:100/@r;
 	width: 100%;
 	background: #FFF;
@@ -1495,6 +1515,7 @@
 	border-top: 2/@r solid #EEE;
 	height: 100/@r;
 	line-height: 100/@r;
+	max-width: 640px;
 }
 .result h1{
 	font-size: 30/@r;
@@ -2054,7 +2075,7 @@
 }
 /********************************金石评价***************************************/ 
 .pj{
-	margin-top: 80/@r;
+	margin-top: 120/@r;
 }
 .pj textarea{
 	background: #FFF;
@@ -2322,4 +2343,25 @@
 .couponList .on a{
 	color:#222;
 	background:#e1b268;
+}
+
+
+.testfull{
+	margin-top: 150/@r;
+}
+.testfull ul li{
+	border-radius:10/@r;
+	margin:50/@r 0;
+	background:#FFF;
+	height: 200/@r;
+	box-shadow:5px 5px 15px #ccc;
+}
+.testfull ul li a{
+	display: block;
+}
+.testfull ul li h2{
+	font-size: 30/@r;
+	color:#333;
+	text-align: center;
+	line-height: 200/@r;
 }

@@ -1,1 +1,17 @@
-.main{width:90%;margin:0 auto}.from{margin-top:1.8rem;margin-bottom:2rem}.from form div{width:70%;height:2.4rem;line-height:2.4rem;border:.12rem solid #bcc3c8;border-radius:.4rem;color:#bcc3c8;padding:0 .8rem;margin:1.2rem auto;font-size:1.2rem}.from form div span{width:25%;display:inline-block}.from form div input{border:none;font-size:1.2rem;color:#666;width:13.2rem;float:right;height:2.4rem;line-height:2.4rem;width:75%;background:0 0}.from form a{width:85%;display:block;height:2.6rem;line-height:2.6rem;text-align:center;background:red;border:none;border-radius:8px;font-size:1.2rem;color:#FFF;margin:1.6rem auto}.from h1{font-size:1.36rem;color:red;line-height:2}.from h2{font-size:1.2rem;color:#000;line-height:1.7;margin-bottom:1.04rem}.from p{font-size:1.12rem;color:#666;line-height:1.7}.exper h4{font-size:1.12rem;color:red;line-height:1.8;margin:2.2rem auto 1.2rem auto}.exper p{font-size:.96rem;color:#666;line-height:1.8}a.same{display:block;background:red;color:#FFF;font-size:1.2rem;text-align:center;width:85%;height:2.6rem;line-height:2.6rem;border-radius:8px;margin:2.4rem auto}a.sameTwo{margin:2.4rem auto}.teacher{background:#f7f7f7;padding-top:2rem}.teacher img{margin-bottom:1.6rem}.bottom{background:#222;text-align:center;padding:1.36rem 0}.bottom p{font-size:.64rem;color:#fffefe}.bottom h2{font-size:.88rem;color:#fffefe;margin:.4rem}.bottom h4{font-size:.72rem;color:#fffefe}
+.main{width:90%;margin:0 auto}.from{margin-top:1.8rem;margin-bottom:2rem}.from form div{width:70%;height:2.4rem;line-height:2.4rem;border:.12rem solid #bcc3c8;border-radius:.4rem;color:#bcc3c8;padding:0 .8rem;margin:1.2rem auto;font-size:1rem}.from form div span{width:25%;display:inline-block}.from form div input{border:none;font-size:1rem;color:#666;width:13.2rem;float:right;height:2.4rem;line-height:2.4rem;width:75%;background:0 0}.from form button{width:85%;display:block;height:2.6rem;background:red;border:none;border-radius:8px;font-size:1.2rem;color:#FFF;margin:1.6rem auto}.from h1{font-size:4.8rem;color:red;line-height:2;text-align:center}.from h2{font-size:1.2rem;color:#000;line-height:1.7;margin-bottom:1.04rem;text-align:center}.from p{font-size:1.28rem;color:#666;line-height:1.7;text-align:center}.exper h4{font-size:1.12rem;color:red;line-height:1.8;margin:2.2rem auto 1.2rem auto}.exper p{font-size:.96rem;color:#666;line-height:2}a.same{display:block;background:red;color:#FFF;font-size:1.2rem;text-align:center;width:85%;height:2.6rem;line-height:2.6rem;border-radius:8px;margin:2rem auto}a.sameTwo{margin:2.4rem auto}.teacher{background:#f7f7f7;padding-top:2rem}.teacher img{margin-bottom:1.6rem}.bottom{background:#222;text-align:center;padding:1.36rem 0}.bottom p{font-size:.64rem;color:#fffefe}.bottom h2{font-size:.88rem;color:#fffefe;margin:.4rem}.bottom h4{font-size:.72rem;color:#fffefe}
+.from form a{
+	width: 85%;
+    display: block;
+    height: 2.6rem;
+    line-height: 2.6rem;
+    text-align: center;
+    background: red;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    color: #FFF;
+    margin: 1.6rem auto;
+}
+.purple{
+	background:#5d3bbf!important;
+}
