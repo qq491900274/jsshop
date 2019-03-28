@@ -37,7 +37,7 @@ class User extends Controller
     
     $where1 =$where. " LIMIT {$page['min']},{$page['max']}";
 
-    $key = "ID,NAME,PHONE,JNAME,WXNO,SCHOOL,SEX,GRADE";
+    $key = "ID,NAME,PHONE,JNAME,WXNO,SCHOOL,SEX,GRADE,DATETIME";
     $result['value'] = $this->pmodel->select('SHOP_USERS',$key,$where1);
     
     //返回总页数

@@ -42,6 +42,7 @@ class Lesson extends Controller
               ->where('ID',$request['id'])
               ->update($data);
         }else{
+        	
           $data['ID']=uniqid();
           $isok=DB::table('SHOP_TEACHER')
               ->insert($data);
@@ -460,7 +461,7 @@ class Lesson extends Controller
 
       $key = "ID,NAME,SUBJECTID";
       $result['value'] = $this->pmodel->select('SHOP_SUBJECT',$key,$where);
-
+	
       if (!empty($request['id'])) {
         foreach ($result['value'] as $key => $value) {
           if (empty($value['SUBJECTID'])) {

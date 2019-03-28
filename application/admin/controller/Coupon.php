@@ -32,11 +32,20 @@ class Coupon extends Controller
       //获取查询条件
       $where .= " LIMIT {$minpage},{$maxpage}";
       
-      $key = "ID,NAME,COUPONURL,PRICE,ISWHERE,WHEREPRICE,MAXNUM,COUNT,STARTTIME,ENDTIME,CONTENT,DATETIME,PIC";
+      $key = "ID,NAME,COUPONURL,PRICE,ISWHERE,WHEREPRICE,MAXNUM,COUNT,STARTTIME,ENDTIME,CONTENT,DATETIME,PIC,STATE";
       $result['value'] = $this->pmodel->select('SHOP_COUPON',$key,$where);
       $result['page'] = empty($request['page']) ? '1' : $request['page'];
       
       $result['allCount'] = ceil($count/20);
+      
+       //检测优惠券是否过期
+       foreach($result['value'] as $k=>$v){
+       	   if(strtotime($v['ENDTIME'])<time()){
+       	   	    $result['value'][$k]['STATE']='3';
+       	   	   $update['STATE']='3';
+       	   	   Db::table('SHOP_COUPON')->where('ID',$v['ID'])->update($update);
+       	   }
+       }
       //返回校区数据
       return $result;
     }
@@ -59,6 +68,7 @@ class Coupon extends Controller
             'ENDTIME'=>$request['endtime'],
             'CONTENT'=>$request['content'],
             'PIC'=>$request['pic'],
+            'STATE'=>'1',
             ];
 
       if (!empty($request['id'])) {
