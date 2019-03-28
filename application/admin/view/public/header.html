@@ -39,9 +39,9 @@
         <ul id="first" class="clearfix">
             <li <?php if(request()->controller()=='Order') echo 'class="active"'?>>
                 <a href="<?php echo BASE_URL;?>?s=admin/Order/order_list.html">订单列表</a>
-                 <ul id="second">
+         <!--        <ul id="second">
                     <li><a href="<?php echo BASE_URL;?>?s=admin/Account/index.html">交易流水号</a></li>
-                </ul>
+                </ul>-->
             </li>
             <li <?php if(request()->controller()=='Lesson' && request()->action()=='index_config') echo 'class="active"'?>>
                     <a href="<?php echo BASE_URL;?>?s=admin/lesson/index_config.html">首页配置</a></li>
@@ -58,7 +58,7 @@
             </li>
             <li><a href="#">优惠券</a>
                 <ul id="second">
-                    <li><a href="javascript:void(0)">优惠券使用详情</a></li>
+                    <li><a href="<?php echo BASE_URL;?>?s=admin/Coupon/update_coupon.html">添加优惠券</a></li>
                     <li><a href="<?php echo BASE_URL;?>?s=admin/Coupon/index.html">优惠券列表</a></li>
                 </ul>
             </li>
@@ -69,12 +69,12 @@
                     <li><a href="<?php echo BASE_URL;?>?s=admin/User/userList.html">用户列表</a></li>
                 </ul>
             </li>
-            <li><a href="#">测试题管理</a>
+           <!-- <li><a href="#">测试题管理</a>
                 <ul id="second">
                     <li><a href="#">测试题列表</a></li>
                     <li><a href="#">答题列表</a></li>
                 </ul>
-            </li>
+            </li>-->
             <li <?php if(request()->controller()=='Index') echo 'class="active"'?>>
                 <a href="<?php echo BASE_URL;?>?s=admin/Index/activity.html">活动管理
                 </a>
@@ -82,13 +82,13 @@
                     <li><a href="<?php echo BASE_URL;?>?s=admin/Index/activity.html">活动列表</a></li>
                 </ul>
             </li>
-            <li><a href="#">权限管理</a>
+           <!-- <li><a href="#">权限管理</a>
                 <ul id="second">
                     <li><a href="#">菜单管理</a></li>
                     <li><a href="#">角色管理</a></li>
                     <li><a href="#">后台用户管理</a></li>
                 </ul>
-            </li>
+            </li>-->
             <li><a href="#">系统管理</a>
                 <ul id="second">
                     <li><a href="#">修改密码</a></li>
