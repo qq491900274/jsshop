@@ -1,152 +1,323 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="Keywords" content="">
-<meta name="Description" content="">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
-<meta content="telephone=no" name="format-detection" />
-<meta content="email=no" name="format-detection" />
-<title>金石教育微商城_测试</title>
-<link href="http://cdn.bootcss.com/Swiper/3.4.2/css/swiper.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="css/reset.css?v=1.0">
-<link rel="stylesheet" type="text/css" href="css/index.css?v=1.0">
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4&ak=s4u13aUZAj36D4XWMm52TexzlwGGg7GG"></script>
-<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="js/common.js"></script>
-<script src="http://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
-<script type="text/javascript" src="js/vue.min.js"></script>
-<script type="text/javascript" src="js/vue-resource.min.js"></script>
-</head>
+{include file="common/header"}
+<style type="text/css">
+	body,html{height: 100%;}
+</style>
 
 <body>
+<div id="test">
 <div class="testTop">
-	<img src="images/test_03.jpg" alt="">
+	<img :src=img alt="">
 	<p>以下问题请根据你学习及身体感受回答</p>
 </div>
-<div class="testMain" id="test">
+<div class="testMain">
 	
 		<form action="" id="f"></form>
 		<ul id="textList">
-			<li v-for="site in sites">
+			<li v-for="(v,index) in products">
 				<div class="main">
-					<span>1.</span>如果别人不督促我，我极少主动地学习。
+					<span>{{v.num}}、</span>{{v.title}}。
 				</div>
 				<ul>
-					<li><input type="radio" form="f" name="test1" value="1"><p class="on">是</p></li>
-					<li><input type="radio" form="f" name="test1" value="2"><p>否</p></li>
-				</ul>
-			</li>
-			<li>
-				<div class="main">
-					<span>2.</span>当我读书时，需要很长时间才能提起精神来。
-				</div>
-				<ul>
-					<li><input type="radio" form="f" name="test2" value="3"><p class="on">此处是答案啊</p></li>
-					<li><input type="radio" form="f" name="test2" value="4"><p>此处是答案啊此处是答案啊</p></li>
-					<li><input type="radio" form="f" name="test2" value="5"><p>此处是答案啊</p></li>
-					<li><input type="radio" form="f" name="test2" value="6"><p>此处是答案啊此处是答案啊</p></li>
-				</ul>
-			</li>
-			<li>
-				<div class="main">
-					<span>3.</span>当我读书时，需要很长时间才能提起精神来。
-				</div>
-				<ul>
-					<li><input type="radio" form="f" name="test3" value="7"><p class="on">此处是答案啊</p></li>
-					<li><input type="radio" form="f" name="test3" value="8"><p>此处是答案啊此处是答案啊</p></li>
-					<li><input type="radio" form="f" name="test3" value="9"><p>此处是答案啊</p></li>
-					<li><input type="radio" form="f" name="test3" value="10"><p>此处是答案啊此处是答案啊</p></li>
-				</ul>
-			</li>
-			<li>
-				<div class="main">
-					<span>4.</span>当我读书时，需要很长时间才能提起精神来。
-				</div>
-				<ul>
-					<li><input type="radio" form="f" name="test4" value="11"><p class="on">此处是答案啊</p></li>
-					<li><input type="radio" form="f" name="test4" value="12"><p>此处是答案啊此处是答案啊</p></li>
-					<li><input type="radio" form="f" name="test4" value="13"><p>此处是答案啊</p></li>
-					<li><input type="radio" form="f" name="test4" value="14"><p>此处是答案啊此处是答案啊</p></li>
-				</ul>
-			</li>
-			<li>
-				<div class="main">
-					<span>5.</span>如果别人不督促我，我极少主动地学习。
-				</div>
-				<ul>
-					<li><input type="radio" form="f" name="test5" value="1"><p class="on">是</p></li>
-					<li><input type="radio" form="f" name="test5" value="2"><p>否</p></li>
-				</ul>
-			</li>
-			<li>
-				<div class="main">
-					<span>6.</span>当我读书时，需要很长时间才能提起精神来。
-				</div>
-				<ul>
-					<li><input type="radio" form="f" name="test6" value="3"><p class="on">此处是答案啊</p></li>
-					<li><input type="radio" form="f" name="test6" value="4"><p>此处是答案啊此处是答案啊</p></li>
-					<li><input type="radio" form="f" name="test6" value="5"><p>此处是答案啊</p></li>
-					<li><input type="radio" form="f" name="test6" value="6"><p>此处是答案啊此处是答案啊</p></li>
-				</ul>
-			</li>
-			<li>
-				<div class="main">
-					<span>7.</span>当我读书时，需要很长时间才能提起精神来。
-				</div>
-				<ul>
-					<li><input type="radio" form="f" name="test7" value="7"><p class="on">此处是答案啊</p></li>
-					<li><input type="radio" form="f" name="test7" value="8"><p>此处是答案啊此处是答案啊</p></li>
-					<li><input type="radio" form="f" name="test7" value="9"><p>此处是答案啊</p></li>
-					<li><input type="radio" form="f" name="test7" value="10"><p>此处是答案啊此处是答案啊</p></li>
-				</ul>
-			</li>
-			<li>
-				<div class="main">
-					<span>8.</span>当我读书时，需要很长时间才能提起精神来。
-				</div>
-				<ul>
-					<li><input type="radio" form="f" name="test8" value="11"><p class="on">此处是答案啊</p></li>
-					<li><input type="radio" form="f" name="test8" value="12"><p>此处是答案啊此处是答案啊</p></li>
-					<li><input type="radio" form="f" name="test8" value="13"><p>此处是答案啊</p></li>
-					<li><input type="radio" form="f" name="test8" value="14"><p>此处是答案啊此处是答案啊</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="1" @click="answer($event,v.num)"><p>很不像我</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="2" @click="answer($event,v.num)"><p>不太像我</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="3" @click="answer($event,v.num)"><p>有点像我</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="4" @click="answer($event,v.num)"><p>比较像我</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="5" @click="answer($event,v.num)"><p>非常像我</p></li>
 				</ul>
 			</li>
 		</ul>
-		<div class="btn"><button type="submit" form="f">提交</button></div>
+		<div class="btn"><button @click="get()">提交</button></div>
 </div>
-
-<div class="fixedNav">
-	<div class="main">
-		<ul>
-			<li><a href="" class="active">
-				<i class="icon iconfont">&#xe65e;</i>
-				<p>首页</p>
-			</a></li>
-			<li><a href="">
-				<i class="icon iconfont">&#xe626;</i>
-				<p>课程</p>
-			</a></li>
-			<li><a href="">
-				<i class="icon iconfont">&#xe617;</i>
-				<p>购物车</p>
-			</a></li>
-			<li><a href="">
-				<i class="icon iconfont">&#xe638;</i>
-				<p>我的</p>
-			</a></li>
-		</ul>
-	</div>
 </div>
-<script type="text/javascript" src="js/common2.js"></script>
+{include file="common/footer"}
 <script type="text/javascript">
-new Vue({
-  el: '#app',
+/*
+	1) X(外向型原始分)=( T1+T6+T11+T16+T21+T26+T31+T36+T41+T46)/10	
+	 X(活跃原始分)=(T6+T11+T21+T31+T46)/5
+	 X(合群原始分)=(T1+T36+T41)/3
+	 X(积极情绪原始分)=(T16+T26)/2
+*/
+var T6,T11,T21,T31,T46,T1,T36,T41,T16,T26,T2,T12,T22,T27,T32,T37,T42,T48,T3,T8,T13,T23,T28,T33,T38,T43,T49,T4,T9,T14,T19,T24,T29,T34,T39,T44,T5,T10,T15,T20,T25,T30,T35,T40,T45;
+
+
+var vue=new Vue({
+  el: '#test',
   data: {
-    sites: [
-      { name: '是' },
-      { name: '否' }
-    ]
+    products: [
+      { title: '我很喜欢和同学们一起玩',num:1},
+      { title: '我能理解和体谅别人，考虑到别人的感受',num:2},
+      { title: '对学过的知识，我常能及时复习，认真总结',num:3},
+      { title: '我的理解能力强，对新接触的知识能很快接受',num:4},
+      { title: '小小的失败也会让我感到垂头丧气',num:5},
+      { title: '我很健谈，爱和别人聊天、交谈',num:6},
+      { title: '我很勤奋，我总是努力学习和工作',num:8},
+      { title: '我对很多事情都有自己独特的看法',num:9},
+      { title: '我常常感到无助，希望有人能帮我解决问题',num:10},
+      { title: '我很热情，经常主动交新朋友',num:11},
+      { title: '我为人诚实，不喜欢弄虚作假',num:12},
+      { title: '我做事认真，做完一件事后仔细检查，尽力避免错误',num:13},
+      { title: '我很聪明（即使学习成绩没有体现出这一点）',num:14},
+      { title: '我的情绪变化较快，一会儿特高兴，一会儿可能又不高兴了',num:15},
+      { title: '我是一个乐观、开朗的人',num:16},
+      { title: '我经常能看出别人难以觉察的美',num:19},
+      { title: '我经常对自己应该有把握的事情也感到很担心',num:20},
+      { title: '别人认为我很活泼',num:21},
+      { title: '我总是力所能及地帮助别人',num:22},
+      { title: '我做事考虑周全，总是想好了再做',num:23},
+      { title: '我有丰富的想象力',num:24},
+      { title: '我遇事常感到害羞',num:25},
+      { title: '我很爱笑，也喜欢和别人开玩笑',num:26},
+      { title: '我很容易原谅别人的过失',num:27},
+      { title: '我注意保持整洁，物品、学习用具摆放得有条理',num:28},
+      { title: '我喜欢自由地幻想，即使这些幻想看起来不切实际',num:29},
+      {title:'我对自己经常没有把握，需要别人告诉我做的事是否正确',num:30},
+      {title:'我不会隐藏内心的想法，心里怎么想就怎么说',num:31},
+      {title:'我待人热情、友好',num:32},
+      {title:'我做事很有计划性，能按计划一步步地努力',num:33},
+      {title:'我兴趣爱好广泛，知识面宽',num:34},
+      {title:'与周围的人相比，我常常觉得自己不如别人',num:35},
+      {title:'我喜欢参加集体活动和同学、亲友的聚会',num:36},
+      {title:'我待人真诚，总是实话实说',num:37},
+      {title:'我花钱有计划，从不随便浪费',num:38},
+      {title:'在玩耍或别的活动中，我常能想出令人惊异的新点子',num:39},
+      {title:'遇到不高兴的事，我常闷在心里，很不开心',num:40},
+      {title:'我能很快地融入到一个新的集体中去',num:41},
+      {title:'我不会因为小事而与别人争吵或闹别扭',num:42},
+      {title:'我珍惜时间，做事效率高',num:43},
+      {title:'我有敏锐的观察力，常常能观察到别人观察不到的细节',num:44},
+      {title:'我常常担心会发生不好的事情',num:45},
+      {title:'我喜欢参加激烈的游戏或活动',num:46},
+      {title:'只要答应过别人的事，我都会竭尽全力',num:48},
+      {title:'我做事力求圆满，让人满意',num:49}
+    ],
+    img:''
+  },
+  methods:{
+  	answer:function(element,index){
+		/*
+		1) X(外向型原始分)=( T1+T6+T11+T16+T21+T26+T31+T36+T41+T46)/10	
+		 X(活跃原始分)=(T6+T11+T21+T31+T46)/5
+		 X(合群原始分)=(T1+T36+T41)/3
+		 X(积极情绪原始分)=(T16+T26)/2
+		*/
+		//X(活跃原始分)=(T6+T11+T21+T31+T46)/5
+		/*if(index){
+			T+index=parseInt(element.toElement.value);
+		}*/
+		if(index==6){ //(T1+T6+T11+T16+T21+T26+T31+T36+T41+T46)/10
+			T6=parseInt(element.toElement.value);
+		}else if(index==11){
+			T11=parseInt(element.toElement.value);
+		}else if(index==21){
+			T21=parseInt(element.toElement.value);
+		}else if(index==31){
+			T31=parseInt(element.toElement.value);
+		}else if(index==46){
+			T46=parseInt(element.toElement.value);
+		}else if(index==36){
+			T36=parseInt(element.toElement.value);
+		}else if(index==41){
+			T41=parseInt(element.toElement.value);  
+		}else if(index==1){
+			T1=parseInt(element.toElement.value);  
+		}else if(index==16){
+			T16=parseInt(element.toElement.value);  
+		}else if(index==26){
+			T26=parseInt(element.toElement.value); 
+			//以上外向型题数  
+		}else if(index==2){ //(T2+T12+T22+T27+T32+T37+T42+T48)/8
+			T2=parseInt(element.toElement.value);  
+		}else if(index==12){
+			T12=parseInt(element.toElement.value);  
+		}else if(index==22){
+			T22=parseInt(element.toElement.value);  
+		}else if(index==27){
+			T27=parseInt(element.toElement.value);  
+		}else if(index==32){
+			T32=parseInt(element.toElement.value);  
+		}else if(index==37){
+			T37=parseInt(element.toElement.value);  
+		}else if(index==42){
+			T42=parseInt(element.toElement.value);  
+		}else if(index==48){
+			T48=parseInt(element.toElement.value); 
+			//以上宜人型题数 
+		}else if(index==3){ //(T3+T8+T13+T23+T28+T33+T38+T43+T49)/9
+			T3=parseInt(element.toElement.value);  
+		}else if(index==8){
+			T8=parseInt(element.toElement.value);  
+		}else if(index==13){
+			T13=parseInt(element.toElement.value);  
+		}else if(index==23){
+			T23=parseInt(element.toElement.value);  
+		}else if(index==28){
+			T28=parseInt(element.toElement.value);  
+		}else if(index==33){
+			T33=parseInt(element.toElement.value);  
+		}else if(index==38){
+			T38=parseInt(element.toElement.value);  
+		}else if(index==43){
+			T43=parseInt(element.toElement.value);  
+		}else if(index==49){
+			T49=parseInt(element.toElement.value);
+			//以上谨慎型题数
+		}else if(index==4){ //(T4+T9+T14+T19+T24+T29+T34+T39+T44)/9
+			T4=parseInt(element.toElement.value);
+		}else if(index==9){
+			T9=parseInt(element.toElement.value);  
+		}else if(index==14){
+			T14=parseInt(element.toElement.value);  
+		}else if(index==19){
+			T19=parseInt(element.toElement.value);  
+		}else if(index==24){
+			T24=parseInt(element.toElement.value);  
+		}else if(index==29){
+			T29=parseInt(element.toElement.value);  
+		}else if(index==34){
+			T34=parseInt(element.toElement.value);  
+		}else if(index==39){
+			T39=parseInt(element.toElement.value);  
+		}else if(index==44){
+			T44=parseInt(element.toElement.value);
+			//以上开放型题数
+		}else if(index==5){ //(T5+T10+T15+T20+T25+T30+T35+T40+T45)/9
+			T5=parseInt(element.toElement.value);  
+		}else if(index==10){
+			T10=parseInt(element.toElement.value);
+		}else if(index==15){
+			T15=parseInt(element.toElement.value);  
+		}else if(index==20){
+			T20=parseInt(element.toElement.value);  
+		}else if(index==25){
+			T25=parseInt(element.toElement.value);  
+		}else if(index==30){
+			T30=parseInt(element.toElement.value);  
+		}else if(index==35){
+			T35=parseInt(element.toElement.value);  
+		}else if(index==40){
+			T40=parseInt(element.toElement.value);  
+		}else if(index==45){
+			T45=parseInt(element.toElement.value); 
+			 //以上情绪型题数
+		}
+		
+	},
+	get:function(){
+		this.$options.methods.answer();
+	/* 1、 X(外向型原始分)=(T1+T6+T11+T16+T21+T26+T31+T36+T41+T46)/10  */
+		var x=(T1+T6+T11+T16+T21+T26+T31+T36+T41+T46)/10;//X(外向型原始分)
+		var xRe=50+(x-2.7979)/0.5628;//X(外向型原始分) 最终得分
+		xRe=xRe.toFixed(5);
+		console.log(xRe);
+		//活跃分
+		var y=(T6+T11+T21+T31+T46)/5;//X(活跃原始分)=(T6+T11+T21+T31+T46)/5
+		var yRe=50+(y-2.6769)/0.6187;//最终得分  T=50+（X(活跃原始分)- 2.6769）/0.6187
+		yRe=yRe.toFixed(5);
+		console.log(yRe);
+		//h合群分
+		var h=(T1+T36+T41)/3;//h(合群原始分)=(T1+T36+T41)/3
+		var hRe=50+(h-2.8645)/0.6965;
+		hRe=hRe.toFixed(5);
+		console.log(hRe);
+		//j积极情绪分
+		var j=(T16+T26)/2;//X(积极情绪原始分)=(T16+T26)/2
+		var jRe=50+(j-2.8523)/0.6468;//T=50+（X(积极情绪原始分)- 2.8523）/0.6468
+		jRe=jRe.toFixed(5); 
+		console.log(jRe);
+
+	/*2、X(宜人型原始分)=(T2+T12+T22+T27+T32 +T37+T42+T48)/8 */
+		var x2=(T2+T12+T22+T27+T32 +T37+T42+T48)/8;//原始分
+		var x2Re=50+(x2 - 3.1693)/0.5524;//最终分
+		x2Re=x2Re.toFixed(5);
+		console.log(x2Re);
+		//利他分
+		var y2=(T2+T22)/2; //原始分
+		var y2Re=50+(y2 - 2.7576)/0.5123; //最终分
+		y2Re=y2Re.toFixed(5);
+		//诚实分
+		var h2=(T12+T37+T48)/3; //原始分
+		var h2Re=50+(h2- 3.1121)/0.6129; //最终分
+		h2Re=h2Re.toFixed(5);
+		//恃强分
+		var j2=(T27+T32+T42)/3;
+		var j2Re=50+(j2 - 3.6381)/0.7893;
+		j2Re=j2Re.toFixed(5);
+
+	/*3、X(谨慎型原始分)=(T3+T8+T13+T23+T28+T33+T38+T43+T49)/9 */
+		var x3=(T3+T8+T13+T23+T28+T33+T38+T43+T49)/9;
+		var x3Re=50+(x3 - 2.6575)/0.5575;
+		x3Re=x3Re.toFixed(5);
+		//谨慎分
+		var y3=(T13+T23)/2;
+		var y3Re=50+(y3- 2.4688)/0.6365;
+		y3Re=y3Re.toFixed(5);
+		//有序分
+		var h3=(T28+T33+T38+T43)/4;
+		var h3Re=50+(h3- 3.2448)/0.7855;
+		h3Re=h3Re.toFixed(5);
+		//努力分
+		var j3=(T3+T8+T49)/3;
+		var j3Re=50+(j3- 2.2589)/0.5266;
+		j3Re=j3Re.toFixed(5);
+
+	/*4、X(开放型原始分)=(T4+T9+T14+T19+T24+T29+T34+T39+T44)/9 */
+		var x4=(T4+T9+T14+T19+T24+T29+T34+T39+T44)/9;
+		var x4Re=50+(x4- 2.9673)/0.6140;
+		x4Re=x4Re.toFixed(5);
+		//创新性
+		var y4=(T9+T24+T39)/3;
+		var y4Re=50+(y4- 2.8444)/0.6595;
+		y4Re=y4Re.toFixed(5);
+		//聪慧性
+		var h4=(T4+T14+T34)/3;
+		var h4Re=50+(h4- 2.2104)/0.5052;
+		h4Re=h4Re.toFixed(5);
+		//洞察力
+		var j4=(T19+T44)/2;
+		var j4Re=50+(j4- 3.1721)/0.8927;
+		j4Re=j4Re.toFixed(5);
+		//想象力
+		var z4=(T24+T29)/2;
+		var z4Re=50+(z4- 3.6421)/0.9736;
+		z4Re=z4Re.toFixed(5);
+
+	/*5、X(情绪型原始分)=(T5+T10+T15+T20+T25+T30+T35+T40+T45)/9 */
+		var x5=(T5+T10+T15+T20+T25+T30+T35+T40+T45)/9;
+		var x5Re=50+(x5 - 2.6146)/0.6048;
+		x5Re=x5Re.toFixed(5);
+		console.log(x5Re);
+		//情绪稳定性
+		var y5=(T5+T15+T20+T45)/4;
+		var y5Re=50+(y5- 2.3652)/0.5847;
+		y5Re=y5Re.toFixed(5);
+		//情绪内敛性
+		var h5=(T25+T35+T40)/3;
+		var h5Re=50+(h5- 3.1431)/0.9010;
+		h5Re=h5Re.toFixed(5);
+		//依赖性
+		var j5=(T10+T30)/2;
+		var j5Re=50+(j5- 2.3356)/0.6792;
+		j5Re=j5Re.toFixed(5);
+		
+		
+		if(T1== undefined||T2== undefined||T3== undefined||T4== undefined||T5== undefined||T6== undefined||T8== undefined||T9== undefined||T10== undefined||T11== undefined||T12== undefined||T13== undefined||T14== undefined||T15== undefined||T16== undefined||T19== undefined||T20== undefined||T21== undefined||T22== undefined||T23== undefined||T24== undefined||T25== undefined||T26== undefined||T27== undefined||T28== undefined||T29== undefined||T30== undefined||T31== undefined||T32== undefined||T33== undefined||T34== undefined||T35== undefined||T36== undefined||T37== undefined||T38== undefined||T39== undefined||T40== undefined||T41== undefined||T42== undefined||T43== undefined||T44== undefined||T45== undefined||T46== undefined||T48== undefined||T49== undefined){
+			layer.alert('请不要留下空题');
+			return;
+		}
+		var arr=[xRe,x2Re,x3Re,x4Re,x5Re,yRe,hRe,jRe,y2Re,h2Re,j2Re,y3Re,h3Re,j3Re,y4Re,h4Re,j4Re,z4Re,y5Re,h5Re,j5Re];
+		arr=JSON.stringify(arr);
+		window.location.href=baseurl+'?s=index/test/testResult&arr='+arr;
+
+	}
+  },
+  created:function(){
+  	this.$http.post(baseurl+'?s=index/center/index',{list:1,'id':this.id}).then(res=>{
+			var val=eval('('+res.bodyText+')')[0];
+	        this.name=val['NAME'];
+	        this.img=val['PIC'];
+		},res=>{
+			console.log('请求失败,请检查Network!');
+	})
   }
 })
 

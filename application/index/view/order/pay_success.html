@@ -57,7 +57,7 @@ var vue=new Vue({
 	created:function(){
 		this.$http.post(baseurl+'?s=index/Lesson/get_class',{list:1}).then(res=>{
 			this.listBox=eval('('+res.bodyText+')');
-			console.log(this.listBox);
+			//console.log(this.listBox);
 		},res=>{
 			console.log('请求失败,请检查Network!');
 		})

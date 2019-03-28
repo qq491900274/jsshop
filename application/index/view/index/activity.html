@@ -15,6 +15,9 @@
 <script type="text/javascript" src="__PUBLIC__/index/js/vue.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/index/js/vue-resource.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/index/js/layer.js"></script>
+<script> 
+var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?3bb961991adf979b762d8cfe947e893a"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s); })(); 
+</script>
 <script type="text/javascript">
 	var html=document.documentElement;
 	var hwidth=html.getBoundingClientRect().width;	/*获取屏幕的宽度*/
@@ -23,41 +26,45 @@
 	var baseurl="<?php echo BASE_URL;?>";
 </script>
 <style type="text/css">
-	html,body{height: 100%;}
-	.layui-layer-btn .layui-layer-btn0{font-size: 0.3rem;}
+	body{background: rgb(238,238,238);}
+	html,body{height: 100%;max-width: 640px;margin:auto;}
+	.layui-layer-btn .layui-layer-btn0{font-size: 1.3rem;}
 </style>
 </head>
 
 <body>
-<div id="form">
 <div class="banner"><img src="__PUBLIC__/index/images/xiao_01.jpg" width="100%"></div>
 <div class="from" id="form">
 	<div class="main">
+		<h2>金石教育艺考文化课体验课</h2>
 		<form>
 			<div><span>姓名 | </span><input type="text" name="" v-model="name"></div>
 			<div><span>电话 | </span><input type="number" name="" v-model="phone" oninput="if(value.length>11)value=value.slice(0,11)"></div>
-			<div><span>校区 | </span><input type="text" name="" v-model="school"></div>
-			<div><span>学科 | </span><input type="text" name="" v-model="subject"></div>
-			<a href="javascript:void(0)" @click="get()">1元领取价值199元体验课</a>
-			<a href="tel:4006666911">拨打电话咨询</a>
+			<a href="javascript:void(0)" @click="get()">立即抢占</a>
 		</form>
-		<h1>寒假来临，此刻的你是不是心慌了呢</h1>
-		<h2>因为，寒假....<br>这是孩子最开心，也是家长们最忧愁的阶段</h2>
-		<p>1. 漫漫寒假，无暇陪伴，孩子安全如何保障？</p>
-		<p>2. 沉迷娱乐，新学期会不会影响成绩？</p>
-		<p>3. 寒假作业无力辅导，谁来救救家长？</p>
+		<a href="tel:17186783188" class="same" name="#form">拨打电话咨询</a>
+		<p>校考结束了，高考还会远吗？</p>
+		<p>距离你的高考仅剩</p>
+		<div id="CountMsg" class="HotDate">
+			<h1 id="t_d">天</h1>
+		</div>
+		<h2>时间紧！任务重！内容多！</h2>
+		<p>艺考生们，你们准备好了吗？</p>
+		<p style="color:#FFF;background:#F00;margin:20px 0">金石教育艺考集训班</p>
+		<p>短期冲刺文化课，攻克考试难题</p>
+		<p style="color:#F00;font-weight: bold;margin:10px 0">最后一波体验课名额（仅限50人）</p>
 	</div>
 </div>
 <div class="exper">
 	<img src="__PUBLIC__/index/images/xiao_03.jpg" width="100%">
 	<div class="main">
 		<h4>问题一箩筐，不怕，金石教育统统帮你解决！</h4>
-		<p>金石教育帮助孩子规划寒假学习时间，培养自律习惯、掌握时间管理的能力；更有免费暖冬自习室，专业学科老师陪读，随时进行答疑解惑，并实时向家长反馈学员在校学习情况。</p>
-		<a href="#" class="same" name="#form">1元抢报限量体验课</a>
+		<p>金石教育拥有专业的学科师资队伍和教研团队，多年艺考教辅经验，丰富的艺考文化课提升技巧，随时帮助艺考生答疑解惑，并实时向家长反馈学员在校学习情况。</p>
 	</div>
 	<img src="__PUBLIC__/index/images/xiao_05.jpg" width="100%">
+	<a href="#" class="same sameTwo" name="#form">抢占艺考文化课体验名额</a>
 	<img src="__PUBLIC__/index/images/xiao_06.jpg" width="100%">
-	<div class="main"><a href="#" class="same sameTwo" name="#form">1元抢报限量体验课</a></div>
+	<div class="main"><a href="#" class="same sameTwo" name="#form">抢占艺考文化课体验名额</a></div>
 </div>
 <div class="teacher">
 	<div class="main">
@@ -67,7 +74,7 @@
 		<img src="__PUBLIC__/index/images/xiao_16.jpg" width="100%">
 	</div>
 </div>
-<div class="main"><a href="#" class="same sameTwo" name="#form">约名师！预约1元体验课</a></div>
+<div class="main"><a href="#" class="same sameTwo" name="#form">抢占艺考文化课体验名额</a></div>
 <div class="bottom">
 	<div class="main">
 		<p>Powered by EduSoho v8.3.6 ©2014-2019</p>
@@ -75,8 +82,18 @@
 		<h4>鲁ICP备12014631号-2</h4>
 	</div>
 </div>
-</div>
+
 <script type="text/javascript">
+ function getRTime(){
+  var EndTime= new Date('2019/06/7 23:59:59'); //截止时间
+  var NowTime = new Date();
+  var t =EndTime.getTime() - NowTime.getTime();
+  var d=Math.floor(t/1000/60/60/24);
+  document.getElementById("t_d").innerHTML = d + "天";
+ }
+ setInterval(getRTime,1000);
+ </script>
+ <script type="text/javascript">
 	var utm_source="<?php echo @$_GET['utm_source'];?>";
 	var utm_medium="<?php echo @$_GET['utm_medium'];?>";
 	var utm_term="<?php echo @$_GET['utm_term'];?>";
@@ -87,12 +104,13 @@
 		data:{
 			name:'',
 			phone:'',
-			school:'',
-			subject:''
+			school:'金石教育艺考文化课体验课',
+			subject:'英语'
 		},
 		methods:{
 			get:function(){
 				var pattern=/^([\u4e00-\u9fa5]{2,4}|[a-zA-Z]{2,16})$/g;
+				//var phone = document.getElementById('phone').value;
 				if(!this.name){
 					layer.msg('姓名不能为空',{time:1500});
 					return;
@@ -104,14 +122,12 @@
 				if(!this.phone){
 					layer.msg('电话不能为空',{time:1500});
 					return;
-				}if(!this.school){
-					layer.msg('校区不能为空',{time:1500});
-					return;
 				}
-				if(!this.subject){
-					layer.msg('科目不能为空',{time:1500});
-					return;
-				}
+				if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.phone))){ 
+			        layer.msg("手机号码有误，请重填");  
+			        	return false;
+			    	}
+			    
 				this.$http.post(baseurl+'?s=index/index/activity',{
 					'name':this.name,
 					'phone':this.phone,
@@ -124,9 +140,9 @@
 					'utm_campaign':utm_campaign}).then(res=>{
 						var num=eval('('+res.bodyText+')');
 						if(num==1){
-							layer.alert('恭喜您报名成功，我们会在第一时间联系您');
+							layer.alert('恭喜您抢占成功，我们会在第一时间联系您');
 						}else if(num==2){
-							layer.alert('已报名');
+							layer.alert('已抢占');
 						}
 				},res=>{
 					console.log('请求失败,请检查Network!');

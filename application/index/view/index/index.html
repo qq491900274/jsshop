@@ -1,12 +1,14 @@
-﻿{include file="common/header"}
-
+{include file="common/header"}
+<style type="text/css">
+	body,html{height: 100%;}
+</style>
 <body>
 <div id="index">
 	<div id="allmap"></div>
 <div class="top">
 	<div class="main clearfix">
 		<div class="position left"><i class="icon iconfont">&#xe6c1;</i><span id="posi"></span></div>
-		<div class="seach right"><input type="text" name="" placeholder="请在搜索框内输入搜索内容"><button type="submit"><i class="icon iconfont">&#xe614;</i></button></div>
+		<div class="seach right"><input type="text" name="" placeholder="请在搜索框内输入搜索内容" v-model="name"><a href="javascript:void(0)" @click="get()"><i class="icon iconfont">&#xe614;</i></a></div>
 	</div>
 </div>
 
@@ -26,13 +28,13 @@
 </div>
 
 <div class="test">
-	<h3 class="title">学习性格测试</h3>
+	<h3 class="title">性格测试</h3>
 	<div class="swiper-container">
     <div class="swiper-wrapper">
            
             <?php foreach($bannerlis['imgLis'] as $v):?>
            	<div  class="swiper-slide" style="backgroundImage:url(<?php echo $v['imgUrl']?>)">
-           		<a href="<?php echo $v['imgHref']?>" style="width: 100%;height: 100%;display: flex;"></a>
+           		<a href="javascript:void(0)" style="width: 100%;height: 100%;display: flex;"></a>
            	</div>
            <?php endforeach;?>
     </div>
@@ -46,12 +48,19 @@
 	<div class="main">
 		<h3 class="title">票券领取</h3>
 		<ul class="clearfix">
-			<li class="default" v-for="v in coupon"><a href="javascript:void(0)" class="color">
+			<template v-for="(v,index) in coupon">
+			<li class="default" v-if="v.PUllNUM<v.MAXNUM"><a href="javascript:void(0)" class="color" @click="getcoupon(v.ID,index)">
 				<h2>{{v.PRICE}}</h2>
 				<span>RMB</span>
 				<p>领取票券</p>
 				<i class="icon iconfont">&#xe629;</i>
 			</a></li>
+			<li class="default on" v-if="v.PUllNUM>=v.MAXNUM"><a href="javascript:void(0)" class="color">
+				<h2>{{v.PRICE}}</h2>
+				<span>RMB</span>
+				<p>已领取</p>
+			</a></li>
+			</template>
 		</ul>
 	</div>
 </div>
@@ -59,11 +68,11 @@
 <div class="hot">
 	<div class="main">
 		<h3 class="title">热门活动</h3>
-		<a :href="v.imgHref" v-for="v in hotLis"><img :src="v.imgUrl"></a>
+		<a :href="v.imgHref" v-for="v in hotLis"><img :src="v.imgUrl" width="100%"></a>
 		<!-- <a href=""><img src="__PUBLIC__/index/images/index_09.jpg"></a> -->
 	</div>
 </div>
-<!--<div class="phone addr">
+<!--<div class="phone addr  >
 	<div class="main">
 		<a href=""><i class="icon iconfont">&#xe6c1;</i> &nbsp;查看各校区地址<span><i class="icon iconfont">&#xe615;</i></span></a>
 	</div>
@@ -84,6 +93,24 @@
 	<p>www.jinshiedu.com</p>
 </div>
 
+<div class="test_lay">
+	<div class="test_box">
+		<div class="main2">
+			<h4>学习性格测试</h4>
+			<ul>
+				<li><a href="<?php echo BASE_URL;?>?s=index/test/test_sim" class="on">
+					<p>精简版</p>
+					<span>题数:时间 | 47:3mins</span>
+				</a></li>
+				<li><a href="<?php echo BASE_URL;?>?s=index/test/test_full">
+					<p>完整版</p>
+					<span>题数:时间 | 109:8mins</span>
+				</a></li>
+			</ul>
+			
+		</div>
+	</div>
+</div>
 
 <div class="posAll">
 	<div class="posBox">
@@ -170,7 +197,8 @@ var vue= new Vue({
 		provincename:'',
 		school:[],
 		schoolid:'',
-		coupon:[]
+		coupon:[],
+		name:''
 	},
 	methods:{
 		getcity:function(id,e){
@@ -198,6 +226,23 @@ var vue= new Vue({
 			setcookie('school',index);//记录校区
 			$('.on2').attr('class','');
 			$(e.srcElement).attr('class','on2');
+		},
+		get:function(){
+			window.location.href=baseurl+'?s=index/lesson/index&name='+this.name;
+		},
+		getcoupon:function(id,arrid){
+			this.$http.post(baseurl+'?s=index/Coupon/pull_coupon',{'id':id}).then(res=>{
+        			var val=eval('('+res.bodyText+')');
+        			if(val.state==1){
+        				this.coupon[arrid]['PUllNUM']++;
+        				layer.msg('领取成功!');
+        			}else{
+        				layer.msg(val.msg);
+        			}
+	        	},res=>{
+	        		console.log('请求失败,请检查Network!');
+	        	})
+        	
 		}
 	},
 	mounted:function(){
@@ -322,17 +367,23 @@ var vue= new Vue({
 		},res=>{
 			console.log('请求失败,请检查Network!');
 		});
-		this.$http.post(baseurl+'?s=index/Index/get_coupon').then(res=>{
-			var val=eval('('+res.bodyText+')')['value'];
-			// for(var i=0;i<val.length;i++){
-			// 	console.log(Math.round(val[i].PRICE));
-			// }
-			// console.log(val[0].PRICE);
+		this.$http.post(baseurl+'?s=index/Coupon/index',{list:1}).then(res=>{
+			var val=eval('('+res.bodyText+')');
 			this.coupon=val.slice(0,3);
-			//console.log(this.coupon);
 		},res=>{
 			console.log('请求失败,请检查Network!');
 		});
+		
+		$(function(){
+			var school=getcookie('school');
+			if(!school){
+				layer.msg('请先选择校区',{time:1500},function(){
+					$('.posAll').animate({left:0},400);
+					$('.shade').css({'display':'block','background':'rgba(0,0,0,.5)'});
+				});
+			}
+		});
+		
 		
 	}
 });
@@ -348,15 +399,22 @@ $(function(){
 		$(this).css({'display':'none'});
 	});
 	$('.school_last ul li').each(function(){
-		$(this).find('a').click(function()  {
+		$(this).find('a').click(function(){
 			//alert(111);
 			$('.posAll').animate({left:'-80%'},400); 
 		})
 	});
+	$('.test .swiper-slide').click(function(){
+		$('.test_lay').show();
+	});
+	$('.test_lay').click(function(){
+		$(this).hide();
+	})
+
 	/*var num=$('.ticket ul li h2').html();
 			console.log(1);
 			console.log(num);
-			num=parseInt(num);*/  
+			num=parseInt(num);*/
 });
 
 
