@@ -1,0 +1,219 @@
+{include file="common/header"}
+<style type="text/css">
+body,html{max-width: 640px;}
+	.mao{
+		color:#333;
+		font-size: 0.7rem;
+	}
+	.ext1{
+		width: 100%;
+		height: 60px;
+		line-height: 100px;
+		display: block;
+		position: absolute;
+		top:-25px;
+		left:0;
+	}
+	.ext2{
+		width: 50%;
+		height: 60px;
+		display: block;
+		position: absolute;
+		bottom:26px;
+		left:0;
+	}
+	.ext3{
+		width: 50%;
+		height: 60px;
+		display: block;
+		position: absolute;
+		bottom:26px;
+		right:0;
+	}
+	.mainBig{
+		position: relative;
+	}
+	.maobox{
+		position: absolute;
+		top:0;
+		left:0;
+		width: 100%;
+		height: 100%;
+		z-index: 999;
+	}
+	.echartLi h3{
+		font-size: 1.18rem;
+		padding-left: 1.70666667rem;
+	}
+	.echartLi p{
+		text-indent: 2.36rem;
+	}
+	.last_echli p{
+		color:#333;
+	}
+</style>
+<body>
+<div id="testResult">
+<div class="echartTop">
+	<h2>你的时间管理倾向</h2>
+	<p>点击下图文字查看型态介绍</p>
+	<div class="mainBig">
+		<div class="maobox">
+			<a href="#x" class="mao ext1">{{hext}}</a>
+			<a href="#x2" class="mao ext2">{{hext2}}</a>
+			<a href="#x3" class="mao ext3">{{hext3}}</a>
+		</div>
+		<div id="main" style="height:300px;position: relative;"></div>
+	</div>
+</div>
+
+<a name="x"></a>
+<div class="echartLi">
+	<div class="main">
+		<h4>时间价值感</h4>
+		<h3>指个体对时间的功能和价值的稳定的态度和观念。包括对个体人生和社会发展意义的稳定态度和观念，它通常是充满情感、对个体运用时间的方式具有导向作用。</h3>
+		<div v-if=" hext >= 3.82">
+			<p>在这一维度上的得分较高。这说明你对时间的态度是比较积极的，认为时间是有重要价值的。这种积极的态度，或者说情感因素会帮助你更好的亲近时间，与时间为伴，享受利用时间的快乐。并且，你已经明白时间对你而言是重要的——这至关重要。希望你在未来的学习生活中继续保持对时间积极的态度，这会让你受益无穷。</p>
+		</div>
+		<div v-else-if=" hext < 3.82">
+			<p>你在这一维度上的得分不够理想。这说明目前你可能没有对时间产生比较亲密的感觉，或者还没有意识到时间的重要性。不过没关系，基于这样的情况，我们给你提供一些建议：</p>
+			<p>1、努力与时间做朋友。请你仔细回想一下那些你经历过的让你感受到愉快的事情，比如与朋友一起打球、一起聊天，与家人共进晚饭或者出门游玩。在这些事情中，你是否感受到时间飞逝呢？那么，努力把这种感觉保持下来，并试着迁移到其他环境中（比如工作、学习），慢慢地，你就可以快乐地享受时间。</p>
+			<p>2、用心地重视时间。时间是最好的礼物，因为有了时间，生命才有了意义。时间也是最珍贵的礼物，因为它一去不返。请从现在开始重视时间，做任何事情都要突出时间的重要性。久而久之，时间会给你最好的回馈。需要提醒你，重视时间并非让你时时刻刻紧张，处处都是时间的紧迫感——这对你并没有帮助。我们希望你与时间做朋友，亲近时间——记住，时间并非你的敌人。</p>
+		</div>
+	</div>
+</div>
+<a name="x2"></a>
+<div class="echartLi">
+	<div class="main">
+		<h4>时间监控观</h4>
+		<h3>是个体利用和运筹时间的观念和能力，它是通过一系列行为活动来体现的，例如计划安排、目标设置、时间分配、结果检查等等。</h3>
+		<div v-if=" hext2 >= 3.36">
+			<p>你在这一维度的得分较高。这说明你已经具备较强的利用和运筹时间的能力。要知道，这种能力不仅仅是天赋，还是你不断努力的结果。我们为你感到高兴！我们希望你继续保持，不要让这种好的能力下降甚至消失。另外，我们也欢迎你来金石，与我们的老师、家长或者其他小伙伴一同分享你的心得体会。相信这对于你和他（她）们都多有裨益。</p>
+		</div>
+		<div v-else-if=" hext2 < 3.36">
+			<p>你在这一维度的得分并不理想。这说明你在利用和运筹时间的能力方面有待提升。这并非批评你不够努力，因为这种能力是多方面因素形成的。不过，基于这个分数，我们会给你提供如下建议：</p>
+			<p>1、请教你的老师、家长或者同学、朋友，把你的疑问与困惑告诉他（她）们，并求得帮助。（当然，你也可以来咨询金石的老师；我们非常乐于帮助你。）你的提问越具体，你得到的帮助就越有针对性。</p>
+			<p>2、学会设置目标。设置合理而清晰的目标会帮助你打开一个新的局面，减少你的困惑。俗话说，万事开头难。设置目标就会帮助你解决这个老大难。目标一定要合理——不要过高也不要过低，要设置到自己稍作努力就可以实现的程度，这样激励自己不断的努力；同事目标要清晰，越清晰越好操作，越容易有反馈，模糊的目标则让人摸不着头脑。</p>
+			<p>3、根据目标制订计划。有了合理而清晰的目标，就要根据这个核心制订有效的计划。计划一定要能够落实，不要制订虚无缥缈超出实际的计划。一旦有了有效的计划，就跟着计划干吧！</p>
+		</div>
+	</div>
+</div>
+<a name="x3"></a>
+<div class="echartLi">
+	<div class="main">
+		<h4>时间效能感</h4>
+		<h3>是个体对自己利用和运筹时间的信念和预期，反映了个体对时间管理的信息以及对时间管理行为能力的估计。</h3>
+		<div v-if=" hext3 >= 3.82">
+			<p>你在这一维度上有较高得分。这说明你对自己的时间管理能力有较大的信心，你相信自己可以管理好时间。这种积极阳光的心态将帮助你更好地应对未来复杂的学业生活，希望你继续保持。我们也欢迎你来金石，与我们的老师、家长或者其他小伙伴一同分享你的心得体会。</p>
+		</div>
+		<div v-else-if=" hext3 < 3.82">
+			<p>你在这一维度上的得分较低。这说明你对自己监控时间，管理时间的能力把握不足。也就是说，你对自己能够管理好时间并没有太大的信心。基于这样的状况，我们给你提供以下建议：</p>
+			<p>1、深呼吸，放轻松。别小看这条建议。要知道，很多事情是急不来的。信心的提振不是靠吹牛来的，不可能一蹴而就。它是一个循序渐进，缓慢积累的过程。因此，不要因为信心尚不充足就着急上火，这对解决问题没有任何帮助。</p>
+			<p>2、重新审视你的时间管理。学会反思是一项非常重要的技能。我们希望你开始自己认真反思自己在时间管理方面的表现，是否能够应对当前的学习生活。同时，我们希望你向表达交流自己的困惑。金石教育的老师非常乐于帮助你。</p>
+			<p>3、及时给自己反馈。信心的提升很大程度上是靠反馈得来的。还记得回答正确问题老师给你的表扬吗，或者考试成绩优秀家长的鼓励。这些都是积极正向的反馈——它们通常会让我们倍感振奋。除了上述来自外界的反馈，我们希望你可以更多地进行自我反馈。鼓励自己多去尝试不同的时间管理方法，找到最适合自己的并付诸实践。</p>
+		</div>
+	</div>
+</div>
+<div class="echartLi last_echli">
+	<div class="main">
+		<p>亲爱的同学，相信你通过上述题目的作答以及答案提供的反馈，你对自己的时间管理倾向有了更新、更全面的认识。已经有大量心理学、教育学研究表明，时间管理倾向可以有效的预测学生学业成绩。不仅如此，懂得利用时间，善于把握时间是需要我们终身学习的一项重要技能。我们希望借这次机会可以让你真正重视起时间管理，在未来的学习生活中不断锤炼自己的时间管理能力，做时间的朋友，让时间伴你走向更大的成功！我们在金石等着你的捷报，也欢迎你随时与我们分享自己的心得</p>
+		<p>祝福你，亲爱的同学！</p>
+	</div>
+</div>
+<div class="echartBtn"><a href="javascript:history.back();">返回</a></div>
+</div>
+{include file="common/footer"}
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<script type="text/javascript">
+var array='<?php echo @$_GET['arr']?>';
+//array=eval('('+array+')');
+array=JSON.parse(array);
+var maxarr=[
+	['时间价值感',array[0]],
+	['时间监控观',array[1]],
+	['时间效能感',array[2]],
+];
+
+var vue=new Vue({
+	el: '#testResult',
+	data:{  
+		ext:Math.round(array[0]),
+		ext2:Math.round(array[1]),
+		ext3:Math.round(array[2]),
+		hext:array[0],
+		hext2:array[1],
+		hext3:array[2]
+	},
+	methods: {
+	  
+ 	},
+	created:function(){
+		//console.log(array[0]);
+	}
+})
+
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/radar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main'));
+                
+                var option = {
+				    
+				    calculable : true,
+				    polar : [
+				        {
+				            indicator : [
+				                {text : '时间价值感', max : 5,min:0},
+				                {text : '时间监控观', max : 5,min:0},
+				                {text : '时间效能感', max : 5,min:0},
+				               
+				            ],
+				            name:{
+					         	textStyle:{color:'red'}
+					        },
+				            radius : 130
+				        }
+				    ],
+				    series : [
+				        {
+				            name: '学生测试实况数据',
+				            type: 'radar',
+				            itemStyle: {
+				                normal: {
+				                    areaStyle: {
+				                        type: 'macarons'
+				                    }
+				                }
+				            },
+				            data : [
+				                {
+				                    value :array,
+				                    name : '金石教育性格测试'
+				                }
+				              
+				            ]
+				        }
+				    ]
+				};
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option);
+                //console.log(option.polar['indicator']);
+            }
+        );
+
+    </script>
+</body>
+</html>

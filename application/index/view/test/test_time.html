@@ -1,0 +1,238 @@
+{include file="common/header"}
+<style type="text/css">
+	body,html{height: 100%;}
+	.testTime p{
+		text-align: left;
+		margin-bottom: 0.56rem;
+		text-indent: 2.2rem;
+	}
+	.testTime p span{
+		text-decoration: underline;
+	}
+	.testTime h2{
+		font-size: 1.5rem;
+		margin:1.5rem 0 1rem 0;
+	}
+</style>
+
+<body>
+<div class="testTop testTime">
+	<div class="main">
+		<h2>时间管理</h2>
+		<p>亲爱的同学，您好！为了帮助您客观真实的了解自己的时间管理倾向，并为您提供科学的、针对性的和个性化的课程服务与指导意见，请您认真作答本问卷。您的参与非常重要。我们郑重承诺：<span>您所提供的所有信息都仅用于您了解自己的时间管理倾向，绝不会用做其它用途，请您放心地填写。</span></p>
+		<p>在填写时，<span>请您认真阅读每个句子</span>，并根据自己的实际情况如实作答（1=完全不符合；2=大部分不符合；3=部分符合部分不符合；4=大部分符合；5=完全符合）。<span>请注意答案没有好坏、对错之分，请您一定要如实作答。</span></p>
+		<p>非常感谢您的参与！</p>
+	</div>
+</div>
+<div class="testMain" id="test">
+	
+		<form action="" id="f"></form>
+		<ul id="textList">
+			<li v-for="(v,index) in products">
+				<div class="main">
+					<span>{{v.num}}、</span>{{v.title}}
+				</div>
+				<ul v-if="v.num == 9 || v.num==17 || v.num==27 || v.num== 41 ||v.num==30">
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="1" @click="answer($event,v.num)"><p>完全不符合</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="2" @click="answer($event,v.num)"><p>大部分不符合</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="3" @click="answer($event,v.num)"><p>部分符合部分不符合</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="4" @click="answer($event,v.num)"><p>大部分符合</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="5" @click="answer($event,v.num)"><p>完全符合</p></li>
+				</ul>
+				<ul v-else>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="5" @click="answer($event,v.num)"><p>完全不符合</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="4" @click="answer($event,v.num)"><p>大部分不符合</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="3" @click="answer($event,v.num)"><p>部分符合部分不符合</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="2" @click="answer($event,v.num)"><p>大部分符合</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="1" @click="answer($event,v.num)"><p>完全符合</p></li>
+				</ul>
+			</li>
+
+		</ul>
+		<div class="btn"><button @click="get()">提交</button></div>
+</div>
+
+{include file="common/footer"}
+<script type="text/javascript">
+var T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16,T17,T18,T19,T20,T21,T22,T23,T24,T25,T26,T27,T28,T29,T30,T31,T32,T33,T34,T35,T36,T37,T38,T39,T40,T41,T42,T43,T44;
+
+var vue=new Vue({
+  el: '#test',
+  data: {
+    products: [
+      { title: '我认为“一寸一光阴一寸金”这句话是正确的。',num:1},
+      { title: '我通常把每天的活动安排成一个日程表。',num:2},
+      { title: '“时间就是效益”这句话是正确的。',num:3},
+      { title: '我每天都给自己定出一个学习目标。',num:4},
+      { title: '无论做什么事情，我首先要考虑的是时间因素。',num:5},
+      { title: '我以为将来比现在和过去更重要。',num:6},
+      { title: '我总是把最重要的工作安排在活动效率最高的时间里去做',num:7},
+      { title: '无论做什么事情我总是既有短期安排又有长期计划。',num:8},
+      { title: '目前我尚年轻，浪费一些时间无所谓。',num:9},
+      { title: '我通常都能按时完成任务。',num:10},
+      { title: '对每个人来说，时间就是一切。',num:11},
+      { title: '在每个学期我都要制订自己的学习计划。',num:12},
+      { title: '我认为我在学习和课外活动上的时间分配是合理的。',num:13},
+      { title: '我总是花费大量的时间在最重要的工作上。',num:14},
+      { title: '在新年开始的时候，我通常都要制订这一年中自己的奋斗目标。',num:15},
+      { title: '我相信时间就是生命。',num:16},
+      { title: '我课后复习功课的时间是由老师布置的作业量来决定的。',num:17},
+      { title: '我认为时间是可以有效加以管理的。',num:18},
+      { title: '我通常把最重要的任务安排在计划表的重要位置上。',num:19},
+      { title: '我能够有效地利用自己的时间。',num:20},
+      { title: '我经常根据实际情况对计划进行调整。',num:21},
+      { title: '如果有几件事要同时做，我经常要衡量它们的重要性来安排时间。',num:22},
+      { title: '我能够很好地利用课堂上的学习时间。',num:23},
+      { title: '我对自己设定的目标充满信心。',num:24},
+      { title: '我对每个星期要做的事情都有一个计划。',num:25},
+      { title: '我经常对自己利用时间的情况进行总结。',num:26},
+      { title: '在处理好几件事情的时候，我认为最好是每件事情都做一些。',num:27},
+      { title: '利用好时间对我具有重要意义。',num:28},
+      { title: '我对自己浪费掉的时间深感懊悔。',num:29},
+      {title:'我确定的目标通常都难以实现。',num:30},
+      {title:'世上最宝贵的是时间。',num:31},
+      {title:'我的时间大部分掌握在自己手中。',num:32},
+      {title:'我通常根据学习任务的重要性来安排学习的先后次序。',num:33},
+      {title:'只要是重要的工作，我一定要挤时间去做。',num:34},
+      {title:'我相信我的计划安排通常是合理的。',num:35},
+      {title:'我认为我对事情重要性的顺序安排是合理的。',num:36},
+      {title:'要做的事情很多，我却能处理好这些事。',num:37},
+      {title:'我常常与同学交流合理利用时间的经验。',num:38},
+      {title:'我认为时间就是力量。',num:39},
+      {title:'我通常都能按时完成老师布置的作业。',num:40},
+      {title:'我常常对自己的学习工作在什么时候可以完成没有一个期限。',num:41},
+      {title:'我对每天什么时候学习，什么时候玩都有一个清楚的想法。',num:42},
+      {title:'为了提高时间利用效率，我经常学习有关如何利用时间的知识。',num:43},
+      {title:'我总是根据目标的完成情况来检验自己的计划',num:44}
+    ]
+  },
+  methods:{
+  	answer:function(element,index){
+		if(index==5){ //时间价值感
+			T5=parseInt(element.toElement.value);
+		}else if(index==6){
+			T6=parseInt(element.toElement.value);
+		}else if(index==9){
+			T9=parseInt(element.toElement.value);
+		}else if(index==16){
+			T16=parseInt(element.toElement.value);
+		}else if(index==28){
+			T28=parseInt(element.toElement.value);
+			//以上个人取向：5、6、9、16、28
+		}else if(index==1){
+			T1=parseInt(element.toElement.value);
+		}else if(index==3){
+			T3=parseInt(element.toElement.value);  
+		}else if(index==11){
+			T11=parseInt(element.toElement.value);  
+		}else if(index==31){
+			T31=parseInt(element.toElement.value);  
+		}else if(index==39){
+			T39=parseInt(element.toElement.value); 
+			//以上社会取向：1、3、11、31、39 
+		}else if(index==10){ //时间监控观
+			T10=parseInt(element.toElement.value);  
+		}else if(index==4){
+			T4=parseInt(element.toElement.value);  
+		}else if(index==15){
+			T15=parseInt(element.toElement.value);  
+		}else if(index==17){
+			T17=parseInt(element.toElement.value);  
+		}else if(index==40){
+			T40=parseInt(element.toElement.value); 
+			//以上设置目标：10、4、15、17、40
+		}else if(index==12){
+			T12=parseInt(element.toElement.value);  
+		}else if(index==25){
+			T25=parseInt(element.toElement.value);  
+		}else if(index==41){
+			T41=parseInt(element.toElement.value);
+		}else if(index==8){
+			T8=parseInt(element.toElement.value);  
+		}else if(index==2){
+			T2=parseInt(element.toElement.value);
+			//以上计划：12、25、41、8、2
+		}else if(index==33){
+			T33=parseInt(element.toElement.value);  
+		}else if(index==7){
+			T7=parseInt(element.toElement.value);  
+		}else if(index==19){
+			T19=parseInt(element.toElement.value);  
+		}else if(index==22){
+			T22=parseInt(element.toElement.value);  
+		}else if(index==27){
+			T27=parseInt(element.toElement.value);
+			// 以上优先级：33、7、19、22、27
+		}else if(index==21){
+			T21=parseInt(element.toElement.value);  
+		}else if(index==44){
+			T44=parseInt(element.toElement.value);
+		}else if(index==38){
+			T38=parseInt(element.toElement.value);
+		}else if(index==26){
+			T26=parseInt(element.toElement.value);  
+		}else if(index==43){
+			T43=parseInt(element.toElement.value);
+			//以上反馈性：21、44、38、26、43
+		}else if(index==42){
+			T42=parseInt(element.toElement.value);  
+		}else if(index==14){
+			T14=parseInt(element.toElement.value);  
+		}else if(index==34){
+			T34=parseInt(element.toElement.value);  
+		}else if(index==37){
+			T37=parseInt(element.toElement.value); 
+			//以上时间分配：42、14、34、37
+		}else if(index==24){ //时间效能感
+			T24=parseInt(element.toElement.value);  
+		}else if(index==13){
+			T13=parseInt(element.toElement.value);
+		}else if(index==36){
+			T36=parseInt(element.toElement.value);  
+		}else if(index==35){
+			T35=parseInt(element.toElement.value);
+		}else if(index==30){
+			T30=parseInt(element.toElement.value); 
+			//以上时间管理行为效能：24、13、36、35、30 
+		}else if(index==18){
+			T18=parseInt(element.toElement.value);  
+		}else if(index==29){
+			T29=parseInt(element.toElement.value);  
+		}else if(index==20){
+			T20=parseInt(element.toElement.value);  
+		}else if(index==32){
+			T32=parseInt(element.toElement.value);
+			//以上时间管理效能：18、29、20、32  
+		}
+		
+	},
+	get:function(){
+		this.$options.methods.answer();
+	/* 1、 时间价值感  */
+		var cost=(T5+T6+T9+T16+T28+T1+T3+T11+T31+T39)/10;
+		cost=cost.toFixed(2);
+	/*2、时间监控观 */
+		var moni=(T10+T4+T15+T17+T40+T12+T25+T41+T8+T2+T33+T7+T19+T22+T27+T21+T44+T38+T26+T43+T42+T14+T34+T37)/24;
+		moni=moni.toFixed(2);
+	/*3、时间效能感 */
+		var effic=(T24+T13+T36+T35+T30+T18+T29+T20+T32)/9;
+		effic=effic.toFixed(2);
+		
+		if(T1== undefined||T2== undefined||T3== undefined||T4== undefined||T5== undefined||T6== undefined||T7== undefined||T8== undefined||T9== undefined||T10== undefined||T11== undefined||T12== undefined||T13== undefined||T14== undefined||T15== undefined||T16== undefined||T17== undefined||T18== undefined||T19== undefined||T20== undefined||T21== undefined||T22== undefined||T24== undefined||T25== undefined||T26== undefined||T27== undefined||T28== undefined||T29== undefined||T30== undefined||T31== undefined||T32== undefined||T33== undefined||T34== undefined||T35== undefined||T36== undefined||T37== undefined||T38== undefined||T39== undefined||T40== undefined||T41== undefined||T42== undefined||T43== undefined||T44== undefined){
+			layer.alert('请不要留下空题');
+			return;
+		}
+		var arr=[cost,moni,effic];
+		arr=JSON.stringify(arr);
+		window.location.href=baseurl+'?s=index/test/timeResult&arr='+arr;
+
+	}
+  },
+  created:function(){
+
+  }
+})
+
+</script>
+</body>
+</html>

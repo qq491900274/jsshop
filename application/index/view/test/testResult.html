@@ -1,0 +1,401 @@
+{include file="common/header"}
+<style type="text/css">
+body,html{max-width: 640px;}
+	.mao{
+		color:#333;
+		font-size: 0.7rem;
+	}
+	.mao1{
+		width: 100%;
+		height: 60px;
+		line-height: 100px;
+		display: block;
+		position: absolute;
+		top:-25px;
+		left:0;
+	}
+	.mao2{
+		width: 50%;
+		height: 60px;
+		line-height: 50px;
+		display: block;
+		position: absolute;
+		top:76px;
+		left:0;
+	}
+	.mao3{
+		width: 50%;
+		height: 60px;
+		line-height: 17px;
+		display: block;
+		position: absolute;
+		bottom:0;
+		left:0;
+	}
+	.mao4{
+		width: 50%;
+		height: 60px;
+		line-height: 17px;
+		display: block;
+		position: absolute;
+		bottom:0;
+		right:0;
+	}
+	.mao5{
+		width: 50%;
+		height: 60px;
+		line-height: 50px;
+		display: block;
+		position: absolute;
+		top:76px;
+		right:0;
+	}
+	.mainBig{
+		position: relative;
+	}
+	.maobox{
+		position: absolute;
+		top:0;
+		left:0;
+		width: 100%;
+		height: 100%;
+		z-index: 999;
+	}
+	.testidea{
+		background: #FFF;
+		margin-top: .42666667rem;
+		padding-top: 0.1rem;
+	}
+	.testidea h3{
+		font-size: 1.5rem;
+		margin:0.5rem 0;
+	}
+	.testidea h4{
+		font-size: 1.19466667rem;
+	}
+	.testidea h4 span{
+		text-decoration: underline
+	}
+	.testidea p{
+		font-size: 1.19466667rem;
+		color:#999;
+		line-height: 1.7;
+		text-indent:2.4rem; 
+	}
+</style>
+<body>
+<div id="testResult">
+<div class="echartTop">
+	<h2>您的人格特点</h2>
+	<p>点击下图文字查看型态介绍</p>
+	<div class="mainBig">
+		<div class="maobox">
+			<a href="#x" class="mao mao1">{{hxRe}}</a>
+			<a href="#x2" class="mao mao2">{{hxRe2}}</a>
+			<a href="#x3" class="mao mao3">{{hxRe3}}</a>
+			<a href="#x4" class="mao mao4">{{hxRe4}}</a>
+			<a href="#x5" class="mao mao5">{{hxRe5}}</a>
+		</div>
+		<div id="main" style="height:300px;position: relative;"></div>
+	</div>
+</div>
+<div class="echartClass">
+	<div class="main">
+		<ul>
+			<li>您的优势人格为<span>{{adv1}}，{{adv2}}。</span></li>
+			<li>您的劣势人格为<span>{{lie}}。</span></li>
+		</ul>
+	</div>
+</div>
+<a name="x"></a>
+<div class="echartLi">
+	<div class="main">
+		<h4>1、外倾性(Extraversion) ——<span>({{xRe}}分)</span></h4>
+		<p>外倾性又称内外倾向性(Introversion-Extraversion)，测量的是人格的一般心理倾向。内外倾向性得分越高，代表着个体越外倾，主要表现为健谈、活跃、精力充沛、愿意表达自己的情感。</p>
+		<h5>学业上：</h5>
+		<p>研究表明，人格五因素中外倾性与学业成就之间关系不明显，但它和学习的诸多心理过程有关，例如外倾性水平更高的个体更喜欢社会参与式（social participation）的学习，如课堂参与、小组讨论、观点交流、辩论等方式。在学习效果的评估中，外倾性的学生更喜欢口头式的评价和考核。</p>
+		<h5>学校(心理/社会)适应上：</h5>
+		<p>研究表明，人格五因素中外倾性与学校适应的关系密切。因为个体更加活跃、健谈、愿意表达自己，那么更容易适应集体，有良好的同伴关系，从而有多的方式表达情绪、调节情绪，较少出现情绪困扰和心理症状。</p>
+		<a href="javascript:void(0)" class="more" @click="get1()">查看详情</a>
+	</div>
+</div>
+<a name="x2"></a>
+<div class="echartLi">
+	<div class="main">
+		<h4>2、宜人性(agreeableness) ——<span>({{xRe2}}分)</span></h4>
+		<p>宜人性又称随和性、和善性等，测量的是人格中人际关系倾向（社交性）。宜人性得分越高，代表个体倾向于待人友善、热心，更乐于助人、与人合作、获得信任。</p>
+		<h5>学业上：</h5>
+		<p>研究表明，人格五因素中宜人性与学业成就之间关系不明显，但它和一些学习心理过程有关系，例如宜人性越高的个体在数字技能中表现出更加自信，在学习考核的方式上更偏好小组作业。</p>
+		<h5>学校(心理/社会)适应上：</h5>
+		<p>研究表明，人格五因素中宜人性与学校适应的关系最为密切。因为个体更加热情、友善，那么他们更容易保持人际关系的和谐，不论是同伴关系、师生关系还是集体适应，宜人性高的学生总是最棒的。相比于外倾性，宜人性高的学生更少发生师生冲突，他们能够更好地和老师处理好关系。因此，他们也能够有更好的情绪适应，保持心理的健康。</p>
+		<a href="javascript:void(0)" class="more" @click="get2()">查看详情</a>
+	</div>
+</div>
+<a name="x3"></a>
+<div class="echartLi">
+	<div class="main">
+		<h4>3、责任性(conscientiousness) ——<span>({{xRe3}}分)</span></h4>
+		<p>责任性又称谨慎性、尽责性、成功的意志等，测量的是人格中对规则的认同与遵循倾向（责任感）。责任性得分越高，代表个体责任感越高，主要表现为具有计划性、有序感，高标准要求自己，做事情三思而后行，具有高度的自律和追求成功的意志力。</p>
+		<h5>学业上：</h5>
+		<p>研究表明，人格五因素中责任性与学业成就的关系最密切，因为个体更加自律、有规划、有意志力，从而有更大的可能性取得较高的学业成就。具体而言，责任性能够预测儿童青少年的阅读与写作的自信心、时间管理技能、成就动机。</p>
+		<h5>学校(心理/社会)适应上：</h5>
+		<p>研究表明，人格五因素中责任性与学校适应关系不明显。因为责任性表现个体对“做事”的自我要求和意志力，与人际关系、集体生活和情绪调节关系不显著。但在特定环境下，它可以预测社会适应，例如研究发现在普通中学，责任性高的学生，因为他们往往能够在该环境里在学业上脱颖而出，所以心理健康水平更高。</p>
+		<a href="javascript:void(0)" class="more" @click="get3()">查看详情</a>
+	</div>
+</div>
+<a name="x4"></a>
+<div class="echartLi">
+	<div class="main">
+		<h4>4、开放性(openness) ——<span>({{xRe4}}分)</span></h4>
+		<p>开放性又称对经验的开放性、文化性、智能等，测量的是人格中的智能性倾向。开放性越高，代表个体对经验保持更加开放的态度，主要表现为富有想象力、审美、充满好奇心、具有创造力、情感丰富，善于发现和寻求变化，能从不同的角度和方面看待事物。</p>
+		<h5>学业上：</h5>
+		<p>研究表明，人格五因素中开放性与学业成就关系密切，因为个体对待知识与经验有更强的好奇心、想象力和创造力，更具有洞察力和领悟能力，那么更有可能在学业上取得成就。具体而言，开放性越高的个体对待阅读和写作更有自信心，有更强的内部动机投入学习、更强的动机争取成就；开放性高的个体还偏好口头评价和多种选择的考核。</p>
+		<h5>学校(心理/社会)适应上：</h5>
+		<p>研究表明，人格五因素中开放性与学校适应关系不明显。但在某些特殊年级，开放性能够影响学校适应，例如研究表明，在初一、高一这样的转折时期，对经验保持更加开放的学生，能够更快的融入新集体，有更好的同伴关系。</p>
+		<a href="javascript:void(0)" class="more" @click="get4()">查看详情</a>
+	</div>
+</div>
+<a name="x5"></a>
+<div class="echartLi">
+	<div class="main">
+		<h4>5、情绪性 (neuroticism) ——<span>({{xRe5}}分)</span></h4>
+		<p>情绪性又称为情绪稳定性、神经质、情绪稳定——情绪紊乱维度等，测量的是人格中情绪反应性。神经质得分越高，代表个体情绪越不稳定，主要表现为容易紧张、焦虑、烦躁、冲动、敌对，情绪脆弱，缺乏安全感。</p>
+		<h5>学业上：</h5>
+		<p>研究表明，人格五因素中神经质与学业成就有不稳定的低相关，个体的情绪稳定性差可能会影响学业成就。因为情绪稳定性差的个体更容易在学习过程中感觉到紧张、焦虑、烦躁等消极情绪，所以他们更难长期保持对学习的专注力和自信心。例如，神经质得分高的个体学习动机更偏向于“回避型”——也就是他们学习的动力是避免失败，他们害怕失败后的惩罚与糟糕后果，对失败的心理承受能力较弱；所以在学业评价方式中，神经质水平较高的孩子不喜欢口头评价和频率较高的连续评价。</p>
+		<h5>学校(心理/社会)适应上：</h5>
+		<p>研究表明，人格五因素中神经质与学校适应的关系密切。个体的情绪稳定性差，虽然不一定总是出现同伴关系问题，但容易出现师生冲突；并且他们容易对待学习和学校有消极的态度，从而产生情绪困扰。</p>
+		<a href="javascript:void(0)" class="more" @click="get5()">查看详情</a>
+	</div>
+</div>
+<div class="testidea">
+	<div class="main">
+		<h3>建议：</h3>
+		<div class="ideali">
+			<h4>优势人格包含<span>外倾性</span></h4>
+			<p>学业上，发挥优势人格的特点。更多采取社会参与式（social participation）的学习，如课堂参与、小组讨论、观点交流、辩论等方式；家长与教师多给予口头式的评价和考核。</p>
+			<p>学校生活上，外向是你的优势，你很容易和他人保持熟络。但过于健谈和充满活力有时也会是冲突的导火索，学会倾听和对他人保持兴趣是你需要学习的地方。</p>
+		</div>
+		<div class="ideali">
+			<h4>优势人格包含<span>责任性</span></h4>
+			<p>学业上，发挥优势人格的特点（这句话只要开头一遍，不要重复）。努力建立需要阅读与写作技能的学科优势。更多通过成就目标（例如，考试分数）的吸引来推动学习。多使用时间管理技能、严格制定不同时期的学习目标与计划。</p>
+			<p>学校生活上，严谨、守纪、认真是你的优势，老师可能会很喜欢你这样的同学。增加一些活跃的氛围，你会和同学的关系更亲近。</p>
+		</div>
+		<div class="ideali">
+			<h4>优势人格包含<span>情绪性</span></h4>
+			<p>学业上，发挥优势人格的特点。情绪稳定性强的个体不怕挫折和失败，可以采用高频率的连续评价与考核来推动学习进程，给予更多的连续反馈可以促进你对自身学习进程的了解，保持对学习的兴趣和热情。</p>
+			<p>学校生活上，情绪稳定是你的优势，你很容易对自己的人际关系和学习生活感到满意，努力把这种稳定和安全感也带给身边的人吧！</p>
+		</div>
+		<div class="ideali">
+			<h4>优势人格包含<span>宜人性</span></h4>
+			<p>学业上，发挥优势人格的特点。努力建立需要数字技能的学科优势。在学习考核的方式上更多采用小组作业的形式，在学习方式上多采用小组讨论与合作学习，发挥你的人际吸引力与善于和他人处理关系的优势。</p>
+			<p>学校生活上，良好的人际关系是你的优势，你的热情、信任和乐于助人很讨人喜欢。继续保持这样的状态吧！</p>
+		</div>
+		<div class="ideali">
+			<h4>优势人格包含<span>开放性</span></h4>
+			<p>学业上，发挥优势人格的特点。努力建立需要阅读与写作技能的学科优势。更多培养学生的内部动机，以学习知识和扩展经验作为学习的目标（而非分数）来推动学习。家长和老师多给学生探索的空间。</p>
+			<p>学校生活上，充满创意和接受新事物是你的优势，利用这样的特点来带动身边的人，一起享受学习和生活吧！</p>
+		</div>
+		<div class="ideali">
+			<h4>劣势人格包含<span>神经质</span></h4>
+			<p>学业上，家长和老师保持一些耐心，保护学生的情绪感受。特别是不要用“挫折教育”来教育情绪稳定性差的孩子，多让孩子感受一些成功体验。</p>
+		</div>
+	</div>
+</div>
+<div class="teac">
+	<div class="main">
+		<h4>学习人格测试设计者</h4>
+		<h4 class="nameTest">曾旻</h4>
+		<p>北京师范大学心理学部硕士，研究儿童青少年的创伤心理，著有《直面创伤》，译著《创伤与记忆：身体体验疗法如何重塑创伤记忆》。曾参与教育部人文社会科学重点研究基地重大项目(11JJD190006)《青少年创伤后成长的发展特点与促进研究：来自比较与追踪的证据》和北京市社会科学基金重大项目(15ZDA11) 《青少年创伤后应激障碍与创伤后成长的结构及影响机制研究》，多次赴汶川、雅安地震重灾区中小学进行科学调研，熟练问卷编制、设计与实施的方法与流程。</p>
+	</div>
+</div>
+
+<div class="recommend">
+	<div class="main3">
+		<h4>推荐课程</h4>
+		<ul class="clearfix">
+			<li v-for="v in listBox"><a href="javascript:void(0)" @click="goupdate(v.ID)">
+				<img :src="v.PIC">
+				<p>{{v.NAME}}</p>
+				<span>￥{{v.PRICE}}</span>
+			</a></li>
+		</ul>
+	</div>
+</div>
+<div class="echartBtn"><a href="<?php echo BASE_URL;?>?s=index/test/test">再测一次</a></div>
+</div>
+{include file="common/footer"}
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<script type="text/javascript">
+var array='<?php echo @$_GET['arr']?>';
+//array=eval('('+array+')');
+array=JSON.parse(array);
+//优势人格
+var advarr=array.slice(0,4);
+var last=array.slice(4,4+1);
+
+//外倾性侧面
+var ext=array.slice(5,5+3);
+var extarr=JSON.stringify(ext);
+//console.log(extarr);
+//宜人性侧面
+var agr=array.slice(8,8+3);
+var agrarr=JSON.stringify(agr);
+//console.log(agrarr);
+//责任性侧面
+var cons=array.slice(11,11+3);
+var consarr=JSON.stringify(cons);
+//console.log(consarr);
+//开放性侧面
+var open=array.slice(14,14+4);
+var openarr=JSON.stringify(open);
+//console.log(openarr);
+//情绪性
+var neur=array.slice(18,18+3);
+var neurarr=JSON.stringify(neur);
+//console.log(neurarr);
+
+
+
+var max=advarr;
+var maxarr=[
+	['外倾性',max[0]],
+	['宜人性',max[1]],
+	['谨慎性',max[2]],
+	['开放性',max[3]]
+];
+var luearr=[
+	['情绪性',last[0]]
+]
+
+//排序（默认升序）
+maxarr.sort(function(a,b){
+	return a[1]-b[1];
+})
+//console.log(maxarr);
+var minre;
+for(var i=0;i<maxarr.length;i++){
+	if(luearr[0][1]>=maxarr[i][1]){
+		minre=luearr[0][0];
+	}else{
+		minarr=maxarr.slice(0,1);
+		minre=minarr[0][0];
+	}
+}
+var maxre=maxarr.slice(2,4);//取最大的两个值
+//console.log(maxre);
+
+var vue=new Vue({
+	el: '#testResult',
+	data:{  
+		xRe:Math.round(array[0]),
+		xRe2:Math.round(array[1]),
+		xRe3:Math.round(array[2]),
+		xRe4:Math.round(array[3]),
+		xRe5:Math.round(array[4]),
+		hxRe:array[0],
+		hxRe2:array[1],
+		hxRe3:array[2],
+		hxRe4:array[3],
+		hxRe5:array[4],
+		adv1:maxre[0][0],
+		adv2:maxre[1][0],
+		lie:minre,
+		listBox:[]
+	},
+	methods: {
+		goupdate:function(id){
+	 	 	window.location.href=baseurl+'?s=index/Lesson/lesson_show&id='+id;
+		},
+	  get1:function(){
+	  	window.location.href=baseurl+'?s=index/test/testResult_1&arr='+extarr;
+	  },
+	  get2:function(){
+	  	window.location.href=baseurl+'?s=index/test/testResult_2&arr='+agrarr;
+	  },
+	  get3:function(){
+	  	window.location.href=baseurl+'?s=index/test/testResult_3&arr='+consarr;
+	  },
+	  get4:function(){
+	  	window.location.href=baseurl+'?s=index/test/testResult_4&arr='+openarr;
+	  },
+	  get5:function(){
+	  	window.location.href=baseurl+'?s=index/test/testResult_5&arr='+neurarr;
+	  }
+ 	},  
+	created:function(){
+		this.$http.post(baseurl+'?s=index/Lesson/get_class',{list:1}).then(res=>{
+			var val=eval('('+res.bodyText+')');
+			this.listBox=val.slice(0,2);
+		},res=>{
+			console.log('请求失败,请检查Network!');
+		})
+	}
+})
+
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/radar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main'));
+                
+                var option = {
+				    
+				    calculable : true,
+				    polar : [
+				        {
+				            indicator : [
+				                {text : '外倾性', max  : 55,min:45},
+				                {text : '宜人性', max  : 55,min:45},
+				                {text : '谨慎性', max  : 55,min:45},
+				                {text : '开放性', max  : 55,min:45},
+				                {text : '情绪性', max  : 55,min:45}
+				               
+				            ],
+				            name:{
+					         	textStyle:{color:'red'}
+					        },
+				            radius : 130
+				        }
+				    ],
+				    series : [
+				        {
+				            name: '学生测试实况数据',
+				            type: 'radar',
+				            itemStyle: {
+				                normal: {
+				                    areaStyle: {
+				                        type: 'macarons'
+				                    }
+				                }
+				            },
+				            data : [
+				                {
+				                    value :array,
+				                    name : '金石教育性格测试'
+				                }
+				              
+				            ]
+				        }
+				    ]
+				};
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option);
+                //console.log(option.polar['indicator']);
+            }
+        );
+
+    </script>
+</body>
+</html>

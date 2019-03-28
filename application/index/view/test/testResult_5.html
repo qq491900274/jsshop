@@ -1,0 +1,178 @@
+{include file="common/header"}
+<style type="text/css">
+body,html{max-width: 640px;}
+	.mao{
+		color:#333;
+		font-size: 0.7rem;
+	}
+	.ext1{
+		width: 100%;
+		height: 60px;
+		line-height: 100px;
+		display: block;
+		position: absolute;
+		top:-25px;
+		left:0;
+	}
+	.ext2{
+		width: 50%;
+		height: 60px;
+		display: block;
+		position: absolute;
+		bottom:26px;
+		left:0;
+	}
+	.ext3{
+		width: 50%;
+		height: 60px;
+		display: block;
+		position: absolute;
+		bottom:26px;
+		right:0;
+	}
+	.mainBig{
+		position: relative;
+	}
+	.maobox{
+		position: absolute;
+		top:0;
+		left:0;
+		width: 100%;
+		height: 100%;
+		z-index: 999;
+	}
+</style>
+<body>
+<div id="testResult">
+<div class="echartTop">
+	<h2>情绪性得分分布</h2>
+	<p>点击下图文字查看型态介绍</p>
+	<div class="mainBig">
+		<div class="maobox">
+			<a href="#x" class="mao ext1">{{hext}}</a>
+			<a href="#x2" class="mao ext2">{{hext2}}</a>
+			<a href="#x3" class="mao ext3">{{hext3}}</a>
+		</div>
+		<div id="main" style="height:300px;position: relative;"></div>
+	</div>
+</div>
+
+<a name="x"></a>
+<div class="echartLi">
+	<div class="main">
+		<h4>1、紧张焦虑(Anxiety) ——<span>({{ext}}分)</span></h4>
+		<p>高分者，表现为情绪不稳定，容易因为一些小事而感到强烈的紧张、焦虑、不安、害怕等情绪；做事容易紧张，常处于担心的状态，总觉得事情会出问题。低分者，表现为情绪稳定，做事比较从容，常处于放松状态，不会总担心事情会出问题。</p>
+	</div>
+</div>
+<a name="x2"></a>
+<div class="echartLi">
+	<div class="main">
+		<h4>2、情绪内敛/自我体验/脆弱性(Vulnerability) ——<span>({{ext2}}分)</span></h4>
+		<p>该维度反映个体的抗压能力。高分者抗压能力弱，容易慌乱、无助、依赖，面对事务压力时，对自我不确定、消极评价，容易否定自我，或感情脆弱、易受伤害；面对人际压力时，人际敏感，常常关心他人对自己的看法，担心他人的负面评价。低分者抗压能力强，面对事务压力时，表现为头脑清醒、自信，相对不容易受到伤害；面对人际压力时，更自信、平静、适应力强。</p>
+	</div>
+</div>
+<a name="x3"></a>
+<div class="echartLi">
+	<div class="main">
+		<h4>3、依赖性(independence) ——<span>({{ext3}}分)</span></h4>
+		<p>高分者，表现为缺乏自主性，情绪易受他人影响；对自我没有把握，自我评价低。低分者，表现为更高的自我评价、更稳定的自我认同，更强的自我调节情绪的能力。</p>
+	</div>
+</div>
+
+<div class="echartBtn"><a href="javascript:history.back();">返回</a></div>
+</div>
+{include file="common/footer"}
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<script type="text/javascript">
+var array='<?php echo @$_GET['arr']?>';
+//array=eval('('+array+')');
+array=JSON.parse(array);
+var maxarr=[
+	['紧张焦虑',array[0]],
+	['情绪内敛',array[1]],
+	['依赖性',array[2]],
+];
+
+var vue=new Vue({
+	el: '#testResult',
+	data:{  
+		ext:Math.round(array[0]),
+		ext2:Math.round(array[1]),
+		ext3:Math.round(array[2]),
+		hext:array[0],
+		hext2:array[1],
+		hext3:array[2]
+	},
+	methods: {
+	  
+ 	},
+	created:function(){
+		//console.log(array[0]);
+	}
+})
+
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/radar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main'));
+                
+                var option = {
+				    
+				    calculable : true,
+				    polar : [
+				        {
+				            indicator : [
+				                {text : '紧张焦虑', max  : 55,min:45},
+				                {text : '情绪内敛', max  : 55,min:45},
+				                {text : '依赖性', max  : 55,min:45},
+				               
+				            ],
+				            name:{
+					         	textStyle:{color:'red'}
+					        },
+				            radius : 130
+				        }
+				    ],
+				    series : [
+				        {
+				            name: '学生测试实况数据',
+				            type: 'radar',
+				            itemStyle: {
+				                normal: {
+				                    areaStyle: {
+				                        type: 'macarons'
+				                    }
+				                }
+				            },
+				            data : [
+				                {
+				                    value :array,
+				                    name : '金石教育性格测试'
+				                }
+				              
+				            ]
+				        }
+				    ]
+				};
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option);
+                //console.log(option.polar['indicator']);
+            }
+        );
+
+    </script>
+</body>
+</html>

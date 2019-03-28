@@ -1,0 +1,144 @@
+{include file="common/header"}
+<style type="text/css">
+	body,html{height: 100%;}
+	.testTime p{
+		text-align: left;
+		margin-bottom: 0.56rem;
+		text-indent: 2.2rem;
+	}
+	.testTime p span{
+		text-decoration: underline;
+	}
+	.testTime h2{
+		font-size: 1.5rem;
+		margin:1.5rem 0 1rem 0;
+	}
+</style>
+
+<body>
+<div class="testTop testTime">
+	<div class="main">
+		<h2>时间管理</h2>
+		<p>亲爱的同学，您好！为了帮助您客观真实的了解自己的时间管理倾向，并为您提供科学的、针对性的和个性化的课程服务与指导意见，请您认真作答本问卷。您的参与非常重要。我们郑重承诺：<span>您所提供的所有信息都仅用于您了解自己的时间管理倾向，绝不会用做其它用途，请您放心地填写。</span></p>
+		<p>在填写时，<span>请您认真阅读每个句子</span>，并根据自己的实际情况如实作答（1=完全不符合；2=大部分不符合；3=部分符合部分不符合；4=大部分符合；5=完全符合）。<span>请注意答案没有好坏、对错之分，请您一定要如实作答。</span></p>
+		<p>非常感谢您的参与！</p>
+	</div>
+</div>
+<div class="testMain" id="test">
+	
+		<form action="" id="f"></form>
+		<ul id="textList">
+			<li v-for="(v,index) in products">
+				<div class="main">
+					<span>{{v.num}}、</span>{{v.title}}
+				</div>
+				<ul v-if="v.num == 5 || v.num==15">
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="1" @click="answer($event,v.num)"><p>完全符合</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="2" @click="answer($event,v.num)"><p>大部分符合</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="3" @click="answer($event,v.num)"><p>部分符合部分不符合</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="4" @click="answer($event,v.num)"><p>大部分不符合</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="5" @click="answer($event,v.num)"><p>完全不符合</p></li>
+				</ul>
+				<ul v-else>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="5" @click="answer($event,v.num)"><p>完全符合</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="4" @click="answer($event,v.num)"><p>大部分符合</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="3" @click="answer($event,v.num)"><p>部分符合部分不符合</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="2" @click="answer($event,v.num)"><p>大部分不符合</p></li>
+					<li><input type="radio" form="f" :name="'test'+v.num" :value="1" @click="answer($event,v.num)"><p>完全不符合</p></li>
+				</ul>
+			</li>
+
+		</ul>
+		<div class="btn"><button @click="get()">提交</button></div>
+</div>
+
+{include file="common/footer"}
+<script type="text/javascript">
+var T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15;
+
+var vue=new Vue({
+  el: '#test',
+  data: {
+    products: [
+      { title: '我通常把每天的活动安排成一个日程表。',num:1},
+      { title: '无论做什么事情，我首先要考虑的是时间因素。',num:2},
+      { title: '我以为将来比现在和过去更重要。',num:3},
+      { title: '无论做什么事情我总是既有短期安排又有长期计划。',num:4},
+      { title: '目前我尚年轻，浪费一些时间无所谓。',num:5},
+      { title: '在每个学期我都要制订自己的学习计划。',num:6},
+      { title: '我相信时间就是生命。',num:7},
+      { title: '我认为时间是可以有效加以管理的。',num:8},
+      { title: '我能够有效地利用自己的时间。',num:9},
+      { title: '我能够很好地利用课堂上的学习时间。',num:10},
+      { title: '我对每个星期要做的事情都有一个计划。',num:11},
+      { title: '利用好时间对我具有重要意义。',num:12},
+      { title: '我对自己浪费掉的时间深感懊悔。',num:13},
+      { title: '我的时间大部分掌握在自己手中。',num:14},
+      { title: '我常常对自己的学习工作在什么时候可以完成没有一个期限。',num:15}
+    ]
+  },
+  methods:{
+  	answer:function(element,index){
+		if(index==2){ //时间价值感
+			T2=parseInt(element.toElement.value);
+		}else if(index==3){
+			T3=parseInt(element.toElement.value);
+		}else if(index==5){
+			T5=parseInt(element.toElement.value);
+		}else if(index==7){
+			T7=parseInt(element.toElement.value);
+		}else if(index==12){
+			T12=parseInt(element.toElement.value);
+		}else if(index==1){ //时间监控观
+			T1=parseInt(element.toElement.value);  
+		}else if(index==4){
+			T4=parseInt(element.toElement.value);  
+		}else if(index==6){
+			T6=parseInt(element.toElement.value);  
+		}else if(index==11){
+			T11=parseInt(element.toElement.value);  
+		}else if(index==15){
+			T15=parseInt(element.toElement.value);
+		}else if(index==8){ //时间效能感
+			T8=parseInt(element.toElement.value);  
+		}else if(index==9){
+			T9=parseInt(element.toElement.value);
+		}else if(index==10){
+			T10=parseInt(element.toElement.value);  
+		}else if(index==13){
+			T13=parseInt(element.toElement.value);
+		}else if(index==14){
+			T14=parseInt(element.toElement.value); 
+		}
+		
+	},
+	get:function(){
+		this.$options.methods.answer();
+	/* 1、 时间价值感  */
+		var cost=(T2+T3+T5+T7+T12)/5;
+		cost=cost.toFixed(2);
+	/*2、时间监控观 */
+		var moni=(T1+T4+T6+T11+T15)/5;
+		moni=moni.toFixed(2);
+	/*3、时间效能感 */
+		var effic=(T8+T9+T10+T13+T14)/5;
+		effic=effic.toFixed(2);
+		
+		if(T1== undefined||T2== undefined||T3== undefined||T4== undefined||T5== undefined||T6== undefined||T7== undefined||T8== undefined||T9== undefined||T10== undefined||T11== undefined||T12== undefined||T13== undefined||T14== undefined||T15== undefined){
+			layer.alert('请不要留下空题');
+			return;
+		}
+		var arr=[cost,moni,effic];
+		arr=JSON.stringify(arr);
+		window.location.href=baseurl+'?s=index/test/time_show&arr='+arr;
+
+	}
+  },
+  created:function(){
+
+  }
+})
+
+</script>
+</body>
+</html>

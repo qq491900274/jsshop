@@ -1,0 +1,238 @@
+{include file="common/header"}
+<style type="text/css">
+body,html{max-width: 640px;}
+	.mao{
+		color:#333;
+		font-size: 0.7rem;
+	}
+	.open1{
+		width: 100%;
+		height: 60px;
+		line-height: 100px;
+		display: block;
+		position: absolute;
+		top:3px;
+		left:0;
+	}
+	.open2{
+		width: 50%;
+		height: 60px;
+		line-height: 60px;
+		display: block;
+		position: absolute;
+		bottom:120px;
+		left:0;
+	}
+	.open3{
+		width: 100%;
+		height: 60px;
+		line-height: 13px;
+		display: block;
+		position: absolute;
+		bottom:0;
+		right:0;
+	}
+	.open4{
+		width: 50%;
+		height: 60px;
+		line-height: 60px;
+		display: block;
+		position: absolute;
+		bottom:120px;
+		right:0;
+	}
+	.mainBig{
+		position: relative;
+	}
+	.maobox{
+		position: absolute;
+		top:0;
+		left:0;
+		width: 100%;
+		height: 100%;
+		z-index: 999;
+	}
+	.echartLi p{
+		text-indent: 2.36rem;
+	}
+	.echartLi img{
+		display: inherit;
+		margin:2rem auto 0 auto;
+	}
+	.echartLi span{
+		color:#333;
+	}
+</style>
+<body>
+<div id="testResult">
+<div class="echartTop">
+	<h2>你的学习状态情况分布图</h2>
+	<p>点击下图文字查看型态介绍</p>
+	<div class="mainBig">
+		<div class="maobox">
+			<a href="#x" class="mao open1">{{hext}}</a>
+			<a href="#x2" class="mao open2">{{hext2}}</a>
+			<a href="#x3" class="mao open3">{{hext3}}</a>
+			<a href="#x4" class="mao open4">{{hext4}}</a>
+		</div>
+		<div id="main" style="height:300px;position: relative;"></div>
+	</div>
+</div>
+
+<a name="x"></a>
+<div class="echartLi">
+	<div class="main">
+		<h4>1、学习动机过弱</h4>
+		<div v-if=" hext <=3 ">
+			<p>学习动机过弱是指直接激励、引导、推动学生学习的内部动力是否存在过弱现象。比如：如果老师、父母、同伴不督促您，您极少主动学习。您在这一维度的得分没有超过3分，处于正常水平，表明近期您的学习动机不存在过弱现象。</p>
+			<p><span>指导建议：</span>在整个学习过程中，要注意调整与保持适当强度的学习动机。耶基斯-多德森定律指出动机的最佳水平不是固定的，会依据任务的不同性质而有所改变。具体而言，在比较容易的学习任务中，学习效率随着学习动机的提高而上升；随着学习任务难度的增加，学习动机的最佳水平有逐渐下降的趋势（如图1所示）。</p>
+			<img src="__PUBLIC__/index/images/study.jpg">
+			<p style="text-align: center; text-indent: 0;margin-left: 0;">图1 耶基斯-多德森定律</p>
+		</div>
+		<div v-else-if=" hext > 3 ">
+			<p>学习动机过弱是指直接激励、引导、推动学生学习的内部动力是否存在过弱现象。比如：如果老师、父母、同伴不督促您，您极少主动学习。您在这一维度的得分超过3分，表明近期您的学习动机存在过弱现象。</p>
+			<p><span>指导建议：</span>①挖掘自己的学科兴趣，从自己喜欢与擅长的学科开始学习；②从难度适中的知识点入手，提高自信心与成就感；③与周围的同学、同伴一些学习，以此来激发自己的学习动机；④寻找榜样，比如向一些伟人、名人学习，树立高远志向，奋发图强，勤奋学习。</p>
+		</div>
+	</div>
+</div>
+<a name="x2"></a>
+<div class="echartLi">
+	<div class="main">
+		<h4>2、聪慧学习动机过强</h4>
+		<div v-if=" hext2 <=3 ">
+			<p>学习动机过弱学习动机过强是指直接激励、引导、推动学生学习的内部动力是否存在过强现象。比如：为了及时完成作业，您常常学习很久或者学习到很晚。您在这一维度的得分没有超过3分，处于正常水平，表明近期您的学习动机不存在过强现象。</p>
+			<p><span>指导建议：</span>在整个学习过程中，要注意调整与保持适当强度的学习动机。耶基斯-多德森定律指出动机的最佳水平不是固定的，会依据任务的不同性质而有所改变。具体而言，在比较容易的学习任务中，学习效率随着学习动机的提高而上升；随着学习任务难度的增加，学习动机的最佳水平有逐渐下降的趋势（如图1所示）。</p>
+			<img src="__PUBLIC__/index/images/study.jpg">
+			<p style="text-align: center; text-indent: 0;margin-left: 0;">图1 耶基斯-多德森定律</p>
+		</div>
+		<div v-else-if=" hext2 > 3 ">
+			<p>学习动机过强是指直接激励、引导、推动学生学习的内部动力是否存在过强现象。比如：为了及时完成作业，您常常学习很久或者学习到很晚。您在这一维度的得分超过3分，表明近期您的学习动机存在过强现象。</p>
+			<p><span>指导建议：</span>①客观科学的看待学习成绩与学习本身，消除错误的认知观念，比如，“一考定终身”，建立科学的学习观念；②采用合理的学习方法，提高学习效率与学习质量，避免陷入“死读书、读死书”的恶性循环，重复低水平的学习；③学会采用适当的方法做好情绪调节和压力缓解，缓解心理压力。</p>
+		</div>
+	</div>
+</div>
+<a name="x3"></a>
+<div class="echartLi">
+	<div class="main">
+		<h4>3、洞察力学习兴趣困扰</h4>
+		<div v-if=" hext3 <=3 ">
+			<p>学习兴趣困扰是指学生对学习的科目的认知倾向与情绪倾向是否存在困扰。比如：您对喜欢的科目学习非常努力，而对不喜欢的科目没有学习兴趣。您在这一维度的得分没有超过3分，处于正常水平，表明近期您的学习兴趣状况良好。</p>
+			<p><span>指导建议：</span>“兴趣是最好的老师”。鼓励自己继续保持浓厚的学习兴趣，积极主动的进行求知、探索、实践，变被动学习为主动学习，以学习为乐事，在快乐中学习，既提高学习效率，又加深对知识的理解。</p>
+		</div>
+		<div v-else-if=" hext3 > 3 ">
+			<p>学习兴趣困扰是指学生对学习的科目的认知倾向与情绪倾向是否存在困扰。比如：您对喜欢的科目学习非常努力，而对不喜欢的科目没有学习兴趣。您在这一维度的得分超过3分，表明近期您在学习兴趣方面存在一定的困扰。</p>
+			<p><span>指导建议：</span>①加强学习过程成功体验的情感，强化对学习的自信心与成就感；②理解学习对于个人与社会的意义，比如，记忆英文单词既可以在考试中得高分，也可以多掌握一门与人沟通交流的语言；③将原有其它的兴趣爱好转移到学习上来，比如男孩儿时多爱玩汽车，那么汽车是如何发动呢，带着疑问去学习与其有关的学科知识就会认为非常有趣；④想想学习成功后的情景，比如得到老师、父母的赞扬，同学们的羡慕等。</p>
+		</div>
+	</div>
+</div>
+<a name="x4"></a>
+<div class="echartLi">
+	<div class="main">
+		<h4>3、学习目标困扰</h4>
+		<div v-if=" hext4 <=3 ">
+			<p>学习目标困扰是指学生在一定的时间内是否能够有科学合理的学习计划，并且顺利执行。比如：为了实现一个大目标，您常常在不同的阶段给自己制定一些小目标。您在这一维度的得分没有超过3分，处于正常水平，表明近期您的学习目标较为清楚明确。</p>
+			<p><span>指导建议：</span>哈佛大学针对一群智力、学历、环境等条件差不多的年轻人进行了一项关于“目标的威力”的长达25年的研究发现。其中，27%的人没有目标；60%的人目标模糊；10%的人有清晰但比较短期的目标；3%的人有清晰且长期的目标，并能把目标写下来，经常对照检查。25年后，那些占3%的人几乎都成为了社会各界的顶尖成功人士；而占10%的人，大都生活在社会的中上层，生活状态稳步上升，成为各行各业不可缺的专业人士；占60%的目标模糊的人，几乎都生活在社会的中下层，安稳的生活与工作，没有什么成绩；剩下27%的人，几乎都生活在社会的最底层，常常失业，靠社会救济。可以看出，目标对人生具有巨大的导向作用。因此，在接下来的学习中，你需要阶段性的明确、检验、调整自己的学习小目标，并坚持不懈、不断努力、脚踏实地的向学习大目标迈进。</p>
+		</div>
+		<div v-else-if=" hext4 > 3 ">
+			<p>学习目标困扰是指学生在一定的时间内是否能够有科学合理的学习计划，并且顺利执行。比如：为了实现一个大目标，您常常在不同的阶段给自己制定一些小目标。您在这一维度的得分超过3分，表明近期您在学习目标方面存在一定的困扰。</p>
+			<p><span>指导建议：</span>①要给自己制定合理的目标，并且学会将每一个大目标分解成一个一个的小目标；②从可以达到的小目标开始，学习之初目标不可定的太高，应从努力后可达到的目标开始，不断进步会提高学习的信心；③ 要给自己适当的奖励和惩罚措施，当完成学习计划之后，就奖励自己做一些喜欢做的事情，相反，如果没有及时完成的话，便给予一点小小的惩罚培养自己达成学习目标的积极性；④要对自己的学习计划进行及时的调整。</p>
+		</div>
+	</div>
+</div>
+
+<div class="echartBtn"><a href="javascript:history.back();">返回</a></div>
+</div>
+{include file="common/footer"}
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<script type="text/javascript">
+var array='<?php echo @$_GET['arr']?>';
+//array=eval('('+array+')');
+array=JSON.parse(array);
+var maxarr=[
+	['学习动机过弱',array[0]],
+	['学习动机过强',array[1]],
+	['学习兴趣困扰',array[2]],
+	['学习目标困扰',array[3]],
+];
+
+var vue=new Vue({
+	el: '#testResult',
+	data:{
+		hext:array[0],
+		hext2:array[1],
+		hext3:array[2],
+		hext4:array[3],
+	},
+	methods: {
+	  
+ 	},
+	created:function(){
+		//console.log(array[0]);
+	}
+})
+
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/radar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main'));
+                
+                var option = {
+				    calculable : true,
+				    polar : [
+				        {
+				            indicator : [
+				                {text : '学习动机过弱',max:5,min:0},
+				                {text : '学习动机过强',max:5,min:0},
+				                {text : '学习兴趣困扰',max:5,min:0},
+				                {text : '学习目标困扰',max:5,min:0},
+				            ],
+				            name:{
+					         	textStyle:{color:'red'}
+					        },
+				            radius : '70%',
+				            //center:['50%','50%']
+				        }
+				    ],
+				    series : [
+				        {
+				            name: '学生测试实况数据',
+				            type: 'radar',
+				            itemStyle: {
+				                normal: {
+				                    areaStyle: {
+				                        type: 'macarons'
+				                    }
+				                }
+				            },
+				            data : [
+				                {
+				                    value :array,
+				                    name : '金石教育性格测试'
+				                }
+				              
+				            ]
+				        }
+				    ]
+				};
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option);
+                //console.log(option.polar['indicator']);
+            }
+        );
+
+    </script>
+</body>
+</html>

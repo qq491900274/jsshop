@@ -1,0 +1,178 @@
+{include file="common/header"}
+<style type="text/css">
+body,html{max-width: 640px;}
+	.mao{
+		color:#333;
+		font-size: 0.7rem;
+	}
+	.ext1{
+		width: 100%;
+		height: 60px;
+		line-height: 100px;
+		display: block;
+		position: absolute;
+		top:-25px;
+		left:0;
+	}
+	.ext2{
+		width: 50%;
+		height: 60px;
+		display: block;
+		position: absolute;
+		bottom:26px;
+		left:0;
+	}
+	.ext3{
+		width: 50%;
+		height: 60px;
+		display: block;
+		position: absolute;
+		bottom:26px;
+		right:0;
+	}
+	.mainBig{
+		position: relative;
+	}
+	.maobox{
+		position: absolute;
+		top:0;
+		left:0;
+		width: 100%;
+		height: 100%;
+		z-index: 999;
+	}
+</style>
+<body>
+<div id="testResult">
+<div class="echartTop">
+	<h2>宜人性得分分布</h2>
+	<p>点击下图文字查看型态介绍</p>
+	<div class="mainBig">
+		<div class="maobox">
+			<a href="#x" class="mao ext1">{{hext}}</a>
+			<a href="#x2" class="mao ext2">{{hext2}}</a>
+			<a href="#x3" class="mao ext3">{{hext3}}</a>
+		</div>
+		<div id="main" style="height:300px;position: relative;"></div>
+	</div>
+</div>
+
+<a name="x"></a>
+<div class="echartLi">
+	<div class="main">
+		<h4>1、利他(Altruism) ——<span>({{ext}}分)</span></h4>
+		<p>高分者主动关心别人的幸福，有更强的倾向愿意为他人考虑，具体表现为待人更友善、富有同情心、乐于助人。低分者倾向于以自我为中心，更倾向从他人的麻烦中脱身，具体表现为待人更易嫉妒、粗鲁、冷漠。</p>
+	</div>
+</div>
+<a name="x2"></a>
+<div class="echartLi">
+	<div class="main">
+		<h4>2、诚实/坦诚(Straightforwardness) ——<span>({{ext2}}分)</span></h4>
+		<p>高分者更坦率、真诚、老实，具体表现为更加待人真诚，可信赖，言行一致，遵守诺言，做事不弄虚作假。低分者倾向于用欺骗、诡计、奉承的方式糊弄他人，具体表现为伪装、隐藏，言行不一，反复无常。</p>
+	</div>
+</div>
+<a name="x3"></a>
+<div class="echartLi">
+	<div class="main">
+		<h4>3、恃强/顺从(Compliance) ——<span>({{ext3}}分)</span></h4>
+		<p>该维度反映与人际冲突有关的性格。高分者常表现为温顺、迎合他人，待人更加包容、热情。低分者更倾向于表现自己的支配性和强硬的一面，表现为刚愎自用、铁石心肠，为达到自己的目的去控制和要求他人。</p>
+	</div>
+</div>
+
+<div class="echartBtn"><a href="javascript:history.back();">返回</a></div>
+</div>
+{include file="common/footer"}
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<script type="text/javascript">
+var array='<?php echo @$_GET['arr']?>';
+//array=eval('('+array+')');
+array=JSON.parse(array);
+var maxarr=[
+	['利他',array[0]],
+	['诚实',array[1]],
+	['恃强',array[2]],
+];
+
+var vue=new Vue({
+	el: '#testResult',
+	data:{  
+		ext:Math.round(array[0]),
+		ext2:Math.round(array[1]),
+		ext3:Math.round(array[2]),
+		hext:array[0],
+		hext2:array[1],
+		hext3:array[2]
+	},
+	methods: {
+	  
+ 	},
+	created:function(){
+		//console.log(array[0]);
+	}
+})
+
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/radar' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main'));
+                
+                var option = {
+				    
+				    calculable : true,
+				    polar : [
+				        {
+				            indicator : [
+				                {text : '利他', max  : 55,min:45},
+				                {text : '诚实', max  : 55,min:45},
+				                {text : '恃强', max  : 55,min:45},
+				               
+				            ],
+				            name:{
+					         	textStyle:{color:'red'}
+					        },
+				            radius : 130
+				        }
+				    ],
+				    series : [
+				        {
+				            name: '学生测试实况数据',
+				            type: 'radar',
+				            itemStyle: {
+				                normal: {
+				                    areaStyle: {
+				                        type: 'macarons'
+				                    }
+				                }
+				            },
+				            data : [
+				                {
+				                    value :array,
+				                    name : '金石教育性格测试'
+				                }
+				              
+				            ]
+				        }
+				    ]
+				};
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option);
+                //console.log(option.polar['indicator']);
+            }
+        );
+
+    </script>
+</body>
+</html>
