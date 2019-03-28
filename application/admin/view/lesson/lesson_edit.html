@@ -236,7 +236,6 @@ var vue=new Vue({
             var endTime=$('#test4').val();
             var intro=ue.getContent();
             var img=$('#hpic').val();
-            console.log(img);
             //console.log(this.lessonTypeid);
             if(!this.name){
                 layer.alert('课程名称不能为空！');
@@ -254,10 +253,10 @@ var vue=new Vue({
                 layer.alert('库存不能为空！');
                 return;
             }
-            /*if(!this.img){
-                layer.alert('课程图片不能为空！');
-                return;
-            }*/
+            // if(!this.img){
+            //     layer.alert('课程图片不能为空！');
+            //     return;
+            // }
             if(!this.school_id){
                 layer.alert('所属校区不能为空！');
                 return;
@@ -329,7 +328,7 @@ var vue=new Vue({
             }).then(res=>{
                 if(res.bodyText==1){
                     layer.msg('保存成功！',function(){
-                       // window.history.go(-1);
+                        window.history.go(-1);
                     })
                 }
             },res=>{

@@ -37,22 +37,30 @@
                 </thead>
                 <tbody>
                     <template v-for="(t,index) in products">
-                        <tr class="firstTd">
+                        <tr class="firstTd" style="background:#f5f5f5;">
                             <td colspan="8" align="left">
-                                <span class="topId">订单编号：{{t.CODE}}</span> 
+                                <!-- <span class="topId">订单编号：{{t.CODE}}</span>  -->
                                 <span class="topId">交易流水号：{{t.PAYCODE}}</span> 
                                 <span>下单时间：{{t.DATETIME}}</span>
-                                <span>支付时间：{{t.PAYTIME}}</span>
+                                <span>支付时间：{{t.PAYTIME}} </span>
                             </td>
                         </tr>
-                        <tr>
-                            <td align="left" style="padding-left:30px;"><img src="__PUBLIC__/index/images/echart_10.jpg" width="60px" style="float: left;"><span>{{t.NAME}}</span><br><span class="price">单价：￥{{t.CPRICE}}</span></td>
-                            <td style="font-size: 14px;">×1</td>
+                        <tr v-for="(t1,index1) in products[index]['goods']" style="background:#fff;">
+                            <td align="left" style="padding-left:30px;"><img src="__PUBLIC__/index/images/echart_10.jpg" width="60px" style="float: left;"><span>{{t1.NAME}}</span><br><span class="price">单价：￥{{t1.PRICE}}</span></td>
+                            <td style="font-size: 14px;">×{{t1.NUM}}</td>
                             <td>{{t.USERNAME}}</td>
                             <td>{{t.PHONE}}</td>
-                            <td>￥{{t.PRICE}}</td>
-                            <td class="state">{{t.STATE}}</td>
-                            <td><a href="javascript:void(0)" class="remove" @click="remove(t.ID,index)">删除</a></td>
+                        
+                            <td v-if="index1==0" :rowspan="products[index]['goods'].length" style="border:1px solid #ddd">￥{{t.PRICE}}</td>
+                            <td v-if="index1==0" :rowspan="products[index]['goods'].length" class="state" style="border:1px solid #ddd">
+                            <span v-if="t.STATE==1" style="color:#F00">待付款</span>
+                            <span v-if="t.STATE==2" style="color:#00F">已付款</span>
+                            <span v-if="t.STATE==3">已取消</span>
+                            <span v-if="t.STATE==5">待评价</span>
+                            <span v-if="t.STATE==6" style="color:#0F0">已完成</span>
+                            </td>
+                            <td v-if="index1==0" :rowspan="products[index]['goods'].length"><a href="javascript:void(0)" class="remove" @click="remove(t.ID,index)" style="border:1px solid #ddd">删除</a></td>
+                            
                         </tr>
                     </template> 
                 </tbody>
@@ -76,7 +84,8 @@
             user:'',
             phone:'',
             products:[],
-            id:'<?php echo @$_GET['id']?>'    
+            id:'<?php echo @$_GET['id']?>',
+            allPrice:'11'
         },
         methods:{
             get:function(){
@@ -113,7 +122,9 @@
         },
         created:function(){
             page.url='admin/Order/order_list';
+
             page.onload();
+            console.log(page.products);
             
         }
     })
