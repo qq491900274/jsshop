@@ -71,7 +71,7 @@ var page=new Vue({
 
         },
         htmlPage:function(counts){//这是总页数（点击搜索之后会调用这个方法）
-  
+
             this.allCount=counts;
             //生成默认分页样式
             if(counts==""){
@@ -98,7 +98,7 @@ var page=new Vue({
 
         },
         onload:function(){
-                
+
                 this.$http.post(baseurl+'?s='+this.url,{'where':this.where,'list':1}).then(res=>{
                 //console.log(res);
                 var val=eval('('+res.bodyText+')');
