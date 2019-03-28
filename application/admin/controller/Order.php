@@ -17,7 +17,7 @@ class Order extends Controller
     public function order_list(){
 	  $request = request()->post();
 	  //判断是否只请求页面
- 	  if(empty($request['list'])){
+ 	  if(empty($request)){
 	 	return $this->fetch('order_list');
 	  }
 
@@ -38,30 +38,37 @@ class Order extends Controller
       //获取分页查询条件
       $page=$this->return_page($request['page']);
       
-      $where1 =$where. " LIMIT {$page['min']},{$page['max']}";
+      $where1 =$where. " AND O.STATE!='7' order by O.DATETIME DESC LIMIT {$page['min']},{$page['max']} ";
 
       $key = "O.ID,O.CODE,O.PAYCODE,O.PRICE,O.DATETIME,O.PAYTIME,O.STATE,".
-             "U.NAME USERNAME,U.PHONE,C.NAME,C.PRICE CPRICE";
-      $table=" SHOP_ORDER O LEFT JOIN SHOP_USER U ON U.ID=O.USERID".
-             " LEFT JOIN SHOP_CURRICULUM C ON C.ID=O.CURRICULUMID";
-
+             "U.NAME USERNAME,U.PHONE";
+      $table=" SHOP_ORDER O LEFT JOIN SHOP_USERS U ON U.ID=O.USERID";
+	
       $result['value'] = $this->pmodel->select($table,$key,$where1);
       
       //返回总页数
       $count=$this->pmodel->select('SHOP_ORDER','count(ID) num ',$where);
+      
+      foreach($result['value'] as $k=>$v){
+      	  $table="SHOP_ORDERGOODS OG LEFT  JOIN SHOP_CURRICULUM C ON C.ID=OG.CURRICULUMID";
+      	  $key="C.*,OG.NUM";
+      	  $where=" OG.ORDERID='{$v['ID']}'";
+      	  $result['value'][$k]['goods']=$this->pmodel->select($table,$key,$where);
+      }
+      
       if(!empty($count)){
          $result['allCount'] = ceil( $count[0]['num']/ 20);
       }
       //返回校区数据
       return $result;
     }
-
+	//订单删除
     public function delete_order(){
       $request = request()->post();
       //判断是否
       if(!empty($request['id'])){
-        $data=['STATE'=>'1'];
-        $isok=DB::table('SHOP_TEACHER')
+        $data=['STATE'=>'7'];
+        $isok=DB::table('SHOP_ORDER')
           ->where('ID',$request['id'])
           ->update($data);
         return 1;

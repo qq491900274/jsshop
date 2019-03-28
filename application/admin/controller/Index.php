@@ -66,7 +66,7 @@ class Index extends Controller
     }
 
     function update_activity(){
-      $request=request()->post();
+      $request=request()->post(); 
       if (!empty($request)) {
         $data['STATE']='1';
         Db::table('SHOP_ACTIVITY')
