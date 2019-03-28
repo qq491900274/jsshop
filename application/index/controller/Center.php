@@ -97,10 +97,6 @@ class Center extends mobile_controller
     	return $this->fetch('my_center');
     }
 
-    public function coupon_list(){
-
-        return $this->fetch('coupon_list');
-    }
     //优惠券
     public function my_coupon(){
         $request=request()->post();
@@ -115,9 +111,19 @@ class Center extends mobile_controller
 	 }
 	 
         $table='SHOP_USERCOUPON U LEFT JOIN SHOP_COUPON C ON C.ID=U.COUPONID';
-        $key='U.STATE,U.ID,U.DATETIME,C.STARTTIME,C.ENDTIME,C.NAME,C.PRICE,C.PIC,U.COUPONID';
+        $key='U.STATE,U.ID,U.DATETIME,C.WHEREPRICE,C.STARTTIME,C.ENDTIME,C.NAME,C.PRICE,C.PIC,U.COUPONID';
+        $coupon=$this->pmodel->select($table,$key,$where);
         
-        return $this->pmodel->select($table,$key,$where);
+        //检测优惠券是否过期
+       foreach($coupon as $k=>$v){
+       	   if(strtotime($v['ENDTIME'])<time()){
+       	   	   $coupon[$k]['STATE']='3';
+       	   	   $update['STATE']='3';
+       	   	   Db::table('SHOP_USERCOUPON')->where('ID',$v['ID'])->update($update);
+       	   	   Db::table('SHOP_COUPON')->where('ID',$v['COUPONID'])->update($update);
+       	   }
+       }
+        return $coupon;
     }
     // 意见反馈
     public function idea(){

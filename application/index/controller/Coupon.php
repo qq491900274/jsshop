@@ -25,6 +25,7 @@ class Coupon extends mobile_controller
       	  $where['ENDTIME']=['>',$thisdata];
       	  $val=Db::table('SHOP_COUPON')
       	  		->where($where)
+      	  		->order('PRICE', 'desc')
       	  		->select();
 
       	  foreach($val as $k=>$v){

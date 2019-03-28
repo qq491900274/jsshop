@@ -76,7 +76,10 @@ class Lesson extends mobile_controller
 		if(!empty($Request['name'])){
 			$where.="and (C.NAME LIKE '%{$Request['name']}%' or T.NAME LIKE '%{$Request['name']}%')";
 		}
-		
+		$maxpage = empty($Request['page'])?'4':5*$Request['page']-1;
+ 		$minpage = $maxpage-4;
+		$where.=" limit {$minpage},{$maxpage}";
+	
 		$key='C.ID,C.NAME,C.CODE,C.PRICE,C.DATETIME,C.CONTENT,C.SEASONTYPE,'.
 			'C.STARTTIME,C.ENDTIME,C.COURSENUM,C.COURSETIME,C.IMG,C.COUNT,'.
 			'T.NAME TEACHERNAME,T.PIC,C.CLASSINFOR';
