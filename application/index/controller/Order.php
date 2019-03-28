@@ -58,14 +58,44 @@ class Order extends mobile_controller
          $ishave=Db::query("SELECT ID from SHOP_CART WHERE CURRICULUMID IN ({$goodsid}) AND USERID='{$_SESSION['userid']}'");
          if(empty($ishave)){
              return array('msg'=>"购物车商品已失效！",'STATE'=>'2');
+             Db::rollback();
          }
             //获取优惠券价格
-
+            if(!empty($request['couponid'])){
+		     $couponinfo=Db::table('SHOP_COUPON')->where('ID',$request['couponid'])->select();
+		     //判断是否拥有使用条件
+		     if(empty($couponinfo)){
+				return array('msg'=>"优惠券不存在！",'STATE'=>'2');
+		     	 	Db::rollback();
+		     }else{
+			     if($couponinfo[0]['ISWHERE']=='1'){
+				     if($price>=$couponinfo[0]['WHEREPRICE']){
+				     	$price=(float)$price-(float)$couponinfo[0]['PRICE'];
+				     }else{
+					     return array('msg'=>"优惠券条件不符！",'STATE'=>'2');
+					     Db::rollback();
+				     }
+			     }else{
+				$price=(float)$price-(float)$couponinfo[0]['PRICE'];
+			     }
+			      //修改优惠券使用状态
+			     $update['STATE']='2';
+			     $where['USERID']=$_SESSION['userid'];
+			     $where['COUPONID']=$request['couponid'];
+			     Db::table('SHOP_USERCOUPON')->where($where)->update($update);
+		     }
+	     }
+	     if($price<='0'){
+	     	 	return array('msg'=>"价格异常！",'STATE'=>'2');
+			Db::rollback();
+	     }
             //添加订单
             $data['ID']=uniqid();
             $data['CODE']=date('YmdHis').rand('000000','9999999');
             $data['PRICE']=$price;
             $data['USERID']=$_SESSION['userid'];
+            $data['COUPONID']=$couponinfo[0]['ID'];
+            $data['COUPONPRICE']=$couponinfo[0]['PRICE'];
             $data['DATETIME']=date('Y-m-d H:i:s');
             $data['STATE']='1';
             Db::table('SHOP_ORDER')->insert($data);

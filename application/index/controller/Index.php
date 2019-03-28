@@ -101,6 +101,8 @@ class Index extends mobile_controller
         return $this->fetch('activity');
       }
       
+      
+
       $where['PHONE']=$request['phone'];
       $ishave=Db::table('SHOP_ACTIVITY')->where($where)->select();
       
@@ -123,4 +125,15 @@ class Index extends mobile_controller
       }
       
     }
+
+  public function expand(){
+    $request=request()->post();
+    if (empty($request)) {
+      return $this->fetch('expand');
+    }
+  }
+
 }
+
+
+
