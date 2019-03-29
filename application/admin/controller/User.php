@@ -112,5 +112,34 @@ class User extends Controller
 
       return $page;
   }
+
+  //修改管理员获取默认数据
+  function get_oneadminvalue(){
+    $request = request()->post();
    
+    $this->pmodel =  new \app\admin\model\PublicModel();
+    $key = "ID,NAME,PHONE,WXNO,PASSWORD";
+    $table="SHOP_USER";
+    $where=" USER='{$_SESSION['admin']}'";
+    return $result['value'] = $this->pmodel->select($table,$key,$where);
+  }
+  //修改添加管理员
+  function updateAdminUser(){
+    $request = request()->post();
+      if (!empty($request)) {
+        $time=date('Y-m-d H:i:s');
+        $data=['PASSWORD'=>$request['PASSWORD']];
+
+        if (!empty($request['id'])) {
+          $isok=DB::table('SHOP_USER')
+              ->where('ID',$request['id'])
+              ->update($data);
+        }
+        echo '1';exit();
+      }
+
+      return $this->fetch('updateAdminUser');
+  }
+
+  
 }
