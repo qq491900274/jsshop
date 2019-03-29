@@ -94,8 +94,8 @@ class Order extends mobile_controller
             $data['CODE']=date('YmdHis').rand('000000','9999999');
             $data['PRICE']=$price;
             $data['USERID']=$_SESSION['userid'];
-            $data['COUPONID']=$couponinfo[0]['ID'];
-            $data['COUPONPRICE']=$couponinfo[0]['PRICE'];
+            $data['COUPONID']=empty($couponinfo[0]['ID']) ? '' : $couponinfo[0]['ID'];
+            $data['COUPONPRICE']=empty($couponinfo[0]['PRICE']) ? '' : $couponinfo[0]['PRICE'];
             $data['DATETIME']=date('Y-m-d H:i:s');
             $data['STATE']='1';
             Db::table('SHOP_ORDER')->insert($data);
