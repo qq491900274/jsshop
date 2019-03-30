@@ -120,7 +120,7 @@ class User extends Controller
     $this->pmodel =  new \app\admin\model\PublicModel();
     $key = "ID,NAME,PHONE,WXNO,PASSWORD";
     $table="SHOP_USER";
-    $where=" USER='{$_SESSION['admin']}'";
+    $where=" USER='".session::get('admin')."'";
     return $result['value'] = $this->pmodel->select($table,$key,$where);
   }
   //修改添加管理员
