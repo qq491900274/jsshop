@@ -1,13 +1,13 @@
 <?php
 namespace app\pc\controller;
-use think\Controller;
+use think\pc_controller;
 use think\View;
 use think\Request;
 use think\Session;
 
 
 
-class Index extends pc_controller
+class Download extends pc_controller
 {	
 	public function __construct(){
 		parent::__construct();
@@ -19,15 +19,8 @@ class Index extends pc_controller
 	}
 		
     public function index(){
-      //$this->assign('name','ThinkPHP');
-      $home=new Home();
-      $home->hell();
-       return $this->fetch('index'); 
+    
+       return $this->fetch('pc_controller'); 
     }
-    public function test()
-    {
-      $this->HelloWordModel =  new \app\index\model\HelloWord();
-      $result = $this->HelloWordModel->hello('helloword');
-      var_dump($result);
-    }
+   
 }
