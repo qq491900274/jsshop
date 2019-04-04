@@ -1,0 +1,79 @@
+.main{
+	width: 1200px;
+	margin:0 auto;
+}
+.container{
+	position: relative;
+}
+.bg_img{
+	width: 100%;
+	height: 1000px;
+	min-width: 1200px;
+	min-height: 100%;
+	background-image: url(../images/sq.jpg);
+  	background-repeat: no-repeat;
+  	background-size: cover;
+  	background-attachment: fixed;
+  	background-position: center center;
+}
+.bg_img img{
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+}
+.container .content{
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+}
+.container .content .download{
+	position: absolute;
+	right:200px;
+	top:65%;
+}
+.container .content .download a{
+	display: inline-block;
+	width: 130px;
+	height: 50px;
+	margin-right: 10px;
+}
+.container .content .download a img{
+	width: 100%;
+}
+.top{
+	position: fixed;
+	left:0;
+	top: 0;
+	width: 100%;
+	line-height: 150px;
+}
+.top .logo{
+	float: left;
+	width: 250px;
+}
+.top .nav{
+	float: right;
+}
+.top .nav ul li{
+	float: left;
+	margin: 10px 25px;
+}
+.top .nav ul li a{
+	color:#FFF;
+	font-size: 18px;
+}
+.footer{
+	position: fixed;
+	bottom:20px;
+	left: 0;
+	width: 100%;
+}
+.footer p{
+	color:#FFF;
+	text-align: center;
+	line-height: 2;
+}
+
