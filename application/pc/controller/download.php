@@ -7,7 +7,7 @@ use think\Session;
 
 
 
-class Index extends Controller
+class Index extends pc_controller
 {	
 	public function __construct(){
 		parent::__construct();
