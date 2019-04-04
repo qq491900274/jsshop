@@ -17,7 +17,7 @@ use traits\controller\Jump;
 use \think\Session;
 Loader::import('controller/Jump', TRAIT_PATH, EXT);
 
-class mobile_Controller
+class pc_controller
 {
     use Jump;
 
@@ -68,7 +68,6 @@ class mobile_Controller
             }
         }
         if(!isset($_SESSION)){ session_start(); }
-       
     }
 
     /**
