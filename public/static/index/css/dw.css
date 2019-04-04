@@ -40,6 +40,35 @@
 	height: 50px;
 	margin-right: 10px;
 }
+.container .content .download span{
+	width: 46px;
+	height: 46px;
+	display: inline-block;
+	position: relative;
+}
+.container .content .download span img.littleImg{
+	width: 100%;
+
+}
+.container .content .download span img.bigImg{
+	position: absolute;
+	top:0;
+	right:0;
+	-webkit-transform: scale(0.23);
+    transform: scale(0.23);
+    -webkit-transform-origin: top right;
+    transform-origin: top right;
+    opacity: 0;
+    -webkit-transition: .3s all;
+    transition: .3s all;
+}
+.container .content .download span:hover img.bigImg{
+	opacity: 1;
+	-webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: top right;
+    transform-origin: top right;
+}
 .container .content .download a img{
 	width: 100%;
 }
