@@ -76,4 +76,8 @@ class Index extends Controller
         return 1;
       }
     }
+    
+    functoin curls(){
+    	10.10.18.191:8080/stuapp_web/anonymity/webDeanClass/webDeanClassList
+    }
 }
