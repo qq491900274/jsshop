@@ -135,7 +135,8 @@ class mobile_Controller
     {
         return $this->view->display($content, $vars, $replace, $config);
     }
-    protected function https_post($url, $data = null){
+    //curl
+    protected function curl_post($url, $data = null){
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
