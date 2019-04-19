@@ -36,6 +36,9 @@ class Index extends Controller
 
       $this->pmodel =  new \app\index\model\PublicModel();
       $where='1=1';
+      if (!empty($request['utm_source'])) {
+        $where.='utm_source like "%'.$request['utm_source'].'"';
+      }
       //获取post当前页数。与查询条件。
       $maxpage = empty($request['page'])?'19':20*$request['page']-1;
       $minpage = $maxpage-19;
@@ -77,7 +80,5 @@ class Index extends Controller
       }
     }
     
-    functoin curls(){
-    	10.10.18.191:8080/stuapp_web/anonymity/webDeanClass/webDeanClassList
-    }
+  
 }
