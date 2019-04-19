@@ -133,6 +133,19 @@ class Index extends mobile_controller
     }
   }
 
+  public function activity2(){
+    $request=request()->post();
+    if (empty($request)) {
+      return $this->fetch('activity2');
+    }
+  }
+  public function service(){
+    $request=request()->post();
+    if (empty($request)) {
+      return $this->fetch('service');
+    }
+  }
+
 }
 
 
