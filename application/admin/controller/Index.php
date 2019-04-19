@@ -41,7 +41,7 @@ class Index extends Controller
       }
       //获取post当前页数。与查询条件。
       $maxpage = empty($request['page'])?'19':20*$request['page']-1;
-      $minpage = $maxpage-19;
+      $minpage = $maxpage-19; 
       
       $count=$this->pmodel->select('SHOP_ACTIVITY ','count(ID) num',$where)[0]['num'];
       //获取查询条件
