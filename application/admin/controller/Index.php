@@ -37,7 +37,7 @@ class Index extends Controller
       $this->pmodel =  new \app\index\model\PublicModel();
       $where='1=1';
       if (!empty($request['utm_source'])) {
-        $where.='utm_source like "%'.$request['utm_source'].'"';
+        $where.=' and utm_source like "%'.$request['utm_source'].'"';
       }
       //获取post当前页数。与查询条件。
       $maxpage = empty($request['page'])?'19':20*$request['page']-1;

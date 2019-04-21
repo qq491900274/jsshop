@@ -1,0 +1,71 @@
+{include file="public/header"}
+
+<div class="content" id="school">
+	<div class="rightBox">
+		<div class="main">
+			<h3 style="margin-bottom: 30px;">意见反馈</h3>
+
+	        <table class="tableBox">
+                    <thead>
+                        <tr>
+                            <th>电话</th>
+                            <th>意见反馈</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(v,index) in products">
+                                <td>{{v.PHONE}}</td>
+                                <td>{{v.CONTENT}}</td>
+                                <td><a href="javascript:void(0)">删除</a></td>
+                            </tr>                   
+                        </tbody>
+                </table>
+                
+		</div>
+	</div>
+</div>
+<div class="page">
+	<ul class="clearfix pageonload" v-html="html">
+       {{html}}
+    </ul>
+</div>
+{include file="public/footer"}
+<script type="text/javascript" src="__PUBLIC__/admin/js/page.js"></script>
+<script type="text/javascript">
+    
+    var vue=new Vue({
+        el:'#school',
+        data:{
+            products:[],
+        },
+        methods:{
+            /*get:function(){
+                this.$http.post(baseurl+'?s=admin/index/activity',{where:{
+                	'PROVINCE':this.province,
+                	'CITY':this.city,
+                	'AREA':this.area,
+                	'PHONE':this.phone,
+                	'SCHOOL_NAME':this.name
+                }}).then(function(res){
+                	page.where={'SCHOOL_NAME':this.name,'PROVINCE':this.province,'CITY':this.city,'AREA':this.area,'PHONE':this.phone,'ADDRESS':this.address};
+                	var val=eval('('+res.bodyText+')');
+                    this.products=val['value'];
+                    //console.log(this.products);
+                   //给分页组件传入总页数
+                   page.htmlPage(val['allCount']);
+                   //console.log(page.allCount);
+                },function(res){
+                	console.log('请求失败处理，请检查Network!');
+                })
+            },*/
+        },
+        created:function(){
+        	 page.url='admin/index/complain';
+             page.onload();
+        }
+        
+    })
+</script>
+</body>
+</html>
