@@ -56,6 +56,33 @@ class Index extends Controller
       //返回
       return $result;
     }
+    //反馈方法
+    public function complain(){
+      
+      $request=request()->post();
+      if (empty($request)) {
+        return $this->fetch('complain');
+      }
+
+      $this->pmodel =  new \app\index\model\PublicModel();
+      $where='1=1';
+      //获取post当前页数。与查询条件。
+      $maxpage = empty($request['page'])?'19':20*$request['page']-1;
+      $minpage = $maxpage-19; 
+      
+      $count=$this->pmodel->select('SHOP_COMPLAIN ','count(ID) num',$where)[0]['num'];
+      //获取查询条件
+      $where .= " LIMIT {$minpage},{$maxpage}";
+      
+      
+      $key = "ID,PHONE,IP,CONTENT";
+      $result['value'] = $this->pmodel->select('SHOP_COMPLAIN',$key,$where);
+      $result['page'] = empty($request['page']) ? '1' : $request['page'];
+      
+      $result['allCount'] = ceil($count/20);
+      //返回
+      return $result;
+    }
 
     function delete_activity(){
       $request=request()->post();
