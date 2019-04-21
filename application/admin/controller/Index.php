@@ -83,6 +83,16 @@ class Index extends Controller
       //返回
       return $result;
     }
+    function delete_complain(){
+      $request=request()->post();
+      if (!empty($request)) {
+        Db::table('SHOP_COMPLAIN')
+            ->where('ID',$request['id'])
+            ->delete();
+
+        return 1;
+      }
+    }
 
     function delete_activity(){
       $request=request()->post();
