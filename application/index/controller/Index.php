@@ -39,7 +39,8 @@ class Index extends mobile_controller
       $value['imgLis'] = $this->pmodel->select('SHOP_SLIDESHOWPIC',$key,$where);
       $this->assign('bannerlis',$value);
       $request1=request()->post();
-	return $this->fetch('index'); 
+     
+	    return $this->fetch('index'); 
     }
     //微信支付回调使用
     function xmlToArray($xml)
@@ -100,8 +101,6 @@ class Index extends mobile_controller
       if (empty($request)) {
         return $this->fetch('activity');
       }
-      
-      
 
       $where['PHONE']=$request['phone'];
       $ishave=Db::table('SHOP_ACTIVITY')->where($where)->select();
@@ -125,7 +124,25 @@ class Index extends mobile_controller
       }
       
     }
+  public function complain(){
+      //添加反馈建议
+      if(!empty($request['phone'])){}
+        $where['PHONE']=$request['phone'];
+        $ishave=Db::table('SHOP_COMPLAIN')->where($where)->select();
+      }
 
+      if(count($ishave)<='0'){
+        //提交活动信息
+        $insert['ID']=uniqid();
+        $insert['PHONE']=$request['phone'];
+        $insert['IP']=$request['ip'];
+        $insert['CONTENT']=$request['content'];
+        Db::table('SHOP_COMPLAIN')->insert($insert); 
+        return 1;
+      }else{
+        return 2;
+      }
+  }
   public function expand(){
     $request=request()->post();
     if (empty($request)) {
