@@ -37,7 +37,7 @@ class Index extends Controller
       $this->pmodel =  new \app\index\model\PublicModel();
       $where='1=1';
       if (!empty($request['utm_source'])) {
-        $where.=' and utm_source like "%'.$request['utm_source'].'"';
+        $where.=' and utm_source like "%'.$request['where']['utm_source'].'"';
       }
       //获取post当前页数。与查询条件。
       $maxpage = empty($request['page'])?'19':20*$request['page']-1;
@@ -48,7 +48,7 @@ class Index extends Controller
       $where .= " LIMIT {$minpage},{$maxpage}";
       
       
-      $key = "ID,NAME,PHONE,SCHOOL,STATE,SUBJECT,utm_source,utm_medium,utm_term,utm_content,utm_campaign";
+      $key = "ID,NAME,PHONE,SCHOOL,STATE,SUBJECT,utm_source,utm_medium,utm_term,utm_content,utm_campaign,DATETIME";
       $result['value'] = $this->pmodel->select('SHOP_ACTIVITY',$key,$where);
       $result['page'] = empty($request['page']) ? '1' : $request['page'];
       

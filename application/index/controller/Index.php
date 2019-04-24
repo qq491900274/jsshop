@@ -117,6 +117,7 @@ class Index extends mobile_controller
         $insert['utm_term']=$request['utm_term'];
         $insert['utm_content']=$request['utm_content'];
         $insert['utm_campaign']=$request['utm_campaign'];
+        $insert['DATATIME']=date('Y-m-d H:i:s');
         Db::table('SHOP_ACTIVITY')->insert($insert); 
         return 1;
       }else{
@@ -126,7 +127,7 @@ class Index extends mobile_controller
     }
   public function complain(){
       //添加反馈建议
-      if(!empty($request['phone'])){}
+      if(!empty($request['phone'])){
         $where['PHONE']=$request['phone'];
         $ishave=Db::table('SHOP_COMPLAIN')->where($where)->select();
       }
