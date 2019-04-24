@@ -1,0 +1,89 @@
+{include file="public/header"}
+
+<div class="content" id="lessonEdit">
+    <div class="rightBox">
+        <div class="main">
+            
+            <div class="seach_tigs" id="edit">
+                <h3>修改密码</h3>
+                
+                    <ul class="clearfix">
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>密码：
+                            </label>
+                            <input type="text" name="" value="" class="form-control" v-model="name">
+                        </li>
+                        <li>
+                            <label class="seach-label">
+                                <span>*</span>新密码：
+                            </label>
+                            <input type="text" name="" value="" class="form-control" v-model="phone">
+                        </li>
+                        <li class="seach"><input type="submit" name="" value="确认" @click="get()"></li>
+                    </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{include file="public/footer"}
+<script type="text/javascript">
+
+var vue=new Vue({
+    el:'#lessonEdit',
+    data:{
+        id:'<?php echo @$_GET['id']?>'
+    },
+
+    methods:{
+        get:function(){
+            var birthday=$('#test5').val();
+            var img=$('#hpic').val();
+            
+
+            this.$http.post(baseurl+'?s=admin/User/updateUser',{
+                'id':this.id,
+                'name':this.name,
+                'img':img,
+                'phone':this.phone,
+                'school':this.school,
+                'grade':this.grade,
+                'sex':this.sex,
+                'birthday':birthday,
+                'JNAME':this.JNAME
+            }).then(res=>{
+                if(res.bodyText==1){
+                    layer.msg('保存成功！',function(){
+                        window.history.go(-1);
+                    })
+                }
+            },res=>{
+                console.log('请求失败处理,请检查Network!');
+            })
+        }
+
+    },
+    created:function(){
+        this.$http.post(baseurl+'?s=admin/User/get_onevalue',{'id':this.id}).then(res=>{
+            var val=eval('('+res.bodyText+')')[0];
+            this.name=val['NAME'];
+            this.img=val['PIC'];
+            this.phone=val['PHONE'];
+            this.school=val['SCHOOL'];
+            this.grade=val['GRADE'];
+            this.sex=val['SEX'];
+            $('#test5').val(val['BIRTHDAY']);
+            this.JNAME=val['JNAME'];
+        },res=>{
+             console.log('请求失败处理,请检查Network!');
+        });
+    }
+})
+
+
+</script>
+</body>
+</html>

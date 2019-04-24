@@ -23,12 +23,13 @@
             </div>
             <div class="nav">
                 <ul>
-                    <li><a href="javascript:void(0)">返回首页</a></li>
-                    <li><a href="javascript:void(0)">选课中心</a></li>
-                    <li><a href="javascript:void(0)">直播课程</a></li>
-                    <li><a href="javascript:void(0)">论坛</a></li>
-                    <li><a href="javascript:void(0)">活动资讯</a></li>
-                    <li><a href="javascript:void(0)">金石名师</a></li>
+                    <li><a href="http://www.jinshiedu.com/">返回首页</a></li>
+                    <li><a href="http://www.jinshiedu.com/course/explore">选课中心</a></li>
+                    <li><a href="http://www.jinshiedu.net/">直播课程</a></li>
+                    <li><a href="http://www.jinshiedu.com/group/1">论坛</a></li>
+                    <li><a href="http://www.jinshiedu.com/article">活动资讯</a></li>
+                    <li><a href="http://www.jinshiedu.com/teacher">金石名师</a></li>
+                    <li><a href="http://www.jinshiedu.com/page/xiaoqu">校区VR全景</a></li>
                 </ul>
             </div>
         </div>
@@ -57,11 +58,49 @@
 <script type="text/javascript" src="__PUBLIC__/index/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript">
     $(function(){
+        //平台、设备和操作系统
+        var system = {
+            win: false,
+            mac: false,
+            xll: false,
+            ipad:false
+        };
+        //检测平台
+        var p = navigator.platform;
+        system.win = p.indexOf("Win") == 0;
+        system.mac = p.indexOf("Mac") == 0;
+        system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+        system.ipad = (navigator.userAgent.match(/iPad/i) != null)?true:false;
+        //跳转语句，如果是手机访问就自动跳转到wap.baidu.com页面
+        if (system.win || system.mac || system.xll||system.ipad) {
+ 
+        } else {
+            var u = navigator.userAgent, app = navigator.appVersion;
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+            var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            if (isAndroid) {
+               //这个是安卓操作系统
+               window.location.href = "http://ftp.jinshiedu.net/stuappftp/1.apk";
+            }
+            if (isIOS) {
+        　　　　//这个是ios操作系统
+                window.location.href = "https://itunes.apple.com/cn/app/%E9%87%91%E7%9F%B3%E6%95%99%E8%82%B2/id1437224611??l=zh&ls=1&mt=8";
+            }
+ 
+            
+        }
+
+        
         $('.download span').hover(function(){
-            $('.download a').animate({opacity:0},300);
+            $('.download a').animate({opacity:0},200);
         },function(){
-            $('.download a').animate({opacity:1},400);
-        })
+            $('.download a').animate({opacity:1},200);
+        });
+        var bodyHeight=$(window).height();
+        $('.bg_img').css('height',bodyHeight);
+
+
+
     })
 </script>
 </body>
