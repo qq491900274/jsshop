@@ -48,7 +48,7 @@ class Index extends Controller
       $where .= " LIMIT {$minpage},{$maxpage}";
       
       
-      $key = "ID,NAME,PHONE,SCHOOL,STATE,SUBJECT,utm_source,utm_medium,utm_term,utm_content,utm_campaign";
+      $key = "ID,NAME,PHONE,SCHOOL,STATE,SUBJECT,utm_source,utm_medium,utm_term,utm_content,utm_campaign,DATETIME";
       $result['value'] = $this->pmodel->select('SHOP_ACTIVITY',$key,$where);
       $result['page'] = empty($request['page']) ? '1' : $request['page'];
       
