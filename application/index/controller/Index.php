@@ -127,7 +127,7 @@ class Index extends mobile_controller
     }
   public function complain(){
       //添加反馈建议
-      if(!empty($request['phone'])){}
+      if(!empty($request['phone'])){
         $where['PHONE']=$request['phone'];
         $ishave=Db::table('SHOP_COMPLAIN')->where($where)->select();
       }
