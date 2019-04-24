@@ -8,7 +8,7 @@
 	        <table class="tableBox">
                     <thead>
                         <tr>
-                            <th>电话</th>
+                            <th width="20%">电话</th>
                             <th>意见反馈</th>
                             <th>操作</th>
                         </tr>
@@ -17,7 +17,7 @@
                         <tr v-for="(v,index) in products">
                                 <td>{{v.PHONE}}</td>
                                 <td>{{v.CONTENT}}</td>
-                                <td><a href="javascript:void(0)">删除</a></td>
+                                <td><a href="javascript:void(0)" @click="remove(v.ID,index)">删除</a></td>
                             </tr>                   
                         </tbody>
                 </table>
@@ -59,6 +59,21 @@
                 	console.log('请求失败处理，请检查Network!');
                 })
             },*/
+            remove:function(ids,arrid){
+                layer.alert('确定要删除吗？',function(){
+                    vue.$http.post(baseurl+'?s=admin/index/delete_complain',{'id':ids}).then(res=>{
+                        var num=eval('('+res.bodyText+')');
+                        if(num==1){
+                            layer.msg('删除成功',{time:1500});
+                            vue.products.splice(arrid,1);
+                        }else{
+                            location.reload();
+                        }
+                    },res=>{
+                        console.log('请求失败处理，请检查Network!');
+                    })
+                })
+            }
         },
         created:function(){
         	 page.url='admin/index/complain';
