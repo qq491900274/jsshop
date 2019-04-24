@@ -4,7 +4,17 @@
 	<div class="rightBox">
 		<div class="main">
 			<h3 style="margin-bottom: 30px;">活动列表</h3>
-
+            <div class="seach_tigs">
+                <ul class="clearfix">
+                    <li>
+                        <label class="seach-label"> 渠道：</label>
+                        <input type="text" name="" placeholder="请输入渠道名称" class="form-control" v-model="name" style="width: 30%">
+                    </li>
+                </ul>
+                <div class="seach" style="margin-left: 70px;">
+                    <input type="button" name="" value="搜索" @click="get()">
+                </div>
+            </div>
 	        <table class="tableBox">
                     <thead>
                         <tr>
@@ -12,11 +22,13 @@
                             <th>电话</th>
                             <th>校区</th>
                             <th>科目</th>
+                            <th>报名时间</th>
                             <th>渠道</th>
                             <th>媒介</th>
                             <th>关键词</th>
                             <th>单元</th>
                             <th>计划</th>
+                            <th>操作</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -25,11 +37,13 @@
                                 <td>{{v.PHONE}}</td>
                                 <td>{{v.SCHOOL}}</td>
                                 <td>{{v.SUBJECT}}</td>
+                                <td>{{v.DATETIME}}</td>
                                 <td>{{v.utm_source}}</td>
                                 <td>{{v.utm_medium}}</td>
                                 <td>{{v.utm_term}}</td>
                                 <td>{{v.utm_content}}</td>
                                 <td>{{v.utm_campaign}}</td>
+                                <td><a href="javascript:void(0)" @click="remove(v.ID,index)">删除</a></td>
                             </tr>                   
                         </tbody>
                 </table>
@@ -50,17 +64,14 @@
         el:'#school',
         data:{
             products:[],
+            name:''
         },
         methods:{
-            /*get:function(){
+            get:function(){
                 this.$http.post(baseurl+'?s=admin/index/activity',{where:{
-                	'PROVINCE':this.province,
-                	'CITY':this.city,
-                	'AREA':this.area,
-                	'PHONE':this.phone,
-                	'SCHOOL_NAME':this.name
+                	'utm_source':this.name
                 }}).then(function(res){
-                	page.where={'SCHOOL_NAME':this.name,'PROVINCE':this.province,'CITY':this.city,'AREA':this.area,'PHONE':this.phone,'ADDRESS':this.address};
+                	page.where={'name':this.name};
                 	var val=eval('('+res.bodyText+')');
                     this.products=val['value'];
                     //console.log(this.products);
@@ -70,7 +81,23 @@
                 },function(res){
                 	console.log('请求失败处理，请检查Network!');
                 })
-            },*/
+            },
+            remove:function(ids,arrid){
+                layer.alert('确定要删除吗？',function(){
+                    vue.$http.post(baseurl+'?s=admin/index/delete_activity',{id:ids}).then(res=>{
+                        var num=eval('('+res.bodyText+')');
+                        if(num==1){
+                            layer.msg('删除成功',{time:1500});
+                            vue.products.splice(arrid,1);
+                        }else{
+                            location.reload();
+                        }
+                    },res=>{
+                        console.log('请求失败处理，请检查Network!');
+                    })
+                })
+                
+            }
         },
         created:function(){
         	 page.url='admin/index/activity';
