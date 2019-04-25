@@ -1,16 +1,29 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title></title>
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/dw.css">
-    <style type="text/css">
-        body,html{max-width:none;}
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title></title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/reset.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/dw.css">
+<style type="text/css">
+    body,html{max-width:none;}
+    @media screen and (max-width: 768px){
+        .bg_img{
+            background-image: url(public/static/index/images/sq_m.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            
+            background-position: center center;}
+            .bg_img{min-width: 100%;}
+        .top .nav{display: none;}
+        .container .content .download{width:  100%;right:0;top:65%;}
+        .container .content .download a{width: 42%;margin-right: 0;margin-left:30%;}
+        .container .content .download span{display: none}
+    }
+</style>
 </head>
 
 <body>
@@ -22,7 +35,7 @@
                 <img src="__PUBLIC__/index/images/logo.png" width="150">
             </div>
             <div class="nav">
-                <ul>
+                <ul> 
                     <li><a href="http://www.jinshiedu.com/">返回首页</a></li>
                     <li><a href="http://www.jinshiedu.com/course/explore">选课中心</a></li>
                     <li><a href="http://www.jinshiedu.net/">直播课程</a></li>
@@ -38,10 +51,10 @@
     
     <div class="content">
         <div class="download">
-            <a href="http://ftp.jinshiedu.net/stuappftp/1.apk">
+            <a href="http://ftp.jinshiedu.net/stuappftp/1.apk" class="android">
                 <img src="__PUBLIC__/index/images/android.png">
             </a>
-            <a href="https://itunes.apple.com/cn/app/%E9%87%91%E7%9F%B3%E6%95%99%E8%82%B2/id1437224611??l=zh&ls=1&mt=8">
+            <a href="https://itunes.apple.com/cn/app/%E9%87%91%E7%9F%B3%E6%95%99%E8%82%B2/id1437224611??l=zh&ls=1&mt=8" class="ios">
                 <img src="__PUBLIC__/index/images/appstore.png">
             </a>
             <span>
@@ -80,10 +93,12 @@
             var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
             if (isAndroid) {
                //这个是安卓操作系统
+               $('.container .content .download a.ios').css('display','none');
                window.location.href = "http://ftp.jinshiedu.net/stuappftp/1.apk";
             }
             if (isIOS) {
         　　　　//这个是ios操作系统
+            $('.container .content .download a.android').css('display','none');
                 window.location.href = "https://itunes.apple.com/cn/app/%E9%87%91%E7%9F%B3%E6%95%99%E8%82%B2/id1437224611??l=zh&ls=1&mt=8";
             }
  
