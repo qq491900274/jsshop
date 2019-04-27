@@ -164,6 +164,15 @@ class Index extends mobile_controller
     }
   }
 
+  public function jxClass(){
+    $request=request()->post();
+    if (empty($request)) {
+      return $this->fetch('jxClass');
+    }
+  }
+
+
+
 }
 
 
