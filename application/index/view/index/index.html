@@ -29,7 +29,7 @@
 
 <div class="test">
 	<h3 class="title">性格测试</h3>
-	<div class="swiper-container">
+	<div class="swiper-container"> 
     <div class="swiper-wrapper">
            
             <?php foreach($bannerlis['imgLis'] as $v):?>
@@ -203,6 +203,7 @@ var vue= new Vue({
 	methods:{
 		getcity:function(id,e){
 			this.area=getaddress(this.provinceid,id).val;
+			console.log(this.area);
 			$('.on').attr('class','');
 			$(e.srcElement).attr('class','on');
 		},
@@ -327,6 +328,7 @@ var vue= new Vue({
 				      vue.provincename=res.result.addressComponent.province;
 				      vue.city=a.city;
 				      vue.area=a.area;
+				      console.log(vue.provincename);
 				      
 				      //查看cookie是否有记录值
 					  vue.cityid=getcookie('city');

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+<meta content="telephone=no" name="format-detection" />
+<meta content="email=no" name="format-detection" />
+<title>金石教育推广</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/reset.css?v=1.0">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/layer.css?v=1.0">
+<style type="text/css">
+	html,body{height: 100%;background: #fff;}
+	.layui-layer-btn .layui-layer-btn0{font-size: 0.3rem;}
+	img{vertical-align: middle;}
+	.from input{border:none;border: #ba0413 0.16rem solid;width: 100%;margin:.8rem 0;height: 2.5rem;font-size: 1rem;color:#666;text-align: center;border-radius: 0.6rem;}
+	.from{margin:1rem 0;background: #FFF;border-radius:0.5rem;box-shadow:0 0 20px #aaa;width: 86%;margin:-11rem auto 4rem auto;padding:1rem 0;position: relative;}
+	.from span{color:#F00;}
+	.main{width: 86%;margin:0 auto;}
+	.from a{background: #ba0413;display: block;width: 100%;text-align: center;height: 2.8rem;line-height: 2.8rem;color:#FFF;border-radius:.4rem;margin:.8rem 0;font-size:1.2rem;}
+	.from div{font-size: 1rem;}
+	.from p{color:#333;text-align: center;font-size: 1rem;}
+	.from select{border: 0.15rem solid #ba0413;padding:0.5rem 1rem;width: 30%;margin:0 1.2%;background: #FFF;}
+</style>
+<body>
+<div id="index">
+	<div id="allmap"></div>
+
+<div class="banner">
+	<img src="__PUBLIC__/index/images/jx_01.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_02.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_03.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_04.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_05.jpg" width="100%">
+</div>
+
+<div class="from">
+	<div class="main">
+			<input type="number" name="" class="phone" oninput="if(value.length>11)value=value.slice(0,11)" placeholder="输入手机号，详细了解意向班型" v-model="phone">
+			
+			<select @change="getcity()" v-model="cityid">
+				<option v-for="(key,index) in city" :value="index">{{key}}</option>
+			</select>
+			<select v-model="areaid"  @change="getschool()">
+				<option v-for="(key,index) in area" class='on1' :value="index">{{key}}</option>
+			</select>
+			<select v-model="schoolid">
+				<option value="">请选择校区</option>
+				<option v-for="(key,index) in school">{{key.SCHOOL_NAME}}</option>
+			</select>
+			<a href="javascript:void(0)" @click="get()">立即咨询</a>
+			<p>*预约后将尽快为您安排专属学习顾问服务</p>
+		
+	</div>
+</div>
+<div class="banner">
+	<img src="__PUBLIC__/index/images/jx_06.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_07.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_08.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_09.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_10.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_11.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_12.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_13.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_14.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_16.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_17.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_18.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_19.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_20.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_21.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_22.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_23.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_24.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_25.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_26.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_27.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_28.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_29.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_31.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_32.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_33.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_34.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_35.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_36.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_37.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_38.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_39.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_40.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_41.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_42.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/jx_43.jpg" width="100%">
+</div>
+
+</div>
+<script type="text/javascript" src="__PUBLIC__/index/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/index/js/vue.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/index/js/vue-resource.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/index/js/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/index/js/area.js"></script>
+<script type="text/javascript" src="__PUBLIC__/index/js/common.js?v=1.0"></script>
+<script type="text/javascript">
+	var html=document.documentElement;
+	var hwidth=html.getBoundingClientRect().width;	/*获取屏幕的宽度*/
+	//console.log(hwidth);
+	html.style.fontSize=hwidth/30+"px";  /*根据屏幕大小的不同设置根节点的字体大小*/
+	var baseurl="<?php echo BASE_URL;?>";
+</script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=s4u13aUZAj36D4XWMm52TexzlwGGg7GG"></script>
+<script type="text/javascript">
+	var utm_source="<?php echo @$_GET['utm_source'];?>";
+	var utm_medium="<?php echo @$_GET['utm_medium'];?>";
+	var utm_term="<?php echo @$_GET['utm_term'];?>";
+	var utm_content="<?php echo @$_GET['utm_content'];?>";
+	var utm_campaign="<?php echo @$_GET['utm_campaign'];?>";
+
+var vue= new Vue({
+	el:'#index',
+	data:{
+		phone:'',
+		city:[],
+		cityid:'',
+		area:[],
+		areaid:'',
+		provinceid:'',
+		provincename:'',
+		school:[],
+		schoolid:''
+	},
+	methods:{
+		getcity:function(){
+			this.area=getaddress(this.provinceid,this.cityid).val;
+			console.log(this.cityid);
+			console.log(this.area);
+			return;
+		},
+		getschool:function(){
+			if(!this.areaid){
+				return;
+			}
+			this.$http.post(baseurl+'?s=index/index/get_school',{'area':this.areaid}).then(res=>{
+				var val=eval('('+res.bodyText+')');
+				this.school=val;
+			},res=>{
+				console.log('请求失败,请检查Network!');
+			});
+			
+		},
+		addschool:function(index,e){
+			//记录值
+			setcookie('city',this.cityid);
+			setcookie('area',this.areaid);
+			setcookie('school',index);//记录校区
+			$('.on2').attr('class','');
+			$(e.srcElement).attr('class','on2');
+		},
+		get:function(){
+			var phone=$('input.phone').val();
+			var pattern=/^([\u4e00-\u9fa5]{2,4}|[a-zA-Z]{2,16})$/g;
+				if(!phone){
+					layer.msg('电话不能为空',{time:1500});
+					return;
+				}
+				if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){ 
+			        layer.alert("手机号码有误，请重填");  
+			        return; 
+			    }
+			    if(!this.schoolid){
+			    	layer.alert("校区不能为空");  
+			        return;
+			    }
+			this.$http.post(baseurl+'?s=index/index/activity',{'name':'初中','phone':this.phone,'school':this.schoolid,subject:'全科','utm_source':utm_source,'utm_medium':utm_medium,'utm_term':utm_term,'utm_content':utm_content,'utm_campaign':utm_campaign}).then(res=>{
+				var num=eval('('+res.bodyText+')');
+				if(num==1){
+					layer.msg('预约成功，我们会在第一时间联系您',{time:1500});
+				
+				}else{
+					layer.msg('已预约',{time:1500});
+				}
+			},res=>{
+				console.log('请求失败,请检查Network!');
+			})
+		},
+		
+	},
+	created:function(){
+		// 百度地图API功能
+		var map = new BMap.Map("allmap");
+		var point = new BMap.Point(116.331398,39.897445);
+		map.centerAndZoom(point,12);
+		var lat , lng;
+		var geolocation = new BMap.Geolocation();
+		geolocation.getCurrentPosition(function(r){
+		    if(this.getStatus() == BMAP_STATUS_SUCCESS){
+		        var mk = new BMap.Marker(r.point);
+		        map.addOverlay(mk);
+		        map.panTo(r.point);
+		        lng=r.point.lng;
+		        lat=r.point.lat;
+		     
+		        //获取省市区
+		        $.ajax({ 
+				    url: 'http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location='+lat+','+lng+'&output=json&pois=1&ak=s4u13aUZAj36D4XWMm52TexzlwGGg7GG', 
+				    type: 'GET', 
+				    dataType: 'JSONP', 
+				    success: function(res){
+				      // posi.innerHTML=res.result.addressComponent.city;
+				       //posi2.innerHTML=res.result.addressComponent.city;
+				      
+				      var a=getadd(res.result.addressComponent.province,res.result.addressComponent.city,res.result.addressComponent.district);
+				      //记录省市区
+				      
+				      vue.provincename=res.result.addressComponent.province;
+				      vue.city=a.city;
+				      vue.area=a.area;
+				      console.log(vue.provincename);
+				      
+				      //查看cookie是否有记录值
+					  vue.cityid=getcookie('city');
+					  vue.areaid=getcookie('area');
+					  vue.schoolid=getcookie('school');
+					  vue.provinceid=a.provinceid;
+
+					  if (!vue.cityid && !vue.areaid && !vue.schoolid) {
+					  	  vue.areaid=a.areaid;
+					      vue.cityid=a.cityid;
+					  }
+					  
+					 if (vue.schoolid) {
+						vue.$http.post(baseurl+'?s=index/index/get_school',{'area':vue.areaid}).then(res=>{
+							var val=eval('('+res.bodyText+')');
+							vue.school=val;
+							
+						},res=>{
+							console.log('请求失败,请检查Network!');
+						});
+					  }
+				    } 
+				});
+		    }
+		    else {
+		        layer.msg('获取地理位置失败！');
+		    }       
+
+		},{enableHighAccuracy: true});
+		
+		
+		
+		
+	}
+});
+
+
+
+</script>
+</body>
+</html>
