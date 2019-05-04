@@ -10,6 +10,9 @@
 <title>金石教育推广</title>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/reset.css?v=1.0">
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/layer.css?v=1.0">
+<script type="text/javascript">
+	var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?3bb961991adf979b762d8cfe947e893a"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s); })();
+</script>
 <style type="text/css">
 	html,body{height: 100%;background: #fff;}
 	.layui-layer-btn .layui-layer-btn0{font-size: 0.3rem;}
@@ -18,15 +21,18 @@
 	.from{margin:1rem 0;background: #FFF;border-radius:0.5rem;box-shadow:0 0 20px #aaa;width: 86%;margin:-11rem auto 4rem auto;padding:1rem 0;position: relative;}
 	.from span{color:#F00;}
 	.main{width: 86%;margin:0 auto;}
-	.from a{background: #ba0413;display: block;width: 100%;text-align: center;height: 2.8rem;line-height: 2.8rem;color:#FFF;border-radius:.4rem;margin:.8rem 0;font-size:1.2rem;}
+	.from a, .banner .zx{background: #ba0413;display: block;width: 100%;text-align: center;height: 2.8rem;line-height: 2.8rem;color:#FFF;border-radius:.4rem;margin:.8rem 0;font-size:1.2rem;}
+	.banner .zx{margin-bottom: 2.5rem!important;}
 	.from div{font-size: 1rem;}
 	.from p{color:#333;text-align: center;font-size: 1rem;}
-	.from select{border: 0.15rem solid #ba0413;padding:0.5rem 1rem;width: 30%;margin:0 1.2%;background: #FFF;}
+	.from select{border: 0.15rem solid #ba0413;padding:0.5rem 0.5rem;width: 30%;margin:0 1.1%;background: #FFF;}
+	.top{position: fixed;bottom:2rem;right:0;background:rgba(0,0,0,.4);width: 3.5rem;height: 3.5rem;border-radius:0.5rem;text-align: center;line-height: 3.5rem;}
+	.top img{width: 60%;}
 </style>
 <body>
 <div id="index">
 	<div id="allmap"></div>
-
+<a name="zx"></a>
 <div class="banner">
 	<img src="__PUBLIC__/index/images/jx_01.jpg" width="100%">
 	<img src="__PUBLIC__/index/images/jx_02.jpg" width="100%">
@@ -39,7 +45,7 @@
 	<div class="main">
 			<input type="number" name="" class="phone" oninput="if(value.length>11)value=value.slice(0,11)" placeholder="输入手机号，详细了解意向班型" v-model="phone">
 			
-			<select @change="getcity()" v-model="cityid">
+			<select @change="getcity()" v-model="cityid" dir="trl">
 				<option v-for="(key,index) in city" :value="index">{{key}}</option>
 			</select>
 			<select v-model="areaid"  @change="getschool()">
@@ -89,10 +95,15 @@
 	<img src="__PUBLIC__/index/images/jx_39.jpg" width="100%">
 	<img src="__PUBLIC__/index/images/jx_40.jpg" width="100%">
 	<img src="__PUBLIC__/index/images/jx_41.jpg" width="100%">
+	
+		<div class="main">
+			<a href="#zx" class="zx">立即咨询</a>
+		</div>
+	
 	<img src="__PUBLIC__/index/images/jx_42.jpg" width="100%">
 	<img src="__PUBLIC__/index/images/jx_43.jpg" width="100%">
 </div>
-
+<div class="top"><img src="__PUBLIC__/index/images/top.png"></div>
 </div>
 <script type="text/javascript" src="__PUBLIC__/index/js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/index/js/vue.min.js"></script>
@@ -115,6 +126,13 @@
 	var utm_content="<?php echo @$_GET['utm_content'];?>";
 	var utm_campaign="<?php echo @$_GET['utm_campaign'];?>";
 
+$(function(){
+	$('.top').click(function(){
+		window.scrollTo(0,0);
+	})
+})
+
+
 var vue= new Vue({
 	el:'#index',
 	data:{
@@ -131,8 +149,8 @@ var vue= new Vue({
 	methods:{
 		getcity:function(){
 			this.area=getaddress(this.provinceid,this.cityid).val;
-			console.log(this.cityid);
-			console.log(this.area);
+			// console.log(this.cityid);
+			// console.log(this.area);
 			return;
 		},
 		getschool:function(){
@@ -170,7 +188,7 @@ var vue= new Vue({
 			    	layer.alert("校区不能为空");  
 			        return;
 			    }
-			this.$http.post(baseurl+'?s=index/index/activity',{'name':'初中','phone':this.phone,'school':this.schoolid,subject:'全科','utm_source':utm_source,'utm_medium':utm_medium,'utm_term':utm_term,'utm_content':utm_content,'utm_campaign':utm_campaign}).then(res=>{
+			this.$http.post(baseurl+'?s=index/index/activity',{'name':'中会考集训班','phone':this.phone,'school':this.schoolid,subject:'全科','utm_source':'中考','utm_medium':utm_medium,'utm_term':utm_term,'utm_content':utm_content,'utm_campaign':utm_campaign}).then(res=>{
 				var num=eval('('+res.bodyText+')');
 				if(num==1){
 					layer.msg('预约成功，我们会在第一时间联系您',{time:1500});
@@ -214,7 +232,7 @@ var vue= new Vue({
 				      vue.provincename=res.result.addressComponent.province;
 				      vue.city=a.city;
 				      vue.area=a.area;
-				      console.log(vue.provincename);
+				      //console.log(vue.provincename);
 				      
 				      //查看cookie是否有记录值
 					  vue.cityid=getcookie('city');
