@@ -1,7 +1,7 @@
-﻿<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="Keywords" content="">
 <meta name="Description" content="">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
@@ -21,11 +21,14 @@
 <script type="text/javascript" src="__PUBLIC__/index/js/vue-resource.min.js"></script>
 <script src="__PUBLIC__/index/js/swiper.jquery.min.js"></script>
 <script type="text/javascript">
+	var a=document.body.innerHTML; 
+	document.body.innerHTML=a.replace(/\ufeff/g,'');
     var baseurl="<?php echo BASE_URL;?>";
     var userid="<?php echo @$_SESSION['userid'];?>";
     if(!userid){
 	window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx21f0eee318ecc6b2&redirect_uri=http://shop.jinshiedu.com&response_type=code&scope=snsapi_userinfo&state=STATE";
     }
 </script>
+
 </head>
 
