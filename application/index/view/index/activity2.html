@@ -7,21 +7,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
 <meta content="telephone=no" name="format-detection" />
 <meta content="email=no" name="format-detection" />
-<title>金石教育推广</title>
+<title>金石教育_一对一考后诊断</title>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/reset.css?v=1.0">
-<!-- <link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/style.css?v=1.0"> -->
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/layer.css?v=1.0">
-<script type="text/javascript" src="__PUBLIC__/index/js/jquery-1.8.3.min.js"></script>
-<!-- <script type="text/javascript" src="__PUBLIC__/index/js/vue.min.js"></script>
-<script type="text/javascript" src="__PUBLIC__/index/js/vue-resource.min.js"></script> -->
-<script type="text/javascript" src="__PUBLIC__/index/js/layer.js"></script>
-<script type="text/javascript">
-	var html=document.documentElement;
-	var hwidth=html.getBoundingClientRect().width;	/*获取屏幕的宽度*/
-	//console.log(hwidth);
-	html.style.fontSize=hwidth/30+"px";  /*根据屏幕大小的不同设置根节点的字体大小*/
-	var baseurl="<?php echo BASE_URL;?>";
-</script>
+
 
 <!-- Bytedance Tracking -->
 <script>
@@ -44,23 +33,37 @@
 	.from a{background: #cb4f45;display: block;width: 100%;text-align: center;height: 3rem;line-height: 3rem;color:#FFF;border-radius:.4rem;margin:.8rem 0;font-size:1.2rem;}
 	.from div{font-size: 1rem;}
 	.from p{color:#cb4f45;text-align: center;font-size: 1rem;}
+	.from select{border: 0.15rem solid #cb4f45;padding:0.5rem 0.5rem;width: 30%;margin:0 1.1%;background: #FFF;}
 </style>
 </head>
 
 <body>
 <div id="form">
+	<div id="allmap"></div>
 <div class="banner">
 	<img src="__PUBLIC__/index/images/dd_01.jpg" width="100%">
 	<img src="__PUBLIC__/index/images/dd_02.jpg" width="100%">
+	<a name="from"></a>
 	<img src="__PUBLIC__/index/images/dd_03.jpg" width="100%">
 </div>
+
 <div class="from">
 	<div class="main">
 		
 			<!--  method="<?php echo BASE_URL;?>?s=index/index/activity" -->
 			<!-- <div>姓名<span>*</span><br><input type="text" name="" class="name" placeholder="请输入"></div> -->
-			<input type="number" name="" class="phone" oninput="if(value.length>11)value=value.slice(0,11)" placeholder="输入手机号，获取考后诊断分析">
-			<a href="javascript:void(0)" onclick="get()">考后诊断体验课特价仅需9.9元</a>
+			<input type="number" name="" class="phone" oninput="if(value.length>11)value=value.slice(0,11)" placeholder="输入手机号，获取考后诊断分析" v-model="phone">
+			<select @change="getcity()" v-model="cityid" dir="trl">
+				<option v-for="(key,index) in city" :value="index">{{key}}</option>
+			</select>
+			<select v-model="areaid"  @change="getschool()">
+				<option v-for="(key,index) in area" class='on1' :value="index">{{key}}</option>
+			</select>
+			<select v-model="schoolid">
+				<option value="">请选择校区</option>
+				<option v-for="(key,index) in school">{{key.SCHOOL_NAME}}</option>
+			</select>
+			<a href="javascript:void(0)" @click="get()">点我提交 &nbsp;立享优惠</a>
 			<p>*预约后会有咨询师和您沟通课程详情</p>
 		
 	</div>
@@ -70,6 +73,11 @@
 	<img src="__PUBLIC__/index/images/dd_06.jpg" width="100%">
 	<img src="__PUBLIC__/index/images/dd_07.jpg" width="100%">
 	<img src="__PUBLIC__/index/images/dd_08.jpg" width="100%">
+	<div class="from" style="background: #f5c5bb;padding: 0.01rem 0 2rem 0;margin: 0;">
+		<div class="main">
+			<a href="#from" style="margin-top: 0;">考后诊断体验课特价仅需9.9元</a>
+		</div>
+	</div>
 	<img src="__PUBLIC__/index/images/dd_09.jpg" width="100%">
 	<img src="__PUBLIC__/index/images/dd_10.jpg" width="100%">
 	<img src="__PUBLIC__/index/images/dd_11.jpg" width="100%">
@@ -79,38 +87,175 @@
 	<img src="__PUBLIC__/index/images/dd_15.jpg" width="100%">
 	<img src="__PUBLIC__/index/images/dd_16.jpg" width="100%">
 	<img src="__PUBLIC__/index/images/dd_17.jpg" width="100%">
-	<div class="from">
-	<div class="main">
-		<input type="number" name="" class="phone1" oninput="if(value.length>11)value=value.slice(0,11)" placeholder="输入手机号，获取考后诊断分析">
-			<a href="javascript:void(0)" onclick="getTwo()">考后诊断体验课特价仅需9.9元</a>
-			<p>*预约后会有咨询师和您沟通课程详情</p>
+	<div class="from" style="margin-bottom: 3rem">
+		<div class="main">
+			<a href="#from" style="margin-top: 0;">考后诊断体验课特价仅需9.9元</a>
+		</div>
 	</div>
-</div>
 	<img src="__PUBLIC__/index/images/dd_18.jpg" width="100%">
 </div>
-
-
 </div>
+
+
+<script type="text/javascript" src="__PUBLIC__/index/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/index/js/vue.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/index/js/vue-resource.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/index/js/layer.js"></script>
+<script type="text/javascript" src="__PUBLIC__/index/js/area.js"></script>
+<script type="text/javascript" src="__PUBLIC__/index/js/common.js?v=1.0"></script>
+<script type="text/javascript">
+	var html=document.documentElement;
+	var hwidth=html.getBoundingClientRect().width;	/*获取屏幕的宽度*/
+	//console.log(hwidth);
+	html.style.fontSize=hwidth/30+"px";  /*根据屏幕大小的不同设置根节点的字体大小*/
+	var baseurl="<?php echo BASE_URL;?>";
+</script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=s4u13aUZAj36D4XWMm52TexzlwGGg7GG"></script>
 <script type="text/javascript">
 	var utm_source="抖音";
 	var utm_medium="<?php echo @$_GET['utm_medium'];?>";
 	var utm_term="<?php echo @$_GET['utm_term'];?>";
 	var utm_content="<?php echo @$_GET['utm_content'];?>";
 	var utm_campaign="<?php echo @$_GET['utm_campaign'];?>";
-	
 
-function get(){
+var vue=new Vue({
+	el:'#form',
+	data:{
+		phone:'',
+		city:[],
+		cityid:'',
+		area:[],
+		areaid:'',
+		provinceid:'',
+		provincename:'',
+		school:[],
+		schoolid:''
+	},
+	methods:{
+		getcity:function(){
+			this.area=getaddress(this.provinceid,this.cityid).val;
+			// console.log(this.cityid);
+			// console.log(this.area);
+			return;
+		},
+		getschool:function(){
+			if(!this.areaid){
+				return;
+			}
+			this.$http.post(baseurl+'?s=index/index/get_school',{'area':this.areaid}).then(res=>{
+				var val=eval('('+res.bodyText+')');
+				this.school=val;
+			},res=>{
+				console.log('请求失败,请检查Network!');
+			});
+			
+		},
+		addschool:function(index,e){
+			//记录值
+			setcookie('city',this.cityid);
+			setcookie('area',this.areaid);
+			setcookie('school',index);//记录校区
+			$('.on2').attr('class','');
+			$(e.srcElement).attr('class','on2');
+		},
+		get:function(){
+			var phone=$('input.phone').val();
+			var pattern=/^([\u4e00-\u9fa5]{2,4}|[a-zA-Z]{2,16})$/g;
+				if(!phone){
+					layer.msg('电话不能为空',{time:1500});
+					return;
+				}
+				if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){ 
+			        layer.alert("手机号码有误，请重填");  
+			        return; 
+			    }
+			    if(!this.schoolid){
+			    	this.schoolid='用户未填写';
+			    }
+			this.$http.post(baseurl+'?s=index/index/activity',{'name':'抖音','phone':this.phone,'school':this.schoolid,subject:'全科','utm_source':utm_source,'utm_medium':utm_medium,'utm_term':utm_term,'utm_content':utm_content,'utm_campaign':utm_campaign}).then(res=>{
+				var num=eval('('+res.bodyText+')');
+				if(num==1){
+					meteor.track("form", {convert_id: "1631050933896195"});
+					layer.msg('预约成功，我们会在第一时间联系您',{time:1500});
+				
+				}else{
+					layer.msg('已预约',{time:1500});
+				}
+			},res=>{
+				console.log('请求失败,请检查Network!');
+			})
+		},
+	},
+	created:function(){
+		// 百度地图API功能
+		var map = new BMap.Map("allmap");
+		var point = new BMap.Point(116.331398,39.897445);
+		map.centerAndZoom(point,12);
+		var lat , lng;
+		var geolocation = new BMap.Geolocation();
+		geolocation.getCurrentPosition(function(r){
+		    if(this.getStatus() == BMAP_STATUS_SUCCESS){
+		        var mk = new BMap.Marker(r.point);
+		        map.addOverlay(mk);
+		        map.panTo(r.point);
+		        lng=r.point.lng;
+		        lat=r.point.lat;
+		     
+		        //获取省市区
+		        $.ajax({ 
+				    url: 'http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location='+lat+','+lng+'&output=json&pois=1&ak=s4u13aUZAj36D4XWMm52TexzlwGGg7GG', 
+				    type: 'GET', 
+				    dataType: 'JSONP', 
+				    success: function(res){
+				      // posi.innerHTML=res.result.addressComponent.city;
+				       //posi2.innerHTML=res.result.addressComponent.city;
+				      
+				      var a=getadd(res.result.addressComponent.province,res.result.addressComponent.city,res.result.addressComponent.district);
+				      //记录省市区
+				      
+				      vue.provincename=res.result.addressComponent.province;
+				      vue.city=a.city;
+				      vue.area=a.area;
+				      //console.log(vue.provincename);
+				      
+				      //查看cookie是否有记录值
+					  vue.cityid=getcookie('city');
+					  vue.areaid=getcookie('area');
+					  vue.schoolid=getcookie('school');
+					  vue.provinceid=a.provinceid;
+
+					  if (!vue.cityid && !vue.areaid && !vue.schoolid) {
+					  	  vue.areaid=a.areaid;
+					      vue.cityid=a.cityid;
+					  }
+					  
+					 if (vue.schoolid) {
+						vue.$http.post(baseurl+'?s=index/index/get_school',{'area':vue.areaid}).then(res=>{
+							var val=eval('('+res.bodyText+')');
+							vue.school=val;
+							
+						},res=>{
+							console.log('请求失败,请检查Network!');
+						});
+					  }
+				    } 
+				});
+		    }
+		    else {
+		        layer.msg('获取地理位置失败！');
+		    }       
+
+		},{enableHighAccuracy: true});
+	}
+})
+
+
+
+/*function get(){
 	//var name=$('input.name').val();
 	var phone=$('input.phone').val();
 	var pattern=/^([\u4e00-\u9fa5]{2,4}|[a-zA-Z]{2,16})$/g;
-				/*if(!name){
-					layer.msg('姓名不能为空',{time:1500});
-					return;
-				}
-				if(!pattern.test(name)){
-					layer.alert('姓名只能是2-4个汉字或26个英文字母');
-					return;
-				}*/
+				
 				if(!phone){
 					layer.msg('电话不能为空',{time:1500});
 					return;
@@ -148,14 +293,7 @@ function getTwo(){
 	//var name=$('input.name1').val();
 	var phone=$('input.phone1').val();
 	var pattern=/^([\u4e00-\u9fa5]{2,4}|[a-zA-Z]{2,16})$/g;
-				/*if(!name){
-					layer.msg('姓名不能为空',{time:1500});
-					return;
-				}
-				if(!pattern.test(name)){
-					layer.alert('姓名只能是2-4个汉字或26个英文字母');
-					return;
-				}*/
+				
 				if(!phone){
 					layer.msg('电话不能为空',{time:1500});
 					return;
@@ -185,7 +323,7 @@ function getTwo(){
 			console.log(arguments);
 		}
 	});
-}
+}*/
 
 
 </script>

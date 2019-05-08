@@ -7,12 +7,21 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
 <meta content="telephone=no" name="format-detection" />
 <meta content="email=no" name="format-detection" />
-<title>金石教育推广</title>
+<title>金石教育_艺考集训班</title>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/reset.css?v=1.0">
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/layer.css?v=1.0">
-<script type="text/javascript">
-	var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?3bb961991adf979b762d8cfe947e893a"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s); })();
+
+<!-- Bytedance Tracking -->
+<script>
+  (function(r,d,s,l){var meteor=r.meteor=r.meteor||[];meteor.methods=["track","off","on"];meteor.factory=function(method){return function(){
+  var args=Array.prototype.slice.call(arguments);args.unshift(method);meteor.push(args);return meteor}};for(var i=0;i<meteor.methods.length;i++){
+  var key=meteor.methods[i];meteor[key]=meteor.factory(key)}meteor.load=function(){var js,fjs=d.getElementsByTagName(s)[0];js=d.createElement(s);
+  js.src="https://analytics.snssdk.com/meteor.js/v1/"+l+"/sdk";fjs.parentNode.insertBefore(js,fjs)};meteor.load();if(meteor.invoked){return}
+  meteor.invoked=true;meteor.track("pageview")})(window,document,"script","111555669403");
 </script>
+<!-- End Bytedance Tracking -->
+
+
 <style type="text/css">
 	html,body{height: 100%;background: #fff;}
 	.layui-layer-btn .layui-layer-btn0{font-size: 0.3rem;}
@@ -129,8 +138,15 @@
 $(function(){
 	$('.top').click(function(){
 		window.scrollTo(0,0);
-	})
+	});
+	if(utm_source || utm_medium || utm_term || utm_content || utm_campaign){
+
+		var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?3bb961991adf979b762d8cfe947e893a"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s); })();
+		
+	}
 })
+
+
 
 
 var vue= new Vue({
@@ -174,6 +190,7 @@ var vue= new Vue({
 			$(e.srcElement).attr('class','on2');
 		},
 		get:function(){
+
 			var phone=$('input.phone').val();
 			var pattern=/^([\u4e00-\u9fa5]{2,4}|[a-zA-Z]{2,16})$/g;
 				if(!phone){
@@ -181,16 +198,19 @@ var vue= new Vue({
 					return;
 				}
 				if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){ 
-			        layer.alert("手机号码有误，请重填");  
+			        layer.msg("手机号码有误，请重填");  
 			        return; 
 			    }
 			    if(!this.schoolid){
-			    	layer.alert("校区不能为空");  
+			    	layer.msg("校区不能为空");  
 			        return;
 			    }
+
 			this.$http.post(baseurl+'?s=index/index/activity',{'name':'中会考集训班','phone':this.phone,'school':this.schoolid,subject:'全科','utm_source':'中考','utm_medium':utm_medium,'utm_term':utm_term,'utm_content':utm_content,'utm_campaign':utm_campaign}).then(res=>{
 				var num=eval('('+res.bodyText+')');
 				if(num==1){
+
+					meteor.track("form", {convert_id: "1631050933896195"});
 					layer.msg('预约成功，我们会在第一时间联系您',{time:1500});
 				
 				}else{
@@ -263,9 +283,7 @@ var vue= new Vue({
 
 		},{enableHighAccuracy: true});
 		
-		
-		
-		
+
 	}
 });
 
