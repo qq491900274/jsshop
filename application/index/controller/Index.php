@@ -171,6 +171,13 @@ class Index extends mobile_controller
     }
   }
 
+  public function jxClass_tt(){
+    $request=request()->post();
+    if (empty($request)) {
+      return $this->fetch('jxClass_tt');
+    }
+  }
+
   public function seminar(){
     $request=request()->post();
     if (empty($request)) {
