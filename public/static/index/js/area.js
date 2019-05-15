@@ -1,4 +1,5 @@
 function getadd(s,s1,q){
+    
     var a=new Location;
 
     return a.selectid(s,s1,q);
