@@ -14,7 +14,7 @@ return [
     // | 应用设置
     // +----------------------------------------------------------------------
 	//命名空间
-	'app_namespace'=>'app',//就是这个参数，但是。
+	'app_namespace'=>'app',
     // 应用调试模式
     'app_debug'              => true,
     // 应用Trace
@@ -26,7 +26,7 @@ return [
     // 入口自动绑定模块
     'auto_bind_module'       => false,
     // 注册的根命名空间
-    'root_namespace'         => [],//还有个事情 。
+    'root_namespace'         => [],
     // 扩展函数文件
     'extra_file_list'        => [THINK_PATH . 'helper' . EXT],
     // 默认输出类型
