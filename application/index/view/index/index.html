@@ -226,6 +226,12 @@ var vue= new Vue({
 			setcookie('school',index);//记录校区
 			$('.on2').attr('class','');
 			$(e.srcElement).attr('class','on2');
+			if($(e.srcElement).hasClass("on2")){
+				$('.shade').css({'display':'block','background':'rgba(0,0,0,0)'});
+				$('.posAll').animate({left:'-80%'},400);
+			}
+			setcookie('city',this.cityid);
+			setcookie('area',this.areaid);
 		},
 		get:function(){
 			window.location.href=baseurl+'?s=index/lesson/index&name='+this.name;
@@ -397,12 +403,6 @@ $(function(){
 	$('.shade').click(function(){
 		$('.posAll').animate({left:'-80%'},400);
 		$(this).css({'display':'none'});
-	});
-	$('.school_last ul li').each(function(){
-		$(this).find('a').click(function(){
-			//alert(111);
-			$('.posAll').animate({left:'-80%'},400); 
-		})
 	});
 	$('.test .swiper-slide').click(function(){
 		$('.test_lay').show();
