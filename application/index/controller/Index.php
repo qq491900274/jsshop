@@ -117,7 +117,7 @@ class Index extends mobile_controller
         $insert['utm_term']=$request['utm_term'];
         $insert['utm_content']=$request['utm_content'];
         $insert['utm_campaign']=$request['utm_campaign'];
-        $insert['DATATIME']=date('Y-m-d H:i:s');
+        $insert['DATETIME']=date('Y-m-d H:i:s');
         Db::table('SHOP_ACTIVITY')->insert($insert); 
         return 1;
       }else{
@@ -161,6 +161,27 @@ class Index extends mobile_controller
     $request=request()->post();
     if (empty($request)) {
       return $this->fetch('service');
+    }
+  }
+
+  public function jxClass(){
+    $request=request()->post();
+    if (empty($request)) {
+      return $this->fetch('jxClass');
+    }
+  }
+
+  public function jxClass_tt(){
+    $request=request()->post();
+    if (empty($request)) {
+      return $this->fetch('jxClass_tt');
+    }
+  }
+
+  public function seminar(){
+    $request=request()->post();
+    if (empty($request)) {
+      return $this->fetch('seminar');
     }
   }
 
