@@ -8,10 +8,10 @@ use think\Session;
 use \think\Db;
 
 class User extends Controller
-{	
-	public function __construct(){
-		parent::__construct();
-	}
+{ 
+  public function __construct(){
+    parent::__construct();
+  }
   //用户列表
   function userList(){
     $request = request()->post();
@@ -19,7 +19,7 @@ class User extends Controller
     if(empty($request['list'])){
        return $this->fetch('userlist');
     }
-    
+
     $request['page']=empty($request['page'])?'1':$request['page'];
 
     $this->pmodel =  new \app\admin\model\PublicModel();
@@ -86,7 +86,7 @@ class User extends Controller
               ->insert($data);
         }
 
-        echo '1';exit();  
+        echo '1';exit();
       }
 
       return $this->fetch('updateUser');
@@ -129,7 +129,7 @@ class User extends Controller
       if (!empty($request)) {
         $time=date('Y-m-d H:i:s');
         $data=['PASSWORD'=>$request['PASSWORD']];
-        
+
         if (!empty($request['id'])) {
           $isok=DB::table('SHOP_USER')
               ->where('ID',$request['id'])
