@@ -17,7 +17,7 @@ use traits\controller\Jump;
 use \think\Session;
 Loader::import('controller/Jump', TRAIT_PATH, EXT);
 
-class mobile_Controller
+class ControllerAPI
 {
     use Jump;
 
@@ -141,14 +141,14 @@ class mobile_Controller
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
-         if (!empty($data)){
-             curl_setopt($curl, CURLOPT_POST, 1);
-             curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-         }
-         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-          $output = curl_exec($curl);
-          curl_close($curl);
-          return $output;
+        if (!empty($data)){
+            curl_setopt($curl, CURLOPT_POST, 1);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+        }
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $output = curl_exec($curl);
+        curl_close($curl);
+        return $output;
     }
     /**
      * 模板变量赋值

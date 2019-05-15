@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+<meta content="telephone=no" name="format-detection" />
+<meta content="email=no" name="format-detection" />
+<title>金石教育推广</title>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/reset.css?v=1.0">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/style.css?v=1.0">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/index/css/layer.css?v=1.0">
+<script type="text/javascript" src="__PUBLIC__/index/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/index/js/vue.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/index/js/vue-resource.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/index/js/layer.js"></script>
+<script> 
+var _hmt = _hmt || []; (function() { var hm = document.createElement("script"); hm.src = "https://hm.baidu.com/hm.js?3bb961991adf979b762d8cfe947e893a"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s); })(); 
+</script>
+<script type="text/javascript">
+	var html=document.documentElement;
+	var hwidth=html.getBoundingClientRect().width;	/*获取屏幕的宽度*/
+	//console.log(hwidth);
+	html.style.fontSize=hwidth/30+"px";  /*根据屏幕大小的不同设置根节点的字体大小*/
+	var baseurl="<?php echo BASE_URL;?>";
+</script>
+
+<style type="text/css">
+	html,body{height: 100%;background: #FFF;max-width: 640px;margin:auto;}
+	.layui-layer-btn .layui-layer-btn0{font-size: 1.3rem;}
+</style>
+</head>
+
+<body>
+<div id="form">
+<div class="banner"><img src="__PUBLIC__/index/images/cj_01.jpg" width="100%"></div>
+<div class="from" id="form">
+	<div class="main">
+		<form>
+			<div><span>姓名 | </span><input type="text" name="" v-model="name"></div>
+			<div><span>电话 | </span><input type="number" name="" v-model="phone" oninput="if(value.length>11)value=value.slice(0,11)"></div>
+			<div><span>地址 | </span><input type="text" name="" v-model="addr"></div>
+			<div><span>年级 | </span><input type="text" name="" v-model="grade"></div>
+			<a href="javascript:void(0)" @click="get()" class="purple">立即预约限量体验课</a>
+		</form>
+		<h1 style="color:#5d3bbf;font-size: 1.6rem;">不在开学的春天努力<br>就在期末的夏天哭泣</h1>
+		<h2 style="font-size: 1.4rem;text-align: left;">一日之计在于晨，一年之计在于春，一生之计在于勤。</h2>
+		<h2 style="font-size: 1.4rem;text-align: left;">踩在寒假的尾巴上，回头遥望自己新年立下的Flag，摸着自己的良心说，完成了吗？</h2>
+		<h2 style="color:#5d3bbf;font-size: 1.4rem;">跳上开往春天的列车<br>抓住春季班最后的报课</h2>
+	</div>
+</div>
+<div class="exper">
+	<img src="__PUBLIC__/index/images/cj_03.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/cj_04.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/cj_05.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/cj_06.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/cj_07.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/cj_08.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/cj_09.jpg" width="100%">
+	<img src="__PUBLIC__/index/images/cj_10.jpg" width="100%">
+	<div class="main">
+		<a href="#" class="same purple" name="#form">立即抢报限量体验课</a>
+	</div>
+</div>
+<div class="teacher">
+	<div class="main">
+		<img src="__PUBLIC__/index/images/xiao_09.jpg" width="100%">
+		<img src="__PUBLIC__/index/images/xiao_12.jpg" width="100%">
+		<img src="__PUBLIC__/index/images/xiao_14.jpg" width="100%">
+		<img src="__PUBLIC__/index/images/xiao_16.jpg" width="100%">
+	</div>
+</div>
+<div class="main"><a href="#" class="same sameTwo purple" name="#form">立即预约限量体验课</a></div>
+<div class="bottom">
+	<div class="main">
+		<p>Powered by EduSoho v8.3.6 ©2014-2019</p>
+		<h2>课程内容版权均归 青岛金石教育科技股份有限公司 所有</h2>
+		<h4>鲁ICP备12014631号-2</h4>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+	var utm_source="<?php echo @$_GET['utm_source'];?>";
+	var utm_medium="<?php echo @$_GET['utm_medium'];?>";
+	var utm_term="<?php echo @$_GET['utm_term'];?>";
+	var utm_content="<?php echo @$_GET['utm_content'];?>";
+	var utm_campaign="<?php echo @$_GET['utm_campaign'];?>";
+	var vue=new Vue({
+		el:'#form',
+		data:{
+			name:'',
+			phone:'',
+			addr:'',
+			grade:''
+		},
+		methods:{
+			get:function(){
+				var pattern=/^([\u4e00-\u9fa5]{2,4}|[a-zA-Z]{2,16})$/g;
+				if(!this.name){
+					layer.msg('姓名不能为空',{time:1500});
+					return;
+				}
+				if(!pattern.test(this.name)){
+					layer.alert('姓名只能是2-4个汉字或26个英文字母');
+					return;
+				}
+				if(!this.phone){
+					layer.msg('电话不能为空',{time:1500});
+					return;
+				}
+				if(!(/^1(3|4|5|7|8)\d{9}$/.test(this.phone))){ 
+			        layer.msg("手机号码有误，请重填",{time:1500});  
+			        return false; 
+			    } 
+				if(!this.addr){
+					layer.msg('地址不能为空',{time:1500});
+					return;
+				}
+				if(!this.grade){
+					layer.msg('年级不能为空',{time:1500});
+					return;
+				}
+				this.$http.post(baseurl+'?s=index/index/activity',{
+					'name':this.name,
+					'phone':this.phone,
+					'school':this.addr,
+					'subject':this.grade,
+					'utm_source':utm_source,
+					'utm_medium':utm_medium,
+					'utm_term':utm_term,
+					'utm_content':utm_content,
+					'utm_campaign':utm_campaign}).then(res=>{
+						var num=eval('('+res.bodyText+')');
+						if(num==1){
+							layer.alert('恭喜您预约成功，我们会在第一时间联系您');
+						}else if(num==2){
+							layer.alert('已预约');
+						}
+				},res=>{
+					console.log('请求失败,请检查Network!');
+				})
+			}
+		}
+	})
+</script>
+
+</body>
+</html>

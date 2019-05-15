@@ -236,9 +236,6 @@ class App
      */
     private static function init($module = '')
     {
-	    	if (!empty($module) && preg_match('/^A-Za-z*$/', $module)) {
-			throw new HttpException(404, 'controller not exists:' . $module);
-		}	
         // 定位模块目录
         $module = $module ? $module . DS : '';
 

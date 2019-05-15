@@ -3,29 +3,29 @@
 <body>
 <div id="lessonList">
 <div class="tab">
-	<div class="main2">
-		<ul>
-			<li v-for="v in type" @click="typeLe(v.ID)">
+  <div class="main2">
+    <ul>
+      <li v-for="v in type" @click="typeLe(v.ID)">
           <a href="javascript:;" onclick="clickheader(this)">{{v.NAME}}
-            <span ><i class="icon iconfont">&#xe65b;</i></span>
+            <span><i class="icon iconfont">&#xe65b;</i></span>
           </a>
       </li>
-		</ul>
-	</div>
+    </ul>
+  </div>
 </div>
 <div class="lessonLi">
   <div class="main4">
-	<ul>
-		<li v-for="v in listBox"><a href="javascript:void(0)" @click="goupdate(v.ID)">
-			<h3>{{v.NAME}}({{v.SEASONTYPE}})</h3>
-			<p>{{v.CLASSINFOR}}</p>
+  <ul>
+    <li v-for="v in listBox"><a href="javascript:void(0)" @click="goupdate(v.ID)">
+      <h3>{{v.NAME}}({{v.SEASONTYPE}})</h3>
+      <p>{{v.CLASSINFOR}}</p>
       <p class="time">{{v.STARTTIME}} 至 {{v.ENDTIME}}</p>
       <div class="bot clearfix">
         <div><img :src="v.PIC"><span>{{v.TEACHERNAME}}</span></div>
         <h1><span>￥</span>{{v.PRICE}}</h1>
       </div>  
-		</a></li>
-	</ul>
+    </a></li>
+  </ul>
   </div>
 </div>
 
@@ -35,10 +35,11 @@
       <div class="wrapper clearfix">
         <nav id="main-nav">
           <ul class="second-nav">
+            <li onclick="reset()"><a href="#" class="vname">Reset</a></li>
             <li v-for="(v,index) in products">
               <a href="#" class="vname">{{v.NAME}}</a>
               <ul>
-              	<li v-for="t in products[index].SUBJECTID" onclick="grade(this)">
+                <li v-for="t in products[index].SUBJECTID" onclick="grade(this)">
                   <a href="#">{{t.NAME}}</a>
                   <input type="hidden" name="" :value="v.ID" class="vid">
                   <input type="hidden" name="" :value="t.ID" class="tid">
@@ -94,7 +95,9 @@ function grade(list){
   vue.grade();
 }
 
-
+function reset(){
+  vue.reset();
+}
 
  
 var vue=new Vue({
@@ -110,6 +113,12 @@ var vue=new Vue({
   methods:{
     goupdate:function(id){
       window.location.href=baseurl+'?s=index/Lesson/lesson_show&id='+id;
+    },
+    reset:function(){
+      this.page=0;
+      this.status=1;
+      typeId='';
+      this.$options.methods.nearbyData();
     },
     grade:function(){
       this.$http.post(baseurl+'?s=index/Lesson/get_class',{'class':gradeId,'subject':subjectId,'school':school,'classtypeguid':typeId}).then(res=>{
@@ -129,7 +138,7 @@ var vue=new Vue({
     },
     nearbyData:function(){
       layer.msg('加载中...',{time:1500},function(){
-        if(this.status==2){
+        if(vue.status==2){
           layer.msg('没有更多数据了',{time:1500});
           return;
         }
@@ -183,7 +192,7 @@ var vue=new Vue({
             e.preventDefault();
             var $this = $(this).addClass('active');
             var $siblings = $this.parent().siblings().children('a').removeClass('active');
-            initNav(eval('(' + $this.data('demo') + ')'));
+           initNav(eval('(' + $this.data('demo') + ')'));
           });
           
           /*$('.second-nav .nav-close').click(function(){

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
 // +----------------------------------------------------------------------
@@ -13,7 +13,7 @@ define('THINK_VERSION', '5.0.20');
 define('THINK_START_TIME', microtime(true));
 define('THINK_START_MEM', memory_get_usage());
 define('EXT', '.php');
-define('BASE_URL','HTTP://'.$_SERVER['HTTP_HOST'].'');
+define('BASE_URL','HTTP://'.$_SERVER['HTTP_HOST'].'/tp/');
 define('DS', DIRECTORY_SEPARATOR);
 defined('THINK_PATH') or define('THINK_PATH', __DIR__ . DS);
 define('LIB_PATH', THINK_PATH . 'library' . DS);

@@ -70,9 +70,12 @@ class mobile_Controller
         if(!isset($_SESSION)){ session_start(); }
         //获取购物车数量
         if(empty($_SESSION['cartnum']) || $_SESSION['cartnum']<='0'){
-            $where['USERID']=SESSION::GET('cartnum');
-            $cartnum=Db::table('SHOP_CART')->where($where)->count();
-            SESSION::SET('cartnum',$cartnum);
+            if (!empty(SESSION::GET('cartnum'))) {
+                $where['USERID']=SESSION::GET('cartnum');
+                $cartnum=Db::table('SHOP_CART')->where($where)->count();
+                SESSION::SET('cartnum',$cartnum);
+            }
+            
         }
         $_SESSION['userid']='1';
     }
