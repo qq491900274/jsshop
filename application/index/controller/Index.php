@@ -185,10 +185,6 @@ class Index extends mobile_controller
     }
   }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 8af3e6633ead315b2ef1fe363d217814f41e84f4
 }
 
 
