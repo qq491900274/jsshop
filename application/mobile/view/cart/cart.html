@@ -44,10 +44,32 @@
 		<a href="#">立即购买</a>
 	</div>
 </div>
+<div class="fixedNav">
+	<div class="main">
+		<ul>
+			<li><a href="">
+				<i class="icon iconfont">&#xe65e;</i>
+				<p>首页</p>
+			</a></li>
+			<li><a href="">
+				<i class="icon iconfont">&#xe626;</i>
+				<p>课程</p>
+			</a></li>
+			<li><a href="" class="active">
+				<i class="icon iconfont">&#xe617;</i>
+				<p>购物车</p>
+			</a></li>
+			<li><a href="">
+				<i class="icon iconfont">&#xe638;</i>
+				<p>我的</p>
+			</a></li>
+		</ul>
+	</div>
+</div>
 
 
 <script>
-var vue=new Vue({
+new Vue({
   el: '#cart',
   data: {
     carts:[
@@ -55,30 +77,20 @@ var vue=new Vue({
 	    	'title':'[寒假课程报名] 金石教育七年级语文基金班',
 		    'xiaoqu':'海尔路校区',
 		    'price':'15.6',
-		    'url':'__PUBLIC__/index/images/gw_03.jpg',
+		    'url':'images/gw_03.jpg',
 		    'name':'许向前'
 		},
 	    {
 	    	'title':'[寒假课程报名] 金石教育七年级语文基金班',
 	    	'xiaoqu':'海尔路校区',
 	    	'price':'10.6',
-	    	'url':'__PUBLIC__/index/images/gw_03.jpg',
+	    	'url':'images/gw_03.jpg',
 	    	'name':'许向前'
 	    }
     ]
-  },
-  methods:{
-  	get:function(){
-  		this.$http.post(baseurl+'?s=index/cart/index',).then(res=>{
-  			var val=eval('('+res.bodyText+')');
-  			console.log(val);
-  		},res=>{
-  			console.log('请求失败，请检查Network!');
-  		})
-  	}
   }
 })
 </script>
-{include file="common/footer"}
+<script type="text/javascript" src="js/common2.js"></script>
 </body>
 </html>

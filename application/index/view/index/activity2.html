@@ -53,7 +53,11 @@
 			<!--  method="<?php echo BASE_URL;?>?s=index/index/activity" -->
 			<!-- <div>姓名<span>*</span><br><input type="text" name="" class="name" placeholder="请输入"></div> -->
 			<input type="number" name="" class="phone" oninput="if(value.length>11)value=value.slice(0,11)" placeholder="输入手机号，获取考后诊断分析" v-model="phone">
+<<<<<<< HEAD
 			<!-- <select @change="getcity()" v-model="cityid" dir="trl">
+=======
+			<select @change="getcity()" v-model="cityid" dir="trl">
+>>>>>>> 8af3e6633ead315b2ef1fe363d217814f41e84f4
 				<option v-for="(key,index) in city" :value="index">{{key}}</option>
 			</select>
 			<select v-model="areaid"  @change="getschool()">
@@ -62,7 +66,11 @@
 			<select v-model="schoolid">
 				<option value="">请选择校区</option>
 				<option v-for="(key,index) in school">{{key.SCHOOL_NAME}}</option>
+<<<<<<< HEAD
 			</select> -->
+=======
+			</select>
+>>>>>>> 8af3e6633ead315b2ef1fe363d217814f41e84f4
 			<a href="javascript:void(0)" @click="get()">点我提交 &nbsp;立享优惠</a>
 			<p>*预约后会有咨询师和您沟通课程详情</p>
 		
@@ -169,6 +177,12 @@ var vue=new Vue({
 			        layer.alert("手机号码有误，请重填");  
 			        return; 
 			    }
+<<<<<<< HEAD
+=======
+			    if(!this.schoolid){
+			    	this.schoolid='用户未填写';
+			    }
+>>>>>>> 8af3e6633ead315b2ef1fe363d217814f41e84f4
 			this.$http.post(baseurl+'?s=index/index/activity',{'name':'抖音','phone':this.phone,'school':this.schoolid,subject:'全科','utm_source':utm_source,'utm_medium':utm_medium,'utm_term':utm_term,'utm_content':utm_content,'utm_campaign':utm_campaign}).then(res=>{
 				var num=eval('('+res.bodyText+')');
 				if(num==1){
@@ -183,7 +197,11 @@ var vue=new Vue({
 			})
 		},
 	},
+<<<<<<< HEAD
 	/*created:function(){
+=======
+	created:function(){
+>>>>>>> 8af3e6633ead315b2ef1fe363d217814f41e84f4
 		// 百度地图API功能
 		var map = new BMap.Map("allmap");
 		var point = new BMap.Point(116.331398,39.897445);
@@ -243,11 +261,91 @@ var vue=new Vue({
 		    }       
 
 		},{enableHighAccuracy: true});
+<<<<<<< HEAD
 	}*/
+=======
+	}
+>>>>>>> 8af3e6633ead315b2ef1fe363d217814f41e84f4
 })
 
 
 
+<<<<<<< HEAD
+=======
+/*function get(){
+	//var name=$('input.name').val();
+	var phone=$('input.phone').val();
+	var pattern=/^([\u4e00-\u9fa5]{2,4}|[a-zA-Z]{2,16})$/g;
+				
+				if(!phone){
+					layer.msg('电话不能为空',{time:1500});
+					return;
+				}
+				if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){ 
+			        layer.alert("手机号码有误，请重填");  
+			        return; 
+			    }
+	$.ajax({
+		type:'POST',
+		url:baseurl+'?s=index/index/activity',
+		data:{name:'抖音',phone:phone,school:'金石教育',subject:'全科','utm_source':utm_source,'utm_medium':utm_medium,'utm_term':utm_term,'utm_content':utm_content,'utm_campaign':utm_campaign},
+		dataType:'json',
+		success:function(list){
+			
+			if(list==1){
+				//安装转化代码
+				meteor.track("form", {convert_id: "1631050933896195"});
+				layer.alert('恭喜您报名成功，我们会在第一时间联系您');
+				
+			}else if(list==2){
+				layer.alert('已报名');
+			}
+
+		},
+		error:function(){
+			console.log('请求失败！');
+			console.log(arguments);
+		}
+	});
+}
+
+
+function getTwo(){
+	//var name=$('input.name1').val();
+	var phone=$('input.phone1').val();
+	var pattern=/^([\u4e00-\u9fa5]{2,4}|[a-zA-Z]{2,16})$/g;
+				
+				if(!phone){
+					layer.msg('电话不能为空',{time:1500});
+					return;
+				}
+				if(!(/^1(3|4|5|7|8)\d{9}$/.test(phone))){ 
+			        layer.alert("手机号码有误，请重填");  
+			        return; 
+			    }
+	$.ajax({
+		type:'POST',
+		url:baseurl+'?s=index/index/activity',
+		data:{name:'抖音',phone:phone,school:'金石教育',subject:'全科','utm_source':utm_source,'utm_medium':utm_medium,'utm_term':utm_term,'utm_content':utm_content,'utm_campaign':utm_campaign},
+		dataType:'json',
+		success:function(list){
+			
+			if(list==1){
+				//安装转化代码
+				meteor.track("form", {convert_id: "1631050933896195"});
+				layer.alert('恭喜您报名成功，我们会在第一时间联系您');
+			}else if(list==2){
+				layer.alert('已报名');
+			}
+
+		},
+		error:function(){
+			console.log('查询失败！');
+			console.log(arguments);
+		}
+	});
+}*/
+>>>>>>> 8af3e6633ead315b2ef1fe363d217814f41e84f4
 
 
 </script>

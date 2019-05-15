@@ -29,7 +29,7 @@
 
 <div class="test">
 	<h3 class="title">性格测试</h3>
-	<div class="swiper-container">
+	<div class="swiper-container"> 
     <div class="swiper-wrapper">
            
             <?php foreach($bannerlis['imgLis'] as $v):?>
@@ -203,6 +203,7 @@ var vue= new Vue({
 	methods:{
 		getcity:function(id,e){
 			this.area=getaddress(this.provinceid,id).val;
+			//console.log(this.area);
 			$('.on').attr('class','');
 			$(e.srcElement).attr('class','on');
 		},
@@ -227,8 +228,13 @@ var vue= new Vue({
 			$('.on2').attr('class','');
 			$(e.srcElement).attr('class','on2');
 			if($(e.srcElement).hasClass("on2")){
+<<<<<<< HEAD
 				$('.shade').css({'display':'block','background':'rgba(0,0,0,0)'});
 				$('.posAll').animate({left:'-80%'},400);
+=======
+				$('.posAll').animate({left:'-80%'},400);
+				$('.shade').css({'display':'block','background':'rgba(0,0,0,0)'});
+>>>>>>> 8af3e6633ead315b2ef1fe363d217814f41e84f4
 			}
 			setcookie('city',this.cityid);
 			setcookie('area',this.areaid);
@@ -333,6 +339,7 @@ var vue= new Vue({
 				      vue.provincename=res.result.addressComponent.province;
 				      vue.city=a.city;
 				      vue.area=a.area;
+				      //console.log(vue.provincename);
 				      
 				      //查看cookie是否有记录值
 					  vue.cityid=getcookie('city');
@@ -404,17 +411,17 @@ $(function(){
 		$('.posAll').animate({left:'-80%'},400);
 		$(this).css({'display':'none'});
 	});
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 8af3e6633ead315b2ef1fe363d217814f41e84f4
 	$('.test .swiper-slide').click(function(){
 		$('.test_lay').show();
 	});
 	$('.test_lay').click(function(){
 		$(this).hide();
-	})
-
-	/*var num=$('.ticket ul li h2').html();
-			console.log(1);
-			console.log(num);
-			num=parseInt(num);*/
+	});
+	
 });
 
 
