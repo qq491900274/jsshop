@@ -22,7 +22,7 @@
 <script src="__PUBLIC__/index/js/swiper.jquery.min.js"></script>
 <script type="text/javascript">
 	var a=document.body.innerHTML; 
-	document.body.innerHTML=a.replace(/\ufeff/g,'');  
+    document.body.innerHTML=a.replace(/\ufeff/g,'');  
     var baseurl="<?php echo BASE_URL;?>";
     var userid="<?php echo @$_SESSION['userid'];?>";
     if(!userid){
