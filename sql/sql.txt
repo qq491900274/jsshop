@@ -1,4 +1,4 @@
-﻿
+
 /*********************2018-10-23 校区老师表*********************/
 CREATE TABLE `SHOP_TEACHER`(
    `ID` INT NOT NULL PRIMARY KEY , 
@@ -212,6 +212,7 @@ CREATE TABLE `SHOP_COURSE` (
   `CURRICULUMID` varchar(50) NOT NULL COMMENT '课程id',
   `SORTNUM` int(10) NOT NULL DEFAULT '0' COMMENT '排序号'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 //主页配置的信息（暂时不用）
 CREATE TABLE `SHOP_PCINFO` (
   `ID` varchar(50) NOT NULL,
