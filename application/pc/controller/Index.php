@@ -7,7 +7,7 @@ use think\Session;
 
 
 
-class Index extends Controller
+class Index extends  PC_Controller
 {	
 	public function __construct(){
 		parent::__construct();
@@ -19,15 +19,7 @@ class Index extends Controller
 	}
 		
     public function index(){
-      //$this->assign('name','ThinkPHP');
-      $home=new Home();
-      $home->hell();
-       return $this->fetch('index'); 
+      $this->fetch('index');
     }
-    public function test()
-    {
-      $this->HelloWordModel =  new \app\index\model\HelloWord();
-      $result = $this->HelloWordModel->hello('helloword');
-      var_dump($result);
-    }
+    
 }
