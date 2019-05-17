@@ -1,0 +1,223 @@
+{include file="public/header"}
+
+<div class="content index_config" id="indexConfig">
+	<div class="main">
+		<div class="indexLi">
+			<h3>banner幻灯片</h3>
+			<div class='indexBox'>
+				<ul v-for="(v,index) in bannerLis">
+					<li>
+						<span>轮播图片：</span>
+						<input type="text" name="" class="inputOne em" v-model="v.imgUrl" @change='go_url(v.ID,v.imgHref,v.num,v.imgUrl)'>
+						<input type="hidden" name="" class='id' value="111" v-model="v.ID" @change='go_url(v.ID,v.imgHref,v.num,v.imgUrl)'>
+						<div><p class="on" onclick="file(this,'bannerLis')">上传</p></div>
+					</li>
+					<li>
+						<span>轮播链接：</span>
+						<input type="text" name="" class="inputOne" v-model="v.imgHref" @change='go_url(v.ID,v.imgHref,v.num,v.imgUrl)'>
+					</li>
+					<li>
+						<span>轮播排序：</span>
+						<input type="text" name="" class="inputOne" v-model="v.num" @change='go_url(v.ID,v.imgHref,v.num,v.imgUrl)'>
+						<div><p class="on remove" @click="remove(v.ID,index,'bannerLis');">删除</p></div>
+					</li>
+				</ul>
+			</div>
+			<a href="javascript:void(0)" class="add on" @click="addList()">添加轮播图</a>
+		</div>
+		<div class="indexLi">
+			<h3><input type="text" name="" value="学习性格测试"></h3>
+			<div class='indexBox'>
+				<ul v-for="(v,index) in imgLis">
+					<li>
+						<span>轮播图片：</span>
+						<input type="text" name="" class="inputOne em" v-model="v.imgUrl" @change='go_url(v.ID,v.imgHref,v.num,v.imgUrl)'>
+						<input type="hidden" name="" v-model="v.ID" @change='go_url(v.ID,v.imgHref,v.num,v.imgUrl)'>
+						<div><p class="on" onclick="file(this,'imgLis')">上传</p></div>
+					</li>
+					<li>
+						<span>轮播链接：</span>
+						<input type="text" name="" class="inputOne" v-model="v.imgHref" @change='go_url(v.ID,v.imgHref,v.num,v.imgUrl)'>
+					</li>
+					<li>
+						<span>轮播排序：</span>
+						<input type="text" name="" class="inputOne" v-model="v.num" @change='go_url(v.ID,v.imgHref,v.num,v.imgUrl)'>
+						<div><p class="on remove" @click="remove(v.ID,index,'imgLis');">删除</p></div>
+					</li>
+				</ul>
+			</div>
+			<a href="javascript:void(0)" class="add on" @click="addImgList()">添加轮播图</a>
+		</div>
+		<div class="indexLi">
+			<h3><input type="text" name="" value="热门活动"></h3>
+			<div class='indexBox'>
+				<ul v-for="(v,index) in hotLis">
+					<li>
+						<span>轮播图片：</span>
+						<input type="text" name="" class="inputOne em" v-model="v.imgUrl" @change='go_url(v.ID,v.imgHref,v.num,v.imgUrl)'>
+						<input type="hidden" name="" v-model="v.ID" @change='go_url(v.ID,v.imghref,v.num,v.imgUrl)'>
+						<div><p class="on" onclick="file(this,'hotLis')">上传</p></div>
+					</li>
+					<li>
+						<span>轮播链接：</span>
+						<input type="text" name="" class="inputOne" v-model="v.imgHref" @change='go_url(v.ID,v.imgHref,v.num,v.imgUrl)'>
+					</li>
+					<li>
+						<span>轮播排序：</span>
+						<input type="text" name="" class="inputOne" v-model="v.num" @change='go_url(v.ID,v.imgHref,v.num,v.imgUrl)'>
+						<div><p class="on remove" @click="remove(v.ID,index,'hotLis');">删除</p></div>
+					</li>
+				</ul>
+			</div>
+			<a href="javascript:void(0)" class="add on" @click="addHotList()">添加轮播图</a>
+		</div>
+		<div class="indexLi">
+			<h3>碎片管理</h3>
+			<ul>
+				<li>
+					<span>金石教育热线：</span>
+					<input type="text" name="" class="inputOne" v-model="hotPhone">
+				</li>
+				<li>
+					<span>小学拼客专线：</span>
+					<input type="text" name="" class="inputOne" v-model="majorPhone">
+				</li>
+			</ul>
+			<!-- <a href="javascript:void(0)" class="on" class="add">添加碎片</a>-->
+		</div>
+		<div class="seach" style="margin-top: 20px;margin-left: 2%;"><input type="submit" name="" value="确认" @click="get()"></div> 
+	</div>
+</div>
+
+
+{include file="public/footer"}
+<script type="text/javascript">
+	function getsrc(src){
+		var key=vue.picname;
+		var index=vue.picindex;
+		var id= $('.indexLi').index();
+		if (key=='bannerLis'){
+			vue.bannerLis[index].imgUrl=src;
+			vue.go_url(vue.bannerLis[index].ID,vue.bannerLis[index].imgHref,vue.bannerLis[index].num,vue.bannerLis[index].imgUrl);
+		}else if(key=='imgLis'){
+			vue.imgLis[index].imgUrl=src;
+			vue.go_url(vue.imgLis[index].ID,vue.imgLis[index].imgHref,vue.imgLis[index].num,vue.imgLis[index].imgUrl);
+		}else if(key=='hotLis'){
+			vue.hotLis[index].imgUrl=src;
+			vue.go_url(vue.hotLis[index].ID,vue.hotLis[index].imgHref,vue.hotLis[index].num,vue.hotLis[index].imgUrl);
+		}; 
+	}
+
+
+	/*******点击上传获取文件路径***********/
+	function file(this0,str){
+		vue.picindex=$(this0).parents('ul').index();
+		vue.picname=str;
+		var index=layer.open({
+		  type: 2,
+		  title: '上传图片',
+		  shadeClose: true,
+		  shade: 0.8,
+		  area: ['400px', '200px'],
+		  content: baseurl+'?s=admin/uploadpic/config_pic'//iframe的url
+		});
+	}
+
+	/*************添加轮播图*******************/
+	var vue=new Vue({
+    el:'#indexConfig',
+	    data:{
+	    	bannerLis:[
+	    		{imgUrl:'',imgHref:'',num:'',ID:''}
+	    	],
+	    	imgLis:[
+	    		{imgUrl:'',imgHref:'',num:'',ID:''}
+	    	],
+	    	hotLis:[
+	    		{imgUrl:'',imgHref:'',num:'',ID:''}
+	    	],
+	    	hotPhone:'',
+	    	majorPhone:'',
+	    	picindex:'',
+	    	picname:''
+	    },
+	    methods:{
+	        get:function(){
+	        	this.$http.post(baseurl+'?s=admin/Lesson/insert_index',{
+	        		'bannerLis':this.bannerLis,
+	        		'imgLis':this.imgLis,
+	        		'hotLis':this.hotLis,
+	        		'hotPhone':this.hotPhone,
+	        		'majorPhone':this.majorPhone
+	        	}).then(res=>{
+	        		var num=eval('('+res.bodyText+')');
+	        		if(num==1){
+	        			layer.msg('保存成功！',{time:1500});
+	        		}
+	        	},res=>{
+	        		console.log('请求失败，请检查Network！');
+	        	})
+	        },
+	        go_url:function(id,url,orderindex,picurl){
+	        	if(id){
+					this.$http.post(baseurl+'?s=admin/Lesson/update_index',{'id':id,'url':url,'picurl':picurl,'orderindex':orderindex}).then(res=>{
+						if(res==1){
+							layer.msg('修改成功',{time:1500});
+						}
+					},res=>{
+						console.log('请求失败，请检查Network！');
+					})
+				}
+			},
+	        remove:function(ids,arrid,type){
+	        	layer.alert('确定要删除吗？',function(index){
+	        		vue.$http.post(baseurl+'?s=admin/Lesson/dele_config',{id:ids}).then(res=>{
+	        			var num=eval('('+res.bodyText+')');
+	        			if(num==1){
+	        				//var index=arrid;
+	        				//console.log(index);
+	        				layer.msg('删除成功！',{time:1500});
+	        				if(type=='bannerLis'){
+	        					vue.bannerLis.splice(arrid,1);
+	        				}else if(type=='imgLis'){
+	        					vue.imgLis.splice(arrid,1);
+	        				}else if(type=='hotLis'){
+	        					vue.hotLis.splice(arrid,1);
+	        				}
+	        				layer.close(index);
+	        			}else{
+	        				location.reload();
+	        			}
+	        		},res=>{
+	        			console.log('请求失败，请检查Network！');
+	        		})
+	        	})
+	        },
+
+	        addList:function(){
+	        	this.bannerLis.push({imgUrl:'',imgHref:'',num:'',ID:''});
+	        },
+	        addImgList:function(){
+	        	this.imgLis.push({imgUrl:'',imgHref:'',num:'',ID:''});
+	        },
+	        addHotList:function(){ 
+	        	this.hotLis.push({imgUrl:'',imgHref:'',num:'',ID:''});
+	        }
+	    },
+	    created:function(){
+        	vue.$http.post(baseurl+'?s=admin/Lesson/index_config',{'list':'1'}).then(res=>{
+    			var val=eval('('+res.bodyText+')');
+    			this.bannerLis=val['bannerLis'];
+    			this.imgLis=val['imgLis'];
+    			this.hotLis=val['hotLis'];
+    			this.hotPhone=val['PHONE'];
+    			this.majorPhone=val['PHONE1'];
+    		},res=>{
+    			console.log('请求失败，请检查Network！');
+    		})
+        }
+	})
+</script>
+
+</body>
+</html>
