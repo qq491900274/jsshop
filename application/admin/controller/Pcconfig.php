@@ -17,6 +17,12 @@ class PcConfig extends Controller
     public function index(){
       return $this->fetch('index');
     }
-   
+    public function headerpage(){
+      return $this->fetch('headerpage');
+    }
+    public function indexclass(){
+      return $this->fetch('indexclass');
+    }
+  
 }
  
