@@ -46,8 +46,10 @@
             <li <?php if(request()->controller()=='Lesson' && request()->action()=='index_config') echo 'class="active"'?>>
                 <a href="javascript:void(0)">首页配置</a>
                 <ul id="second">
-                    <li><a href="<?php echo BASE_URL;?>/admin/PcConfig/index.html">PC首页配置</a></li>
-                    <li><a href="<?php echo BASE_URL;?>/admin/lesson/index_config.html">微商城首页配置</a></li>
+                    <li><a href="<?php echo BASE_URL;?>/admin/lesson/index_config.html">微商首页配置</a></li>
+                    <li><a href="<?php echo BASE_URL;?>/admin/Pc_Config/index.html">PC首页配置</a></li>
+                    <li><a href="<?php echo BASE_URL;?>/admin/Pc_Config/headerpage.html">PC导航配置</a></li>
+                    <li><a href="<?php echo BASE_URL;?>/admin/Pc_Config/headerpage.html">推荐课程</a></li>
                 </ul>
             </li>
             <li <?php if(request()->controller()=='Lesson' && request()->action() !='index_config') echo 'class="active"'?>>
