@@ -44,29 +44,34 @@
                 </ul>-->
             </li>
             <li <?php if(request()->controller()=='Lesson' && request()->action()=='index_config') echo 'class="active"'?>>
-                    <a href="<?php echo BASE_URL;?>?s=admin/lesson/index_config.html">首页配置</a></li>
-            <li <?php if(request()->controller()=='Lesson' && request()->action() !='index_config') echo 'class="active"'?>>
-                <a href="<?php echo BASE_URL;?>?s=admin/lesson/lesson_list.html">课程管理</a>
+                <a href="javascript:void(0)">首页配置</a>
                 <ul id="second">
-                    <li><a href="<?php echo BASE_URL;?>?s=admin/lesson/lesson_school.html">校区列表</a></li>
-                    <li><a href="<?php echo BASE_URL;?>?s=admin/lesson/lesson_teacher.html">教师列表</a></li>
-                    <li><a href="<?php echo BASE_URL;?>?s=admin/lesson/lesson_list.html">课程列表</a></li>
-                    <li><a href="<?php echo BASE_URL;?>?s=admin/lesson/subject.html">科目列表</a></li>
-                    <li><a href="<?php echo BASE_URL;?>?s=admin/lesson/school_class.html">年级列表</a></li>
-                    <li><a href="<?php echo BASE_URL;?>?s=admin/lesson/type.html">课堂类型</a></li>
+                    <li><a href="<?php echo BASE_URL;?>/admin/PcConfig/index.html">PC首页配置</a></li>
+                    <li><a href="<?php echo BASE_URL;?>/admin/lesson/index_config.html">微商城首页配置</a></li>
+                </ul>
+            </li>
+            <li <?php if(request()->controller()=='Lesson' && request()->action() !='index_config') echo 'class="active"'?>>
+                <a href="<?php echo BASE_URL;?>/admin/lesson/lesson_list.html">课程管理</a>
+                <ul id="second">
+                    <li><a href="<?php echo BASE_URL;?>/admin/lesson/lesson_school.html">校区列表</a></li>
+                    <li><a href="<?php echo BASE_URL;?>/admin/lesson/lesson_teacher.html">教师列表</a></li>
+                    <li><a href="<?php echo BASE_URL;?>/admin/lesson/lesson_list.html">课程列表</a></li>
+                    <li><a href="<?php echo BASE_URL;?>/admin/lesson/subject.html">科目列表</a></li>
+                    <li><a href="<?php echo BASE_URL;?>/admin/lesson/school_class.html">年级列表</a></li>
+                    <li><a href="<?php echo BASE_URL;?>/admin/lesson/type.html">课堂类型</a></li>
                 </ul>
             </li>
             <li><a href="javascript:void(0)">优惠券</a>
                 <ul id="second">
-                    <li><a href="<?php echo BASE_URL;?>?s=admin/Coupon/update_coupon.html">添加优惠券</a></li>
-                    <li><a href="<?php echo BASE_URL;?>?s=admin/Coupon/index.html">优惠券列表</a></li>
+                    <li><a href="<?php echo BASE_URL;?>/admin/Coupon/update_coupon.html">添加优惠券</a></li>
+                    <li><a href="<?php echo BASE_URL;?>/admin/Coupon/index.html">优惠券列表</a></li>
                 </ul>
             </li>
             
             <li <?php if(request()->controller()=='User') echo 'class="active"'?>>
                 <a href="<?php echo BASE_URL;?>?s=admin/User/userList.html">用户管理</a>
                 <ul id="second">
-                    <li><a href="<?php echo BASE_URL;?>?s=admin/User/userList.html">用户列表</a></li>
+                    <li><a href="<?php echo BASE_URL;?>/admin/User/userList.html">用户列表</a></li>
                 </ul>
             </li>
            <!-- <li><a href="#">测试题管理</a>
@@ -79,8 +84,8 @@
                 <a href="<?php echo BASE_URL;?>?s=admin/Index/activity.html">活动管理
                 </a>
                 <ul id="second">
-                    <li><a href="<?php echo BASE_URL;?>?s=admin/Index/activity.html">活动列表</a></li>
-                    <li><a href="<?php echo BASE_URL;?>?s=admin/Index/complain.html">意见反馈</a></li>
+                    <li><a href="<?php echo BASE_URL;?>/admin/Index/activity.html">活动列表</a></li>
+                    <li><a href="<?php echo BASE_URL;?>/admin/Index/complain.html">意见反馈</a></li>
                 </ul>
             </li>
            <!-- <li><a href="#">权限管理</a>
@@ -109,7 +114,7 @@
             get:function(){
                 this.$http.post(baseurl+'?s=admin/Login/exituser').then(res=>{
                     layer.msg('退出成功！',{time:1500},function(){
-                        location.href=baseurl+'?s=admin/login/index';
+                        location.href=baseurl+'/admin/login/index';
                     })
                 },res=>{
                     console.log('请求失败处理,请检查Network!');
