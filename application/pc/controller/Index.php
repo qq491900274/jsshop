@@ -18,6 +18,5 @@ class Index extends  pc_controller
     	
       return $this->fetch('index'); 
     }
-    
   
 }
