@@ -23,6 +23,5 @@ class PcConfig extends Controller
     public function indexclass(){
       return $this->fetch('indexclass');
     }
-  
 }
  
