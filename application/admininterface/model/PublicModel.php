@@ -12,11 +12,8 @@ class PublicModel extends Model
     
     public function select($table,$key,$where=[],$sort="",$page=1,$pagesize=10){
     	$start = ($page-1)*$pagesize;
-<<<<<<< HEAD
-      return db($table)->field($key)->where($where)->order($sort)->limit($start,$pagesize)->select();
-=======
 	return db($table)->field($key)->where($where)->order($sort)->limit($start,$pagesize)->select();
->>>>>>> 88a0879fce59266b9d260d7b15afbfe44e80ed8b
+
     }
     public function getone($table,$key,$where=[]){
     	return db($table)->field($key)->where($where)->find();
