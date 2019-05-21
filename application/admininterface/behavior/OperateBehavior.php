@@ -4,7 +4,7 @@ use think\Session;
 use think\Request;
 use think\Controller;
 
-class OperateBehavior extends Controller
+class OperateBehavior
 {
     /**
      * 权限验证
@@ -28,7 +28,7 @@ class OperateBehavior extends Controller
 	 $admin = Session::get('admin');
 	 $actionsarr = explode("|||",$actions);
         if(!in_array($url, $actionsarr)&&$actions != 1&&$admin !='admin'){
-            returnAjax('您无权限访问此接口',2003);
+            returnAjax('您无权限访问此接口',2002);
         }
     }
 
