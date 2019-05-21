@@ -148,16 +148,16 @@
           choose:function(){
             this.$http.post(baseurl+'?s=admin/Lesson/get_schoolval',{
                 'city':this.city,
-                'area':this.area}).then(res=>{
+                'area':this.area}).then(function(res){
                     //console.log(res);
                     this.school_name=eval('('+res.bodyText+')');
-                },res=>{
+                },function(res){
                     console.log('请求失败处理,请检查Network!');
                 })
           },
           remove:function(ids,arrid){
             layer.alert('确定要删除吗？',function(){
-                vue.$http.post(baseurl+'?s=admin/Lesson/dele_teacher',{id:ids}).then(res=>{
+                vue.$http.post(baseurl+'?s=admin/Lesson/dele_teacher',{id:ids}).then(function(res){
                     var num=eval('('+res.bodyText+')');
                     if(num==1){                
                         // console.log(vue.products);
@@ -168,7 +168,7 @@
                     }else{
                         location.reload();
                     }
-                },res=>{
+                },function(res){
                     console.log('请求失败处理，请检查Network!');
                 })
             })
@@ -177,10 +177,10 @@
         created:function(){
             page.url='admin/Lesson/get_teacherval';
             page.onload();
-            this.$http.post(baseurl+'?s=admin/Lesson/get_subjectval').then(res=>{
+            this.$http.post(baseurl+'?s=admin/Lesson/get_subjectval').then(function(res){
                 //console.log(res);
                 this.subjectList=eval('('+res.bodyText+')');
-            },res=>{
+            },function(res){
                 console.log('请求失败处理,请检查Network!');
             })
         }
