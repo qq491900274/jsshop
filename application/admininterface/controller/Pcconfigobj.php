@@ -64,7 +64,7 @@ class PcConfigObj implements PcConfigHandler
 		//总数
 		$countval=$this->ThisModel->count('PCHEADER');
 		$data['pcheaderval'] = $val;
-		$data['totalpage']=cell($countval/$page);//总条数
+		$data['totalpage']=ceil($countval/$page);//总条数
 		returnAjax($data,1);
 	}
 
