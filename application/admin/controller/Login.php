@@ -23,8 +23,8 @@ class Login extends Controller
        
         $this->LoginModel =  new \app\admin\model\LoginModel();
         $val=$this->LoginModel->select('SHOP_USER','USER,GNAME',"USER='{$request['user']}' AND PASSWORD='{$request['pwd']}'");
-        $actions = $this->LoginModel->select('SHOP_AUTH','AUTH',"NAME='{$val[0]['GNAME']}'");
         if($val){
+        	$actions = $this->LoginModel->select('SHOP_AUTH','AUTH',"NAME='{$val[0]['GNAME']}'");
         	if($val[0]['GNAME'] == 1){
 	        	Session::set('admin',1);
 	          	Session::set('actions',1);
