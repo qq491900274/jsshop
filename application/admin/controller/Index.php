@@ -13,19 +13,6 @@ class Index extends Controller
 		parent::__construct();
 
 	}
-		
-    public function index(){
-      //$this->assign('name','ThinkPHP');
-      $home=new Home();
-      $home->hell();
-       return $this->fetch('index'); 
-    }
-    public function test()
-    {
-      $this->HelloWordModel =  new \app\index\model\HelloWord();
-      $result = $this->HelloWordModel->hello('helloword');
-      var_dump($result);
-    }
 
     public function activity(){
       
