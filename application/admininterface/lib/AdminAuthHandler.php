@@ -10,6 +10,9 @@ interface AdminAuthHandler
 	//后台功能增加
 	public function aac_add();
 	
+	//功能所在的组
+	public function acc_groups();
+	
 	//后台功能删除
 	public function aac_del();
 	
@@ -20,7 +23,7 @@ interface AdminAuthHandler
 	public function aac_get();
 	/**
 	* map 
-	* manage admin people--推荐课程
+	* manage admin people--管理员配置
 	* add it by Daniel at 2019/5/18 
 	**/
 	//增加管理员
@@ -32,6 +35,11 @@ interface AdminAuthHandler
 	//修改管理员
 	public function map_update();
 	
+	//管理员列表
+	public function map_list();
+	
+	//管理员详情
+	public function map_detail();
 	/**
 	* dac 
 	* distribution auth group--权限分组
@@ -43,7 +51,19 @@ interface AdminAuthHandler
 	//删除分组
 	public function dac_del();
 	
-	//修改分组
-	public function dac_update();
+	//修改分组名称
+	public function dac_updatename();
+	
+	//修改分组功能
+	public function dac_updateaction();
+	
+	//分组列表
+	public  function dac_get();
+	
+	//查看分组功能权限
+	public function dac_action();
+	
+	//查看分组管理员
+	public function dac_admin();
 }
  

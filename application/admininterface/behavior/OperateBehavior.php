@@ -1,5 +1,5 @@
 <?php
-namespace app\behavior;
+namespace app\admininterface\behavior;
 use think\Session;
 use think\Request;
 use think\Controller;
@@ -17,17 +17,18 @@ class OperateBehavior extends Controller
         $url  = $this->getActionUrl($Request);
 
         if(empty(Session::get())){
-            $this->error('请先登录','/admin/login/index');
+        	returnAjax('请先登录',2001);
         }
 	 
         // 用户所拥有的权限路由
-        $auth = Session::get('authurl')?Session::get('authurl'):[];
-        if(!$auth){
-            $this->error('您还不是管理员');
+        $actions = Session::get('actions')?Session::get('actions'):[];
+        if(!$actions||$actions == 2){
+            returnAjax('您目前没有权限，请联系超级管理员',2002);
         }
 	 $admin = Session::get('admin');
-        if(!in_array($url, $auth)&&$admin != 1){
-            $this->error('您无权限访问此接口');
+	 $actionsarr = explode("|||",$actions);
+        if(!in_array($url, $actionsarr)&&$actions != 1&&$admin !='admin'){
+            returnAjax('您无权限访问此接口',2003);
         }
     }
 

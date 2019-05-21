@@ -263,8 +263,8 @@ class AdminAuthObj implements AdminAuthHandler
 		$request['AUTHNAME'] = implode('|||',$authnamearr);
 		$primid = get_uniqid();
 		Db::startTrans();
-		for($i=0;$i<count($autharr);$i++){
-			$act_own = $this->ThisModel->upd_concat('SHOP_ACTION','GIDSTR','|||'.$request['NAME'],"URL='".$autharr[$i]."'");
+		for($i=0;$i<count($authnamearr);$i++){
+			$act_own = $this->ThisModel->upd_concat('SHOP_ACTION','GIDSTR','|||'.$request['NAME'],"NAME='".$authnamearr[$i]."'");
 		}
 		$request['ID'] = $primid;
 		$request['CTIME'] = time();
@@ -295,33 +295,75 @@ class AdminAuthObj implements AdminAuthHandler
 		}
 	}
 	
-	//修改分组名称
-	public function dac_update(){
+	//修改分组名称（会比较慢）
+	public function dac_updatename(){
 		$request = request()->post();
-		if(!array_key_exists("ID",$request)){
+		if(!array_key_exists("ID",$request)||!array_key_exists("NAME",$request)){
 			returnAjax('传参错误',1001);
 		}
-		if(!$request['ID']){
+		if(!$request['ID']||!$request['NAME']){
 			returnAjax('传参错误',1002);
 		}
 		$where["ID"] = $request['ID'];
-		if(array_key_exists("NAME",$request)||$request['NAME']){
-			$data['NAME'] = $request['NAME'];
-		}
-		if((array_key_exists("AUTH",$request)||$request['AUTH'])&&(array_key_exists("AUTHNAME",$request)||$request['AUTHNAME'])){
-			$autharr = json_decode($request["AUTH"]);
-			$autharr = array_unique($autharr);
-			$data['AUTH'] = implode('|||',$autharr);
-			$authnamearr = json_decode($request["AUTHNAME"]);
-			$authnamearr = array_unique($authnamearr);
-			$data['AUTHNAME'] = implode('|||',$authnamearr);
-		}
+		$data['NAME'] = $request['NAME'];
+		$thisgrouparr = $this->ThisModel->getone('AUTH','NAME,AUTHNAME',$where);
+		$thisgroupname = $thisgrouparr['NAME'];
+		//此组中的原有功能数组
+		$autharr = array_unique(explode('|||',$thisgrouparr['AUTHNAME']));
 		
 		Db::startTrans();
 		for($i=0;$i<count($autharr);$i++){
-			$act_own = $this->ThisModel->upd_concat('SHOP_ACTION','GIDSTR','|||'.$request['NAME'],"URL='".$autharr[$i]."'");
+			$actgname = $this->ThisModel->getone('ACTION','GIDSTR',array('NAME'=>$autharr[$i]));
+			$actgnamestr = $actgname['GIDSTR'];
+			$actgnamestr = str_replace($thisgroupname,$data['NAME'],$actgnamestr);
+			$this->ThisModel->upd('ACTION',array('NAME'=>$autharr[$i]),array('GIDSTR'=>$actgnamestr));
 		}
-		
+		$res = $this->ThisModel->upd('AUTH',$where,$data);
+		if($res){
+			Db::commit();
+			returnAjax('更新成功',1);
+		}else{
+			Db::rollback();
+			returnAjax('更新失败',0);
+		}
+	}
+	
+	//修改分组功能（会比较慢）
+	public function dac_updateaction(){
+		$request = request()->post();
+		if(!array_key_exists("ID",$request)||!array_key_exists("AUTH",$request)||!array_key_exists("AUTHNAME",$request)){
+			returnAjax('传参错误',1001);
+		}
+		if(!$request['ID']||!$request['AUTH']||!$request['AUTHNAME']){
+			returnAjax('传参错误',1002);
+		}
+		$where["ID"] = $request['ID'];
+		$thisgroup = $this->ThisModel->getone('AUTH','NAME,AUTHNAME',$where);
+		$thisgroupname = $thisgroup['NAME'];
+		//此组中的原有功能数组
+		$thisactionarr = array_unique(explode('|||',$thisgroup['AUTHNAME']));
+		//此组更改的功能数组
+		$autharr = array_unique(json_decode($request["AUTH"]));
+		$data['AUTH'] = implode('|||',$autharr);
+		$authnamearr = array_unique(json_decode($request["AUTHNAME"]));
+		$data['AUTHNAME'] = implode('|||',$authnamearr);
+		//查找更改前后数组差异
+		//移除功能数组
+		$removeactionarr = array_diff($thisactionarr,$authnamearr);
+		$removeactionarr = array_values($removeactionarr);
+		//增加功能数组
+		$addactionarr = array_diff($authnamearr,$thisactionarr);
+		$addactionarr = array_values($addactionarr);
+		Db::startTrans();
+		for($i=0;$i<count($removeactionarr);$i++){
+			$actgname = $this->ThisModel->getone('ACTION','GIDSTR',array('NAME'=>$removeactionarr[$i]));
+			$actgnamestr = $actgname['GIDSTR'];
+			$actgnamestr = str_replace('|||'.$thisgroupname,'',$actgnamestr);
+			$this->ThisModel->upd('ACTION',array('NAME'=>$removeactionarr[$i]),array('GIDSTR'=>$actgnamestr));
+		}
+		for($j=0;$j<count($addactionarr);$j++){
+			$act_own = $this->ThisModel->upd_concat('SHOP_ACTION','GIDSTR','|||'.$thisgroupname,"NAME='".$addactionarr[$j]."'");
+		}
 		$res = $this->ThisModel->upd('AUTH',$where,$data);
 		if($res){
 			Db::commit();
