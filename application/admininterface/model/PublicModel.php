@@ -16,7 +16,17 @@ class PublicModel extends Model
 
     }
     public function getone($table,$key,$where=[]){
-    	return db($table)->field($key)->where($where)->find();
+      $val=db($table)->field($key)->where($where)->find();
+      //echo db($table)->getLastSql();
+    	return $val;
+
+    }
+
+    public function getselect($table,$key,$where=[]){
+      $val=db($table)->field($key)->where($where)->select();
+      //echo db($table)->getLastSql();
+      return $val;
+
     }
     //删除数据
     public function dele($table,$where){
