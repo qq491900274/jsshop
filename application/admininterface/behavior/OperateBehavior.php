@@ -5,6 +5,7 @@ use think\Request;
 use think\Controller;
 
 class OperateBehavior 
+
 {
     /**
      * 权限验证
@@ -17,6 +18,9 @@ class OperateBehavior
         // 获取当前访问路由
         $url  = $this->getActionUrl($Request);
 
+        if(empty(Session::get())){
+        	returnAjax('请先登录',2001);
+        }
         // 用户所拥有的权限路由
         $actions = Session::get('actions')?Session::get('actions'):[];
         if(!$actions||$actions == 2){
@@ -25,7 +29,7 @@ class OperateBehavior
 	 $admin = Session::get('admin');
 	 $actionsarr = explode("|||",$actions);
         if(!in_array($url, $actionsarr)&&$actions != 1&&$admin !='admin'){
-            returnAjax('您无权限访问此接口',2003);
+            returnAjax('您无权限访问此接口',2002);
         }
     }
 
