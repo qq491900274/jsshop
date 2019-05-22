@@ -3,14 +3,14 @@
 <div class="content" id="user">
     <div class="rightBox">
         <div class="main">
-            <h3>用户列表</h3>
+            <h3>管理员列表</h3>
             <div class="topBtns sc">
-				<a href="<?php echo BASE_URL;?>?s=admin/User/updateUser.html">新增用户</a>
+				<a href="<?php echo BASE_URL;?>?s=admin/User/map_add.html">新增管理员</a>
 			</div>
             <div class="seach_tigs">
                 <ul class="clearfix">
                     <li>
-                        <label class="seach-label"> 用户名：</label>
+                        <label class="seach-label"> 管理员名：</label>
                         <input type="text" name="" placeholder="请输入用户名" class="form-control" v-model="name">
                     </li>
                     <li style="width: 33%;">
@@ -25,28 +25,26 @@
             <table class="tableBox">
                     <thead>
                         <tr>
-                            <th>用户名</th>
+                            <th>管理员登录名</th>
+                            <th>登录密码</th>
+                            <th>管理员姓名</th>
                             <th>手机号</th>
-                            <th>校区</th>
-                            <th>年级</th>
-                            <th>性别</th>
-                            <th>家长姓名</th>
-                            <th>注册时间</th>
+                            <th>微信号</th>
+                            <th>权限组</th>
                             <th width="10%">操作</th>
                         </tr>
                     </thead>
                     <tbody id="storeList">
-                        <tr v-for="(t,index) in products">
-                                <td>{{t.NAME}}</td>
-                                <td>{{t.PHONE}}</td>
-                                <td>{{t.SCHOOL}}</td>
-                                <td>{{t.GRADE}}</td>
-                                <td>{{t.SEX}}</td>
-                                <td>{{t.JNAME}}</td>
-                                <td>{{t.DATETIME}}</td>
+                        <tr v-for="(v,index) in products">
+                                <td>{{v.USER}}</td>
+                                <td>{{v.PASSWORD}}</td>
+                                <td>{{v.NAME}}</td>
+                                <td>{{v.PHONE}}</td>
+                                <td>{{v.WXNO}}</td>
+                                <td>{{v.GID}}</td>
                                 <td>
-                                <a href="javascript:void(0)" @click="goUpdate(t.ID)">编辑</a>
-                                <a href="javascript:void(0)" @click="remove(t.ID,index)">删除</a>
+                                <a href="javascript:void(0)" @click="goUpdate(v.GID)">编辑</a>
+                                <a href="javascript:void(0)" @click="remove(v.ID,index)">删除</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -61,6 +59,7 @@
     </ul>
 </div>
 
+
 <script type="text/javascript" src="__PUBLIC__/admin/js/page.js"></script>
 <script type="text/javascript">
 	var vue=new Vue({
@@ -70,7 +69,9 @@
 			name:'',
 			phone:'',
 			id:'',
-			products:[],
+			products:[
+                {'USER':'admin','PASSWORD':'123','NAME':'冰冰','PHONE':'13956587788','WXNO':'13956587788','GID':'2'}
+            ],
 		},
 		methods:{
 			goUpdate:function(id){
@@ -87,10 +88,10 @@
 			},
 			remove:function(ids,arrid){
 				layer.alert('确定要删除吗？',function(){
-					vue.$http.post(baseurl+'?s=admin/User/deleUser',{id:ids}).then(res=>{
+					vue.$http.post(baseurl+'admininterface/AdminAuthObj/map_del',{ID:ids}).then(res=>{
 						var num=eval('('+res.bodyText+')');
-						if(num==1){
-							layer.msg('删除成功!',{time:1500});
+						if(num.status==1){
+							layer.msg(num.msg,{time:1500});
 							vue.products.splice(arrid,1);
 						}else{
 							location.reload();
