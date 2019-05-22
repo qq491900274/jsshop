@@ -89,7 +89,7 @@ window.onload = function(){
                 	layer.msg('请填写账号密码！',{time:1500});
                 	return;
                 }
-                this.$http.post(baseurl+'?s=admin/Login/getpwd',{'user':this.user,'pwd':this.pwd},).then(res=>{
+                this.$http.post(baseurl+'?s=admin/Login/getpwd',{'user':this.user,'pwd':this.pwd}).then(function(res){
                 	
                 	var str =eval('(' + res.bodyText + ')');
                     if(str.state==1){

@@ -15,7 +15,7 @@ var page=new Vue({
 				this.page=val;//当前页面
 				this.where['page'] = val;
 				
-                this.$http.post(baseurl+'?s='+this.url,{page:val,where:this.where}).then(res=>{
+                this.$http.post(baseurl+'?s='+this.url,{page:val,where:this.where}).then(function(res){
                
                 var val=eval('('+res.bodyText+')');
                 
@@ -24,7 +24,7 @@ var page=new Vue({
                 
                 this.serachpage(val['page']);
                 
-            },res=>{
+            },function(res){
                 console.log('请求失败处理,请检查Network!');
             })
         },
@@ -99,7 +99,7 @@ var page=new Vue({
         },
         onload:function(){
 
-                this.$http.post(baseurl+'?s='+this.url,{'where':this.where,'list':1}).then(res=>{
+                this.$http.post(baseurl+'?s='+this.url,{'where':this.where,'list':1}).then(function(res){
                 //console.log(res);
                 var val=eval('('+res.bodyText+')');
                 //赋值教师列表
@@ -113,7 +113,7 @@ var page=new Vue({
                 //处理总共多少页
                 this.html=this.$options.methods.htmlPage(this.allCount);
                 //console.log(this.html);
-            },res=>{
+            },function(res){
                 console.log('请求失败处理,请检查Network!');
             })
             

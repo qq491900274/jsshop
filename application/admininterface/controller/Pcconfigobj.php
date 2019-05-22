@@ -89,6 +89,7 @@ class PcConfigObj implements PcConfigHandler
 			returnAjax('删除成功！','1');
 		}
 
+		returnAjax('删除失败！','0');
 	}
 
 	//后台导航配置修改
