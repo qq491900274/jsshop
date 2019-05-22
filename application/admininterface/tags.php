@@ -23,11 +23,12 @@ return [
     	],
     // 模块初始化
     'module_init'  => [
-    /*	'app\\admininterface\\behavior\\Test'*/
+ //  	'app\\admininterface\\behavior\\Test',
+    	'app\\admininterface\\behavior\\OperateBehavior'
     	],
     // 操作开始执行
     'action_begin' => [
-    /*	'app\\admininterface\\behavior\\OperateBehavior','app\\behavior\\AccessBehavior'*/
+//    	'app\\admininterface\\behavior\\OperateBehavior'
     	],
     // 视图内容过滤
     'view_filter'  => [],
